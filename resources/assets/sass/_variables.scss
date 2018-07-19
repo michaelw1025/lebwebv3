@@ -1,8 +1,34 @@
 
+// Set FontAwesome font location
+$fa-font-path: "../webfonts";
+
 // Body
-$body-bg: #f5f8fa;
+// $body-bg: #f5f8fa;
+$body-bg: #ffffff;
+
 
 // Typography
-$font-family-sans-serif: "Raleway", sans-serif;
+$font-family-sans-serif: "Roboto", sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
+
+// Colors
+$blue: #2b9eb3;
+$green: #44af69;
+$red: #f8333c;
+$yellow: #fcab10;
+$lavendar: #b2abf2;
+
+// Themes
+$primary:       $blue;
+$success:       $green;
+$info:          $lavendar;
+$warning:       $yellow;
+$danger:        $red;
+
+$theme-colors: (
+    "site-logo": #044b7f
+);
+
+// Zero border radius
+// $border-radius: 0;
