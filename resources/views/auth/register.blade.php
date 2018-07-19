@@ -3,8 +3,8 @@
 @section('content')
 <div class="container h-100">
     <div class="row justify-content-center h-75">
-        <div class="col-md-8 my-auto">
-            <div class="card mt-4">
+        <div class="col-md-8 my-auto align-self-center flex-container-overflow-fix">
+            <div class="card">
                 <div class="card-header">
                     <h4>Register</h4>
                     <p><small>Registration for this site is limited to Emerson Lebanon Employees with a valid corporate email address.  If you are unsure if you meet these requirements please contact the Lebanon IT Department.</small></p>
@@ -91,4 +91,6 @@
         </div>
     </div>
 </div>
+
+
 @endsection
