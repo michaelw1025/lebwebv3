@@ -13897,6 +13897,19 @@ window.Vue = __webpack_require__(36);
 //     el: '#app'
 // });
 
+// Go to link when clickable row is clicked
+$('.clickable-row').on('click', function () {
+    window.location = $(this).data('href');
+});
+
+// Confirm deleting item
+$('.delete-item').on('click', function (e) {
+    var item = $(this).attr('name');
+    if (!confirm(' Please confirm deleting this ' + item + '.  This cannot be reversed.')) {
+        e.preventDefault();
+    } else {}
+});
+
 /***/ }),
 /* 13 */
 /***/ (function(module, exports, __webpack_require__) {

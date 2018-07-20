@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light bg-white">
+<nav class="navbar navbar-expand-md navbar-light bg-light">
     <a href="{{route('welcome')}}" class="navbar-brand text-site-logo">LebWebDev</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
         <!-- <span class="navbar-toggler-icon"></span> -->
@@ -10,7 +10,7 @@
             @else
                 @if(Auth::user()->navigationRoles(['admin']))
                 <li class="nav-item">
-                    <a href="{{route('admin-home')}}" class="nav-link {{Route::current()->getPrefix() === '/admin' ? 'text-success' : 'text-dark'}}">Admin</a>
+                    <a href="{{route('admin.home')}}" class="nav-link {{Route::current()->getPrefix() === '/admin' ? 'text-success' : 'text-dark'}}">Admin</a>
                 </li>
                 @endif
                 @if(Auth::user()->navigationRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']))

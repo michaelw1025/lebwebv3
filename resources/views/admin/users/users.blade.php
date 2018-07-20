@@ -17,7 +17,7 @@
                     </thead>
                     <tbody>
                         @foreach($users as $user)
-                        <tr class="clickable-row" data-href="">
+                        <tr class="clickable-row" data-href="{{route('users.show', ['id' => $user->id])}}">
                             <td>{{$user->first_name}} {{$user->last_name}}</td>
                             <td class="d-none d-md-table-cell">{{$user->email}}</td>
                             @foreach($user->role as $role)
