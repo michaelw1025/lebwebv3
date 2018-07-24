@@ -27,6 +27,8 @@
   --light: #f8f9fa;
   --dark: #343a40;
   --site-logo: #044b7f;
+  --edit: #dd2d4a;
+  --create: #7e1946;
   --breakpoint-xs: 0;
   --breakpoint-sm: 576px;
   --breakpoint-md: 768px;
@@ -1860,6 +1862,36 @@ pre code {
   background-color: #a8c1d2;
 }
 
+.table-edit,
+.table-edit > th,
+.table-edit > td {
+  background-color: #f5c4cc;
+}
+
+.table-hover .table-edit:hover {
+  background-color: #f1aeb9;
+}
+
+.table-hover .table-edit:hover > td,
+.table-hover .table-edit:hover > th {
+  background-color: #f1aeb9;
+}
+
+.table-create,
+.table-create > th,
+.table-create > td {
+  background-color: #dbbfcb;
+}
+
+.table-hover .table-create:hover {
+  background-color: #d2afbe;
+}
+
+.table-hover .table-create:hover > td,
+.table-hover .table-create:hover > th {
+  background-color: #d2afbe;
+}
+
 .table-active,
 .table-active > th,
 .table-active > td {
@@ -2882,6 +2914,78 @@ fieldset:disabled a.btn {
           box-shadow: 0 0 0 0.2rem rgba(4, 75, 127, 0.5);
 }
 
+.btn-edit {
+  color: #fff;
+  background-color: #dd2d4a;
+  border-color: #dd2d4a;
+}
+
+.btn-edit:hover {
+  color: #fff;
+  background-color: #c4203b;
+  border-color: #b91e38;
+}
+
+.btn-edit:focus, .btn-edit.focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(221, 45, 74, 0.5);
+          box-shadow: 0 0 0 0.2rem rgba(221, 45, 74, 0.5);
+}
+
+.btn-edit.disabled, .btn-edit:disabled {
+  color: #fff;
+  background-color: #dd2d4a;
+  border-color: #dd2d4a;
+}
+
+.btn-edit:not(:disabled):not(.disabled):active, .btn-edit:not(:disabled):not(.disabled).active,
+.show > .btn-edit.dropdown-toggle {
+  color: #fff;
+  background-color: #b91e38;
+  border-color: #ae1c34;
+}
+
+.btn-edit:not(:disabled):not(.disabled):active:focus, .btn-edit:not(:disabled):not(.disabled).active:focus,
+.show > .btn-edit.dropdown-toggle:focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(221, 45, 74, 0.5);
+          box-shadow: 0 0 0 0.2rem rgba(221, 45, 74, 0.5);
+}
+
+.btn-create {
+  color: #fff;
+  background-color: #7e1946;
+  border-color: #7e1946;
+}
+
+.btn-create:hover {
+  color: #fff;
+  background-color: #5e1334;
+  border-color: #53112e;
+}
+
+.btn-create:focus, .btn-create.focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(126, 25, 70, 0.5);
+          box-shadow: 0 0 0 0.2rem rgba(126, 25, 70, 0.5);
+}
+
+.btn-create.disabled, .btn-create:disabled {
+  color: #fff;
+  background-color: #7e1946;
+  border-color: #7e1946;
+}
+
+.btn-create:not(:disabled):not(.disabled):active, .btn-create:not(:disabled):not(.disabled).active,
+.show > .btn-create.dropdown-toggle {
+  color: #fff;
+  background-color: #53112e;
+  border-color: #490e28;
+}
+
+.btn-create:not(:disabled):not(.disabled):active:focus, .btn-create:not(:disabled):not(.disabled).active:focus,
+.show > .btn-create.dropdown-toggle:focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(126, 25, 70, 0.5);
+          box-shadow: 0 0 0 0.2rem rgba(126, 25, 70, 0.5);
+}
+
 .btn-outline-primary {
   color: #2b9eb3;
   background-color: transparent;
@@ -3204,6 +3308,78 @@ fieldset:disabled a.btn {
 .show > .btn-outline-site-logo.dropdown-toggle:focus {
   -webkit-box-shadow: 0 0 0 0.2rem rgba(4, 75, 127, 0.5);
           box-shadow: 0 0 0 0.2rem rgba(4, 75, 127, 0.5);
+}
+
+.btn-outline-edit {
+  color: #dd2d4a;
+  background-color: transparent;
+  background-image: none;
+  border-color: #dd2d4a;
+}
+
+.btn-outline-edit:hover {
+  color: #fff;
+  background-color: #dd2d4a;
+  border-color: #dd2d4a;
+}
+
+.btn-outline-edit:focus, .btn-outline-edit.focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(221, 45, 74, 0.5);
+          box-shadow: 0 0 0 0.2rem rgba(221, 45, 74, 0.5);
+}
+
+.btn-outline-edit.disabled, .btn-outline-edit:disabled {
+  color: #dd2d4a;
+  background-color: transparent;
+}
+
+.btn-outline-edit:not(:disabled):not(.disabled):active, .btn-outline-edit:not(:disabled):not(.disabled).active,
+.show > .btn-outline-edit.dropdown-toggle {
+  color: #fff;
+  background-color: #dd2d4a;
+  border-color: #dd2d4a;
+}
+
+.btn-outline-edit:not(:disabled):not(.disabled):active:focus, .btn-outline-edit:not(:disabled):not(.disabled).active:focus,
+.show > .btn-outline-edit.dropdown-toggle:focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(221, 45, 74, 0.5);
+          box-shadow: 0 0 0 0.2rem rgba(221, 45, 74, 0.5);
+}
+
+.btn-outline-create {
+  color: #7e1946;
+  background-color: transparent;
+  background-image: none;
+  border-color: #7e1946;
+}
+
+.btn-outline-create:hover {
+  color: #fff;
+  background-color: #7e1946;
+  border-color: #7e1946;
+}
+
+.btn-outline-create:focus, .btn-outline-create.focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(126, 25, 70, 0.5);
+          box-shadow: 0 0 0 0.2rem rgba(126, 25, 70, 0.5);
+}
+
+.btn-outline-create.disabled, .btn-outline-create:disabled {
+  color: #7e1946;
+  background-color: transparent;
+}
+
+.btn-outline-create:not(:disabled):not(.disabled):active, .btn-outline-create:not(:disabled):not(.disabled).active,
+.show > .btn-outline-create.dropdown-toggle {
+  color: #fff;
+  background-color: #7e1946;
+  border-color: #7e1946;
+}
+
+.btn-outline-create:not(:disabled):not(.disabled):active:focus, .btn-outline-create:not(:disabled):not(.disabled).active:focus,
+.show > .btn-outline-create.dropdown-toggle:focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(126, 25, 70, 0.5);
+          box-shadow: 0 0 0 0.2rem rgba(126, 25, 70, 0.5);
 }
 
 .btn-link {
@@ -5296,6 +5472,28 @@ input[type="button"].btn-block {
   background-color: #022e4e;
 }
 
+.badge-edit {
+  color: #fff;
+  background-color: #dd2d4a;
+}
+
+.badge-edit[href]:hover, .badge-edit[href]:focus {
+  color: #fff;
+  text-decoration: none;
+  background-color: #b91e38;
+}
+
+.badge-create {
+  color: #fff;
+  background-color: #7e1946;
+}
+
+.badge-create[href]:hover, .badge-create[href]:focus {
+  color: #fff;
+  text-decoration: none;
+  background-color: #53112e;
+}
+
 .jumbotron {
   padding: 2rem 1rem;
   margin-bottom: 2rem;
@@ -5467,6 +5665,34 @@ input[type="button"].btn-block {
 
 .alert-site-logo .alert-link {
   color: #010a11;
+}
+
+.alert-edit {
+  color: #731726;
+  background-color: #f8d5db;
+  border-color: #f5c4cc;
+}
+
+.alert-edit hr {
+  border-top-color: #f1aeb9;
+}
+
+.alert-edit .alert-link {
+  color: #490f18;
+}
+
+.alert-create {
+  color: #420d24;
+  background-color: #e5d1da;
+  border-color: #dbbfcb;
+}
+
+.alert-create hr {
+  border-top-color: #d2afbe;
+}
+
+.alert-create .alert-link {
+  color: #17050d;
 }
 
 @-webkit-keyframes progress-bar-stripes {
@@ -5771,6 +5997,38 @@ input[type="button"].btn-block {
   color: #fff;
   background-color: #022742;
   border-color: #022742;
+}
+
+.list-group-item-edit {
+  color: #731726;
+  background-color: #f5c4cc;
+}
+
+.list-group-item-edit.list-group-item-action:hover, .list-group-item-edit.list-group-item-action:focus {
+  color: #731726;
+  background-color: #f1aeb9;
+}
+
+.list-group-item-edit.list-group-item-action.active {
+  color: #fff;
+  background-color: #731726;
+  border-color: #731726;
+}
+
+.list-group-item-create {
+  color: #420d24;
+  background-color: #dbbfcb;
+}
+
+.list-group-item-create.list-group-item-action:hover, .list-group-item-create.list-group-item-action:focus {
+  color: #420d24;
+  background-color: #d2afbe;
+}
+
+.list-group-item-create.list-group-item-action.active {
+  color: #fff;
+  background-color: #420d24;
+  border-color: #420d24;
 }
 
 .close {
@@ -6640,6 +6898,26 @@ button.bg-site-logo:focus {
   background-color: #022e4e !important;
 }
 
+.bg-edit {
+  background-color: #dd2d4a !important;
+}
+
+a.bg-edit:hover, a.bg-edit:focus,
+button.bg-edit:hover,
+button.bg-edit:focus {
+  background-color: #b91e38 !important;
+}
+
+.bg-create {
+  background-color: #7e1946 !important;
+}
+
+a.bg-create:hover, a.bg-create:focus,
+button.bg-create:hover,
+button.bg-create:focus {
+  background-color: #53112e !important;
+}
+
 .bg-white {
   background-color: #fff !important;
 }
@@ -6722,6 +7000,14 @@ button.bg-site-logo:focus {
 
 .border-site-logo {
   border-color: #044b7f !important;
+}
+
+.border-edit {
+  border-color: #dd2d4a !important;
+}
+
+.border-create {
+  border-color: #7e1946 !important;
 }
 
 .border-white {
@@ -9533,6 +9819,22 @@ a.text-site-logo:hover, a.text-site-logo:focus {
   color: #022e4e !important;
 }
 
+.text-edit {
+  color: #dd2d4a !important;
+}
+
+a.text-edit:hover, a.text-edit:focus {
+  color: #b91e38 !important;
+}
+
+.text-create {
+  color: #7e1946 !important;
+}
+
+a.text-create:hover, a.text-create:focus {
+  color: #53112e !important;
+}
+
 .text-body {
   color: #212529 !important;
 }
@@ -9646,7 +9948,7 @@ a.text-site-logo:hover, a.text-site-logo:focus {
 }
 
 /*!
- * Font Awesome Free 5.1.1 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 5.2.0 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
 .fa,
@@ -9914,6 +10216,10 @@ readers do not read off random characters that represent icons */
   content: "\F36B";
 }
 
+.fa-air-freshener:before {
+  content: "\F5D0";
+}
+
 .fa-algolia:before {
   content: "\F36C";
 }
@@ -10030,6 +10336,10 @@ readers do not read off random characters that represent icons */
   content: "\F179";
 }
 
+.fa-apple-alt:before {
+  content: "\F5D1";
+}
+
 .fa-apple-pay:before {
   content: "\F415";
 }
@@ -10120,6 +10430,10 @@ readers do not read off random characters that represent icons */
 
 .fa-atlas:before {
   content: "\F558";
+}
+
+.fa-atom:before {
+  content: "\F5D2";
 }
 
 .fa-audible:before {
@@ -10314,6 +10628,10 @@ readers do not read off random characters that represent icons */
   content: "\F1E2";
 }
 
+.fa-bone:before {
+  content: "\F5D7";
+}
+
 .fa-bong:before {
   content: "\F55C";
 }
@@ -10324,6 +10642,10 @@ readers do not read off random characters that represent icons */
 
 .fa-book-open:before {
   content: "\F518";
+}
+
+.fa-book-reader:before {
+  content: "\F5DA";
 }
 
 .fa-bookmark:before {
@@ -10348,6 +10670,10 @@ readers do not read off random characters that represent icons */
 
 .fa-braille:before {
   content: "\F2A1";
+}
+
+.fa-brain:before {
+  content: "\F5DC";
 }
 
 .fa-briefcase:before {
@@ -10458,6 +10784,22 @@ readers do not read off random characters that represent icons */
   content: "\F1B9";
 }
 
+.fa-car-alt:before {
+  content: "\F5DE";
+}
+
+.fa-car-battery:before {
+  content: "\F5DF";
+}
+
+.fa-car-crash:before {
+  content: "\F5E1";
+}
+
+.fa-car-side:before {
+  content: "\F5E4";
+}
+
 .fa-caret-down:before {
   content: "\F0D7";
 }
@@ -10552,6 +10894,10 @@ readers do not read off random characters that represent icons */
 
 .fa-chalkboard-teacher:before {
   content: "\F51C";
+}
+
+.fa-charging-station:before {
+  content: "\F5E7";
 }
 
 .fa-chart-area:before {
@@ -11006,6 +11352,10 @@ readers do not read off random characters that represent icons */
   content: "\F566";
 }
 
+.fa-directions:before {
+  content: "\F5EB";
+}
+
 .fa-discord:before {
   content: "\F392";
 }
@@ -11078,6 +11428,10 @@ readers do not read off random characters that represent icons */
   content: "\F568";
 }
 
+.fa-draw-polygon:before {
+  content: "\F5EE";
+}
+
 .fa-dribbble:before {
   content: "\F17D";
 }
@@ -11140,6 +11494,10 @@ readers do not read off random characters that represent icons */
 
 .fa-ellipsis-v:before {
   content: "\F142";
+}
+
+.fa-ello:before {
+  content: "\F5F1";
 }
 
 .fa-ember:before {
@@ -11802,6 +12160,10 @@ readers do not read off random characters that represent icons */
   content: "\F3AF";
 }
 
+.fa-hackerrank:before {
+  content: "\F5F7";
+}
+
 .fa-hand-holding:before {
   content: "\F4BD";
 }
@@ -12102,6 +12464,10 @@ readers do not read off random characters that represent icons */
   content: "\F1CC";
 }
 
+.fa-kaggle:before {
+  content: "\F5FA";
+}
+
 .fa-key:before {
   content: "\F084";
 }
@@ -12154,6 +12520,10 @@ readers do not read off random characters that represent icons */
   content: "\F109";
 }
 
+.fa-laptop-code:before {
+  content: "\F5FC";
+}
+
 .fa-laravel:before {
   content: "\F3BD";
 }
@@ -12180,6 +12550,10 @@ readers do not read off random characters that represent icons */
 
 .fa-laugh-wink:before {
   content: "\F59C";
+}
+
+.fa-layer-group:before {
+  content: "\F5FD";
 }
 
 .fa-leaf:before {
@@ -12358,6 +12732,10 @@ readers do not read off random characters that represent icons */
   content: "\F277";
 }
 
+.fa-markdown:before {
+  content: "\F60F";
+}
+
 .fa-marker:before {
   content: "\F5A1";
 }
@@ -12462,6 +12840,10 @@ readers do not read off random characters that represent icons */
   content: "\F131";
 }
 
+.fa-microscope:before {
+  content: "\F610";
+}
+
 .fa-microsoft:before {
   content: "\F3CA";
 }
@@ -12558,6 +12940,10 @@ readers do not read off random characters that represent icons */
   content: "\F3D2";
 }
 
+.fa-neos:before {
+  content: "\F612";
+}
+
 .fa-neuter:before {
   content: "\F22C";
 }
@@ -12616,6 +13002,10 @@ readers do not read off random characters that represent icons */
 
 .fa-odnoklassniki-square:before {
   content: "\F264";
+}
+
+.fa-oil-can:before {
+  content: "\F613";
 }
 
 .fa-old-republic:before {
@@ -12882,6 +13272,10 @@ readers do not read off random characters that represent icons */
   content: "\F2FE";
 }
 
+.fa-poop:before {
+  content: "\F619";
+}
+
 .fa-portrait:before {
   content: "\F3E0";
 }
@@ -13090,6 +13484,10 @@ readers do not read off random characters that represent icons */
   content: "\F3E9";
 }
 
+.fa-route:before {
+  content: "\F4D7";
+}
+
 .fa-rss:before {
   content: "\F09E";
 }
@@ -13192,6 +13590,10 @@ readers do not read off random characters that represent icons */
 
 .fa-servicestack:before {
   content: "\F3EC";
+}
+
+.fa-shapes:before {
+  content: "\F61F";
 }
 
 .fa-share:before {
@@ -13470,6 +13872,10 @@ readers do not read off random characters that represent icons */
   content: "\F5C0";
 }
 
+.fa-star-of-life:before {
+  content: "\F621";
+}
+
 .fa-staylinked:before {
   content: "\F3F5";
 }
@@ -13674,6 +14080,14 @@ readers do not read off random characters that represent icons */
   content: "\F4F9";
 }
 
+.fa-teeth:before {
+  content: "\F62E";
+}
+
+.fa-teeth-open:before {
+  content: "\F62F";
+}
+
 .fa-telegram:before {
   content: "\F2C6";
 }
@@ -13708,6 +14122,10 @@ readers do not read off random characters that represent icons */
 
 .fa-th-list:before {
   content: "\F00B";
+}
+
+.fa-theater-masks:before {
+  content: "\F630";
 }
 
 .fa-themeco:before {
@@ -13802,6 +14220,10 @@ readers do not read off random characters that represent icons */
   content: "\F25C";
 }
 
+.fa-traffic-light:before {
+  content: "\F637";
+}
+
 .fa-train:before {
   content: "\F238";
 }
@@ -13846,8 +14268,16 @@ readers do not read off random characters that represent icons */
   content: "\F4DE";
 }
 
+.fa-truck-monster:before {
+  content: "\F63B";
+}
+
 .fa-truck-moving:before {
   content: "\F4DF";
+}
+
+.fa-truck-pickup:before {
+  content: "\F63C";
 }
 
 .fa-tshirt:before {
@@ -14326,6 +14756,10 @@ readers do not read off random characters that represent icons */
   content: "\F431";
 }
 
+.fa-zhihu:before {
+  content: "\F63F";
+}
+
 .sr-only {
   border: 0;
   clip: rect(0, 0, 0, 0);
@@ -14347,7 +14781,7 @@ readers do not read off random characters that represent icons */
 }
 
 /*!
- * Font Awesome Free 5.1.1 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 5.2.0 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
 @font-face {
@@ -14363,7 +14797,7 @@ readers do not read off random characters that represent icons */
 }
 
 /*!
- * Font Awesome Free 5.1.1 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 5.2.0 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
 @font-face {
@@ -14380,7 +14814,7 @@ readers do not read off random characters that represent icons */
 }
 
 /*!
- * Font Awesome Free 5.1.1 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 5.2.0 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
 @font-face {

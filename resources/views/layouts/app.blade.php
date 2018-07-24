@@ -19,7 +19,11 @@
 <body class="{{in_array(Route::currentRouteName(), array('welcome', 'home', 'login', 'register')) ? 'welcome-body' : ''}}">
     @include('navs.main-nav')
 
-    @yield('content')
+    <section class="container-fluid h-100 border-top">
+        <section class="row h-100">
+            @yield('content')
+        </section>
+    </section>
 
     @include('footers.main-footer')
 </body>

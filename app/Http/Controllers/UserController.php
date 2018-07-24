@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Role;
+use App\Http\Requests\UpdateUser;
 
 class UserController extends Controller
 {
@@ -23,12 +24,12 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, User $user)
+    public function index(Request $request)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin']);
         // Get all users with roles
-        $users = $user->with('role')->orderBy('last_name')->get();
+        $users = User::with('role')->orderBy('last_name')->get();
         return view('admin.users.users', [
             'users' => $users
         ]);
@@ -71,7 +72,7 @@ class UserController extends Controller
         $user = User::with('role')->findOrFail($id);
         // Get all roles
         $roles = Role::all();
-        return view('admin.users.user', [
+        return view('admin.users.user-show', [
             'user' => $user,
             'roles' => $roles
         ]);
@@ -83,10 +84,18 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin']);
+        // Get user by id
+        $user = User::with('role')->findOrFail($id);
+        // Get all roles
+        $roles = Role::all();
+        return view('admin.users.user-edit', [
+            'user' => $user,
+            'roles' => $roles
+        ]);
     }
 
     /**
@@ -96,11 +105,32 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUser $request, $id)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin']);
-        return("update");
+        // Get the user by id
+        $user = User::findOrFail($id);
+        // Set the user parameters from the request
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->email = $request->email;
+        // Save the user
+        if($user->save()){
+            // If save successful
+            if($user->role()->sync([$request->role])){
+                // If role sync successful
+                \Session::flash('status', 'User edit successful.');
+            }else{
+                // If role sync unsuccessful
+                \Session::flash('error', 'An error occurred while applying the user role.  Please contact support for help.');
+            }
+        }else{
+            // If save unsuccessful
+            \Session::flash('error', 'An error occurred while editing the user.  Please contact support for help.');
+            return redirect()->back()->withInput();
+        }
+        return redirect()->route('users.show', ['id' => $user->id]);
     }
 
     /**
@@ -113,6 +143,26 @@ class UserController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin']);
-        return("destroy");
+        // Get user by id
+        $user = User::findOrFail($id);
+        // Delete user and relations
+        if($user->role()->sync([])){
+            // If role relation deleted
+            if($user->delete()){
+                // If user deleted
+                \Session::flash('status', 'User deleted successfully.');
+                return redirect()->route('users.index');
+            }else{
+                // If user not deleted
+                \Session::flash('error', 'An error occurred while deleting the user.  Please contact support for help.');
+                return redirect()->route('users.show', ['id' => $user->id]);
+            }
+        }else{
+            // If the role relation was not deleted
+            \Session::flash('error', 'An error occurred while removing the user permissions.  Please contact support for help.');
+            return redirect()->route('users.show', ['id' => $user->id]);
+        }
     }
+
+
 }

@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-md navbar-light bg-light">
-    <a href="{{route('welcome')}}" class="navbar-brand text-site-logo">LebWebDev</a>
+    <a href="{{route('welcome')}}" class="navbar-brand text-primary">LebWebDev</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
         <!-- <span class="navbar-toggler-icon"></span> -->
         <i class="fas fa-bars text-dark"></i>
