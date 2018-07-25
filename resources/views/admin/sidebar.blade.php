@@ -1,12 +1,19 @@
-<!-- <nav class="col-2 bg-dark">
-    <ul class="nav mt-2 bg-light">
-        <li class="nav-item">
-            <a href="" class="nav-link p-0 text-light bg-warning">Users</a>
+<!-- Admin sidebar -->
+
+@php
+    $usersNavArray = array('users.index', 'users.show', 'users.edit');
+    $rolesNavArray = array('roles.index', 'roles.show', 'roles.edit', 'roles.create');
+@endphp
+
+<nav class="col-2 bg-light flex-column p-0">
+    <ul class="nav">
+        <li class="nav-item w-100 {{in_array(Route::currentRouteName(), $usersNavArray) ? 'bg-white' : ''}}">
+            <a href="{{Route('users.index')}}" class="nav-link {{in_array(Route::currentRouteName(), $usersNavArray) ? 'text-primary' : 'text-dark'}}"><i class="far fa-address-book fa-lg"></i><span class="d-none d-md-inline-block">&nbsp&nbspUsers</span>
+            </a>
+        </li>
+        <li class="nav-item w-100 {{in_array(Route::currentRouteName(), $rolesNavArray) ? 'bg-white' : ''}}">
+            <a href="{{Route('roles.index')}}" class="nav-link {{in_array(Route::currentRouteName(), $rolesNavArray) ? 'text-primary' : 'text-dark'}}"><i class="fas fa-shield-alt fa-lg"></i><span class="d-none d-md-inline-block">&nbsp&nbspRoles</span>
+            </a>
         </li>
     </ul>
-</nav> -->
-
-<nav class="nav col-2 bg-light flex-column p-0">
-    <a class="nav-link {{in_array(Route::currentRouteName(), array('users.index', 'users.show', 'users.edit')) ? 'text-Primary bg-white' : 'text-dark'}}" href="{{Route('users.index')}}"><i class="far fa-address-book fa-lg"></i><span class="d-none d-md-inline-block">&nbsp&nbspUsers</span></a>
-    <a class="nav-link {{in_array(Route::currentRouteName(), array('roles.index', 'roles.show', 'roles.edit', 'roles.create')) ? 'text-Primary bg-white' : 'text-dark'}}" href="{{Route('roles.index')}}"><i class="fas fa-shield-alt fa-lg"></i><span class="d-none d-md-inline-block">&nbsp&nbspRoles</span></a>
 </nav>

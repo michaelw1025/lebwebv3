@@ -8,6 +8,9 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+// Jquery UI
+@import '~jquery-ui/themes/base/all.css';
+
 // FontAwesome
 @import '~@fortawesome/fontawesome-free/scss/fontawesome.scss';
 @import '~@fortawesome/fontawesome-free/scss/brands.scss';
@@ -29,6 +32,10 @@ body {
   background-size: cover;
   -o-background-size: cover;
   }
+}
+
+.main-content-article {
+  overflow: scroll;
 }
 
 .semi-transparent-white-bg {

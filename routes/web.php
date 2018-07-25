@@ -23,8 +23,14 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-route::prefix('admin')->group(function() {
+Route::prefix('admin')->group(function() {
     Route::get('/index', 'AdminController@index')->name('admin.home');
     Route::resource('users', 'UserController');
     Route::resource('roles', 'RoleController');
+});
+
+Route::prefix('hr')->group(function() {
+    Route::get('/index', 'HRController@index')->name('hr.home');
+    Route::resource('costCenters', 'CostCenterController');
+    Route::resource('employees', 'EmployeeController');
 });

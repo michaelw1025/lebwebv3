@@ -4,7 +4,7 @@
 
     @include('admin.sidebar')
 
-    <article class="col-10">
+    <article class="col-10 main-content-article">
         <h2 class="mt-2 text-primary"><i class="far fa-address-book fa-lg"></i> Users</h2>
         <hr></hr>
 

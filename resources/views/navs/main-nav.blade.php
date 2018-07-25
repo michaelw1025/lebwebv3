@@ -15,7 +15,7 @@
                 @endif
                 @if(Auth::user()->navigationRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']))
                 <li class="nav-item">
-                    <a href="" class="nav-link text-dark">Human Resources</a>
+                    <a href="{{route('hr.home')}}" class="nav-link {{Route::current()->getPrefix() === '/hr' ? 'text-success' : 'text-dark'}}">Human Resources</a>
                 </li>
                 @endif
             @endguest
