@@ -25,7 +25,10 @@ window.Vue = require('vue');
 $(document).ready(function(){
     // Attach datepicker
     $('.datepicker').datepicker({
-
+        changeMonth: true,
+        changeYear: true,
+        yearRange: "-80:+10",
+        showAnim: "slideDown"
     });
 });
 
@@ -118,18 +121,35 @@ $('#submit-employee-search').on('click', function(){
     if(name != '') {
         $('.employee-row').each(function(){
             if(name == $(this).find('.employee-name').text().toLowerCase()) {
-                $('.employee-row').addClass('d-none');
-                $(this).removeClass('d-none');
-            } else {
 
+            } else {
+                $(this).addClass('d-none');
             }
         });
     } else if (ssn != '') {
-        
+        $('.employee-row').each(function(){
+            if(ssn == $(this).find('.employee-ssn').text()) {
+
+            } else {
+                $(this).addClass('d-none');
+            }
+        });
     } else if (birthDate != '') {
-        
+        $('.employee-row').each(function(){
+            if(birthDate == $(this).find('.employee-birth-date').text()) {
+
+            } else {
+                $(this).addClass('d-none');
+            }
+        });
     } else if (hireDate != '') {
-        
+        $('.employee-row').each(function(){
+            if(hireDate == $(this).find('.employee-hire-date').text()) {
+
+            } else {
+                $(this).addClass('d-none');
+            }
+        });
     } else {
 
     }

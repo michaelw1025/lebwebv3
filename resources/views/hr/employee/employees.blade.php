@@ -28,13 +28,13 @@
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="employee-search-birth-date">Birth Date</label>
+                    <label for="employee-search-birth-date">Birth Date <small class="text-muted">(mm/dd/yyyy)</small></label>
                     <input type="text" class="form-control datepicker" id="employee-search-birth-date" name="employee_search_birth_date">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="employee-search-hire-date">Hire Date</label>
+                    <label for="employee-search-hire-date">Hire Date <small class="text-muted">(mm/dd/yyyy)</small></label>
                     <input type="text" class="form-control datepicker" id="employee-search-hire-date" name="employee_search_hire_date">
                 </div>
             </div>
@@ -45,7 +45,7 @@
         <hr></hr>
 
         <table class="table table-sm table-hover table-striped table-borderless">
-            <thead>
+            <thead class="bg-header text-light">
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">First</th>
@@ -61,9 +61,9 @@
                     <td>{{$employee->id}}</td>
                     <td>{{$employee->first_name}}</td>
                     <td class="employee-name">{{$employee->last_name}}</td>
-                    <td class="d-none d-md-table-cell">{{$employee->ssn}}</td>
-                    <td class="d-none d-md-table-cell">{{$employee->birth_date->format('m/d/Y')}}</td>
-                    <td class="d-none d-md-table-cell">{{$employee->hire_date->format('m/d/Y')}}</td>
+                    <td class="d-none d-md-table-cell employee-ssn">{{$employee->ssn}}</td>
+                    <td class="d-none d-md-table-cell employee-birth-date">{{$employee->birth_date->format('m/d/Y')}}</td>
+                    <td class="d-none d-md-table-cell employee-hire-date">{{$employee->hire_date->format('m/d/Y')}}</td>
                 </tr>
                 @endforeach
             </tbody>

@@ -13926,7 +13926,12 @@ window.Vue = __webpack_require__(39);
 
 $(document).ready(function () {
     // Attach datepicker
-    $('.datepicker').datepicker({});
+    $('.datepicker').datepicker({
+        changeMonth: true,
+        changeYear: true,
+        yearRange: "-80:+10",
+        showAnim: "slideDown"
+    });
 });
 
 // Go to link when clickable row is clicked
@@ -13989,12 +13994,29 @@ $('#submit-employee-search').on('click', function () {
     var hireDate = $('#employee-search-hire-date').val();
     if (name != '') {
         $('.employee-row').each(function () {
-            if (name == $(this).find('.employee-name').text().toLowerCase()) {
-                $('.employee-row').addClass('d-none');
-                $(this).removeClass('d-none');
-            } else {}
+            if (name == $(this).find('.employee-name').text().toLowerCase()) {} else {
+                $(this).addClass('d-none');
+            }
         });
-    } else if (ssn != '') {} else if (birthDate != '') {} else if (hireDate != '') {} else {}
+    } else if (ssn != '') {
+        $('.employee-row').each(function () {
+            if (ssn == $(this).find('.employee-ssn').text()) {} else {
+                $(this).addClass('d-none');
+            }
+        });
+    } else if (birthDate != '') {
+        $('.employee-row').each(function () {
+            if (birthDate == $(this).find('.employee-birth-date').text()) {} else {
+                $(this).addClass('d-none');
+            }
+        });
+    } else if (hireDate != '') {
+        $('.employee-row').each(function () {
+            if (hireDate == $(this).find('.employee-hire-date').text()) {} else {
+                $(this).addClass('d-none');
+            }
+        });
+    } else {}
 });
 
 // Clear search employee form
