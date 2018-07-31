@@ -61,6 +61,17 @@ $('.delete-item').on('click', function(e){
 
 
 
+// Check if typed character is a number
+$('.is-number').on('keypress', function(event){
+    var character = String.fromCharCode(event.which);
+    if(!isInteger(character)){
+        return false;
+    }
+});
+
+
+
+
 
 
 

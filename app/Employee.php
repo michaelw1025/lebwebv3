@@ -190,18 +190,6 @@ class Employee extends Model
         return ucWords($city);
     }
 
-    // Set state format
-    public function setStateAttribute($state)
-    {
-        $this->attributes['state'] = strtolower($state);
-    }
-
-    // Get state format
-    public function getStateAttribute($state)
-    {
-        return strtoupper($state);
-    }
-
     // Set county format
     public function setCountyAttribute($county)
     {

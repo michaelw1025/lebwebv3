@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Employee;
+use App\Traits\HelperFunctions;
+use App\Http\Requests\StoreEmployee;
 
 class EmployeeController extends Controller
 {
+    use HelperFunctions;
+
     /**
      * Create a new controller instance.
      *
@@ -49,10 +53,11 @@ class EmployeeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin']);
+        return view('hr.employee.employee-create');
     }
 
     /**
@@ -61,10 +66,11 @@ class EmployeeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreEmployee $request)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin']);
+        return("store");
     }
 
     /**
@@ -73,10 +79,16 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin']);
+        // Get employee
+        $employee = Employee::findOrFail($id);
+        $this->checkState($employee);
+        return view('hr.employee.employee-show', [
+            'employee' => $employee
+        ]);
     }
 
     /**
@@ -85,10 +97,15 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin']);
+        // Get employee
+        $employee = Employee::findOrFail($id);
+        return view('hr.employee.employee-edit', [
+            'employee' => $employee
+        ]);
     }
 
     /**
@@ -98,7 +115,7 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreEmployee $request, $id)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin']);

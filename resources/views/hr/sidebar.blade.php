@@ -1,7 +1,7 @@
 <!-- HE sidebar -->
 
 @php
-    $employeesNavArray = array('employees.index');
+    $employeesNavArray = array('employees.index', 'employees.create', 'employees.show', 'employees.edit');
     $queriesNavArray = array();
     $manageNavArray = array();
     $biddingNavArray = array();
@@ -13,7 +13,7 @@
         <li class="nav-item dropdown w-100 {{in_array(Route::currentRouteName(), $employeesNavArray) ? 'text-primary bg-white' : 'text-dark'}}">
             <a href="{{Route('users.index')}}" class="nav-link dropdown-toggle {{in_array(Route::currentRouteName(), $employeesNavArray) ? 'text-primary' : 'text-dark'}}" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-users fa-lg"></i><span class="d-none d-md-inline-block">&nbsp&nbspEmployees</span></a>
             <div class="dropdown-menu">
-                <a href="" class="dropdown-item">Add New</a>
+                <a href="{{Route('employees.create')}}" class="dropdown-item">Add New</a>
                 <div class="dropdown-divider"></div>
                 <a href="{{Route('employees.index', ['type' => 'active'])}}" class="dropdown-item">Search Active</a>
                 <a href="{{Route('employees.index', ['type' => 'inactive'])}}" class="dropdown-item">Search Inactive</a>
