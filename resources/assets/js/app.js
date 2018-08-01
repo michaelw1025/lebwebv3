@@ -22,7 +22,8 @@ window.Vue = require('vue');
 // });
 
 
-$(document).ready(function(){
+$(document).ready(function()
+{
     // Attach datepicker
     $('.datepicker').datepicker({
         changeMonth: true,
@@ -30,14 +31,47 @@ $(document).ready(function(){
         yearRange: "-80:+10",
         showAnim: "slideDown"
     });
+
+    // Check if review item is checked at load
+    checkReviewOnLoad();
+
+});
+
+
+// Check if review item is checked at load
+function checkReviewOnLoad()
+{
+    $('.employee-review-checkbox-div').each(function() {
+        var value = $(this).find('input[type=hidden]').val();
+        if(value == 'checked') {
+            $(this).find('input[type=checkbox]').prop('checked', true);
+        } else {
+            $(this).find('input[type=checkbox]').prop('checked', false);
+        }
+        
+    });
+}
+// Check if review checkbox has changed and change the corresponding hidden input
+$('.employee-review-checkbox').change(function() {
+    var state = $(this).prop('checked');
+    if(state == true) {
+        $(this).next('.employee-review-checkbox-hidden').val('checked');
+    } else {
+        $(this).next('.employee-review-checkbox-hidden').val('unchecked');
+    }
 });
 
 
 
 
 
+
+
+
+
 // Go to link when clickable row is clicked
-$('.clickable-row').on('click', function(){
+$('.clickable-row').on('click', function()
+{
     window.location = $(this).data('href');
 });
 
@@ -49,7 +83,8 @@ $('.clickable-row').on('click', function(){
 
 
 // Confirm deleting item
-$('.delete-item').on('click', function(e){
+$('.delete-item').on('click', function(e)
+{
     var item = $(this).attr('name');
     if(!confirm(' Please confirm deleting this '+item+'.  This cannot be reversed.')){
         e.preventDefault();
@@ -62,7 +97,8 @@ $('.delete-item').on('click', function(e){
 
 
 // Check if typed character is a number
-$('.is-number').on('keypress', function(event){
+$('.is-number').on('keypress', function(event)
+{
     var character = String.fromCharCode(event.which);
     if(!isInteger(character)){
         return false;
@@ -80,7 +116,8 @@ $('.is-number').on('keypress', function(event){
 
 // ----------------SSN validation----------------
 // trap keypress - only allow numbers
-$('.ssn-format').on('keypress', function(event){
+$('.ssn-format').on('keypress', function(event)
+{
     // trap keypress
     var character = String.fromCharCode(event.which);
     if(!isInteger(character)){
@@ -89,14 +126,16 @@ $('.ssn-format').on('keypress', function(event){
 });
 
 // checks that an input string is an integer, with an optional +/- sign character
-function isInteger (s) {
+function isInteger (s) 
+{
     if(s === '-') return true;
    var isInteger_re     = /^\s*(\+|-)?\d+\s*$/;
    return String(s).search (isInteger_re) != -1
 }
 
 // format SSN
-$('.ssn-format').on('keyup', function(){
+$('.ssn-format').on('keyup', function()
+{
    var val = this.value.replace(/\D/g, '');
    var newVal = '';
     if(val.length > 4) {
@@ -124,7 +163,8 @@ $('.ssn-format').on('keyup', function(){
 
 
 // --------------------Search employees-------------------
-$('#submit-employee-search').on('click', function(){
+$('#submit-employee-search').on('click', function()
+{
     var name = $('#employee-search-last-name').val().toLowerCase();
     var ssn = $('#employee-search-ssn').val();
     var birthDate = $('#employee-search-birth-date').val();
@@ -167,9 +207,18 @@ $('#submit-employee-search').on('click', function(){
 });
 
 // Clear search employee form
-$('#reset-employee-search').on('click', function(){
+$('#reset-employee-search').on('click', function()
+{
     $('#search-employee-form').find(':input').each(function() {
         $(this).val('');
     });
     $('.employee-row').removeClass('d-none');
+});
+
+
+// Show file name when file selected for upload
+$('.custom-file-input').on('change', function()
+{
+    let fileName = $(this).val().split('\\').pop();
+    $(this).siblings('.custom-file-label').addClass('selected').html(fileName);
 });

@@ -11,7 +11,7 @@
         @include('alerts.validation-alert')
         @include('alerts.session-alert')
 
-        <form action="{{Route('employees.store')}}" class="mt-2" id="create-employee-form" method="POST">
+        <form action="{{Route('employees.store')}}" class="mt-2" id="create-employee-form" method="POST" enctype="multipart/form-data">
             @csrf
             <p class="text-danger">@component('components.required-icon')@endComponent indicates a required field</p>
             <div class="form-row">
@@ -64,7 +64,7 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label for="create-employee-suffix">Sufix</label>
-                    <select type="text" class="form-control {{$errors->has('suffix') ? 'is-invalid' : ''}}" id="create-employee-suffix" name="suffix" value="{{old('suffix')}}">
+                    <select type="text" class="custom-select {{$errors->has('suffix') ? 'is-invalid' : ''}}" id="create-employee-suffix" name="suffix" value="{{old('suffix')}}">
                         <option value=""></option>
                         <option value="mr">Mr</option>
                         <option value="mrs">Mrs</option>
@@ -93,7 +93,7 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label for="create-employee-gender">Gender @component('components.required-icon')@endComponent</label>
-                    <select type="text" class="form-control {{$errors->has('gender') ? 'is-invalid' : ''}}" id="create-employee-gender" name="gender" value="{{old('gender')}}" >
+                    <select type="text" class="custom-select {{$errors->has('gender') ? 'is-invalid' : ''}}" id="create-employee-gender" name="gender" value="{{old('gender')}}" >
                         <option value=""></option>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
@@ -177,7 +177,7 @@
                 </div>
                 <div class="form-group col-md-4 col-lg-3">
                     <label for="create-employee-state">State @component('components.required-icon')@endComponent</label>
-                    <select type="text" class="form-control {{$errors->has('state') ? 'is-invalid' : ''}}" id="create-employee-state" name="state" value="{{old('state')}}" >
+                    <select type="text" class="custom-select {{$errors->has('state') ? 'is-invalid' : ''}}" id="create-employee-state" name="state" value="{{old('state')}}" >
                         <option value="al">Alabama</option>
                         <option value="ak">Alaska</option>
                         <option value="az">Arizona</option>
@@ -255,9 +255,26 @@
                     @endif
                 </div>
             </div>
+            <!-- <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="create-employee-photo">Employee Photo</label>
+                    <input type="file" class="form-control-file {{$errors->has('photo_link') ? 'is-invalid' : ''}}" id="create-employee-photo" name="photo_link" value="{{old('photo_link')}}">
+                    @if($errors->has('photo_link'))
+                        <span class="invalid-feedback" role="alert">
+                            {{$errors->first('photo_link')}}
+                        </span>
+                    @endif
+                </div>
+            </div> -->
             <div class="form-row">
-
+            <div class="form-group col-md-6">
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input {{$errors->has('photo_link') ? 'is-invalid' : ''}}" id="create-enployee-photo" name="photo_link">
+                    <label for="create-employee-photo" class="custom-file-label">Choose Employee Photo</label>
+                </div>
             </div>
+            </div>
+
             <button type="submit" class="btn btn-create" id="create-employee-submit-button">Create</button>
         </form>
 

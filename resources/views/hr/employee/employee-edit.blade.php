@@ -14,11 +14,14 @@
         <form action="{{Route('employees.update', $employee->id)}}" class="mt-2" id="edit-employee-form" method="POST">
             @csrf
             @method('Patch')
+            <img src="/storage/1.png" alt="Employee Photo" class="img-thumbnail mb-2" width="100" height="100">
+
             <p class="text-danger">@component('components.required-icon')@endComponent indicates a required field</p>
+
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="edit-employee-first-name">First Name @component('components.required-icon')@endComponent</label>
-                    <input type="text" class="form-control {{$errors->has('first_name') ? 'is-invalid' : ''}}" id="edit-employee-first-name" name="first_name" value="{{old('first_name') !== null ? old('first_name') : $employee->first_name}}"  autofocus>
+                    <input type="text" class="form-control {{$errors->has('first_name') ? 'is-invalid' : ''}}" id="edit-employee-first-name" name="first_name" value="{{old('first_name') ? old('first_name') : $employee->first_name}}"  autofocus>
                     @if($errors->has('first_name'))
                         <span class="invalid-feedback" role="alert">
                             {{$errors->first('first_name')}}
@@ -27,7 +30,7 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label for="edit-employee-last-name">Last Name @component('components.required-icon')@endComponent</label>
-                    <input type="text" class="form-control {{$errors->has('last_name') ? 'is-invalid' : ''}}" id="edit-employee-last-name" name="last_name" value="{{old('last_name') !== null ? old('last_name') : $employee->last_name}}">
+                    <input type="text" class="form-control {{$errors->has('last_name') ? 'is-invalid' : ''}}" id="edit-employee-last-name" name="last_name" value="{{old('last_name') ? old('last_name') : $employee->last_name}}">
                     @if($errors->has('last_name'))
                         <span class="invalid-feedback" role="alert">
                             {{$errors->first('last_name')}}
@@ -36,7 +39,7 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label for="edit-employee-middle-initial">MI</label>
-                    <input type="text" class="form-control {{$errors->has('middle_initial') ? 'is-invalid' : ''}}" id="edit-employee-middle-initial" name="middle_initial" value="{{old('middle_initial') !== null ? old('middle_initial') : $employee->middle_initial}}">
+                    <input type="text" class="form-control {{$errors->has('middle_initial') ? 'is-invalid' : ''}}" id="edit-employee-middle-initial" name="middle_initial" value="{{old('middle_initial') ? old('middle_initial') : $employee->middle_initial}}">
                     @if($errors->has('middle_initial'))
                         <span class="invalid-feedback" role="alert">
                             {{$errors->first('middle_initial')}}
@@ -47,7 +50,7 @@
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="edit-employee-maiden-name">Maiden Name</label>
-                    <input type="text" class="form-control {{$errors->has('maiden_name') ? 'is-invalid' : ''}}" id="edit-employee-maiden-name" name="maiden_name" value="{{old('maiden_name') !== null ? old('maiden_name') : $employee->maiden_name}}">
+                    <input type="text" class="form-control {{$errors->has('maiden_name') ? 'is-invalid' : ''}}" id="edit-employee-maiden-name" name="maiden_name" value="{{old('maiden_name') ? old('maiden_name') : $employee->maiden_name}}">
                     @if($errors->has('maiden_name'))
                         <span class="invalid-feedback" role="alert">
                             {{$errors->first('maiden_name')}}
@@ -56,7 +59,7 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label for="edit-employee-nick-name">Nick Name</label>
-                    <input type="text" class="form-control {{$errors->has('nick_name') ? 'is-invalid' : ''}}" id="edit-employee-nick-name" name="nick_name" value="{{old('nick_name') !== null ? old('nick_name') : $employee->nick_name}}">
+                    <input type="text" class="form-control {{$errors->has('nick_name') ? 'is-invalid' : ''}}" id="edit-employee-nick-name" name="nick_name" value="{{old('nick_name') ? old('nick_name') : $employee->nick_name}}">
                     @if($errors->has('nick_name'))
                         <span class="invalid-feedback" role="alert">
                             {{$errors->first('nick_name')}}
@@ -65,7 +68,7 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label for="edit-employee-suffix">Sufix</label>
-                    <select type="text" class="form-control {{$errors->has('suffix') ? 'is-invalid' : ''}}" id="edit-employee-suffix" name="suffix" value="{{old('suffix')}}">
+                    <select type="text" class="custom-select {{$errors->has('suffix') ? 'is-invalid' : ''}}" id="edit-employee-suffix" name="suffix" value="{{old('suffix')}}">
                         <option value="{{$employee->suffix}}">{{strtoupper($employee->suffix)}}</option>
                         <option value=""></option>
                         <option value="mr">Mr</option>
@@ -95,7 +98,7 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label for="edit-employee-gender">Gender @component('components.required-icon')@endComponent</label>
-                    <select type="text" class="form-control {{$errors->has('gender') ? 'is-invalid' : ''}}" id="edit-employee-gender" name="gender" value="{{old('gender')}}" >
+                    <select type="text" class="custom-select {{$errors->has('gender') ? 'is-invalid' : ''}}" id="edit-employee-gender" name="gender" value="{{old('gender')}}" >
                         <option value=""></option>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
@@ -168,7 +171,7 @@
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-4 col-lg-3">
+                <div class="form-group col-md-6 col-lg-3">
                     <label for="edit-employee-city">City @component('components.required-icon')@endComponent</label>
                     <input type="text" class="form-control {{$errors->has('city') ? 'is-invalid' : ''}}" id="edit-employee-city" name="city" value="{{old('city')}}" >
                     @if($errors->has('city'))
@@ -177,9 +180,9 @@
                         </span>
                     @endif
                 </div>
-                <div class="form-group col-md-4 col-lg-3">
+                <div class="form-group col-md-6 col-lg-3">
                     <label for="edit-employee-state">State @component('components.required-icon')@endComponent</label>
-                    <select type="text" class="form-control {{$errors->has('state') ? 'is-invalid' : ''}}" id="edit-employee-state" name="state" value="{{old('state')}}" >
+                    <select type="text" class="custom-select {{$errors->has('state') ? 'is-invalid' : ''}}" id="edit-employee-state" name="state" value="{{old('state')}}" >
                         <option value="al">Alabama</option>
                         <option value="ak">Alaska</option>
                         <option value="az">Arizona</option>
@@ -238,7 +241,7 @@
                         </span>
                     @endif
                 </div>
-                <div class="form-group col-md-4 col-lg-3">
+                <div class="form-group col-md-6 col-lg-3">
                     <label for="edit-employee-zip-code">Zip Code @component('components.required-icon')@endComponent</label>
                     <input type="text" class="form-control {{$errors->has('zip_code') ? 'is-invalid' : ''}} is-number" id="edit-employee-zip-code" name="zip_code" value="{{old('zip_code')}}" >
                     @if($errors->has('zip_code'))
@@ -247,7 +250,7 @@
                         </span>
                     @endif
                 </div>
-                <div class="form-group col-md-4 col-lg-3">
+                <div class="form-group col-md-6 col-lg-3">
                     <label for="edit-employee-county">County @component('components.required-icon')@endComponent</label>
                     <input type="text" class="form-control {{$errors->has('county') ? 'is-invalid' : ''}}" id="edit-employee-county" name="county" value="{{old('county')}}" >
                     @if($errors->has('county'))
@@ -257,9 +260,86 @@
                     @endif
                 </div>
             </div>
-            <div class="form-row">
 
+            <div class="form-row card-deck mb-3">
+                <div class="card">
+                    <div class="card-header">Status</div>
+                    <div class="card-body">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="status" id="edit-employee-status-active" value="1" {{old('status') !== null ? (old('status') === '1' ? 'checked' : '') : ($employee->status === '1' ? 'checked' : '')}}>
+                            <label class="form-check-label" for="edit-employee-status-active">
+                            Active
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="status" id="edit-employee-status-inactive" value="0" {{old('status') !== null ? (old('status') === '0' ? 'checked' : '') : ($employee->status === '0' ? 'checked' : '')}}>
+                            <label class="form-check-label" for="edit-employee-status-inactive">
+                            Inactive
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Rehire</div>
+                    <div class="card-body">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="rehire" id="edit-employee-rehire-yes" value="1" {{old('rehire') !== null ? (old('rehire') === '1' ? 'checked' : '') : ($employee->rehire === '1' ? 'checked' : '')}}>
+                            <label class="form-check-label" for="edit-employee-rehire-yes">
+                            Yes
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="rehire" id="edit-employee-rehire-no" value="0" {{old('rehire') !== null ? (old('rehire') === '0' ? 'checked' : '') : ($employee->rehire === '0' ? 'checked' : '')}}>
+                            <label class="form-check-label" for="edit-employee-rehire-no">
+                            No
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Reviews</div>
+                    <div class="card-body">
+                        <div class="form-check employee-review-checkbox-div">
+                            <input class="form-check-input employee-review-checkbox" type="checkbox" name="thirty_day_review" id="edit-employee-thirty-day-review" value="1">
+                            <input type="hidden" class="form-control employee-review-checkbox-hidden" name="thirty_day_review_hidden" id="edit-employee-thirty-day-review-hidden" value="{{old('thirty_day_review_hidden') ? old('thirty_day_review_hidden') : ($employee->thirty_day_review === '1' ? 'checked' : 'unchecked')}}">
+                            <label class="form-check-label" for="edit-employee-thirty-day-review">
+                            Thirty Day {{old('thirty_day_review') ? 'old data' : 'new'}}
+                            </label>
+                        </div>
+                        <div class="form-check employee-review-checkbox-div">
+                            <input class="form-check-input employee-review-checkbox" type="checkbox" name="sixty_day_review" id="edit-employee-sixty-day-review" value="1" >
+                            <input type="hidden" class="form-control employee-review-checkbox-hidden" name="sixty_day_review_hidden" id="edit-employee-sixty-day-review-hidden" value="{{old('sixty_day_review_hidden') ? old('sixty_day_review_hidden') : ($employee->sixty_day_review === '1' ? 'checked' : 'unchecked')}}">
+                            <label class="form-check-label" for="edit-employee-sixty-day-review">
+                            Sixty Day
+                            </label>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+            <!-- <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="edit-employee-photo">Employee Photo</label>
+                    <input type="file" class="form-control-file {{$errors->has('photo_link') ? 'is-invalid' : ''}}" id="edit-employee-photo" name="photo_link" value="{{old('photo_link') !== null ? old('photo_link') : $employee->photo_link}}">
+                    @if($errors->has('photo_link'))
+                        <span class="invalid-feedback" role="alert">
+                            {{$errors->first('photo_link')}}
+                        </span>
+                    @endif
+                </div>
+            </div> -->
+
+            <div class="form-row">
+            <div class="form-group col-md-6">
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input {{$errors->has('photo_link') ? 'is-invalid' : ''}}" id="edit-enployee-photo" name="photo_link">
+                    <label for="edit-employee-photo" class="custom-file-label">Choose Employee Photo</label>
+                </div>
+            </div>
+            </div>
+
             <button type="submit" class="btn btn-primary" id="edit-employee-submit-button">Save Employee</button>
         </form>
 

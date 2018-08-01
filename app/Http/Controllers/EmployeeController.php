@@ -66,11 +66,47 @@ class EmployeeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreEmployee $request)
+    public function store(Request $request)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin']);
-        return("store");
+
+        // if($request->hasFile('photo_link')){
+        //     $path = $request->file('photo_link')->store('public');
+        //     $link = $request->file('photo_link')->hashName();
+            
+        // }else{
+        //     return('none');
+        // }
+
+        return $request;
+
+        $employee - new Employee();
+        $employee->first_name = $request->first_name;
+        $employee->last_name = $request->last_name;
+        $employee->middle_initial = $request->middle_initial;
+        $employee->maiden_name = $reqeust->maiden_name;
+        $employee->nick_name = $request->nick_name;
+        $employee->suffix = $request->suffix;
+        $employee->ssn = $request->ssn;
+        $employee->gender = $request->gender;
+        $employee->oracle_number = $reqeust->oracle_number;
+        $employee->birth_date = $request->birth_date;
+        $employee->hire_date = $request->hire_date;
+        $employee->service_date = $request->service_date;
+        $employee->address_1 = $request->address_1;
+        $employee->address_2 = $request->address_2;
+        $employee->city = $request->city;
+        $employee->state = $request->state;
+        $employee->zip_code = $request->zip_code;
+        $employee->county = $request->county;
+        $employee->status = 1;
+        $employee->rehire = 1;
+        $employee->bid_eligible = 1;
+        $employee->bid_eligible_date = $request->hire_date;
+        $employee->thirty_day_review = 0;
+        $employee->sixty_day_review = 0;
+
     }
 
     /**
@@ -119,6 +155,8 @@ class EmployeeController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin']);
+
+        return $request;
     }
 
     /**

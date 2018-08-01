@@ -13932,6 +13932,30 @@ $(document).ready(function () {
         yearRange: "-80:+10",
         showAnim: "slideDown"
     });
+
+    // Check if review item is checked at load
+    checkReviewOnLoad();
+});
+
+// Check if review item is checked at load
+function checkReviewOnLoad() {
+    $('.employee-review-checkbox-div').each(function () {
+        var value = $(this).find('input[type=hidden]').val();
+        if (value == 'checked') {
+            $(this).find('input[type=checkbox]').prop('checked', true);
+        } else {
+            $(this).find('input[type=checkbox]').prop('checked', false);
+        }
+    });
+}
+// Check if review checkbox has changed and change the corresponding hidden input
+$('.employee-review-checkbox').change(function () {
+    var state = $(this).prop('checked');
+    if (state == true) {
+        $(this).next('.employee-review-checkbox-hidden').val('checked');
+    } else {
+        $(this).next('.employee-review-checkbox-hidden').val('unchecked');
+    }
 });
 
 // Go to link when clickable row is clicked
@@ -14033,6 +14057,12 @@ $('#reset-employee-search').on('click', function () {
         $(this).val('');
     });
     $('.employee-row').removeClass('d-none');
+});
+
+// Show file name when file selected for upload
+$('.custom-file-input').on('change', function () {
+    var fileName = $(this).val().split('\\').pop();
+    $(this).siblings('.custom-file-label').addClass('selected').html(fileName);
 });
 
 /***/ }),

@@ -4,7 +4,12 @@ namespace App\Traits;
 
 trait HelperFunctions
 {
-    public function checkState ($employee)
+    public function setAsDate($date)
+    {
+        $date = Carbon::createFromFormat('m-d-Y', $date)->toDateString();
+    }
+
+    public function checkState($employee)
     {
         switch($employee->state) {
             case 'al':
