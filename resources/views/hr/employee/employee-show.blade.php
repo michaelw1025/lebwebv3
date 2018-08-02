@@ -13,7 +13,11 @@
 
         <form action="" class="mt-2" id="show-employee-form" method="GET">
             @csrf
-            <img src="/storage/1.png" alt="Employee Photo" class="img-thumbnail mb-2" width="100" height="100">
+            @if($employee->photo_link !== null)
+            <img src="/storage/{{$employee->photo_link}}" alt="Employee Photo" class="img-thumbnail mb-2" width="100" height="100">
+            @else
+            <img src="/storage/unknown.png" alt="Employee Photo" class="img-thumbnail mb-2" width="100" height="100">
+            @endif
 
             <div class="form-row">
                 <div class="form-group col-md-4">
@@ -40,7 +44,7 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label for="show-employee-suffix">Sufix</label>
-                    <input type="text" class="form-control" id="show-employee-suffix" name="suffix" value="{{strtoupper($employee->suffix)}}" disabled>
+                    <input type="text" class="form-control" id="show-employee-suffix" name="suffix" value="{{strtoupper(strtoupper($employee->suffix))}}" disabled>
                 </div>
             </div>
             <div class="form-row">
@@ -50,7 +54,7 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label for="show-employee-gender">Gender</label>
-                    <input type="text" class="form-control" id="show-employee-gender" name="gender" value="{{$employee->gender}}" disabled>
+                    <input type="text" class="form-control" id="show-employee-gender" name="gender" value="{{ucwords($employee->gender)}}" disabled>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="show-employee-oracle-number">Oracle Number</label>
@@ -156,6 +160,19 @@
                 </div>
             </div>
 
+            <header class="alert alert-primary mt-4 h2" role="alert">
+                <i class="fas fa-dolly"></i> Occupation
+            </header>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="show-employee-cost-center">Cost Center</label>
+                    <input type="text" class="form-control" id="show-employee-cost-center" name="cost_center" value="@foreach($employee->costCenter as $employeeCostCenter) {{$employeeCostCenter->number}}  {{$employeeCostCenter->extension}}  {{$employeeCostCenter->description}} @endforeach" disabled>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="show-employee-shift">Shift</label>
+                    <input type="text" class="form-control" id="show-employee-shift" name="shift" value="@foreach($employee->shift as $employeeShift) {{$employeeShift->code}} - {{$employeeShift->description}} @endforeach" disabled>
+                </div>
+            </div>
 
 
             <a href="{{route('employees.edit', $employee->id)}}" class="btn btn-edit">Edit Employee</a>

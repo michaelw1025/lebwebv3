@@ -1,13 +1,7 @@
-Finish all file uploads
-    -Retrieve proper photo link from user and show in employee show and edit views
-    -Use JS to determine if file needs to be deleted, changed, or stay the same
-
-Fix suffix usage
-
-Use .custom-select on all select inputs
-
 Set input fields as required
 
-Choose color for status, rehire, and reviews based on value
+Complete Cost Center resources
 
-Uppercase gender on employee show view
+Complete Shift resources
+
+Combine Wage Events and Wage Progression into one table for employee

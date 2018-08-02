@@ -6,7 +6,7 @@
 
     <article class="col-10 main-content-article">
 
-        <h2 class="mt-2 text-primary"><i class="fas fa-edit fa-lg"></i> Edit User</h2>
+        <h2 class="mt-2 text-edit"><i class="fas fa-edit fa-lg"></i> Edit User</h2>
         <hr></hr>
 
         @include('alerts.validation-alert')
@@ -49,7 +49,7 @@
 
                 <div class="form-group col-md-6">
                     <label for="user-role">Role</label>
-                    <select name="role" id="user-role" class="form-control {{$errors->has('role') ? 'is-invalid' : ''}}" required>
+                    <select name="role" id="user-role" class="custom-select {{$errors->has('role') ? 'is-invalid' : ''}}" required>
                         @foreach($user->role as $userRole)
                         <option value="{{$userRole->id}}">{{$userRole->name}}</option>
                         @endforeach

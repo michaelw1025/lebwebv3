@@ -50,6 +50,9 @@ class StoreEmployee extends FormRequest
             'state' => 'required|string|max:2',
             'zip_code' => 'required|max:15',
             'county' => 'required|string|max:25',
+            'photo_link' => 'nullable|image',
+            'cost_center' => 'required',
+            'shift' => 'required',
         ];
 
         if($this->route()->named('employees.store')) { // If storing a new employee

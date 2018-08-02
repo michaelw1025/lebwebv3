@@ -5,7 +5,7 @@
     @include('hr.sidebar')
 
     <article class="col-10 main-content-article">
-        <h2 class="mt-2 text-primary"><i class="fas fa-user-plus fa-lg"></i>&nbsp Create Employee</h2>
+        <h2 class="mt-2 text-create"><i class="fas fa-user-plus fa-lg"></i>&nbsp Create Employee</h2>
         <hr></hr>
 
         @include('alerts.validation-alert')
@@ -255,27 +255,51 @@
                     @endif
                 </div>
             </div>
-            <!-- <div class="form-row">
+            <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="create-employee-photo">Employee Photo</label>
-                    <input type="file" class="form-control-file {{$errors->has('photo_link') ? 'is-invalid' : ''}}" id="create-employee-photo" name="photo_link" value="{{old('photo_link')}}">
-                    @if($errors->has('photo_link'))
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input {{$errors->has('photo_link') ? 'is-invalid' : ''}}" id="create-employee-photo" name="photo_link">
+                        <label for="create-employee-photo" class="custom-file-label">Choose Employee Photo</label>
+                    </div>
+                </div>
+            </div>
+
+            <header class="alert alert-primary mt-4" role="alert">
+                Occupation
+            </header>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="create-employee-cost-center">Cost Center @component('components.required-icon')@endComponent</label>
+                    <select type="text" class="custom-select {{$errors->has('cost_center') ? 'is-invalid' : ''}}" id="create-employee-cost-center" name="cost_center" value="">
+                        <option value=""></option>
+                        @foreach($costCenters as $costCenter)
+                        <option {{old('cost_center') ? (old('cost_center') == $costCenter->id ? 'selected' : '') : ''}} value="{{$costCenter->id}}">{{$costCenter->number}}  {{$costCenter->extension}}  {{$costCenter->description}}</option>
+                        @endforeach
+                    </select>
+                    @if($errors->has('cost_center'))
                         <span class="invalid-feedback" role="alert">
-                            {{$errors->first('photo_link')}}
+                            {{$errors->first('cost_center')}}
                         </span>
                     @endif
                 </div>
-            </div> -->
-            <div class="form-row">
-            <div class="form-group col-md-6">
-                <div class="custom-file">
-                    <input type="file" class="custom-file-input {{$errors->has('photo_link') ? 'is-invalid' : ''}}" id="create-employee-photo" name="photo_link">
-                    <label for="create-employee-photo" class="custom-file-label">Choose Employee Photo</label>
+
+                <div class="form-group col-md-4">
+                    <label for="create-employee-shift">Shift @component('components.required-icon')@endComponent</label>
+                    <select type="text" class="custom-select {{$errors->has('shift') ? 'is-invalid' : ''}}" id="create-employee-shift" name="shift" value="">
+                        <option value=""></option>
+                        @foreach($shifts as $shift)
+                        <option {{old('shift') ? (old('shift') == $shift->id ? 'selected' : '') : ''}} value="{{$shift->id}}">{{$shift->code}} - {{$shift->description}}</option>
+                        @endforeach
+                    </select>
+                    @if($errors->has('shift'))
+                        <span class="invalid-feedback" role="alert">
+                            {{$errors->first('shift')}}
+                        </span>
+                    @endif
                 </div>
             </div>
-            </div>
 
-            <button type="submit" class="btn btn-create" id="create-employee-submit-button">Create</button>
+            <button type="submit" class="btn btn-create" id="create-employee-submit-button">Create Employee</button>
         </form>
 
     </article>

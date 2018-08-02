@@ -6,7 +6,7 @@
 
     <article class="col-10  main-content-article">
 
-        <h2 class="mt-2 text-primary"><i class="fas fa-edit fa-lg"></i> Edit Role</h2>
+        <h2 class="mt-2 text-edit"><i class="fas fa-edit fa-lg"></i> Edit Role</h2>
         <hr></hr>
 
         @include('alerts.validation-alert')

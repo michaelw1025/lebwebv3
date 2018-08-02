@@ -19,8 +19,6 @@
                     <label for="employee-search-last-name">Last Name</label>
                     <input type="text" class="form-control" id="employee-search-last-name" name="employee_search_last_name">
                 </div>
-            </div>
-            <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="employee-search-ssn">SSN</label>
                     <input type="text" class="form-control ssn-format" id="employee-search-ssn" name="employee_search_ssn" maxlength="11">
@@ -31,8 +29,6 @@
                     <label for="employee-search-birth-date">Birth Date <small class="text-muted">(mm/dd/yyyy)</small></label>
                     <input type="text" class="form-control datepicker" id="employee-search-birth-date" name="employee_search_birth_date">
                 </div>
-            </div>
-            <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="employee-search-hire-date">Hire Date <small class="text-muted">(mm/dd/yyyy)</small></label>
                     <input type="text" class="form-control datepicker" id="employee-search-hire-date" name="employee_search_hire_date">

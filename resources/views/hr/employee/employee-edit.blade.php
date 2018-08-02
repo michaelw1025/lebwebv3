@@ -5,7 +5,7 @@
     @include('hr.sidebar')
 
     <article class="col-10 main-content-article">
-        <h2 class="mt-2 text-primary"><i class="fas fa-user-edit fa-lg"></i>&nbsp Edit Employee</h2>
+        <h2 class="mt-2 text-edit"><i class="fas fa-user-edit fa-lg"></i>&nbsp Edit Employee</h2>
         <hr></hr>
 
         @include('alerts.validation-alert')
@@ -14,7 +14,12 @@
         <form action="{{Route('employees.update', $employee->id)}}" class="mt-2" id="edit-employee-form" method="POST" enctype="multipart/form-data">
             @csrf
             @method('Patch')
-            <img src="/storage/1.png" alt="Employee Photo" class="img-thumbnail mb-2" width="100" height="100">
+            
+            @if($employee->photo_link !== null)
+            <img src="/storage/{{$employee->photo_link}}" alt="Employee Photo" class="img-thumbnail mb-2" width="100" height="100">
+            @else
+            <img src="/storage/unknown.png" alt="Employee Photo" class="img-thumbnail mb-2" width="100" height="100">
+            @endif
 
             <p class="text-danger">@component('components.required-icon')@endComponent indicates a required field</p>
 
@@ -273,15 +278,15 @@
                 <div class="card card-status {{old('status') !== null ? (old('status') === '1' ? 'border-success' : 'border-danger') : ($employee->status === '1' ? 'border-success' : 'border-danger')}}">
                     <div class="card-header">Status</div>
                     <div class="card-body">
-                        <div class="form-check">
-                            <input class="form-check-input boolean-radio-button" type="radio" name="status" id="edit-employee-status-active" value="1" {{old('status') !== null ? (old('status') === '1' ? 'checked' : '') : ($employee->status === '1' ? 'checked' : '')}}>
-                            <label class="form-check-label" for="edit-employee-status-active">
+                        <div class="custom-control custom-radio">
+                            <input class="custom-control-input boolean-radio-button" type="radio" name="status" id="edit-employee-status-active" value="1" {{old('status') !== null ? (old('status') === '1' ? 'checked' : '') : ($employee->status === '1' ? 'checked' : '')}}>
+                            <label class="custom-control-label" for="edit-employee-status-active">
                             Active
                             </label>
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input boolean-radio-button" type="radio" name="status" id="edit-employee-status-inactive" value="0" {{old('status') !== null ? (old('status') === '0' ? 'checked' : '') : ($employee->status === '0' ? 'checked' : '')}}>
-                            <label class="form-check-label" for="edit-employee-status-inactive">
+                        <div class="custom-control custom-radio">
+                            <input class="custom-control-input boolean-radio-button" type="radio" name="status" id="edit-employee-status-inactive" value="0" {{old('status') !== null ? (old('status') === '0' ? 'checked' : '') : ($employee->status === '0' ? 'checked' : '')}}>
+                            <label class="custom-control-label" for="edit-employee-status-inactive">
                             Inactive
                             </label>
                         </div>
@@ -296,15 +301,15 @@
                 <div class="card card-rehire {{old('rehire') !== null ? (old('rehire') === '1' ? 'border-success' : 'border-danger') : ($employee->rehire === '1' ? 'border-success' : 'border-danger')}}">
                     <div class="card-header">Rehire</div>
                     <div class="card-body">
-                        <div class="form-check">
-                            <input class="form-check-input boolean-radio-button" type="radio" name="rehire" id="edit-employee-rehire-yes" value="1" {{old('rehire') !== null ? (old('rehire') === '1' ? 'checked' : '') : ($employee->rehire === '1' ? 'checked' : '')}}>
-                            <label class="form-check-label" for="edit-employee-rehire-yes">
+                        <div class="custom-control custom-radio">
+                            <input class="custom-control-input boolean-radio-button" type="radio" name="rehire" id="edit-employee-rehire-yes" value="1" {{old('rehire') !== null ? (old('rehire') === '1' ? 'checked' : '') : ($employee->rehire === '1' ? 'checked' : '')}}>
+                            <label class="custom-control-label" for="edit-employee-rehire-yes">
                             Yes
                             </label>
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input boolean-radio-button" type="radio" name="rehire" id="edit-employee-rehire-no" value="0" {{old('rehire') !== null ? (old('rehire') === '0' ? 'checked' : '') : ($employee->rehire === '0' ? 'checked' : '')}}>
-                            <label class="form-check-label" for="edit-employee-rehire-no">
+                        <div class="custom-control custom-radio">
+                            <input class="custom-control-input boolean-radio-button" type="radio" name="rehire" id="edit-employee-rehire-no" value="0" {{old('rehire') !== null ? (old('rehire') === '0' ? 'checked' : '') : ($employee->rehire === '0' ? 'checked' : '')}}>
+                            <label class="custom-control-label" for="edit-employee-rehire-no">
                             No
                             </label>
                         </div>
@@ -319,10 +324,10 @@
                 <div class="card">
                     <div class="card-header">Reviews</div>
                     <div class="card-body">
-                        <div class="form-check employee-review-checkbox-div">
-                            <input class="form-check-input employee-review-checkbox" type="checkbox" name="thirty_day_review" id="edit-employee-thirty-day-review" value="1">
+                        <div class="custom-control custom-checkbox employee-review-checkbox-div">
+                            <input class="custom-control-input employee-review-checkbox" type="checkbox" name="thirty_day_review" id="edit-employee-thirty-day-review" value="1">
                             <input type="hidden" class="form-control employee-review-checkbox-hidden" name="thirty_day_review_hidden" id="edit-employee-thirty-day-review-hidden" value="{{old('thirty_day_review_hidden') ? old('thirty_day_review_hidden') : ($employee->thirty_day_review === '1' ? 'checked' : 'unchecked')}}">
-                            <label class="form-check-label" for="edit-employee-thirty-day-review">
+                            <label class="custom-control-label" for="edit-employee-thirty-day-review">
                             Thirty Day {{old('thirty_day_review') ? 'old data' : 'new'}}
                             </label>
                         </div>
@@ -331,10 +336,10 @@
                                 {{$errors->first('thirty_day_review')}}
                             </span>
                         @endif
-                        <div class="form-check employee-review-checkbox-div">
-                            <input class="form-check-input employee-review-checkbox" type="checkbox" name="sixty_day_review" id="edit-employee-sixty-day-review" value="1" >
+                        <div class="custom-control custom-checkbox employee-review-checkbox-div">
+                            <input class="custom-control-input employee-review-checkbox" type="checkbox" name="sixty_day_review" id="edit-employee-sixty-day-review" value="1" >
                             <input type="hidden" class="form-control employee-review-checkbox-hidden" name="sixty_day_review_hidden" id="edit-employee-sixty-day-review-hidden" value="{{old('sixty_day_review_hidden') ? old('sixty_day_review_hidden') : ($employee->sixty_day_review === '1' ? 'checked' : 'unchecked')}}">
-                            <label class="form-check-label" for="edit-employee-sixty-day-review">
+                            <label class="custom-control-label" for="edit-employee-sixty-day-review">
                             Sixty Day
                             </label>
                         </div>
@@ -351,7 +356,9 @@
                 <div class="form-group col-md-6">
                     <div class="custom-file">
                         <input type="file" class="custom-file-input {{$errors->has('photo_link') ? 'is-invalid' : ''}}" id="edit-employee-photo" name="photo_link">
-                        <label for="edit-employee-photo" class="custom-file-label">Choose Employee Photo</label>
+                        <label for="edit-employee-photo" class="custom-file-label {{$errors->has('photo_link') ? 'text-danger' : ''}}">
+                        {{$errors->has('photo_link') ? $errors->first('photo_link') : 'Choose employee photo'}}
+                        </label>
                     </div>
                 </div>
                 <div class="form-group col-md-6">
@@ -364,7 +371,48 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary" id="edit-employee-submit-button">Save Employee</button>
+            <header class="alert alert-primary mt-4" role="alert">
+                Occupation
+            </header>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="edit-employee-cost-center">Cost Center @component('components.required-icon')@endComponent</label>
+                    <select type="text" class="custom-select {{$errors->has('cost_center') ? 'is-invalid' : ''}}" id="edit-employee-cost-center" name="cost_center" value="">
+                        @foreach($employee->costCenter as $employeeCostCenter)
+                        <option {{old('cost_center') ? (old('cost_center') == $employeeCostCenter->id ? 'selected' : '') : 'selected'}} value="{{$employeeCostCenter->id}}">{{$employeeCostCenter->number}}  {{$employeeCostCenter->extension}}  {{$employeeCostCenter->description}}</option>
+                        @endforeach
+                        <option value=""></option>
+                        @foreach($costCenters as $costCenter)
+                        <option {{old('cost_center') ? (old('cost_center') == $costCenter->id ? 'selected' : '') : ''}} value="{{$costCenter->id}}">{{$costCenter->number}}  {{$costCenter->extension}}  {{$costCenter->description}}</option>
+                        @endforeach
+                    </select>
+                    @if($errors->has('cost_center'))
+                        <span class="invalid-feedback" role="alert">
+                            {{$errors->first('cost_center')}}
+                        </span>
+                    @endif
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="edit-employee-shift">Shift @component('components.required-icon')@endComponent</label>
+                    <select type="text" class="custom-select {{$errors->has('shift') ? 'is-invalid' : ''}}" id="edit-employee-shift" name="shift" value="">
+                        @foreach($employee->shift as $employeeShift)
+                        <option {{old('shift') ? (old('shift') == $employeeShift->id ? 'selected' : '') : 'selected'}} value="{{$employeeShift->id}}">{{$employeeShift->code}} - {{$employeeShift->description}}</option>
+                        @endforeach
+                        <option value=""></option>
+                        @foreach($shifts as $shift)
+                        <option {{old('shift') ? (old('shift') == $shift->id ? 'selected' : '') : ''}} value="{{$shift->id}}">{{$shift->code}} - {{$shift->description}}</option>
+                        @endforeach
+                    </select>
+                    @if($errors->has('shift'))
+                        <span class="invalid-feedback" role="alert">
+                            {{$errors->first('shift')}}
+                        </span>
+                    @endif
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-edit" id="edit-employee-submit-button">Save Employee</button>
         </form>
 
     </article>

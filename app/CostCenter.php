@@ -52,4 +52,34 @@ class CostCenter extends Model
     {
         return $this->belongsToMany('App\Employee', 'cost_center_staff_manager');
     }
+
+    // Day Team Manager relationship
+    public function employeeDayTeamManager()
+    {
+        return $this->belongsToMany('App\Employee', 'cost_center_day_team_manager');
+    }
+
+    // Night Team Manager relationship
+    public function employeeNightTeamManager()
+    {
+        return $this->belongsToMany('App\Employee', 'cost_center_night_team_manager');
+    }
+
+    // Day Team Leader relationship
+    public function employeeDayTeamLeader()
+    {
+        return $this->belongsToMany('App\Employee', 'cost_center_day_team_leader');
+    }
+
+    // Night Team Leader relationship
+    public function employeeNightTeamLeader()
+    {
+        return $this->belongsToMany('App\Employee', 'cost_center_night_team_leader');
+    }
+    
+    // Employee relationship
+    public function employee()
+    {
+        return $this->belongsToMany('App\Employee');
+    }
 }

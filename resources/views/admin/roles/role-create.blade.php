@@ -6,7 +6,7 @@
 
     <article class="col-10  main-content-article">
     
-        <h2 class="mt-2 text-primary"><i class="fas fa-pen fa-lg"></i> Create Role</h2>
+        <h2 class="mt-2 text-create"><i class="fas fa-pen fa-lg"></i> Create Role</h2>
         <hr></hr>
 
         @include('alerts.validation-alert')
@@ -37,7 +37,7 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary" form="create-role-form">Create Role</button>
+            <button type="submit" class="btn btn-create" form="create-role-form">Create Role</button>
         
         </form>
     

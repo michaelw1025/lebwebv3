@@ -212,4 +212,45 @@ class Employee extends Model
     // ****************************************
     // Relationships
     // ****************************************
+    //Cost Center relationship
+    public function costCenter()
+    {
+        return $this->belongsToMany('App\CostCenter');
+    }
+
+    // Staff Manager relationship
+    public function costCenterStaffManager()
+    {
+        return $this->belongsToMany('App\CostCenter', 'cost_center_staff_manager');
+    }
+
+    // Day Team Manager relationship
+    public function costCenterDayTeamManager()
+    {
+        return $this->belongsToMany('App\CostCenter', 'cost_center_day_team_manager');
+    }
+
+    // Night Team Manager relationship
+    public function costCenterNightTeamManager()
+    {
+        return $this->belongsToMany('App\CostCenter', 'cost_center_night_team_manager');
+    }
+
+    // Day Team Leader relationship
+    public function costCenterDayTeamLeader()
+    {
+        return $this->belongsToMany('App\CostCenter', 'cost_center_day_team_leader');
+    }
+
+    // Night Team Leader relationship
+    public function costCenterNightTeamLeader()
+    {
+        return $this->belongsToMany('App\CostCenter', 'cost_center_night_team_leader');
+    }
+
+    //Shift relationship
+    public function shift()
+    {
+        return $this->belongsToMany('App\Shift');
+    }
 }
