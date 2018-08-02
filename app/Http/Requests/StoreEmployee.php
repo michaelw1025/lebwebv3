@@ -53,6 +53,8 @@ class StoreEmployee extends FormRequest
             'photo_link' => 'nullable|image',
             'cost_center' => 'required',
             'shift' => 'required',
+            'position' => 'required',
+            'job' => 'required'
         ];
 
         if($this->route()->named('employees.store')) { // If storing a new employee

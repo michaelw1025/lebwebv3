@@ -376,6 +376,42 @@
             </header>
             <div class="form-row">
                 <div class="form-group col-md-4">
+                    <label for="edit-employee-job">Job @component('components.required-icon')@endComponent</label>
+                    <select type="text" class="custom-select {{$errors->has('job') ? 'is-invalid' : ''}}" id="edit-employee-job" name="job" value="">
+                        @foreach($employee->job as $employeeJob)
+                        <option {{old('job') ? (old('job') == $employeeJob->id ? 'selected' : '') : 'selected'}} value="{{$employeeJob->id}}">{{$employeeJob->description}}</option>
+                        @endforeach
+                        <option value=""></option>
+                        @foreach($jobs as $job)
+                        <option {{old('job') ? (old('job') == $job->id ? 'selected' : '') : ''}} value="{{$job->id}}">{{$job->description}}</option>
+                        @endforeach
+                    </select>
+                    @if($errors->has('job'))
+                        <span class="invalid-feedback" role="alert">
+                            {{$errors->first('job')}}
+                        </span>
+                    @endif
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="edit-employee-position">Position @component('components.required-icon')@endComponent</label>
+                    <select type="text" class="custom-select {{$errors->has('position') ? 'is-invalid' : ''}}" id="edit-employee-position" name="position" value="">
+                        @foreach($employee->position as $employeePosition)
+                        <option {{old('position') ? (old('position') == $employeePosition->id ? 'selected' : '') : 'selected'}} value="{{$employeePosition->id}}">{{$employeePosition->description}}</option>
+                        @endforeach
+                        <option value=""></option>
+                        @foreach($positions as $position)
+                        <option {{old('position') ? (old('position') == $position->id ? 'selected' : '') : ''}} value="{{$position->id}}">{{$position->description}}</option>
+                        @endforeach
+                    </select>
+                    @if($errors->has('position'))
+                        <span class="invalid-feedback" role="alert">
+                            {{$errors->first('position')}}
+                        </span>
+                    @endif
+                </div>
+
+                <div class="form-group col-md-4">
                     <label for="edit-employee-cost-center">Cost Center @component('components.required-icon')@endComponent</label>
                     <select type="text" class="custom-select {{$errors->has('cost_center') ? 'is-invalid' : ''}}" id="edit-employee-cost-center" name="cost_center" value="">
                         @foreach($employee->costCenter as $employeeCostCenter)

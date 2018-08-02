@@ -34,4 +34,6 @@ Route::prefix('hr')->group(function() {
     Route::resource('costCenters', 'CostCenterController');
     Route::resource('employees', 'EmployeeController');
     Route::resource('shifts', 'ShiftController');
+    Route::resource('positions', 'PositionController');
+    Route::resource('jobs', 'JobController');
 });

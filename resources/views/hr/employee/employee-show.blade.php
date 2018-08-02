@@ -165,6 +165,14 @@
             </header>
             <div class="form-row">
                 <div class="form-group col-md-4">
+                    <label for="show-employee-job">Job</label>
+                    <input type="text" class="form-control" id="show-employee-job" name="job" value="@foreach($employee->job as $employeeJob) {{$employeeJob->description}} @endforeach" disabled>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="show-employee-position">Position</label>
+                    <input type="text" class="form-control" id="show-employee-position" name="position" value="@foreach($employee->position as $employeePosition) {{$employeePosition->description}} @endforeach" disabled>
+                </div>
+                <div class="form-group col-md-4">
                     <label for="show-employee-cost-center">Cost Center</label>
                     <input type="text" class="form-control" id="show-employee-cost-center" name="cost_center" value="@foreach($employee->costCenter as $employeeCostCenter) {{$employeeCostCenter->number}}  {{$employeeCostCenter->extension}}  {{$employeeCostCenter->description}} @endforeach" disabled>
                 </div>
@@ -174,9 +182,35 @@
                 </div>
             </div>
 
+            <header class="alert alert-primary mt-4 h2" role="alert">
+                <i class="fas fa-phone"></i> Phone Numbers
+            </header>
+            <div class="form-row">
+                @foreach($employee->phoneNumber as $employeePhoneNumber)
+                <div class="col-md-6 col-lg-4 col-xl-3 mb-3">
+                    <label for="show-employee-phone-number-{{$loop->iteration}}">Phone Number {{$loop->iteration}}</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="show-employee-phone-number-primary-{{$loop->iteration}}" name="is_primary_{{$loop->iteration}}" {{$employeePhoneNumber->is_primary == '1' ? 'checked' : ''}} disabled>
+                                    <label class="custom-control-label {{$employeePhoneNumber->is_primary == '1' ? 'text-primary' : ''}}" for="show-employee-phone-number-primary-{{$loop->iteration}}">Primary</label>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="text" class="form-control" id="show-employee-phone-number-{{$loop->iteration}}" name="phone_number_{{$loop->iteration}}" value="{{$employeePhoneNumber->number}}" disabled>
+                    </div>
+                </div>
+                @endforeach
+                
+            </div>
 
-            <a href="{{route('employees.edit', $employee->id)}}" class="btn btn-edit">Edit Employee</a>
+
+            <a href="{{route('employees.edit', $employee->id)}}" class="btn btn-edit mt-4">Edit Employee</a>
         </form>
+
+        <hr class="my-4"></hr>
+        <hr class="my-4"></hr>
 
     </article>
 

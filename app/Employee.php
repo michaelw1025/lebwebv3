@@ -253,4 +253,22 @@ class Employee extends Model
     {
         return $this->belongsToMany('App\Shift');
     }
+
+    //Position relationship
+    public function position()
+    {
+        return $this->belongsToMany('App\Position');
+    }
+
+    //Job relationship
+    public function job()
+    {
+        return $this->belongsToMany('App\Job');
+    }
+
+    // Phone Number relationship
+    public function phoneNumber()
+    {
+        return $this->hasMany('App\PhoneNumber')->orderBy('is_primary', 'desc');
+    }
 }

@@ -269,6 +269,36 @@
             </header>
             <div class="form-row">
                 <div class="form-group col-md-4">
+                    <label for="create-employee-job">Job @component('components.required-icon')@endComponent</label>
+                    <select type="text" class="custom-select {{$errors->has('job') ? 'is-invalid' : ''}}" id="create-employee-job" name="job" value="">
+                        <option value=""></option>
+                        @foreach($jobs as $job)
+                        <option {{old('job') ? (old('job') == $job->id ? 'selected' : '') : ''}} value="{{$job->id}}">{{$job->description}}</option>
+                        @endforeach
+                    </select>
+                    @if($errors->has('job'))
+                        <span class="invalid-feedback" role="alert">
+                            {{$errors->first('job')}}
+                        </span>
+                    @endif
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="create-employee-position">Position @component('components.required-icon')@endComponent</label>
+                    <select type="text" class="custom-select {{$errors->has('position') ? 'is-invalid' : ''}}" id="create-employee-position" name="position" value="">
+                        <option value=""></option>
+                        @foreach($positions as $position)
+                        <option {{old('position') ? (old('position') == $position->id ? 'selected' : '') : ''}} value="{{$position->id}}">{{$position->description}}</option>
+                        @endforeach
+                    </select>
+                    @if($errors->has('position'))
+                        <span class="invalid-feedback" role="alert">
+                            {{$errors->first('position')}}
+                        </span>
+                    @endif
+                </div>
+
+                <div class="form-group col-md-4">
                     <label for="create-employee-cost-center">Cost Center @component('components.required-icon')@endComponent</label>
                     <select type="text" class="custom-select {{$errors->has('cost_center') ? 'is-invalid' : ''}}" id="create-employee-cost-center" name="cost_center" value="">
                         <option value=""></option>

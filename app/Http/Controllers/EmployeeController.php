@@ -9,6 +9,9 @@ use App\Http\Requests\StoreEmployee;
 use Illuminate\Support\Facades\Storage;
 use App\CostCenter;
 use App\Shift;
+use App\Position;
+use App\Job;
+use App\PhoneNumber;
 
 class EmployeeController extends Controller
 {
@@ -65,10 +68,16 @@ class EmployeeController extends Controller
         $costCenters = CostCenter::orderBy('number', 'asc')->orderBy('extension', 'asc')->get();
         // Get all shifts
         $shifts = Shift::all();
+        // Get all positions
+        $positions = Position::all();
+        // Get all jobs
+        $jobs = Job::all();
         // Return the create employee view
         return view('hr.employee.employee-create', [
             'costCenters' => $costCenters,
-            'shifts' => $shifts
+            'shifts' => $shifts,
+            'positions' => $positions,
+            'jobs' => $jobs
         ]);
     }
 
@@ -124,6 +133,10 @@ class EmployeeController extends Controller
             $employee->costCenter()->sync([$request->cost_center]);
             // Sync shift
             $employee->shift()->sync([$request->shift]);
+            // Sync position
+            $employee->position()->sync([$request->position]);
+            // Sync job
+            $employee->job()->sync([$request->job]);
             // If the save was successful
             \Session::flash('status', 'Employee created successfully.');
             // Return the show employee view
@@ -153,7 +166,10 @@ class EmployeeController extends Controller
             'costCenter.employeeNightTeamManager',
             'costCenter.employeeDayTeamLeader',
             'costCenter.employeeNightTeamLeader',
-            'shift'
+            'shift',
+            'position',
+            'job',
+            'phoneNumber'
         )->findOrFail($id);
         // Get the full name of the state
         $this->checkState($employee);
@@ -182,11 +198,17 @@ class EmployeeController extends Controller
         $costCenters = CostCenter::orderBy('number', 'asc')->orderBy('extension', 'asc')->get();
         // Get all shifts
         $shifts = Shift::all();
+        // Get all positions
+        $positions = Position::all();
+        // Get all jobs
+        $jobs = Job::all();
         // Return the edit employee view
         return view('hr.employee.employee-edit', [
             'employee' => $employee,
             'costCenters' => $costCenters,
-            'shifts' => $shifts
+            'shifts' => $shifts,
+            'positions' => $positions,
+            'jobs' => $jobs
         ]);
     }
 
@@ -264,6 +286,10 @@ class EmployeeController extends Controller
             $employee->costCenter()->sync([$request->cost_center]);
             // Sync shift
             $employee->shift()->sync([$request->shift]);
+            // Sync position
+            $employee->position()->sync([$request->position]);
+            // Sync job
+            $employee->job()->sync([$request->job]);
             // If the save was successful
             \Session::flash('status', 'Employee updated successfully.');
             // Return the show employee view
