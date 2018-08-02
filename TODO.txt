@@ -9,3 +9,5 @@ Use .custom-select on all select inputs
 Set input fields as required
 
 Choose color for status, rehire, and reviews based on value
+
+Uppercase gender on employee show view

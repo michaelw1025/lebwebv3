@@ -88,7 +88,7 @@
                 </div>
                 <div class="form-group col-md-6 col-lg-3">
                     <label for="show-employee-state">State</label>
-                    <input type="text" class="form-control" id="show-employee-state" name="state" value="{{$employee->stateFullName}}" disabled>
+                    <input type="text" class="form-control" id="show-employee-state" name="state" value="{{$employee->state_full_name}}" disabled>
                 </div>
                 <div class="form-group col-md-6 col-lg-3">
                     <label for="show-employee-zip-code">Zip Code</label>
@@ -100,8 +100,8 @@
                 </div>
             </div>
 
-            <div class="form-row card-deck">
-                <div class="card bg-light">
+            <div class="form-row card-deck mb-3">
+                <div class="card bg-light {{$employee->status === '1' ? 'border-success' : 'border-danger'}}">
                     <div class="card-header">Status</div>
                     <div class="card-body">
                         <div class="form-check">
@@ -119,7 +119,7 @@
                     </div>
                 </div>
 
-                <div class="card bg-light">
+                <div class="card bg-light {{$employee->rehire === '1' ? 'border-success' : 'border-danger'}}">
                     <div class="card-header">Rehire</div>
                     <div class="card-body">
                         <div class="form-check">

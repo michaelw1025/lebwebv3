@@ -13958,6 +13958,20 @@ $('.employee-review-checkbox').change(function () {
     }
 });
 
+// Change color of card border when status or rehire is changed
+$('.boolean-radio-button').change(function () {
+    var name = $(this).attr('name');
+    var radios = $('input[name="' + name + '"]');
+    var checked = radios.filter(function () {
+        return $(this).prop('checked');
+    });
+    if (checked.val() == '1') {
+        $('.card-' + name).removeClass('border-danger').addClass('border-success');
+    } else {
+        $('.card-' + name).removeClass('border-success').addClass('border-danger');
+    }
+});
+
 // Go to link when clickable row is clicked
 $('.clickable-row').on('click', function () {
     window.location = $(this).data('href');

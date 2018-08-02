@@ -71,26 +71,18 @@ class EmployeeController extends Controller
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin']);
 
-        // if($request->hasFile('photo_link')){
-        //     $path = $request->file('photo_link')->store('public');
-        //     $link = $request->file('photo_link')->hashName();
-            
-        // }else{
-        //     return('none');
-        // }
-
         return $request;
 
         $employee - new Employee();
         $employee->first_name = $request->first_name;
         $employee->last_name = $request->last_name;
         $employee->middle_initial = $request->middle_initial;
-        $employee->maiden_name = $reqeust->maiden_name;
+        $employee->maiden_name = $request->maiden_name;
         $employee->nick_name = $request->nick_name;
         $employee->suffix = $request->suffix;
         $employee->ssn = $request->ssn;
         $employee->gender = $request->gender;
-        $employee->oracle_number = $reqeust->oracle_number;
+        $employee->oracle_number = $request->oracle_number;
         $employee->birth_date = $request->birth_date;
         $employee->hire_date = $request->hire_date;
         $employee->service_date = $request->service_date;
@@ -106,6 +98,21 @@ class EmployeeController extends Controller
         $employee->bid_eligible_date = $request->hire_date;
         $employee->thirty_day_review = 0;
         $employee->sixty_day_review = 0;
+        if($request->hasFile('photo_link')){
+            $path = $request->file('photo_link')->store('public');
+            $employee->photo_link = $request->file('photo_link')->hashName();
+            
+        }
+        // Save employee
+        if($employee->save()) {
+            // If the save was successful
+            \Session::flash('status', 'Employee created successfully.');
+            return redirect()->route('employees.show', ['id' => $employee->id]);
+        } else {
+            // If the save was unsuccessful
+            \Session::flash('error', 'An error occurred while creating the employee.  Please contact support for help.');
+            return redirect()->back()->withInput();
+        }
 
     }
 
@@ -139,6 +146,7 @@ class EmployeeController extends Controller
         $request->user()->authorizeRoles(['admin']);
         // Get employee
         $employee = Employee::findOrFail($id);
+        $this->checkState($employee);
         return view('hr.employee.employee-edit', [
             'employee' => $employee
         ]);
@@ -151,12 +159,66 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreEmployee $request, $id)
+    public function update(Request $request, $id)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin']);
 
         return $request;
+
+        $employee = Employee::findOrFail($id);
+        $employee->first_name = $request->first_name;
+        $employee->last_name = $request->last_name;
+        $employee->middle_initial = $request->middle_initial;
+        $employee->maiden_name = $request->maiden_name;
+        $employee->nick_name = $request->nick_name;
+        $employee->suffix = $request->suffix;
+        $employee->ssn = $request->ssn;
+        $employee->gender = $request->gender;
+        $employee->oracle_number = $request->oracle_number;
+        $employee->birth_date = $request->birth_date;
+        $employee->hire_date = $request->hire_date;
+        $employee->service_date = $request->service_date;
+        $employee->address_1 = $request->address_1;
+        $employee->address_2 = $request->address_2;
+        $employee->city = $request->city;
+        $employee->state = $request->state;
+        $employee->zip_code = $request->zip_code;
+        $employee->county = $request->county;
+        $employee->status = $request->status;
+        $employee->rehire = $request->rehire;
+        $employee->bid_eligible = 1;
+        $employee->bid_eligible_date = $request->hire_date;
+        if($request->has('thirty_day_review')) {
+            $employee->thirty_day_review = 1;
+        } else {
+            $employee->thirty_day_review = 0;
+        }
+        if($request->has('sixty_day_review')) {
+            $employee->sixty_day_review = 1;
+        } else {
+            $employee->sixty_day_review = 0;
+        }
+        // if($request->hasFile('photo_link')){
+        //     $path = $request->file('photo_link')->store('public');
+        //     $employee->photo_link = $request->file('photo_link')->hashName();
+            
+        // }
+        if($request->has('delete_photo_link')) {
+            
+            
+        }
+
+        // Save employee
+        if($employee->save()) {
+            // If the save was successful
+            \Session::flash('status', 'Employee updated successfully.');
+            return redirect()->route('employees.show', ['id' => $employee->id]);
+        } else {
+            // If the save was unsuccessful
+            \Session::flash('error', 'An error occurred while updating the employee.  Please contact support for help.');
+            return redirect()->back()->withInput();
+        }
     }
 
     /**

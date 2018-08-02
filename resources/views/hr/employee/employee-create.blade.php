@@ -269,7 +269,7 @@
             <div class="form-row">
             <div class="form-group col-md-6">
                 <div class="custom-file">
-                    <input type="file" class="custom-file-input {{$errors->has('photo_link') ? 'is-invalid' : ''}}" id="create-enployee-photo" name="photo_link">
+                    <input type="file" class="custom-file-input {{$errors->has('photo_link') ? 'is-invalid' : ''}}" id="create-employee-photo" name="photo_link">
                     <label for="create-employee-photo" class="custom-file-label">Choose Employee Photo</label>
                 </div>
             </div>

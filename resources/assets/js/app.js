@@ -52,7 +52,8 @@ function checkReviewOnLoad()
     });
 }
 // Check if review checkbox has changed and change the corresponding hidden input
-$('.employee-review-checkbox').change(function() {
+$('.employee-review-checkbox').change(function() 
+{
     var state = $(this).prop('checked');
     if(state == true) {
         $(this).next('.employee-review-checkbox-hidden').val('checked');
@@ -60,6 +61,21 @@ $('.employee-review-checkbox').change(function() {
         $(this).next('.employee-review-checkbox-hidden').val('unchecked');
     }
 });
+
+// Change color of card border when status or rehire is changed
+$('.boolean-radio-button').change(function() 
+{
+    var name = $(this).attr('name');
+    var radios = $('input[name="'+name+'"]');
+    var checked = radios.filter(function(){
+        return $(this).prop('checked');
+    });
+    if(checked.val() == '1') {
+        $('.card-'+name).removeClass('border-danger').addClass('border-success');
+    } else {
+        $('.card-'+name).removeClass('border-success').addClass('border-danger');
+    }
+})
 
 
 

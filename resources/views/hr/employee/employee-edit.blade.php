@@ -11,7 +11,7 @@
         @include('alerts.validation-alert')
         @include('alerts.session-alert')
 
-        <form action="{{Route('employees.update', $employee->id)}}" class="mt-2" id="edit-employee-form" method="POST">
+        <form action="{{Route('employees.update', $employee->id)}}" class="mt-2" id="edit-employee-form" method="POST" enctype="multipart/form-data">
             @csrf
             @method('Patch')
             <img src="/storage/1.png" alt="Employee Photo" class="img-thumbnail mb-2" width="100" height="100">
@@ -68,16 +68,18 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label for="edit-employee-suffix">Sufix</label>
-                    <select type="text" class="custom-select {{$errors->has('suffix') ? 'is-invalid' : ''}}" id="edit-employee-suffix" name="suffix" value="{{old('suffix')}}">
-                        <option value="{{$employee->suffix}}">{{strtoupper($employee->suffix)}}</option>
-                        <option value=""></option>
-                        <option value="mr">Mr</option>
-                        <option value="mrs">Mrs</option>
-                        <option value="miss">Miss</option>
-                        <option value="jr">Jr</option>
-                        <option value="sr">Sr</option>
-                        <option value="ii">II</option>
-                        <option value="iii">III</option>
+                    <select type="text" class="custom-select {{$errors->has('suffix') ? 'is-invalid' : ''}}" id="edit-employee-suffix" name="suffix">
+                        @if(!old('suffix'))
+                        <option value="{{$employee->suffix}}" selected>{{strtoupper($employee->suffix)}}</option>
+                        @endif
+                        <option {{old('suffix') ? (old('suffix') === '' ? 'selected' : '') : ''}} value=""></option>
+                        <option {{old('suffix') ? (old('suffix') === 'mr' ? 'selected' : '') : ''}} value="mr">MR</option>
+                        <option {{old('suffix') ? (old('suffix') === 'mrs' ? 'selected' : '') : ''}} value="mrs">MRS</option>
+                        <option {{old('suffix') ? (old('suffix') === 'miss' ? 'selected' : '') : ''}} value="miss">MISS</option>
+                        <option {{old('suffix') ? (old('suffix') === 'jr' ? 'selected' : '') : ''}} value="jr">JR</option>
+                        <option {{old('suffix') ? (old('suffix') === 'sr' ? 'selected' : '') : ''}} value="sr">SR</option>
+                        <option {{old('suffix') ? (old('suffix') === 'ii' ? 'selected' : '') : ''}} value="ii">II</option>
+                        <option {{old('suffix') ? (old('suffix') === 'iii' ? 'selected' : '') : ''}} value="iii">III</option>
                     </select>
                     @if($errors->has('suffix'))
                         <span class="invalid-feedback" role="alert">
@@ -89,7 +91,7 @@
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="edit-employee-ssn">SSN @component('components.required-icon')@endComponent</label>
-                    <input type="text" class="form-control {{$errors->has('ssn') ? 'is-invalid' : ''}} ssn-format" id="edit-employee-ssn" name="ssn" value="{{old('ssn')}}"  maxlength="11">
+                    <input type="text" class="form-control {{$errors->has('ssn') ? 'is-invalid' : ''}} ssn-format" id="edit-employee-ssn" name="ssn" value="{{old('ssn') ? old('ssn') : $employee->ssn}}"  maxlength="11">
                     @if($errors->has('ssn'))
                         <span class="invalid-feedback" role="alert">
                             {{$errors->first('ssn')}}
@@ -98,12 +100,15 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label for="edit-employee-gender">Gender @component('components.required-icon')@endComponent</label>
-                    <select type="text" class="custom-select {{$errors->has('gender') ? 'is-invalid' : ''}}" id="edit-employee-gender" name="gender" value="{{old('gender')}}" >
-                        <option value=""></option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                        <option value="other">Other</option>
-                        <option value="none">None</option>
+                    <select type="text" class="custom-select {{$errors->has('gender') ? 'is-invalid' : ''}}" id="edit-employee-gender" name="gender" value="">
+                        @if(!old('gender'))
+                        <option value="{{$employee->gender}}" selected>{{ucwords($employee->gender)}}</option>
+                        @endif
+                        <option {{old('gender') ? (old('gender') === '' ? 'selected' : '') : ''}} value=""></option>
+                        <option {{old('gender') ? (old('gender') === 'male' ? 'selected' : '') : ''}} value="male">Male</option>
+                        <option {{old('gender') ? (old('gender') === 'female' ? 'selected' : '') : ''}} value="female">Female</option>
+                        <option {{old('gender') ? (old('gender') === 'other' ? 'selected' : '') : ''}} value="other">Other</option>
+                        <option {{old('gender') ? (old('gender') === 'none' ? 'selected' : '') : ''}} value="none">None</option>
                     </select>
                     @if($errors->has('gender'))
                         <span class="invalid-feedback" role="alert">
@@ -113,7 +118,7 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label for="edit-employee-oracle-number">Oracle Number</label>
-                    <input type="text" class="form-control {{$errors->has('oracle_number') ? 'is-invalid' : ''}} is-number" id="edit-employee-oracle-number" name="oracle_number" value="{{old('oracle_number')}}">
+                    <input type="text" class="form-control {{$errors->has('oracle_number') ? 'is-invalid' : ''}} is-number" id="edit-employee-oracle-number" name="oracle_number" value="{{old('oracle_number') ? old('oracle_number') : $employee->oracle_number}}">
                     @if($errors->has('oracle_number'))
                         <span class="invalid-feedback" role="alert">
                             {{$errors->first('oracle_number')}}
@@ -124,7 +129,7 @@
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="edit-employee-birth-date">Birth Date @component('components.required-icon')@endComponent</label>
-                    <input type="text" class="form-control {{$errors->has('birth_date') ? 'is-invalid' : ''}} datepicker" id="edit-employee-birth-date" name="birth_date" value="{{old('birth_date')}}" >
+                    <input type="text" class="form-control {{$errors->has('birth_date') ? 'is-invalid' : ''}} datepicker" id="edit-employee-birth-date" name="birth_date" value="{{old('birth_date') ? old('birth_date') : $employee->birth_date->format('m/d/Y')}}" >
                     @if($errors->has('birth_date'))
                         <span class="invalid-feedback" role="alert">
                             {{$errors->first('birth_date')}}
@@ -133,7 +138,7 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label for="edit-employee-hire-date">Hire Date @component('components.required-icon')@endComponent</label>
-                    <input type="text" class="form-control {{$errors->has('hire_date') ? 'is-invalid' : ''}} datepicker" id="edit-employee-hire-date" name="hire_date" value="{{old('hire_date')}}" >
+                    <input type="text" class="form-control {{$errors->has('hire_date') ? 'is-invalid' : ''}} datepicker" id="edit-employee-hire-date" name="hire_date" value="{{old('hire_date') ? old('hire_date') : $employee->hire_date->format('m/d/Y')}}" >
                     @if($errors->has('hire_date'))
                         <span class="invalid-feedback" role="alert">
                             {{$errors->first('hire_date')}}
@@ -142,7 +147,7 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label for="edit-employee-service-date">Service Date @component('components.required-icon')@endComponent</label>
-                    <input type="text" class="form-control {{$errors->has('service_date') ? 'is-invalid' : ''}} datepicker" id="edit-employee-service-date" name="service_date" value="{{old('service_date')}}" >
+                    <input type="text" class="form-control {{$errors->has('service_date') ? 'is-invalid' : ''}} datepicker" id="edit-employee-service-date" name="service_date" value="{{old('service_date') ? old('service_date') : $employee->service_date->format('m/d/Y')}}" >
                     @if($errors->has('service_date'))
                         <span class="invalid-feedback" role="alert">
                             {{$errors->first('service_date')}}
@@ -153,7 +158,7 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="edit-employee-address-1">Address @component('components.required-icon')@endComponent</label>
-                    <input type="text" class="form-control {{$errors->has('address_1') ? 'is-invalid' : ''}}" id="edit-employee-address-1" name="address_1" value="{{old('address_1')}}" >
+                    <input type="text" class="form-control {{$errors->has('address_1') ? 'is-invalid' : ''}}" id="edit-employee-address-1" name="address_1" value="{{old('address_1') ? old('address_1') : $employee->address_1}}" >
                     @if($errors->has('address_1'))
                         <span class="invalid-feedback" role="alert">
                             {{$errors->first('address_1')}}
@@ -162,7 +167,7 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label for="edit-employee-address-2">Address Cont.</label>
-                    <input type="text" class="form-control {{$errors->has('address_2') ? 'is-invalid' : ''}}" id="edit-employee-address-2" name="address_2" value="{{old('address_2')}}">
+                    <input type="text" class="form-control {{$errors->has('address_2') ? 'is-invalid' : ''}}" id="edit-employee-address-2" name="address_2" value="{{old('address_2') ? old('address_2') : $employee->address_2}}">
                     @if($errors->has('address_2'))
                         <span class="invalid-feedback" role="alert">
                             {{$errors->first('address_2')}}
@@ -173,7 +178,7 @@
             <div class="form-row">
                 <div class="form-group col-md-6 col-lg-3">
                     <label for="edit-employee-city">City @component('components.required-icon')@endComponent</label>
-                    <input type="text" class="form-control {{$errors->has('city') ? 'is-invalid' : ''}}" id="edit-employee-city" name="city" value="{{old('city')}}" >
+                    <input type="text" class="form-control {{$errors->has('city') ? 'is-invalid' : ''}}" id="edit-employee-city" name="city" value="{{old('city') ? old('city') : $employee->city}}" >
                     @if($errors->has('city'))
                         <span class="invalid-feedback" role="alert">
                             {{$errors->first('city')}}
@@ -182,58 +187,61 @@
                 </div>
                 <div class="form-group col-md-6 col-lg-3">
                     <label for="edit-employee-state">State @component('components.required-icon')@endComponent</label>
-                    <select type="text" class="custom-select {{$errors->has('state') ? 'is-invalid' : ''}}" id="edit-employee-state" name="state" value="{{old('state')}}" >
-                        <option value="al">Alabama</option>
-                        <option value="ak">Alaska</option>
-                        <option value="az">Arizona</option>
-                        <option value="ar">Arkansas</option>
-                        <option value="ca">California</option>
-                        <option value="co">Colorado</option>
-                        <option value="ct">Connecticut</option>
-                        <option value="de">Delaware</option>
-                        <option value="dc">District Of Columbia</option>
-                        <option value="fl">Florida</option>
-                        <option value="ga">Georgia</option>
-                        <option value="hi">Hawaii</option>
-                        <option value="id">Idaho</option>
-                        <option value="il">Illinois</option>
-                        <option value="in">Indiana</option>
-                        <option value="ia">Iowa</option>
-                        <option value="ks">Kansas</option>
-                        <option value="ky">Kentucky</option>
-                        <option value="la">Louisiana</option>
-                        <option value="me">Maine</option>
-                        <option value="md">Maryland</option>
-                        <option value="ma">Massachusetts</option>
-                        <option value="mi">Michigan</option>
-                        <option value="mn">Minnesota</option>
-                        <option value="ms">Mississippi</option>
-                        <option value="mo">Missouri</option>
-                        <option value="mt">Montana</option>
-                        <option value="ne">Nebraska</option>
-                        <option value="nv">Nevada</option>
-                        <option value="nh">New Hampshire</option>
-                        <option value="nj">New Jersey</option>
-                        <option value="nm">New Mexico</option>
-                        <option value="ny">New York</option>
-                        <option value="nc">North Carolina</option>
-                        <option value="nd">North Dakota</option>
-                        <option value="oh">Ohio</option>
-                        <option value="ok">Oklahoma</option>
-                        <option value="or">Oregon</option>
-                        <option value="pa">Pennsylvania</option>
-                        <option value="ri">Rhode Island</option>
-                        <option value="sc">South Carolina</option>
-                        <option value="sd">South Dakota</option>
-                        <option value="tn">Tennessee</option>
-                        <option value="tx">Texas</option>
-                        <option value="ut">Utah</option>
-                        <option value="vt">Vermont</option>
-                        <option value="va">Virginia</option>
-                        <option value="wa">Washington</option>
-                        <option value="wv">West Virginia</option>
-                        <option value="wi">Wisconsin</option>
-                        <option value="wy">Wyoming</option>
+                    <select type="text" class="custom-select {{$errors->has('state') ? 'is-invalid' : ''}}" id="edit-employee-state" name="state" value="" >
+                        @if(!old('state'))
+                        <option value="{{$employee->state}}" selected>{{$employee->state_full_name}}</option>
+                        @endif
+                        <option {{old('state') ? (old('state') === 'al' ? 'selected' : '') : ''}} value="al">Alabama</option>
+                        <option {{old('state') ? (old('state') === 'ak' ? 'selected' : '') : ''}} value="ak">Alaska</option>
+                        <option {{old('state') ? (old('state') === 'az' ? 'selected' : '') : ''}} value="az">Arizona</option>
+                        <option {{old('state') ? (old('state') === 'ar' ? 'selected' : '') : ''}} value="ar">Arkansas</option>
+                        <option {{old('state') ? (old('state') === 'ca' ? 'selected' : '') : ''}} value="ca">California</option>
+                        <option {{old('state') ? (old('state') === 'co' ? 'selected' : '') : ''}} value="co">Colorado</option>
+                        <option {{old('state') ? (old('state') === 'ct' ? 'selected' : '') : ''}} value="ct">Connecticut</option>
+                        <option {{old('state') ? (old('state') === 'de' ? 'selected' : '') : ''}} value="de">Delaware</option>
+                        <option {{old('state') ? (old('state') === 'dc' ? 'selected' : '') : ''}} value="dc">District Of Columbia</option>
+                        <option {{old('state') ? (old('state') === 'fl' ? 'selected' : '') : ''}} value="fl">Florida</option>
+                        <option {{old('state') ? (old('state') === 'ga' ? 'selected' : '') : ''}} value="ga">Georgia</option>
+                        <option {{old('state') ? (old('state') === 'hi' ? 'selected' : '') : ''}} value="hi">Hawaii</option>
+                        <option {{old('state') ? (old('state') === 'id' ? 'selected' : '') : ''}} value="id">Idaho</option>
+                        <option {{old('state') ? (old('state') === 'il' ? 'selected' : '') : ''}} value="il">Illinois</option>
+                        <option {{old('state') ? (old('state') === 'in' ? 'selected' : '') : ''}} value="in">Indiana</option>
+                        <option {{old('state') ? (old('state') === 'ia' ? 'selected' : '') : ''}} value="ia">Iowa</option>
+                        <option {{old('state') ? (old('state') === 'ks' ? 'selected' : '') : ''}} value="ks">Kansas</option>
+                        <option {{old('state') ? (old('state') === 'ky' ? 'selected' : '') : ''}} value="ky">Kentucky</option>
+                        <option {{old('state') ? (old('state') === 'la' ? 'selected' : '') : ''}} value="la">Louisiana</option>
+                        <option {{old('state') ? (old('state') === 'me' ? 'selected' : '') : ''}} value="me">Maine</option>
+                        <option {{old('state') ? (old('state') === 'md' ? 'selected' : '') : ''}} value="md">Maryland</option>
+                        <option {{old('state') ? (old('state') === 'ma' ? 'selected' : '') : ''}} value="ma">Massachusetts</option>
+                        <option {{old('state') ? (old('state') === 'mi' ? 'selected' : '') : ''}} value="mi">Michigan</option>
+                        <option {{old('state') ? (old('state') === 'mn' ? 'selected' : '') : ''}} value="mn">Minnesota</option>
+                        <option {{old('state') ? (old('state') === 'ms' ? 'selected' : '') : ''}} value="ms">Mississippi</option>
+                        <option {{old('state') ? (old('state') === 'mo' ? 'selected' : '') : ''}} value="mo">Missouri</option>
+                        <option {{old('state') ? (old('state') === 'mt' ? 'selected' : '') : ''}} value="mt">Montana</option>
+                        <option {{old('state') ? (old('state') === 'ne' ? 'selected' : '') : ''}} value="ne">Nebraska</option>
+                        <option {{old('state') ? (old('state') === 'nv' ? 'selected' : '') : ''}} value="nv">Nevada</option>
+                        <option {{old('state') ? (old('state') === 'nh' ? 'selected' : '') : ''}} value="nh">New Hampshire</option>
+                        <option {{old('state') ? (old('state') === 'nj' ? 'selected' : '') : ''}} value="nj">New Jersey</option>
+                        <option {{old('state') ? (old('state') === 'nm' ? 'selected' : '') : ''}} value="nm">New Mexico</option>
+                        <option {{old('state') ? (old('state') === 'ny' ? 'selected' : '') : ''}} value="ny">New York</option>
+                        <option {{old('state') ? (old('state') === 'nc' ? 'selected' : '') : ''}} value="nc">North Carolina</option>
+                        <option {{old('state') ? (old('state') === 'nd' ? 'selected' : '') : ''}} value="nd">North Dakota</option>
+                        <option {{old('state') ? (old('state') === 'oh' ? 'selected' : '') : ''}} value="oh">Ohio</option>
+                        <option {{old('state') ? (old('state') === 'ok' ? 'selected' : '') : ''}} value="ok">Oklahoma</option>
+                        <option {{old('state') ? (old('state') === 'or' ? 'selected' : '') : ''}} value="or">Oregon</option>
+                        <option {{old('state') ? (old('state') === 'pa' ? 'selected' : '') : ''}} value="pa">Pennsylvania</option>
+                        <option {{old('state') ? (old('state') === 'ri' ? 'selected' : '') : ''}} value="ri">Rhode Island</option>
+                        <option {{old('state') ? (old('state') === 'sc' ? 'selected' : '') : ''}} value="sc">South Carolina</option>
+                        <option {{old('state') ? (old('state') === 'sd' ? 'selected' : '') : ''}} value="sd">South Dakota</option>
+                        <option {{old('state') ? (old('state') === 'tn' ? 'selected' : '') : ''}} value="tn">Tennessee</option>
+                        <option {{old('state') ? (old('state') === 'tx' ? 'selected' : '') : ''}} value="tx">Texas</option>
+                        <option {{old('state') ? (old('state') === 'ut' ? 'selected' : '') : ''}} value="ut">Utah</option>
+                        <option {{old('state') ? (old('state') === 'vt' ? 'selected' : '') : ''}} value="vt">Vermont</option>
+                        <option {{old('state') ? (old('state') === 'va' ? 'selected' : '') : ''}} value="va">Virginia</option>
+                        <option {{old('state') ? (old('state') === 'wa' ? 'selected' : '') : ''}} value="wa">Washington</option>
+                        <option {{old('state') ? (old('state') === 'wv' ? 'selected' : '') : ''}} value="wv">West Virginia</option>
+                        <option {{old('state') ? (old('state') === 'wi' ? 'selected' : '') : ''}} value="wi">Wisconsin</option>
+                        <option {{old('state') ? (old('state') === 'wy' ? 'selected' : '') : ''}} value="wy">Wyoming</option>
                     </select>
                     @if($errors->has('state'))
                         <span class="invalid-feedback" role="alert">
@@ -243,7 +251,7 @@
                 </div>
                 <div class="form-group col-md-6 col-lg-3">
                     <label for="edit-employee-zip-code">Zip Code @component('components.required-icon')@endComponent</label>
-                    <input type="text" class="form-control {{$errors->has('zip_code') ? 'is-invalid' : ''}} is-number" id="edit-employee-zip-code" name="zip_code" value="{{old('zip_code')}}" >
+                    <input type="text" class="form-control {{$errors->has('zip_code') ? 'is-invalid' : ''}} is-number" id="edit-employee-zip-code" name="zip_code" value="{{old('zip_code') ? old('zip_code') : $employee->zip_code}}">
                     @if($errors->has('zip_code'))
                         <span class="invalid-feedback" role="alert">
                             {{$errors->first('zip_code')}}
@@ -252,7 +260,7 @@
                 </div>
                 <div class="form-group col-md-6 col-lg-3">
                     <label for="edit-employee-county">County @component('components.required-icon')@endComponent</label>
-                    <input type="text" class="form-control {{$errors->has('county') ? 'is-invalid' : ''}}" id="edit-employee-county" name="county" value="{{old('county')}}" >
+                    <input type="text" class="form-control {{$errors->has('county') ? 'is-invalid' : ''}}" id="edit-employee-county" name="county" value="{{old('county') ? old('county') : $employee->county}}" >
                     @if($errors->has('county'))
                         <span class="invalid-feedback" role="alert">
                             {{$errors->first('county')}}
@@ -262,39 +270,49 @@
             </div>
 
             <div class="form-row card-deck mb-3">
-                <div class="card">
+                <div class="card card-status {{old('status') !== null ? (old('status') === '1' ? 'border-success' : 'border-danger') : ($employee->status === '1' ? 'border-success' : 'border-danger')}}">
                     <div class="card-header">Status</div>
                     <div class="card-body">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="status" id="edit-employee-status-active" value="1" {{old('status') !== null ? (old('status') === '1' ? 'checked' : '') : ($employee->status === '1' ? 'checked' : '')}}>
+                            <input class="form-check-input boolean-radio-button" type="radio" name="status" id="edit-employee-status-active" value="1" {{old('status') !== null ? (old('status') === '1' ? 'checked' : '') : ($employee->status === '1' ? 'checked' : '')}}>
                             <label class="form-check-label" for="edit-employee-status-active">
                             Active
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="status" id="edit-employee-status-inactive" value="0" {{old('status') !== null ? (old('status') === '0' ? 'checked' : '') : ($employee->status === '0' ? 'checked' : '')}}>
+                            <input class="form-check-input boolean-radio-button" type="radio" name="status" id="edit-employee-status-inactive" value="0" {{old('status') !== null ? (old('status') === '0' ? 'checked' : '') : ($employee->status === '0' ? 'checked' : '')}}>
                             <label class="form-check-label" for="edit-employee-status-inactive">
                             Inactive
                             </label>
                         </div>
+                        @if($errors->has('status'))
+                        <span class="invalid-feedback" role="alert">
+                            {{$errors->first('status')}}
+                        </span>
+                    @endif
                     </div>
                 </div>
 
-                <div class="card">
+                <div class="card card-rehire {{old('rehire') !== null ? (old('rehire') === '1' ? 'border-success' : 'border-danger') : ($employee->rehire === '1' ? 'border-success' : 'border-danger')}}">
                     <div class="card-header">Rehire</div>
                     <div class="card-body">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="rehire" id="edit-employee-rehire-yes" value="1" {{old('rehire') !== null ? (old('rehire') === '1' ? 'checked' : '') : ($employee->rehire === '1' ? 'checked' : '')}}>
+                            <input class="form-check-input boolean-radio-button" type="radio" name="rehire" id="edit-employee-rehire-yes" value="1" {{old('rehire') !== null ? (old('rehire') === '1' ? 'checked' : '') : ($employee->rehire === '1' ? 'checked' : '')}}>
                             <label class="form-check-label" for="edit-employee-rehire-yes">
                             Yes
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="rehire" id="edit-employee-rehire-no" value="0" {{old('rehire') !== null ? (old('rehire') === '0' ? 'checked' : '') : ($employee->rehire === '0' ? 'checked' : '')}}>
+                            <input class="form-check-input boolean-radio-button" type="radio" name="rehire" id="edit-employee-rehire-no" value="0" {{old('rehire') !== null ? (old('rehire') === '0' ? 'checked' : '') : ($employee->rehire === '0' ? 'checked' : '')}}>
                             <label class="form-check-label" for="edit-employee-rehire-no">
                             No
                             </label>
                         </div>
+                        @if($errors->has('rehire'))
+                        <span class="invalid-feedback" role="alert">
+                            {{$errors->first('rehire')}}
+                        </span>
+                    @endif
                     </div>
                 </div>
 
@@ -308,6 +326,11 @@
                             Thirty Day {{old('thirty_day_review') ? 'old data' : 'new'}}
                             </label>
                         </div>
+                        @if($errors->has('thirty_day_review'))
+                            <span class="invalid-feedback" role="alert">
+                                {{$errors->first('thirty_day_review')}}
+                            </span>
+                        @endif
                         <div class="form-check employee-review-checkbox-div">
                             <input class="form-check-input employee-review-checkbox" type="checkbox" name="sixty_day_review" id="edit-employee-sixty-day-review" value="1" >
                             <input type="hidden" class="form-control employee-review-checkbox-hidden" name="sixty_day_review_hidden" id="edit-employee-sixty-day-review-hidden" value="{{old('sixty_day_review_hidden') ? old('sixty_day_review_hidden') : ($employee->sixty_day_review === '1' ? 'checked' : 'unchecked')}}">
@@ -315,29 +338,30 @@
                             Sixty Day
                             </label>
                         </div>
+                        @if($errors->has('sixty_day_review'))
+                        <span class="invalid-feedback" role="alert">
+                            {{$errors->first('sixty_day_review')}}
+                        </span>
+                    @endif
                     </div>
                 </div>
             </div>
 
-            <!-- <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="edit-employee-photo">Employee Photo</label>
-                    <input type="file" class="form-control-file {{$errors->has('photo_link') ? 'is-invalid' : ''}}" id="edit-employee-photo" name="photo_link" value="{{old('photo_link') !== null ? old('photo_link') : $employee->photo_link}}">
-                    @if($errors->has('photo_link'))
-                        <span class="invalid-feedback" role="alert">
-                            {{$errors->first('photo_link')}}
-                        </span>
-                    @endif
-                </div>
-            </div> -->
-
             <div class="form-row">
-            <div class="form-group col-md-6">
-                <div class="custom-file">
-                    <input type="file" class="custom-file-input {{$errors->has('photo_link') ? 'is-invalid' : ''}}" id="edit-enployee-photo" name="photo_link">
-                    <label for="edit-employee-photo" class="custom-file-label">Choose Employee Photo</label>
+                <div class="form-group col-md-6">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input {{$errors->has('photo_link') ? 'is-invalid' : ''}}" id="edit-employee-photo" name="photo_link">
+                        <label for="edit-employee-photo" class="custom-file-label">Choose Employee Photo</label>
+                    </div>
                 </div>
-            </div>
+                <div class="form-group col-md-6">
+                    <div class="custom-control custom-checkbox">
+                        <input class="custom-control-input" type="checkbox" id="delete-employee-photo" name="delete_photo_link">
+                        <label class="custom-control-label text-danger" for="delete-employee-photo">
+                            <i class="fas fa-long-arrow-alt-left fa-lg"></i> Check here to remove employee photo.
+                        </label>
+                    </div>
+                </div>
             </div>
 
             <button type="submit" class="btn btn-primary" id="edit-employee-submit-button">Save Employee</button>

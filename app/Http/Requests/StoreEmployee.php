@@ -59,8 +59,12 @@ class StoreEmployee extends FormRequest
             ];
         }else { // If updating an employee
             $rulesArray += [
-                'ssn' => 'required|unique:employees,ssn'.$id,
-                'oracle_number' => 'nullable|unique:employees,oracle_number'.$id,
+                'ssn' => 'required|unique:employees,ssn,'.$id,
+                'oracle_number' => 'nullable|unique:employees,oracle_number,'.$id,
+                'status' => 'required|boolean',
+                'rehire' => 'required|boolean',
+                'thirty_day_review' => 'nullable|boolean',
+                'sixty_day_review' => 'nullable|boolean'
             ];
         }
 
