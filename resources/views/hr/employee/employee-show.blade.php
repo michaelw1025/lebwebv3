@@ -192,9 +192,9 @@
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="show-employee-phone-number-primary-{{$loop->iteration}}" name="is_primary_{{$loop->iteration}}" {{$employeePhoneNumber->is_primary == '1' ? 'checked' : ''}} disabled>
-                                    <label class="custom-control-label {{$employeePhoneNumber->is_primary == '1' ? 'text-primary' : ''}}" for="show-employee-phone-number-primary-{{$loop->iteration}}">Primary</label>
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" class="custom-control-input" id="show-employee-phone-number-primary-{{$loop->iteration}}" name="is_primary_{{$loop->iteration}}" {{$employeePhoneNumber->is_primary == '1' ? 'checked' : ''}} disabled>
+                                    <label class="custom-control-label" for="show-employee-phone-number-primary-{{$loop->iteration}}">Primary</label>
                                 </div>
                             </div>
                         </div>

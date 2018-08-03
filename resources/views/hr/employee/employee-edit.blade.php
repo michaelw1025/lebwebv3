@@ -11,6 +11,17 @@
         @include('alerts.validation-alert')
         @include('alerts.session-alert')
 
+
+        @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
         <form action="{{Route('employees.update', $employee->id)}}" class="mt-2" id="edit-employee-form" method="POST" enctype="multipart/form-data">
             @csrf
             @method('Patch')
@@ -371,8 +382,8 @@
                 </div>
             </div>
 
-            <header class="alert alert-primary mt-4" role="alert">
-                Occupation
+            <header class="alert alert-primary mt-4 h2" role="alert">
+                <i class="fas fa-dolly"></i> Occupation
             </header>
             <div class="form-row">
                 <div class="form-group col-md-4">
@@ -448,8 +459,113 @@
                 </div>
             </div>
 
+            <header class="alert alert-primary mt-4 h2" role="alert">
+                <i class="fas fa-phone"></i> Phone Numbers
+            </header>
+            <div class="form-row">
+            @if(old('phone_number'))
+                @php  
+                $phoneNumberCount = count(old('phone_number')) + 1;
+                @endphp
+                @foreach(old('phone_number') as $oldPhoneNumber)
+                <div class="col-md-6 col-xl-4 mb-3">
+                    <label for="edit-employee-phone-number-{{$loop->iteration}}">Phone Number {{$loop->iteration}}</label>
+                    <div class="input-group">
+                        <div class="input-group-text">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input radio-select-primary" id="edit-employee-phone-number-primary-{{$loop->iteration}}" name="phone_number_is_primary" {{$oldPhoneNumber['number'] == old('phone_number_is_primary') ? 'checked' : ''}} value="{{$oldPhoneNumber['number']}}">
+                                <label for="edit-employee-phone-number-primary-{{$loop->iteration}}" class="custom-control-label radio-select-primary-label">Primary</label>
+                            </div>
+                        </div>
+                        <input type="text" class="form-control phone-number-format {{$errors->has('phone_number.'.$loop->iteration.'.number') ? 'is-invalid' : ''}}" id="edit-employee-phone-number-{{$loop->iteration}}" name="phone_number[{{$loop->iteration}}][number]" value="{{$oldPhoneNumber['number']}}" maxlength="12">
+                        <input hidden type="text" class="form-control" id="edit-employee-phone-number-id-{{$loop->iteration}}" name="phone_number[{{$loop->iteration}}][id]" value="{{$oldPhoneNumber['id']}}">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="edit-employee-phone-number-delete-{{$loop->iteration}}" name="phone_number[{{$loop->iteration}}][delete]" value="delete" {{in_array('delete', $oldPhoneNumber) ? 'checked' : ''}}>
+                                    <label class="custom-control-label custom-control-label-delete" for="edit-employee-phone-number-delete-{{$loop->iteration}}">Delete</label>
+                                </div>
+                            </div>
+                        </div>
+                        @if($errors->has('phone_number.'.$loop->iteration.'.number'))
+                            <span class="invalid-feedback" role="alert">
+                                {{$errors->first('phone_number.'.$loop->iteration.'.number')}}
+                            </span>
+                        @endif
+                    </div>
+                </div>
+                @endforeach
+
+            @else
+                @php  
+                $phoneNumberCount = $employee->phoneNumber->count() + 1;
+                @endphp
+                @foreach($employee->phoneNumber as $employeePhoneNumber)
+                <div class="col-md-6 col-xl-4 mb-3">
+                    <label for="edit-employee-phone-number-{{$loop->iteration}}">Phone Number {{$loop->iteration}}</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" class="custom-control-input radio-select-primary" id="edit-employee-phone-number-primary-{{$loop->iteration}}" name="phone_number_is_primary" {{$employeePhoneNumber->is_primary == '1' ? 'checked' : ''}} value="{{$employeePhoneNumber->number}}">
+                                    <label class="custom-control-label radio-select-primary-label" for="edit-employee-phone-number-primary-{{$loop->iteration}}">Primary</label>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="text" class="form-control phone-number-format {{$errors->has('phone_number.'.$loop->iteration.'.number') ? 'is-invalid' : ''}}" id="edit-employee-phone-number-{{$loop->iteration}}" name="phone_number[{{$loop->iteration}}][number]" value="{{$employeePhoneNumber->number}}" maxlength="12">
+                        <input hidden type="text" class="form-control" id="edit-employee-phone-number-id-{{$loop->iteration}}" name="phone_number[{{$loop->iteration}}][id]" value="{{$employeePhoneNumber->id}}">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="edit-employee-phone-number-delete-{{$loop->iteration}}" name="phone_number[{{$loop->iteration}}][delete]" value="delete">
+                                    <label class="custom-control-label custom-control-label-delete" for="edit-employee-phone-number-delete-{{$loop->iteration}}">Delete</label>
+                                </div>
+                            </div>
+                        </div>
+                        @if($errors->has('phone_number.'.$loop->iteration.'.number'))
+                            <span class="invalid-feedback" role="alert">
+                                {{$errors->first('phone_number.'.$loop->iteration.'.number')}}
+                            </span>
+                        @endif
+                    </div>
+                </div>
+                @endforeach
+
+            @endif
+
+            @for($phoneNumberCount; $phoneNumberCount < 6; $phoneNumberCount++)
+            <div class="col-md-6 col-xl-4 mb-3">
+                    <label for="edit-employee-phone-number-{{$phoneNumberCount}}">Phone Number {{$phoneNumberCount}}</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" class="custom-control-input radio-select-primary" id="edit-employee-phone-number-primary-{{$phoneNumberCount}}" name="phone_number_is_primary" value="">
+                                    <label class="custom-control-label radio-select-primary-label " for="edit-employee-phone-number-primary-{{$phoneNumberCount}}">Primary</label>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="text" class="form-control phone-number-format" id="edit-employee-phone-number-{{$phoneNumberCount}}" name="phone_number[{{$phoneNumberCount}}][number]" value="" maxlength="12">
+                        <input hidden type="text" class="form-control" id="edit-employee-phone-number-id-{{$phoneNumberCount}}" name="phone_number[{{$phoneNumberCount}}][id]" value="">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="edit-employee-phone-number-delete-{{$phoneNumberCount}}" name="phone_number[{{$phoneNumberCount}}][delete]" value="delete">
+                                    <label class="custom-control-label custom-control-label-delete" for="edit-employee-phone-number-delete-{{$phoneNumberCount}}">Delete</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endfor
+                
+            </div>
+
             <button type="submit" class="btn btn-edit" id="edit-employee-submit-button">Save Employee</button>
         </form>
+
+        <hr class="my-4"></hr>
+        <hr class="my-4"></hr>
 
     </article>
 

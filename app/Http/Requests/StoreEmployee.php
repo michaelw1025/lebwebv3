@@ -54,7 +54,8 @@ class StoreEmployee extends FormRequest
             'cost_center' => 'required',
             'shift' => 'required',
             'position' => 'required',
-            'job' => 'required'
+            'job' => 'required',
+            'phone_number.*.number' => 'nullable|size:12'
         ];
 
         if($this->route()->named('employees.store')) { // If storing a new employee
@@ -74,5 +75,17 @@ class StoreEmployee extends FormRequest
         }
 
         return $rulesArray;
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'phone_number.*.number.size' => 'The phone number field must be 12 characters including dashes',
+        ];
     }
 }

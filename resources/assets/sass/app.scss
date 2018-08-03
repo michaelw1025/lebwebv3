@@ -36,6 +36,7 @@ body {
   }
 }
 
+// Make the page scroll only in the main content area
 .main-content-article {
   overflow: scroll;
 }
@@ -44,6 +45,12 @@ body {
   background-color: rgba($color: $white, $alpha: 0.8);
 }
 
+// Make clickable table rows have a pointer on hover
 .clickable-row{
   cursor: pointer;
+}
+
+// Make delete checkboxes red when checked
+.custom-checkbox .custom-control-input:checked~.custom-control-label-delete::after {
+  background-color: red;
 }

@@ -32,13 +32,13 @@ $(document).ready(function()
         showAnim: "slideDown"
     });
 
-    // Check if review item is checked at load
+    // Check if review item is checked at load needed to load old data
     checkReviewOnLoad();
 
 });
 
 
-// Check if review item is checked at load
+// Check if review item is checked at load needed to load old data
 function checkReviewOnLoad()
 {
     $('.employee-review-checkbox-div').each(function() {
@@ -51,7 +51,7 @@ function checkReviewOnLoad()
         
     });
 }
-// Check if review checkbox has changed and change the corresponding hidden input
+// Check if review checkbox has changed and change the corresponding hidden input needed to load old data
 $('.employee-review-checkbox').change(function() 
 {
     var state = $(this).prop('checked');
@@ -237,4 +237,40 @@ $('.custom-file-input').on('change', function()
 {
     let fileName = $(this).val().split('\\').pop();
     $(this).siblings('.custom-file-label').addClass('selected').html(fileName);
+});
+
+
+
+// Format phone numbers
+// trap keypress - only allow numbers
+$('.phone-number-format').on('keypress', function(event)
+{
+    // trap keypress
+    var character = String.fromCharCode(event.which);
+    if(!isInteger(character)){
+        return false;
+    }
+});
+
+// format phone number
+$('.phone-number-format').on('keyup', function()
+{
+   var val = this.value.replace(/\D/g, '');
+   var newVal = '';
+    if(val.length > 4) {
+        this.value = val;
+    }
+    if((val.length > 3) && (val.length < 6)) {
+        newVal += val.substr(0, 3) + '-';
+        val = val.substr(3);
+    }
+    if (val.length > 6) {
+        newVal += val.substr(0, 3) + '-';
+        newVal += val.substr(3, 3) + '-';
+        val = val.substr(6);
+    }
+    newVal += val;
+    var iteration = $(this).attr('id').substr($(this).attr('id').length - 1);
+    $('#edit-employee-phone-number-primary-'+iteration).val(newVal);
+    this.value = newVal;
 });

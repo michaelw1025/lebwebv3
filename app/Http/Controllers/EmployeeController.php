@@ -137,6 +137,23 @@ class EmployeeController extends Controller
             $employee->position()->sync([$request->position]);
             // Sync job
             $employee->job()->sync([$request->job]);
+            // Check if any phone numbers are in the request
+            if($request->has('phone_number')){
+                // Cycle through each phone number
+                foreach($request->phone_number as $requestPhoneNumber) {
+                    if($requestPhoneNumber['number'] !== null) {  // If the phone number is being added
+                        $newPhoneNumber = new PhoneNumber();
+                        $newPhoneNumber->number = $requestPhoneNumber['number'];
+                        // Check if this phone number is set as primary
+                        if($request->phone_number_is_primary === $requestPhoneNumber['number']) {  // If it is primary
+                            $newPhoneNumber->is_primary = 1;
+                        } else {  // If it is not primary
+                            $newPhoneNumber->is_primary = 0;
+                        }
+                        $employee->phoneNumber()->save($newPhoneNumber);
+                    } 
+                }
+            }
             // If the save was successful
             \Session::flash('status', 'Employee created successfully.');
             // Return the show employee view
@@ -277,9 +294,6 @@ class EmployeeController extends Controller
             // Set the employee photo link to the new photo name
             $employee->photo_link = $request->file('photo_link')->hashName();
         }
-
-        // return $request;
-
         // Save employee
         if($employee->save()) {
             // Sync cost center
@@ -290,6 +304,42 @@ class EmployeeController extends Controller
             $employee->position()->sync([$request->position]);
             // Sync job
             $employee->job()->sync([$request->job]);
+            // Save phone numbers
+            // Check if any phone numbers are in the request
+            if($request->has('phone_number')){
+                // Cycle through each phone number
+                foreach($request->phone_number as $requestPhoneNumber) {
+                    // Check if the phone number is being deleted, added, or updated
+                    if(in_array('delete', $requestPhoneNumber)) {  // If phone number is being deleted
+                        // Check if the phone number is in the database by checking if an id was sent with the request
+                        if($requestPhoneNumber['id'] !== null) {  // If an id was given
+                            // Get the phone number to delete
+                            $employee->phoneNumber()->where('id', $requestPhoneNumber['id'])->delete();
+                        }
+                    } elseif($requestPhoneNumber['id'] === null && $requestPhoneNumber['number'] !== null) {  // If the phone number is being added
+                        $newPhoneNumber = new PhoneNumber();
+                        $newPhoneNumber->number = $requestPhoneNumber['number'];
+                        // Check if this phone number is set as primary
+                        if($request->phone_number_is_primary === $requestPhoneNumber['number']) {  // If it is primary
+                            $newPhoneNumber->is_primary = 1;
+                        } else {  // If it is not primary
+                            $newPhoneNumber->is_primary = 0;
+                        }
+                        $employee->phoneNumber()->save($newPhoneNumber);
+                    } elseif($requestPhoneNumber['id'] !== null) {  // If the phone number is being updated
+                        // Update the phone number
+                        $updatePhoneNumber = PhoneNumber::find($requestPhoneNumber['id']);
+                        $updatePhoneNumber->number = $requestPhoneNumber['number'];
+                        // Check if this phone number is set as primary
+                        if($request->phone_number_is_primary === $requestPhoneNumber['number']) {  // If it is primary
+                            $updatePhoneNumber->is_primary = 1;
+                        } else {  // If it is not primary
+                            $updatePhoneNumber->is_primary = 0;
+                        }
+                        $employee->phoneNumber()->save($updatePhoneNumber);
+                    }
+                }
+            }
             // If the save was successful
             \Session::flash('status', 'Employee updated successfully.');
             // Return the show employee view
