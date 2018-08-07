@@ -12,6 +12,8 @@ use App\Shift;
 use App\Position;
 use App\Job;
 use App\PhoneNumber;
+use App\EmergencyContact;
+use App\Disciplinary;
 
 class EmployeeController extends Controller
 {
@@ -89,7 +91,7 @@ class EmployeeController extends Controller
      */
     public function store(StoreEmployee $request)
     {
-        // return $request;
+        // dd($request);
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin']);
         // Create a new employee object
@@ -154,6 +156,24 @@ class EmployeeController extends Controller
                     } 
                 }
             }
+            // Check if any emergency contacts are in the request
+            if($request->has('emergency_contact')){
+                // Cycle through each emergency contact
+                foreach($request->emergency_contact as $requestEmergencyContact) {
+                    if($requestEmergencyContact['number'] !== null) {  // If the emergency contact is being added
+                        $newEmergencyContact = new EmergencyContact();
+                        $newEmergencyContact->number = $requestEmergencyContact['number'];
+                        $newEmergencyContact->name = $requestEmergencyContact['name'];
+                        // Check if this emergency contact is set as primary
+                        if($request->emergency_contact_is_primary === $requestEmergencyContact['number']) {  // If it is primary
+                            $newEmergencyContact->is_primary = 1;
+                        } else {  // If it is not primary
+                            $newEmergencyContact->is_primary = 0;
+                        }
+                        $employee->emergencyContact()->save($newEmergencyContact);
+                    } 
+                }
+            }
             // If the save was successful
             \Session::flash('status', 'Employee created successfully.');
             // Return the show employee view
@@ -186,11 +206,16 @@ class EmployeeController extends Controller
             'shift',
             'position',
             'job',
-            'phoneNumber'
+            'phoneNumber',
+            'emergencyContact',
+            'disciplinary'
         )->findOrFail($id);
         // Get the full name of the state
         $this->checkState($employee);
-        // return $employee;
+        // Get disciplinary info
+        foreach($employee->disciplinary as $disciplinary){
+            $this->getDisciplinaryInfo($disciplinary);
+        }
         // Return the show employee view
         return view('hr.employee.employee-show', [
             'employee' => $employee
@@ -208,7 +233,18 @@ class EmployeeController extends Controller
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin']);
         // Get employee to edit
-        $employee = Employee::with('costCenter')->findOrFail($id);
+        $employee = Employee::with(
+            'costCenter.employeeStaffManager',
+            'costCenter.employeeDayTeamManager',
+            'costCenter.employeeNightTeamManager',
+            'costCenter.employeeDayTeamLeader',
+            'costCenter.employeeNightTeamLeader',
+            'shift',
+            'position',
+            'job',
+            'phoneNumber',
+            'emergencyContact'
+        )->findOrFail($id);
         // Get the full name of the state
         $this->checkState($employee);
         // Get all cost centers
@@ -337,6 +373,44 @@ class EmployeeController extends Controller
                             $updatePhoneNumber->is_primary = 0;
                         }
                         $employee->phoneNumber()->save($updatePhoneNumber);
+                    }
+                }
+            }
+            // Save emergency contacts
+            // Check if any emergency contacts are in the request
+            if($request->has('emergency_contact')){
+                // Cycle through each emergency contact
+                foreach($request->emergency_contact as $requestEmergencyContact) {
+                    // Check if the emergency contact is being deleted, added, or updated
+                    if(in_array('delete', $requestEmergencyContact)) {  // If emergency contact is being deleted
+                        // Check if the emergency contact is in the database by checking if an id was sent with the request
+                        if($requestEmergencyContact['id'] !== null) {  // If an id was given
+                            // Get the emergency contact to delete
+                            $employee->emergencyContact()->where('id', $requestEmergencyContact['id'])->delete();
+                        }
+                    } elseif($requestEmergencyContact['id'] === null && $requestEmergencyContact['number'] !== null) {  // If the emergency contact is being added
+                        $newEmergencyContact = new EmergencyContact();
+                        $newEmergencyContact->number = $requestEmergencyContact['number'];
+                        $newEmergencyContact->name = $requestEmergencyContact['name'];
+                        // Check if this emergency contact is set as primary
+                        if($request->emergency_contact_is_primary === $requestEmergencyContact['number']) {  // If it is primary
+                            $newEmergencyContact->is_primary = 1;
+                        } else {  // If it is not primary
+                            $newEmergencyContact->is_primary = 0;
+                        }
+                        $employee->emergencyContact()->save($newEmergencyContact);
+                    } elseif($requestEmergencyContact['id'] !== null) {  // If the emergency contact is being updated
+                        // Update the emergency contact
+                        $updateEmergencyContact = EmergencyContact::find($requestEmergencyContact['id']);
+                        $updateEmergencyContact->number = $requestEmergencyContact['number'];
+                        $updateEmergencyContact->name = $requestEmergencyContact['name'];
+                        // Check if this emergency contact is set as primary
+                        if($request->emergency_contact_is_primary === $requestEmergencyContact['number']) {  // If it is primary
+                            $updateEmergencyContact->is_primary = 1;
+                        } else {  // If it is not primary
+                            $updateEmergencyContact->is_primary = 0;
+                        }
+                        $employee->emergencyContact()->save($updateEmergencyContact);
                     }
                 }
             }

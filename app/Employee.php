@@ -271,4 +271,16 @@ class Employee extends Model
     {
         return $this->hasMany('App\PhoneNumber')->orderBy('is_primary', 'desc');
     }
+
+    // Emergency Contact relationship
+    public function emergencyContact()
+    {
+        return $this->hasMany('App\EmergencyContact')->orderBy('is_primary', 'desc');
+    }
+
+    // Disciplinary relationship
+    public function disciplinary()
+    {
+        return $this->hasMany('App\Disciplinary')->orderBy('type', 'asc')->orderBy('date', 'desc');
+    }
 }

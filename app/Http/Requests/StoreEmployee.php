@@ -55,8 +55,29 @@ class StoreEmployee extends FormRequest
             'shift' => 'required',
             'position' => 'required',
             'job' => 'required',
-            'phone_number.*.number' => 'nullable|size:12'
+            'phone_number.*.number' => 'nullable|size:12',
+            // 'emergency_contact.*.number' => 'nullable|size:12',
+            // 'emergency_contact.*.name' => 'required_with:emergency_contact.*.name|string|max:35'
         ];
+
+        // Check emergency contacts
+        if($this->has('emergency_contact')) {
+            $eCCount = 1;
+            foreach($this->emergency_contact as $eC) {
+                if($eC['number'] !== null){
+                    $rulesArray += [
+                        'emergency_contact.'.$eCCount.'.number' => 'size:12',
+                        'emergency_contact.'.$eCCount.'.name' => 'required|string|max:35'
+                    ];
+                } elseif($eC['name'] !== null) {
+                    $rulesArray += [
+                        'emergency_contact.'.$eCCount.'.number' => 'required|size:12',
+                        'emergency_contact.'.$eCCount.'.name' => 'string|max:35'
+                    ];
+                }
+                $eCCount++;
+            }
+        }
 
         if($this->route()->named('employees.store')) { // If storing a new employee
             $rulesArray += [
@@ -85,7 +106,10 @@ class StoreEmployee extends FormRequest
     public function messages()
     {
         return [
-            'phone_number.*.number.size' => 'The phone number field must be 12 characters including dashes',
+            'phone_number.*.number.size' => 'The phone number field must be 12 characters including dashes.',
+            'emergency_contact.*.number.required' => 'The emergency contact number field cannot be blank if a name is given.',
+            'emergency_contact.*.number.size' => 'The emergency contact number field must be 12 characters including dashes.',
+            'emergency_contact.*.name.required' => 'The emergency contact name field cannot be blank if a number is given.',
         ];
     }
 }

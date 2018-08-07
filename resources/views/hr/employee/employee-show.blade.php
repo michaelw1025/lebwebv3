@@ -193,7 +193,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">
                                 <div class="custom-control custom-radio">
-                                    <input type="radio" class="custom-control-input" id="show-employee-phone-number-primary-{{$loop->iteration}}" name="is_primary_{{$loop->iteration}}" {{$employeePhoneNumber->is_primary == '1' ? 'checked' : ''}} disabled>
+                                    <input type="radio" class="custom-control-input" id="show-employee-phone-number-primary-{{$loop->iteration}}" name="phone_number_is_primary_{{$loop->iteration}}" {{$employeePhoneNumber->is_primary == '1' ? 'checked' : ''}} disabled>
                                     <label class="custom-control-label" for="show-employee-phone-number-primary-{{$loop->iteration}}">Primary</label>
                                 </div>
                             </div>
@@ -202,8 +202,76 @@
                     </div>
                 </div>
                 @endforeach
-                
             </div>
+
+            <header class="alert alert-primary mt-4 h2" role="alert">
+                <i class="fas fa-star-of-life"></i> Emergency Contacts
+            </header>
+            <div class="form-row">
+                @foreach($employee->emergencyContact as $employeeEmergencyContact)
+                <div class="col-md-6 col-lg-4 col-xl-3 mb-3">
+                    <label for="show-employee-emergency-contact-{{$loop->iteration}}">Emergency Contact {{$loop->iteration}} <span class="text-muted small">(number/name)</span></label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" class="custom-control-input" id="show-employee-emergency-contact-primary-{{$loop->iteration}}" name="emergency_contact_is_primary_{{$loop->iteration}}" {{$employeeEmergencyContact->is_primary == '1' ? 'checked' : ''}} disabled>
+                                    <label class="custom-control-label" for="show-employee-emergency-contact-primary-{{$loop->iteration}}">Primary</label>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="text" class="form-control" id="show-employee-emergency-contact-{{$loop->iteration}}" name="emergency_contact_{{$loop->iteration}}" value="{{$employeeEmergencyContact->number}}" disabled>
+                        <input type="text" class="form-control" id="show-employee-emergency-contact-name-{{$loop->iteration}}" name="emergency_contact_name_{{$loop->iteration}}" value="{{$employeeEmergencyContact->name}}" disabled>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <header class="alert alert-primary mt-4 h2" role="alert">
+                <i class="fas fa-balance-scale"></i> Disciplinary
+            </header>
+            <table class="table table-sm table-hover table-borderless">
+                <thead class="bg-header text-light">
+                    <tr>
+                        <th scope="col">Type</th>
+                        <th scope="col">Level</th>
+                        <th scope="col">Date</th>
+                        <th scope="col" class="d-none d-md-table-cell">Cost Center</th>
+                        <th scope="col" class="d-none d-md-table-cell">Issued By</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($employee->disciplinary as $employeeDisciplinary)
+                    <tr class="clickable-row {{$employeeDisciplinary->type == 'attendance' ? 'table-warning' : 'table-danger'}}" data-href="{{route('disciplinaries.show', ['id' => $employeeDisciplinary->id])}}">
+                        <td>{{$employeeDisciplinary->type}}</td>
+                        <td>{{$employeeDisciplinary->level}}</td>
+                        <td class="employee-name">{{$employeeDisciplinary->date->format('m/d/Y')}}</td>
+                        <td class="d-none d-md-table-cell employee-ssn">{{$employeeDisciplinary->cost_center_number}}</td>
+                        <td class="d-none d-md-table-cell employee-birth-date">{{$employeeDisciplinary->issuer_name}}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+
+
+
+
+
+
+
+
 
 
             <a href="{{route('employees.edit', $employee->id)}}" class="btn btn-edit mt-4">Edit Employee</a>

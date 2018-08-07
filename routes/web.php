@@ -36,4 +36,5 @@ Route::prefix('hr')->group(function() {
     Route::resource('shifts', 'ShiftController');
     Route::resource('positions', 'PositionController');
     Route::resource('jobs', 'JobController');
+    Route::resource('disciplinaries', 'DisciplinaryController');
 });

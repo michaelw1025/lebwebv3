@@ -396,8 +396,112 @@
                     </div>
                 </div>
             @endfor
-                
             </div>
+
+
+
+
+
+
+
+
+
+            <header class="alert alert-primary mt-4 h2" role="alert">
+                <i class="fas fa-star-of-life"></i> Emergency Contacts
+            </header>
+            <div class="form-row">
+            @if(old('emergency_contact'))
+                @php  
+                $emergencyContactCount = count(old('emergency_contact')) + 1;
+                @endphp
+                @foreach(old('emergency_contact') as $oldEmergencyContact)
+                <div class="col-md-6 col-xl-4 mb-3">
+                    <label for="edit-employee-emergency-contact-{{$loop->iteration}}">Emergency Contact {{$loop->iteration}} <span class="text-muted small">(number/name)</span></label>
+                    <div class="input-group">
+                        <div class="input-group-text">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input radio-select-primary" id="edit-employee-emergency-contact-primary-{{$loop->iteration}}" name="emergency_contact_is_primary" {{$oldEmergencyContact['number'] == old('emergency_contact_is_primary') ? 'checked' : ''}} value="{{$oldEmergencyContact['number']}}">
+                                <label for="edit-employee-emergency-contact-primary-{{$loop->iteration}}" class="custom-control-label radio-select-primary-label ">Primary</label>
+                            </div>
+                        </div>
+                        <input type="text" class="form-control phone-number-format {{$errors->has('emergency_contact.'.$loop->iteration.'.number') ? 'is-invalid' : ''}}" id="edit-employee-emergency-contact-{{$loop->iteration}}" name="emergency_contact[{{$loop->iteration}}][number]" value="{{$oldEmergencyContact['number']}}" maxlength="12">
+                        <input type="text" class="form-control {{$errors->has('emergency_contact.'.$loop->iteration.'.name') ? 'is-invalid' : ''}}" id="edit-employee-emergency-contact-name-{{$loop->iteration}}" name="emergency_contact[{{$loop->iteration}}][name]" value="{{$oldEmergencyContact['name']}}">
+                        <input hidden type="text" class="form-control" id="edit-employee-emergency-contact-id-{{$loop->iteration}}" name="emergency_contact[{{$loop->iteration}}][id]" value="{{$oldEmergencyContact['id']}}">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="edit-employee-emergency-contact-delete-{{$loop->iteration}}" name="emergency_contact[{{$loop->iteration}}][delete]" value="delete" {{in_array('delete', $oldEmergencyContact) ? 'checked' : ''}}>
+                                    <label class="custom-control-label custom-control-label-delete" for="edit-employee-emergency-contact-delete-{{$loop->iteration}}">Delete</label>
+                                </div>
+                            </div>
+                        </div>
+                        @if($errors->has('emergency_contact.'.$loop->iteration.'.number'))
+                            <span class="invalid-feedback" role="alert">
+                                {{$errors->first('emergency_contact.'.$loop->iteration.'.number')}}
+                            </span>
+                        @endif
+                        @if($errors->has('emergency_contact.'.$loop->iteration.'.name'))
+                            <span class="invalid-feedback" role="alert">
+                                {{$errors->first('emergency_contact.'.$loop->iteration.'.name')}}
+                            </span>
+                        @endif
+                    </div>
+                </div>
+                @endforeach
+            @else
+                @php
+                $emergencyContactCount = 1;
+                @endphp
+            @endif
+
+            @for($emergencyContactCount; $emergencyContactCount < 6; $emergencyContactCount++)
+            <div class="col-md-6 col-xl-4 mb-3">
+                    <label for="edit-employee-emergency-contact-{{$emergencyContactCount}}">Emergency Contact {{$emergencyContactCount}} <span class="text-muted small">(number/name)</span></label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" class="custom-control-input radio-select-primary" id="edit-employee-emergency-contact-primary-{{$emergencyContactCount}}" name="emergency_contact_is_primary" value="">
+                                    <label class="custom-control-label radio-select-primary-label " for="edit-employee-emergency-contact-primary-{{$emergencyContactCount}}">Primary</label>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="text" class="form-control phone-number-format" id="edit-employee-emergency-contact-{{$emergencyContactCount}}" name="emergency_contact[{{$emergencyContactCount}}][number]" value="" maxlength="12">
+                        <input type="text" class="form-control" id="edit-employee-emergency-contact-name-{{$emergencyContactCount}}" name="emergency_contact[{{$emergencyContactCount}}][name]" value="">
+                        <input hidden type="text" class="form-control" id="edit-employee-emergency-contact-id-{{$emergencyContactCount}}" name="emergency_contact[{{$emergencyContactCount}}][id]" value="">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="edit-employee-emergency-contact-delete-{{$emergencyContactCount}}" name="emergency_contact[{{$emergencyContactCount}}][delete]" value="delete">
+                                    <label class="custom-control-label custom-control-label-delete" for="edit-employee-emergency-contact-delete-{{$emergencyContactCount}}">Delete</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endfor 
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             <button type="submit" class="btn btn-create" id="create-employee-submit-button">Create Employee</button>
         </form>

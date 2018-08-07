@@ -7,3 +7,5 @@ Complete Shift resources and form request
 Combine Wage Events and Wage Progression into one table for employee
 
 Add code column to shifts table
+
+Chek if .employee-row is needed in employees table

@@ -2,6 +2,9 @@
 
 namespace App\Traits;
 
+use App\CostCenter;
+use App\Employee;
+
 trait HelperFunctions
 {
     public function setAsDate($date)
@@ -170,7 +173,15 @@ trait HelperFunctions
         }           
     }
 
-
+    // Get disciplinary info
+    public function getDisciplinaryInfo($disciplinary)
+    {
+            $cc = CostCenter::find($disciplinary->cost_center);
+            $disciplinary->cost_center_number = $cc->number.' '.$cc->extension;
+            $disciplinary->cost_center_name = $cc->description;
+            $issuer = Employee::find($disciplinary->issued_by);
+            $disciplinary->issuer_name = $issuer->first_name.' '.$issuer->last_name;
+    }
 
 
 
