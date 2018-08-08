@@ -12,9 +12,12 @@
         @include('alerts.session-alert')
 
 
-        <form action="{{Route('employees.update', $employee->id)}}" class="mt-2" id="edit-employee-form" method="POST" enctype="multipart/form-data">
+        <form action="{{Route('employees.update', $employee->id)}}" class="" id="edit-employee-form" method="POST" enctype="multipart/form-data">
             @csrf
             @method('Patch')
+            <div class="form-row">
+                <a href="{{route('employees.show', ['id' => $employee->id])}}" class="h3 text-primary mb-4"><i class="fas fa-arrow-left"></i> Return To {{$employee->first_name}} {{$employee->last_name}}</a>
+            </div>
             
             @if($employee->photo_link !== null)
             <img src="/storage/{{$employee->photo_link}}" alt="Employee Photo" class="img-thumbnail mb-2" width="100" height="100">
@@ -25,6 +28,10 @@
             <p class="text-danger">@component('components.required-icon')@endComponent indicates a required field</p>
 
             <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="show-employee-id">Employee ID</label>
+                    <input type="text" class="form-control" id="show-employee-id" name="id" value="{{$employee->id}}" disabled>
+                </div>
                 <div class="form-group col-md-4">
                     <label for="edit-employee-first-name">First Name @component('components.required-icon')@endComponent</label>
                     <input type="text" class="form-control {{$errors->has('first_name') ? 'is-invalid' : ''}}" id="edit-employee-first-name" name="first_name" value="{{old('first_name') ? old('first_name') : $employee->first_name}}"  autofocus>
@@ -52,8 +59,8 @@
                         </span>
                     @endif
                 </div>
-            </div>
-            <div class="form-row">
+            <!-- </div>
+            <div class="form-row"> -->
                 <div class="form-group col-md-4">
                     <label for="edit-employee-maiden-name">Maiden Name</label>
                     <input type="text" class="form-control {{$errors->has('maiden_name') ? 'is-invalid' : ''}}" id="edit-employee-maiden-name" name="maiden_name" value="{{old('maiden_name') ? old('maiden_name') : $employee->maiden_name}}">
@@ -93,8 +100,8 @@
                         </span>
                     @endif
                 </div>
-            </div>
-            <div class="form-row">
+            <!-- </div>
+            <div class="form-row"> -->
                 <div class="form-group col-md-4">
                     <label for="edit-employee-ssn">SSN @component('components.required-icon')@endComponent</label>
                     <input type="text" class="form-control {{$errors->has('ssn') ? 'is-invalid' : ''}} ssn-format" id="edit-employee-ssn" name="ssn" value="{{old('ssn') ? old('ssn') : $employee->ssn}}"  maxlength="11">
@@ -131,8 +138,8 @@
                         </span>
                     @endif
                 </div>
-            </div>
-            <div class="form-row">
+            <!-- </div>
+            <div class="form-row"> -->
                 <div class="form-group col-md-4">
                     <label for="edit-employee-birth-date">Birth Date @component('components.required-icon')@endComponent</label>
                     <input type="text" class="form-control {{$errors->has('birth_date') ? 'is-invalid' : ''}} datepicker" id="edit-employee-birth-date" name="birth_date" value="{{old('birth_date') ? old('birth_date') : $employee->birth_date->format('m/d/Y')}}" >
@@ -277,7 +284,7 @@
 
             <div class="form-row card-deck mb-3">
                 <div class="card card-status {{old('status') !== null ? (old('status') === '1' ? 'border-success' : 'border-danger') : ($employee->status === '1' ? 'border-success' : 'border-danger')}}">
-                    <div class="card-header">Status</div>
+                    <div class="card-header">Status @component('components.required-icon')@endComponent</div>
                     <div class="card-body">
                         <div class="custom-control custom-radio">
                             <input class="custom-control-input boolean-radio-button" type="radio" name="status" id="edit-employee-status-active" value="1" {{old('status') !== null ? (old('status') === '1' ? 'checked' : '') : ($employee->status === '1' ? 'checked' : '')}}>
@@ -300,7 +307,7 @@
                 </div>
 
                 <div class="card card-rehire {{old('rehire') !== null ? (old('rehire') === '1' ? 'border-success' : 'border-danger') : ($employee->rehire === '1' ? 'border-success' : 'border-danger')}}">
-                    <div class="card-header">Rehire</div>
+                    <div class="card-header">Rehire @component('components.required-icon')@endComponent</div>
                     <div class="card-body">
                         <div class="custom-control custom-radio">
                             <input class="custom-control-input boolean-radio-button" type="radio" name="rehire" id="edit-employee-rehire-yes" value="1" {{old('rehire') !== null ? (old('rehire') === '1' ? 'checked' : '') : ($employee->rehire === '1' ? 'checked' : '')}}>
@@ -690,6 +697,7 @@
             <header class="alert alert-primary mt-4 h2" role="alert">
                 <i class="fas fa-balance-scale"></i> Disciplinary
             </header>
+            <a href="{{route('disciplinaries.create', ['employee' => $employee->id])}}" class="btn btn-create mb-3">Create New Disciplinary</a>
             <table class="table table-sm table-hover table-borderless">
                 <thead class="bg-header text-light">
                     <tr>
@@ -703,11 +711,38 @@
                 <tbody>
                     @foreach($employee->disciplinary as $employeeDisciplinary)
                     <tr class="clickable-row {{$employeeDisciplinary->type == 'attendance' ? 'table-warning' : 'table-danger'}}" data-href="{{route('disciplinaries.show', ['id' => $employeeDisciplinary->id])}}">
-                        <td>{{$employeeDisciplinary->type}}</td>
-                        <td>{{$employeeDisciplinary->level}}</td>
+                        <td>{{ucwords($employeeDisciplinary->type)}}</td>
+                        <td>{{ucwords($employeeDisciplinary->level)}}</td>
                         <td class="employee-name">{{$employeeDisciplinary->date->format('m/d/Y')}}</td>
-                        <td class="d-none d-md-table-cell employee-ssn">{{$employeeDisciplinary->cost_center_number}}</td>
-                        <td class="d-none d-md-table-cell employee-birth-date">{{$employeeDisciplinary->issuer_name}}</td>
+                        <td class="d-none d-md-table-cell">{{$employeeDisciplinary->cost_center_number}}</td>
+                        <td class="d-none d-md-table-cell">{{$employeeDisciplinary->issuer_name}}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+
+
+
+
+
+            <header class="alert alert-primary mt-4 h2" role="alert">
+                <i class="fas fa-ban"></i> Termination
+            </header>
+            <a href="{{route('terminations.create', ['employee' => $employee->id])}}" class="btn btn-create mb-3">Create New Termination</a>
+            <table class="table table-sm table-hover table-borderless">
+                <thead class="bg-header text-light">
+                    <tr>
+                        <th scope="col">Type</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Last Day</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($employee->termination as $employeeTermination)
+                    <tr class="clickable-row {{$employeeTermination->type == 'voluntary' ? 'table-warning' : 'table-danger'}}" data-href="{{route('terminations.show', ['id' => $employeeTermination->id])}}">
+                        <td>{{ucwords($employeeTermination->type)}}</td>
+                        <td>{{$employeeTermination->date->format('m/d/Y')}}</td>
+                        <td class="employee-name">{{$employeeTermination->last_day->format('m/d/Y')}}</td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -740,7 +775,7 @@
 
 
 
-            <button type="submit" class="btn btn-edit" id="edit-employee-submit-button">Save Employee</button>
+            <button type="submit" class="btn btn-success" id="edit-employee-submit-button">Save Employee</button>
         </form>
 
         <hr class="my-4"></hr>

@@ -14029,8 +14029,6 @@ $('.ssn-format').on('keyup', function () {
     newVal += val;
     this.value = newVal;
 });
-// ----------------End SSN validation----------------
-
 
 // --------------------Search employees-------------------
 $('#submit-employee-search').on('click', function () {

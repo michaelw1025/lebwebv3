@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 
-class Disciplinary extends Model
+class Reduction extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -13,11 +13,17 @@ class Disciplinary extends Model
      * @var array
      */
     protected $fillable = [
+        'currently_active',
         'type',
-        'level',
+        'displacement',
         'date',
-        'cost_center',
-        'issued_by',
+        'home_cost_center',
+        'bump_to_cost_center',
+        'home_shift',
+        'bump_to_shift',
+        'fiscal_week',
+        'fiscal_year',
+        'return_date',
         'comments',
     ];
 
@@ -37,6 +43,7 @@ class Disciplinary extends Model
      */
     protected $dates = [
         'date',
+        'return_date',
     ];
 
     // ****************************************
@@ -48,16 +55,22 @@ class Disciplinary extends Model
         $this->attributes['type'] = strtolower($type);
     }
 
-    // Set level format
-    public function setLevelAttribute($level)
+    // Set displacement format
+    public function setDisplacementAttribute($displacement)
     {
-        $this->attributes['level'] = strtolower($level);
+        $this->attributes['displacement'] = strtolower($displacement);
     }
 
     // Set date format
     public function setDateAttribute($date)
     {
         $this->attributes['date'] = Carbon::parse($date);
+    }
+
+    // Set return date format
+    public function setReturnDateAttribute($date)
+    {
+        $this->attributes['return_date'] = Carbon::parse($date);
     }
 
     // ****************************************

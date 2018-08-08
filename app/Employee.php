@@ -283,4 +283,16 @@ class Employee extends Model
     {
         return $this->hasMany('App\Disciplinary')->orderBy('type', 'asc')->orderBy('date', 'desc');
     }
+
+    // Termination relationship
+    public function termination()
+    {
+        return $this->hasMany('App\Termination')->orderBy('date', 'desc');
+    }
+
+    // Reduction relationship
+    public function reduction()
+    {
+        return $this->hasMany('App\Reduction')->orderBy('date', 'desc');
+    }
 }

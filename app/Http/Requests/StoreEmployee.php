@@ -14,7 +14,7 @@ class StoreEmployee extends FormRequest
     public function authorize()
     {
         //Check if user is authorized to access this page
-        if($this->user()->authorizeRoles(['admin'])) {
+        if($this->user()->authorizeRoles(['admin', 'hrmanager', 'hruser'])) {
             return true;
         } else {
             return false;

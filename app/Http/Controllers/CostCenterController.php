@@ -25,7 +25,7 @@ class CostCenterController extends Controller
     public function index(Request $request)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         // Get all cost centers
         $costCenters = CostCenter::orderBy('number', 'asc')->orderBy('extension', 'asc')
         ->with('employeeStaffManager')->get();
@@ -43,7 +43,7 @@ class CostCenterController extends Controller
     public function create()
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
     }
 
     /**
@@ -55,7 +55,7 @@ class CostCenterController extends Controller
     public function store(Request $request)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
     }
 
     /**
@@ -67,7 +67,7 @@ class CostCenterController extends Controller
     public function show($id)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
     }
 
     /**
@@ -79,7 +79,7 @@ class CostCenterController extends Controller
     public function edit($id)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
     }
 
     /**
@@ -92,7 +92,7 @@ class CostCenterController extends Controller
     public function update(Request $request, $id)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
     }
 
     /**

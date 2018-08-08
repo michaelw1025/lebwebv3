@@ -1,7 +1,7 @@
 <!-- HE sidebar -->
 
 @php
-    $employeesNavArray = array('employees.index', 'employees.create', 'employees.show', 'employees.edit');
+    $employeesNavArray = array('employees.index', 'employees.create', 'employees.show', 'employees.edit', 'disciplinaries.index', 'disciplinaries.create', 'disciplinaries.show', 'disciplinaries.edit', 'terminations.index', 'terminations.create', 'terminations.show', 'terminations.edit', 'reductions.index', 'reductions.create', 'reductions.show', 'reductions.edit');
     $queriesNavArray = array();
     $manageNavArray = array();
     $biddingNavArray = array();

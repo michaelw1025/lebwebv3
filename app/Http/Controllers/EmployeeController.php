@@ -13,7 +13,6 @@ use App\Position;
 use App\Job;
 use App\PhoneNumber;
 use App\EmergencyContact;
-use App\Disciplinary;
 
 class EmployeeController extends Controller
 {
@@ -37,7 +36,7 @@ class EmployeeController extends Controller
     public function index(Request $request)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         if($request->input('type') === 'active') {
             // Set for active employees
             $statusType = 1;
@@ -65,7 +64,7 @@ class EmployeeController extends Controller
     public function create(Request $request)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
         // Get all cost centers
         $costCenters = CostCenter::orderBy('number', 'asc')->orderBy('extension', 'asc')->get();
         // Get all shifts
@@ -93,7 +92,7 @@ class EmployeeController extends Controller
     {
         // dd($request);
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
         // Create a new employee object
         $employee = new Employee();
         // Assign values to employee object
@@ -195,7 +194,7 @@ class EmployeeController extends Controller
     public function show(Request $request, $id)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         // Get employee
         $employee = Employee::with(
             'costCenter.employeeStaffManager',
@@ -208,7 +207,9 @@ class EmployeeController extends Controller
             'job',
             'phoneNumber',
             'emergencyContact',
-            'disciplinary'
+            'disciplinary',
+            'termination',
+            'reduction'
         )->findOrFail($id);
         // Get the full name of the state
         $this->checkState($employee);
@@ -231,7 +232,7 @@ class EmployeeController extends Controller
     public function edit(Request $request, $id)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
         // Get employee to edit
         $employee = Employee::with(
             'costCenter.employeeStaffManager',
@@ -243,7 +244,10 @@ class EmployeeController extends Controller
             'position',
             'job',
             'phoneNumber',
-            'emergencyContact'
+            'emergencyContact',
+            'disciplinary', 
+            'termination',
+            'reduction'
         )->findOrFail($id);
         // Get the full name of the state
         $this->checkState($employee);
@@ -255,6 +259,10 @@ class EmployeeController extends Controller
         $positions = Position::all();
         // Get all jobs
         $jobs = Job::all();
+        // Get disciplinary info
+        foreach($employee->disciplinary as $disciplinary){
+            $this->getDisciplinaryInfo($disciplinary);
+        }
         // Return the edit employee view
         return view('hr.employee.employee-edit', [
             'employee' => $employee,
@@ -275,7 +283,7 @@ class EmployeeController extends Controller
     public function update(StoreEmployee $request, $id)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
 
         // return $request;
 

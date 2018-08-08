@@ -21,6 +21,10 @@
 
             <div class="form-row">
                 <div class="form-group col-md-4">
+                    <label for="show-employee-id">Employee ID</label>
+                    <input type="text" class="form-control" id="show-employee-id" name="id" value="{{$employee->id}}" disabled>
+                </div>
+                <div class="form-group col-md-4">
                     <label for="show-employee-first-name">First Name</label>
                     <input type="text" class="form-control" id="show-employee-first-name" name="first_name" value="{{$employee->first_name}}" disabled>
                 </div>
@@ -32,8 +36,8 @@
                     <label for="show-employee-middle-initial">MI</label>
                     <input type="text" class="form-control" id="show-employee-middle-initial" name="middle_initial" value="{{$employee->middle_initial}}" disabled>
                 </div>
-            </div>
-            <div class="form-row">
+            <!-- </div> -->
+            <!-- <div class="form-row"> -->
                 <div class="form-group col-md-4">
                     <label for="show-employee-maiden-name">Maiden Name</label>
                     <input type="text" class="form-control" id="show-employee-maiden-name" name="maiden_name" value="{{$employee->maiden_name}}" disabled>
@@ -46,8 +50,8 @@
                     <label for="show-employee-suffix">Sufix</label>
                     <input type="text" class="form-control" id="show-employee-suffix" name="suffix" value="{{strtoupper(strtoupper($employee->suffix))}}" disabled>
                 </div>
-            </div>
-            <div class="form-row">
+            <!-- </div> -->
+            <!-- <div class="form-row"> -->
                 <div class="form-group col-md-4">
                     <label for="show-employee-ssn">SSN</label>
                     <input type="text" class="form-control" id="show-employee-ssn" name="ssn" value="{{$employee->ssn}}" disabled>
@@ -60,8 +64,8 @@
                     <label for="show-employee-oracle-number">Oracle Number</label>
                     <input type="text" class="form-control" id="show-employee-oracle-number" name="oracle_number" value="{{$employee->oracle_number}}" disabled>
                 </div>
-            </div>
-            <div class="form-row">
+            <!-- </div> -->
+            <!-- <div class="form-row"> -->
                 <div class="form-group col-md-4">
                     <label for="show-employee-birth-date">Birth Date</label>
                     <input type="text" class="form-control" id="show-employee-birth-date" name="birth_date" value="{{$employee->birth_date->format('m/d/Y')}}" disabled>
@@ -209,7 +213,7 @@
             </header>
             <div class="form-row">
                 @foreach($employee->emergencyContact as $employeeEmergencyContact)
-                <div class="col-md-6 col-lg-4 col-xl-3 mb-3">
+                <div class="col-12 col-xl-6 mb-3">
                     <label for="show-employee-emergency-contact-{{$loop->iteration}}">Emergency Contact {{$loop->iteration}} <span class="text-muted small">(number/name)</span></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
@@ -255,17 +259,47 @@
                 <tbody>
                     @foreach($employee->disciplinary as $employeeDisciplinary)
                     <tr class="clickable-row {{$employeeDisciplinary->type == 'attendance' ? 'table-warning' : 'table-danger'}}" data-href="{{route('disciplinaries.show', ['id' => $employeeDisciplinary->id])}}">
-                        <td>{{$employeeDisciplinary->type}}</td>
-                        <td>{{$employeeDisciplinary->level}}</td>
+                        <td>{{ucwords($employeeDisciplinary->type)}}</td>
+                        <td>{{ucwords($employeeDisciplinary->level)}}</td>
                         <td class="employee-name">{{$employeeDisciplinary->date->format('m/d/Y')}}</td>
-                        <td class="d-none d-md-table-cell employee-ssn">{{$employeeDisciplinary->cost_center_number}}</td>
-                        <td class="d-none d-md-table-cell employee-birth-date">{{$employeeDisciplinary->issuer_name}}</td>
+                        <td class="d-none d-md-table-cell">{{$employeeDisciplinary->cost_center_number}}</td>
+                        <td class="d-none d-md-table-cell">{{$employeeDisciplinary->issuer_name}}</td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
 
 
+
+
+
+
+
+
+
+
+
+            <header class="alert alert-primary mt-4 h2" role="alert">
+                <i class="fas fa-ban"></i> Termination
+            </header>
+            <table class="table table-sm table-hover table-borderless">
+                <thead class="bg-header text-light">
+                    <tr>
+                        <th scope="col">Type</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Last Day</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($employee->termination as $employeeTermination)
+                    <tr class="clickable-row {{$employeeTermination->type == 'voluntary' ? 'table-warning' : 'table-danger'}}" data-href="{{route('terminations.show', ['id' => $employeeTermination->id])}}">
+                        <td>{{ucwords($employeeTermination->type)}}</td>
+                        <td>{{$employeeTermination->date->format('m/d/Y')}}</td>
+                        <td>{{$employeeTermination->last_day->format('m/d/Y')}}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
 
 
 

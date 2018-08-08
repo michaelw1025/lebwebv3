@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 
-class Disciplinary extends Model
+class Termination extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -14,10 +14,8 @@ class Disciplinary extends Model
      */
     protected $fillable = [
         'type',
-        'level',
         'date',
-        'cost_center',
-        'issued_by',
+        'last_day',
         'comments',
     ];
 
@@ -37,6 +35,7 @@ class Disciplinary extends Model
      */
     protected $dates = [
         'date',
+        'last_day',
     ];
 
     // ****************************************
@@ -48,16 +47,16 @@ class Disciplinary extends Model
         $this->attributes['type'] = strtolower($type);
     }
 
-    // Set level format
-    public function setLevelAttribute($level)
-    {
-        $this->attributes['level'] = strtolower($level);
-    }
-
     // Set date format
     public function setDateAttribute($date)
     {
         $this->attributes['date'] = Carbon::parse($date);
+    }
+
+    // Set last day format
+    public function setLastDayAttribute($date)
+    {
+        $this->attributes['last_day'] = Carbon::parse($date);
     }
 
     // ****************************************
