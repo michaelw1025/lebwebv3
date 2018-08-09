@@ -13,6 +13,9 @@ use App\Position;
 use App\Job;
 use App\PhoneNumber;
 use App\EmergencyContact;
+use App\Notifications\EmployeeCreated;
+use Notification;
+use App\User;
 
 class EmployeeController extends Controller
 {

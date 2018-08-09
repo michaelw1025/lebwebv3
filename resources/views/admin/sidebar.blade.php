@@ -15,5 +15,6 @@
             <a href="{{Route('roles.index')}}" class="nav-link {{in_array(Route::currentRouteName(), $rolesNavArray) ? 'text-primary' : 'text-dark'}}"><i class="fas fa-shield-alt fa-lg"></i><span class="d-none d-md-inline-block">&nbsp&nbspRoles</span>
             </a>
         </li>
+        @include('components.notifications')
     </ul>
 </nav>
