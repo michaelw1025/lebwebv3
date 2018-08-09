@@ -231,7 +231,7 @@
         <form action="{{Route('reductions.destroy', [$reduction->id, 'employee' => $reduction->employee->id])}}" class="mt-2" id="delete-reduction-form" method="POST">
             @csrf
             @method('Delete')
-            <button type="submit" class="btn btn-danger delete-item" id="delete-reduction-submit-button" name="reduction">Delete Reduction</button>
+            <button type="submit" class="btn btn-outline-danger delete-item" id="delete-reduction-submit-button" name="reduction">Delete Reduction</button>
         </form>
 
         <hr class="my-4"></hr>

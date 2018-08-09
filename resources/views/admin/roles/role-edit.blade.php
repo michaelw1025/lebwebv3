@@ -36,12 +36,12 @@
                     @endif
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary" form="edit-role-form">Save Role</button>
+            <button type="submit" class="btn btn-success" form="edit-role-form">Save Role</button>
         </form>
         <form action="{{route('roles.destroy', ['id' => $role->id])}}" class="mt-2" id="delete-role-form" method="POST">
             @csrf
             @method('Delete')
-            <button type="submit" class="btn btn-outline-danger btn-sm delete-item" form="delete-role-form" name="site role">Delete Role</button>
+            <button type="submit" class="btn btn-outline-danger delete-item" form="delete-role-form" name="site role">Delete Role</button>
         </form>
 
     </article>

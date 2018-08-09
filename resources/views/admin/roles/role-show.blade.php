@@ -28,7 +28,7 @@
             </div>
         </form>
         
-        <a href="{{route('roles.edit', ['id' => $role->id])}}" class="btn btn-edit btn-block">Edit Role</a>
+        <a href="{{route('roles.edit', ['id' => $role->id])}}" class="btn btn-edit">Edit Role</a>
 
     </article>
 

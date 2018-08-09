@@ -28,7 +28,7 @@
             </tbody>
         </table>
 
-        <a href="{{route('roles.create')}}" class="btn btn-create btn-block">Create New Role</a>
+        <a href="{{route('roles.create')}}" class="btn btn-create">Create New Role</a>
 
     </article>
 

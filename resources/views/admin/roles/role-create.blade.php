@@ -37,7 +37,7 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-create" form="create-role-form">Create Role</button>
+            <button type="submit" class="btn btn-success" form="create-role-form">Save Role</button>
         
         </form>
     

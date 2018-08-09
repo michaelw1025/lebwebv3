@@ -65,12 +65,12 @@
                     @endif
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary" form="edit-user-form">Save User</button>
+            <button type="submit" class="btn btn-success" form="edit-user-form">Save User</button>
         </form>
         <form action="{{route('users.destroy', ['id' => $user->id])}}" class="mt-2" id="delete-user-form" method="POST">
             @csrf
             @method('Delete')
-            <button type="submit" class="btn btn-outline-danger btn-sm delete-item" form="delete-user-form" name="site user">Delete User</button>
+            <button type="submit" class="btn btn-outline-danger delete-item" form="delete-user-form" name="site user">Delete User</button>
         </form>
             
     </article>

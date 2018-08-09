@@ -40,7 +40,7 @@
             </div>
         </form>    
 
-        <a href="{{route('users.edit', ['id' => $user->id])}}" class="btn btn-edit btn-block">Edit User</a>
+        <a href="{{route('users.edit', ['id' => $user->id])}}" class="btn btn-edit">Edit User</a>
         
     </article>
 

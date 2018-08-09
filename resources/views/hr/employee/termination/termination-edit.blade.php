@@ -74,7 +74,7 @@
         <form action="{{Route('terminations.destroy', [$termination->id, 'employee' => $termination->employee->id])}}" class="mt-2" id="delete-termination-form" method="POST">
             @csrf
             @method('Delete')
-            <button type="submit" class="btn btn-danger delete-item" id="delete-termination-submit-button" name="termination">Delete Termination</button>
+            <button type="submit" class="btn btn-outline-danger delete-item" id="delete-termination-submit-button" name="termination">Delete Termination</button>
         </form>
 
         <hr class="my-4"></hr>

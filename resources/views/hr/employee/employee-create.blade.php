@@ -503,7 +503,7 @@
 
 
 
-            <button type="submit" class="btn btn-create" id="create-employee-submit-button">Create Employee</button>
+            <button type="submit" class="btn btn-success" id="create-employee-submit-button">Save Employee</button>
         </form>
 
         <hr class="my-4"></hr>

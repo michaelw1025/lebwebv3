@@ -120,7 +120,7 @@
         <form action="{{Route('disciplinaries.destroy', [$disciplinary->id, 'employee' => $disciplinary->employee->id])}}" class="mt-2" id="delete-disciplinary-form" method="POST">
             @csrf
             @method('Delete')
-            <button type="submit" class="btn btn-danger delete-item" id="delete-disciplinary-submit-button" name="disciplinary">Delete Disciplinary</button>
+            <button type="submit" class="btn btn-outline-danger delete-item" id="delete-disciplinary-submit-button" name="disciplinary">Delete Disciplinary</button>
         </form>
 
         <hr class="my-4"></hr>
