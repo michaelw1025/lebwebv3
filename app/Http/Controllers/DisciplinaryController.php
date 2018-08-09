@@ -104,7 +104,9 @@ class DisciplinaryController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        // Get the requested disciplinary
         $disciplinary = Disciplinary::with('employee')->findOrFail($id);
+        // Set disciplinary info
         $this->getDisciplinaryInfo($disciplinary);
         return view('hr.employee.disciplinary.disciplinary-show', [
             'disciplinary' => $disciplinary

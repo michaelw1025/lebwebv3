@@ -13,7 +13,12 @@ class StoreReduction extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        //Check if user is authorized to access this page
+        if($this->user()->authorizeRoles(['admin', 'hrmanager', 'hruser'])) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -23,8 +28,23 @@ class StoreReduction extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
+        $rulesArray = [];
+
+        $rulesArray += [
+            'currently_active' => 'required',
+            'type' => 'required',
+            'displacement' => 'required',
+            'date' => 'required|date',
+            'home_cost_center' => 'required',
+            'bump_to_cost_center' => 'required_if:displacement,bump',
+            'home_shift' => 'required',
+            'bump_to_shift' => 'required_if:displacement,bump',
+            'fiscal_week' => 'required|numeric',
+            'fiscal_year' => 'required|numeric',
+            'return_date' => 'nullable|date',
+            'comments' => 'required'
         ];
+
+        return $rulesArray;
     }
 }

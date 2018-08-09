@@ -308,6 +308,37 @@
 
 
 
+            <header class="alert alert-primary mt-4 h2" role="alert">
+                <i class="fas fa-angle-double-down"></i> Reduction
+            </header>
+            <table class="table table-sm table-hover table-borderless">
+                <thead class="bg-header text-light">
+                    <tr>
+                        <th scope="col">Active</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Discplacement</th>
+                        <th scope="col">Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($employee->reduction as $employeeReduction)
+                    <tr class="clickable-row {{$employeeReduction->currently_active == '1' ? 'table-success' : 'table-secondary'}}" data-href="{{route('reductions.show', ['id' => $employeeReduction->id])}}">
+                        <td><i class="far {{$employeeReduction->currently_active == '1' ? 'fa-check-circle' : 'fa-circle'}}"></i>{{$employeeReduction->currently_active == '1' ?'' : ''}}</td>
+                        <td>{{ucwords($employeeReduction->type)}}</td>
+                        <td>{{ucwords($employeeReduction->displacement)}}</td>
+                        <td>{{$employeeReduction->date->format('m/d/Y')}}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+
+
+
+
+
+
+
+
             <a href="{{route('employees.edit', $employee->id)}}" class="btn btn-edit mt-4">Edit Employee</a>
         </form>
 

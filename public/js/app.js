@@ -13935,6 +13935,8 @@ $(document).ready(function () {
 
     // Check if review item is checked at load needed to load old data
     checkReviewOnLoad();
+    // Check if reduction displacement is set to bump and require appropriate fields
+    checkDisplacementRadioOnLoad();
 });
 
 // Check if review item is checked at load needed to load old data
@@ -13970,6 +13972,27 @@ $('.boolean-radio-button').change(function () {
     } else {
         $('.card-' + name).removeClass('border-success').addClass('border-danger');
     }
+});
+
+// Check if reduction displacement is set to bump and require appropriate fields
+function checkDisplacementRadioOnLoad() {
+    var name = $('.displacement-radio-button').attr('name');
+    var radios = $('input[name="' + name + '"]');
+    var checked = radios.filter(function () {
+        return $(this).prop('checked');
+    });
+    if (checked.val() == 'bump') {
+        $('.required-with-bump-displacement').each(function () {
+            $(this).children('i').removeClass('d-none');
+        });
+    } else {
+        $('.required-with-bump-displacement').each(function () {
+            $(this).children('i').addClass('d-none');
+        });
+    }
+}
+$('.displacement-radio-button').change(function () {
+    checkDisplacementRadioOnLoad();
 });
 
 // Go to link when clickable row is clicked
