@@ -19,6 +19,9 @@
             <img src="/storage/unknown.png" alt="Employee Photo" class="img-thumbnail mb-2" width="100" height="100">
             @endif
 
+            <!-- ****************************************
+            Demographics
+            **************************************** -->
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="show-employee-id">Employee ID</label>
@@ -36,8 +39,6 @@
                     <label for="show-employee-middle-initial">MI</label>
                     <input type="text" class="form-control" id="show-employee-middle-initial" name="middle_initial" value="{{$employee->middle_initial}}" disabled>
                 </div>
-            <!-- </div> -->
-            <!-- <div class="form-row"> -->
                 <div class="form-group col-md-4">
                     <label for="show-employee-maiden-name">Maiden Name</label>
                     <input type="text" class="form-control" id="show-employee-maiden-name" name="maiden_name" value="{{$employee->maiden_name}}" disabled>
@@ -50,8 +51,6 @@
                     <label for="show-employee-suffix">Sufix</label>
                     <input type="text" class="form-control" id="show-employee-suffix" name="suffix" value="{{strtoupper(strtoupper($employee->suffix))}}" disabled>
                 </div>
-            <!-- </div> -->
-            <!-- <div class="form-row"> -->
                 <div class="form-group col-md-4">
                     <label for="show-employee-ssn">SSN</label>
                     <input type="text" class="form-control" id="show-employee-ssn" name="ssn" value="{{$employee->ssn}}" disabled>
@@ -64,8 +63,6 @@
                     <label for="show-employee-oracle-number">Oracle Number</label>
                     <input type="text" class="form-control" id="show-employee-oracle-number" name="oracle_number" value="{{$employee->oracle_number}}" disabled>
                 </div>
-            <!-- </div> -->
-            <!-- <div class="form-row"> -->
                 <div class="form-group col-md-4">
                     <label for="show-employee-birth-date">Birth Date</label>
                     <input type="text" class="form-control" id="show-employee-birth-date" name="birth_date" value="{{$employee->birth_date->format('m/d/Y')}}" disabled>
@@ -107,7 +104,6 @@
                     <input type="text" class="form-control" id="show-employee-county" name="county" value="{{$employee->county}}" disabled>
                 </div>
             </div>
-
             <div class="form-row card-deck mb-3">
                 <div class="card bg-light {{$employee->status === '1' ? 'border-success' : 'border-danger'}}">
                     <div class="card-header">Status</div>
@@ -126,7 +122,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="card bg-light {{$employee->rehire === '1' ? 'border-success' : 'border-danger'}}">
                     <div class="card-header">Rehire</div>
                     <div class="card-body">
@@ -144,7 +139,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="card bg-light">
                     <div class="card-header">Reviews</div>
                     <div class="card-body">
@@ -164,6 +158,9 @@
                 </div>
             </div>
 
+            <!-- ****************************************
+            Occupation
+            **************************************** -->
             <header class="alert alert-primary mt-4 h2" role="alert">
                 <i class="fas fa-dolly"></i> Occupation
             </header>
@@ -186,6 +183,9 @@
                 </div>
             </div>
 
+            <!-- ****************************************
+            Wage
+            **************************************** -->
             <header class="alert alert-primary mt-4 h2" role="alert">
                 <i class="fas fa-money-bill-wave"></i> Wage
             </header>
@@ -195,7 +195,36 @@
                     <input type="text" class="form-control" id="show-employee-wage-title" name="wage_title" value="@foreach($employee->position as $employeePosition) @foreach($employeePosition->wageTitle as $employeeWageTitle) {{ucwords($employeeWageTitle->description)}} @endforeach @endforeach">
                 </div>
             </div>
+            <table class="table table-sm table-borderless">
+                <thead class="bg-header text-light">
+                    <tr>
+                        <th>Month</th>
+                        <th>Amount</th>
+                        <th>Event Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($employee->position as $employeePosition)
+                    @foreach($employeePosition->wageTitle as $employeePositionWageTitle)
+                    @foreach($employeePositionWageTitle->wageProgression as $employeePositionWageProgression)
+                    <tr class="" data-href="">
+                        <td>{{$employeePositionWageProgression->month}}</td>
+                        <td>{{$employeePositionWageProgression->pivot->amount}}</td>
+                        @foreach($employee->wageProgression as $employeeWageProgression)
+                        @if($employeeWageProgression->pivot->wage_progression_id === $employeePositionWageProgression->pivot->wage_progression_id)
+                        <td>{{$employeeWageProgression->pivot->date->format('m/d/Y')}}</td>
+                        @endif
+                        @endforeach
+                    </tr>
+                    @endforeach
+                    @endforeach
+                    @endforeach
+                </tbody>
+            </table>
 
+            <!-- ****************************************
+            Phone Number
+            **************************************** -->
             <header class="alert alert-primary mt-4 h2" role="alert">
                 <i class="fas fa-phone"></i> Phone Numbers
             </header>
@@ -218,6 +247,9 @@
                 @endforeach
             </div>
 
+            <!-- ****************************************
+            Emergency Contacts
+            **************************************** -->
             <header class="alert alert-primary mt-4 h2" role="alert">
                 <i class="fas fa-star-of-life"></i> Emergency Contacts
             </header>
@@ -241,18 +273,9 @@
                 @endforeach
             </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
+            <!-- ****************************************
+            Disciplinary
+            **************************************** -->
             <header class="alert alert-primary mt-4 h2" role="alert">
                 <i class="fas fa-balance-scale"></i> Disciplinary
             </header>
@@ -279,16 +302,9 @@
                 </tbody>
             </table>
 
-
-
-
-
-
-
-
-
-
-
+            <!-- ****************************************
+            Termination
+            **************************************** -->
             <header class="alert alert-primary mt-4 h2" role="alert">
                 <i class="fas fa-ban"></i> Termination
             </header>
@@ -311,13 +327,9 @@
                 </tbody>
             </table>
 
-
-
-
-
-
-
-
+            <!-- ****************************************
+            Reduction
+            **************************************** -->
             <header class="alert alert-primary mt-4 h2" role="alert">
                 <i class="fas fa-angle-double-down"></i> Reduction
             </header>
@@ -341,13 +353,6 @@
                     @endforeach
                 </tbody>
             </table>
-
-
-
-
-
-
-
 
             <a href="{{route('employees.edit', $employee->id)}}" class="btn btn-edit mt-4">Edit Employee</a>
         </form>

@@ -5,6 +5,7 @@ namespace App\Traits;
 use App\CostCenter;
 use App\Employee;
 use App\Shift;
+use Carbon\Carbon;
 
 trait HelperFunctions
 {
@@ -208,7 +209,13 @@ trait HelperFunctions
         }     
     }
 
-
+    // Convert wage progression event date from string to date
+    public function setWageEventDate($employee)
+    {
+        foreach($employee->wageProgression as $employeeProgression){
+            $employeeProgression->pivot->date = Carbon::parse($employeeProgression->pivot->date);
+        }
+    }
 
 
 }

@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class WageTitle extends Model
+class WageProgression extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -12,7 +12,7 @@ class WageTitle extends Model
      * @var array
      */
     protected $fillable = [
-        'description',
+        'month',
     ];
 
     /**
@@ -27,24 +27,19 @@ class WageTitle extends Model
     // ****************************************
     // Mutators
     // ****************************************
-    // Set description format
-    public function setDescriptionAttribute($description)
-    {
-        $this->attributes['description'] = strtolower($description);
-    }
-
+    
     // ****************************************
     // Relationships
     // ****************************************
-    // Position relationship
-    public function position()
+    // Wage Title relationship
+    public function wageTitle()
     {
-        return $this->belongsToMany('App\Position');
+        return $this->belongsToMany('App\WageTitle')->withPivot('id', 'amount')->orderBy('month', 'asc');
     }
 
-    // Wage Progression relationship
-    public function wageProgression()
+    //Employee relationship
+    public function employee()
     {
-        return $this->belongsToMany('App\WageProgression')->withPivot('id', 'amount')->orderBy('month', 'asc');
+        return $this->belongsToMany('App\Employee')->withPivot('date');
     }
 }

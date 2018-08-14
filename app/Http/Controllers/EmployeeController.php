@@ -206,13 +206,14 @@ class EmployeeController extends Controller
             'costCenter.employeeDayTeamLeader',
             'costCenter.employeeNightTeamLeader',
             'shift',
-            'position.wageTitle',
+            'position.wageTitle.wageProgression',
             'job',
             'phoneNumber',
             'emergencyContact',
             'disciplinary',
             'termination',
-            'reduction'
+            'reduction',
+            'wageProgression'
         )->findOrFail($id);
         // return $employee;
         // Get the full name of the state
@@ -221,6 +222,8 @@ class EmployeeController extends Controller
         foreach($employee->disciplinary as $disciplinary){
             $this->getDisciplinaryInfo($disciplinary);
         }
+        // Convert wage event dates from string to date
+        $this->setWageEventDate($employee);
         // Return the show employee view
         return view('hr.employee.employee-show', [
             'employee' => $employee
