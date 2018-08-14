@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Position extends Model
+class WageTitle extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -33,24 +33,12 @@ class Position extends Model
         $this->attributes['description'] = strtolower($description);
     }
 
-    // Get description format
-    public function getDescriptionAttribute($description)
-    {
-        return ucWords($description);
-    }
-
     // ****************************************
     // Relationships
     // ****************************************
-    //Employee relationship
-    public function employee()
+    // Position relationship
+    public function position()
     {
-        return $this->belongsToMany('App\Employee');
-    }
-
-    // Wage Title relationship
-    public function wageTitle()
-    {
-        return $this->belongsToMany('App\WageTitle');
+        return $this->belongsToMany('App\Position');
     }
 }

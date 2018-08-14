@@ -318,7 +318,7 @@
                     <select type="text" class="custom-select {{$errors->has('shift') ? 'is-invalid' : ''}}" id="create-employee-shift" name="shift" value="">
                         <option value=""></option>
                         @foreach($shifts as $shift)
-                        <option {{old('shift') ? (old('shift') == $shift->id ? 'selected' : '') : ''}} value="{{$shift->id}}">{{$shift->code}} - {{$shift->description}}</option>
+                        <option {{old('shift') ? (old('shift') == $shift->id ? 'selected' : '') : ''}} value="{{$shift->id}}">{{$shift->description}}</option>
                         @endforeach
                     </select>
                     @if($errors->has('shift'))

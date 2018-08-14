@@ -73,7 +73,7 @@ class EmployeeController extends Controller
         // Get all shifts
         $shifts = Shift::all();
         // Get all positions
-        $positions = Position::all();
+        $positions = Position::orderBy('description', 'asc')->get();
         // Get all jobs
         $jobs = Job::all();
         // Return the create employee view
@@ -206,7 +206,7 @@ class EmployeeController extends Controller
             'costCenter.employeeDayTeamLeader',
             'costCenter.employeeNightTeamLeader',
             'shift',
-            'position',
+            'position.wageTitle',
             'job',
             'phoneNumber',
             'emergencyContact',
@@ -214,6 +214,7 @@ class EmployeeController extends Controller
             'termination',
             'reduction'
         )->findOrFail($id);
+        // return $employee;
         // Get the full name of the state
         $this->checkState($employee);
         // Get disciplinary info
@@ -259,7 +260,7 @@ class EmployeeController extends Controller
         // Get all shifts
         $shifts = Shift::all();
         // Get all positions
-        $positions = Position::all();
+        $positions = Position::orderBy('description', 'asc')->get();
         // Get all jobs
         $jobs = Job::all();
         // Get disciplinary info

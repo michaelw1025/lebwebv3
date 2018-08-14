@@ -182,7 +182,17 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label for="show-employee-shift">Shift</label>
-                    <input type="text" class="form-control" id="show-employee-shift" name="shift" value="@foreach($employee->shift as $employeeShift) {{$employeeShift->code}} - {{$employeeShift->description}} @endforeach" disabled>
+                    <input type="text" class="form-control" id="show-employee-shift" name="shift" value="@foreach($employee->shift as $employeeShift) {{$employeeShift->description}} @endforeach" disabled>
+                </div>
+            </div>
+
+            <header class="alert alert-primary mt-4 h2" role="alert">
+                <i class="fas fa-money-bill-wave"></i> Wage
+            </header>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="show-employee-wage-title">Wage Title</label>
+                    <input type="text" class="form-control" id="show-employee-wage-title" name="wage_title" value="@foreach($employee->position as $employeePosition) @foreach($employeePosition->wageTitle as $employeeWageTitle) {{ucwords($employeeWageTitle->description)}} @endforeach @endforeach">
                 </div>
             </div>
 
