@@ -27,6 +27,9 @@
 
             <p class="text-danger">@component('components.required-icon')@endComponent indicates a required field</p>
 
+            <!-- ****************************************
+            Demographics
+            **************************************** -->
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="show-employee-id">Employee ID</label>
@@ -379,6 +382,9 @@
                 </div>
             </div>
 
+            <!-- ****************************************
+            Occupation
+            **************************************** -->
             <header class="alert alert-primary mt-4 h2" role="alert">
                 <i class="fas fa-dolly"></i> Occupation
             </header>
@@ -456,6 +462,70 @@
                 </div>
             </div>
 
+            <!-- ****************************************
+            Wage
+            **************************************** -->
+            <header class="alert alert-primary mt-4 h2" role="alert">
+                <i class="fas fa-money-bill-wave"></i> Wage
+            </header>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="edit-employee-wage-title">Wage Title @component('components.required-icon')@endComponent</label>
+                    <select name="wage_title" id="edit-employee-wage-title" class="custom-select {{$errors->has('wage_title') ? 'is-invalid' : ''}} choose-wage-title">
+                        @foreach($employee->position as $employeePosition)
+                        @foreach($employeePosition->wageTitle as $employeeWageTitle)
+                        <option {{old('wage_title') ? (old('wage_title') == $employeeWageTitle->id ? 'selected' : '') : ''}} value="{{$employeeWageTitle->id}}">{{ucwords($employeeWageTitle->description)}}</option>
+                        @endforeach
+                        @endforeach
+                        <option value=""></option>
+                        @foreach($wageTitles as $wageTitle)
+                        <option {{old('wage_title') == $wageTitle->id ? 'selected' : ''}} value="{{$wageTitle->id}}">{{ucwords($wageTitle->description)}}</option>
+                        @endforeach
+                    </select>
+                    @if($errors->has('wage_title'))
+                        <span class="invalid-feedback" role="alert">
+                            {{$errors->first('wage_title')}}
+                        </span>
+                    @endif
+                </div>
+            </div>
+            <table class="table table-sm table-borderless">
+            <caption><button type="button" class="btn btn-outline-info clear-progression-events"> Clear Wage Events</button></caption>
+                <thead class="bg-header text-light">
+                    <tr>
+                        <th><span class="d-none d-sm-block">Month</span><span class="d-sm-none">Mth</span></th>
+                        <th><span class="d-none d-sm-block">Amount</span><span class="d-sm-none">Amt</span></th>
+                        <th><span class="d-none d-sm-block">Increase Date</span><span class="d-sm-none">Date</span></th>
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    @foreach($wageProgressions as $wageProgression)
+                    <tr>
+                        <td>{{$wageProgression->month}}</td>
+                        @foreach($wageTitles as $wageTitle)
+                        @foreach($wageTitle->wageProgression as $wageTitleProgression)
+                        @if($wageTitleProgression->id === $wageProgression->id)
+                        <td class="{{$wageTitle->description}} wage-progression-row d-none">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="edit-employee-current-wage-{{$wageTitleProgression->pivot->id}}" name="current_wage" class="custom-control-input" value="{{$wageTitleProgression->pivot->id}}" {{$employee->current_wage == $wageTitleProgression->pivot->id ? 'checked' : ''}}>
+                                <label class="custom-control-label" for="edit-employee-current-wage-{{$wageTitleProgression->pivot->id}}">{{$wageTitleProgression->pivot->amount}}</label>
+                            </div>
+                        </td>
+                        @endif
+                        @endforeach
+                        @endforeach
+                        <td>
+                            <input type="text" class="form-control col-12 col-lg-6 datepicker progression-event" id="edit-employee-progression-event-{{$loop->iteration}}" name="progression_event[{{$loop->iteration}}]" value="@foreach($employee->wageProgression as $employeeProgression){{$employeeProgression->id == $wageProgression->id ? $employeeProgression->pivot->date->format('m/d/Y') : ''}}@endforeach">
+                        </td>
+                    </tr>
+                    @endforeach   
+                </tbody>
+            </table>
+
+            <!-- ****************************************
+            Phone Number
+            **************************************** -->
             <header class="alert alert-primary mt-4 h2" role="alert">
                 <i class="fas fa-phone"></i> Phone Numbers
             </header>
@@ -558,19 +628,9 @@
                 
             </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+            <!-- ****************************************
+            Emergency Contacts
+            **************************************** -->
             <header class="alert alert-primary mt-4 h2" role="alert">
                 <i class="fas fa-star-of-life"></i> Emergency Contacts
             </header>
@@ -686,14 +746,9 @@
                 
             </div>
 
-
-
-
-
-
-
-
-
+            <!-- ****************************************
+            Disciplinary
+            **************************************** -->
             <header class="alert alert-primary mt-4 h2" role="alert">
                 <i class="fas fa-balance-scale"></i> Disciplinary
             </header>
@@ -721,10 +776,9 @@
                 </tbody>
             </table>
 
-
-
-
-
+            <!-- ****************************************
+            Termination
+            **************************************** -->
             <header class="alert alert-primary mt-4 h2" role="alert">
                 <i class="fas fa-ban"></i> Termination
             </header>
@@ -748,10 +802,9 @@
                 </tbody>
             </table>
 
-
-
-
-
+            <!-- ****************************************
+            Reduction
+            **************************************** -->
             <header class="alert alert-primary mt-4 h2" role="alert">
                 <i class="fas fa-angle-double-down"></i> Reduction
             </header>
@@ -776,33 +829,6 @@
                     @endforeach
                 </tbody>
             </table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
             <button type="submit" class="btn btn-success" id="edit-employee-submit-button">Save Employee</button>
         </form>

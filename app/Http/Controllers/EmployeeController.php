@@ -16,6 +16,8 @@ use App\EmergencyContact;
 use App\Notifications\EmployeeCreated;
 use Notification;
 use App\User;
+use App\WageTitle;
+use App\WageProgression;
 
 class EmployeeController extends Controller
 {
@@ -213,7 +215,8 @@ class EmployeeController extends Controller
             'disciplinary',
             'termination',
             'reduction',
-            'wageProgression'
+            'wageProgression',
+            'wageProgressionWageTitle'
         )->findOrFail($id);
         // return $employee;
         // Get the full name of the state
@@ -248,14 +251,17 @@ class EmployeeController extends Controller
             'costCenter.employeeDayTeamLeader',
             'costCenter.employeeNightTeamLeader',
             'shift',
-            'position',
+            'position.wageTitle.wageProgression',
             'job',
             'phoneNumber',
             'emergencyContact',
             'disciplinary', 
             'termination',
-            'reduction'
+            'reduction',
+            'wageProgression',
+            'wageProgressionWageTitle'
         )->findOrFail($id);
+        // return $employee;
         // Get the full name of the state
         $this->checkState($employee);
         // Get all cost centers
@@ -270,13 +276,26 @@ class EmployeeController extends Controller
         foreach($employee->disciplinary as $disciplinary){
             $this->getDisciplinaryInfo($disciplinary);
         }
+        // Convert wage event dates from string to date
+        $this->setWageEventDate($employee);
+        // Get all wage titles with their progressions
+        $wageTitles = WageTitle::with('wageProgression')->get();
+        // Get all wage progressions
+        $wageProgressions = WageProgression::orderBy('month', 'asc')->get();
+        // Set the employees current wage info
+        foreach($employee->wageProgressionWageTitle as $currentWage){
+            $employee->current_wage = $currentWage->id;
+        }
+        // return $wageTitles;
         // Return the edit employee view
         return view('hr.employee.employee-edit', [
             'employee' => $employee,
             'costCenters' => $costCenters,
             'shifts' => $shifts,
             'positions' => $positions,
-            'jobs' => $jobs
+            'jobs' => $jobs,
+            'wageTitles' => $wageTitles,
+            'wageProgressions' => $wageProgressions
         ]);
     }
 
@@ -292,7 +311,7 @@ class EmployeeController extends Controller
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
 
-        // return $request;
+        return $request;
 
         // Get the employee to update
         $employee = Employee::findOrFail($id);
@@ -429,6 +448,8 @@ class EmployeeController extends Controller
                     }
                 }
             }
+            // Save wage info
+
             // If the save was successful
             \Session::flash('status', 'Employee updated successfully.');
             // Return the show employee view

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Position;
 
 class StoreEmployee extends FormRequest
 {
@@ -56,8 +57,7 @@ class StoreEmployee extends FormRequest
             'position' => 'required',
             'job' => 'required',
             'phone_number.*.number' => 'nullable|size:12',
-            // 'emergency_contact.*.number' => 'nullable|size:12',
-            // 'emergency_contact.*.name' => 'required_with:emergency_contact.*.name|string|max:35'
+
         ];
 
         // Check emergency contacts
@@ -78,6 +78,16 @@ class StoreEmployee extends FormRequest
                 $eCCount++;
             }
         }
+
+        // Check chosen wage title against chosen position
+        $position = Position::with('wageTitle')->findOrFail($this->position);
+        foreach($position->wageTitle as $wageTitle) {
+            $wageTitleID = $wageTitle->id;
+        }
+        $rulesArray += [
+            'wage_title' => 'required|in:'.$wageTitleID
+        ];
+
 
         if($this->route()->named('employees.store')) { // If storing a new employee
             $rulesArray += [
@@ -110,6 +120,7 @@ class StoreEmployee extends FormRequest
             'emergency_contact.*.number.required' => 'The emergency contact number field cannot be blank if a name is given.',
             'emergency_contact.*.number.size' => 'The emergency contact number field must be 12 characters including dashes.',
             'emergency_contact.*.name.required' => 'The emergency contact name field cannot be blank if a number is given.',
+            'wage_title.in' => 'The selected wage title must be relevant for the selected position.',
         ];
     }
 }

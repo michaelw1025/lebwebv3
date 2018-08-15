@@ -14,6 +14,10 @@
         <form action="{{Route('employees.store')}}" class="mt-2" id="create-employee-form" method="POST" enctype="multipart/form-data">
             @csrf
             <p class="text-danger">@component('components.required-icon')@endComponent indicates a required field</p>
+
+            <!-- ****************************************
+            Demographics
+            **************************************** -->
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="create-employee-first-name">First Name @component('components.required-icon')@endComponent</label>
@@ -264,6 +268,9 @@
                 </div>
             </div>
 
+            <!-- ****************************************
+            Occupation
+            **************************************** -->
             <header class="alert alert-primary mt-4 h2" role="alert">
                 <i class="fas fa-dolly"></i> Occupation
             </header>
@@ -329,6 +336,16 @@
                 </div>
             </div>
 
+            <!-- ****************************************
+            Wage
+            **************************************** -->
+            <header class="alert alert-primary mt-4 h2" role="alert">
+                <i class="fas fa-money-bill-wave"></i> Wage
+            </header>
+
+            <!-- ****************************************
+            Phone Number
+            **************************************** -->
             <header class="alert alert-primary mt-4 h2" role="alert">
                 <i class="fas fa-phone"></i> Phone Numbers
             </header>
@@ -398,14 +415,9 @@
             @endfor
             </div>
 
-
-
-
-
-
-
-
-
+            <!-- ****************************************
+            Emergency Contacts
+            **************************************** -->
             <header class="alert alert-primary mt-4 h2" role="alert">
                 <i class="fas fa-star-of-life"></i> Emergency Contacts
             </header>
@@ -481,26 +493,6 @@
                 </div>
             @endfor 
             </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
             <button type="submit" class="btn btn-success" id="create-employee-submit-button">Save Employee</button>

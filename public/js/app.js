@@ -13937,6 +13937,8 @@ $(document).ready(function () {
     checkReviewOnLoad();
     // Check if reduction displacement is set to bump and require appropriate fields
     checkDisplacementRadioOnLoad();
+    // Check for correct wage progression table on load
+    checkWageProgressionTable();
 });
 
 // Check if review item is checked at load needed to load old data
@@ -14130,6 +14132,29 @@ $('.phone-number-format').on('keyup', function () {
     var iteration = $(this).attr('id').substr($(this).attr('id').length - 1);
     $('#edit-employee-phone-number-primary-' + iteration).val(newVal);
     this.value = newVal;
+});
+
+// Change wage progression table based on wage title chosen
+$('.choose-wage-title').on('change', function () {
+    var selected = $(this).find(':selected').text().toLowerCase();
+    $('.wage-progression-row').addClass('d-none');
+    $('.' + selected).removeClass('d-none');
+});
+
+// Check for correct wage progression table on load
+function checkWageProgressionTable() {
+    var selected = $('.choose-wage-title').find(':selected').text().toLowerCase();
+    $('.wage-progression-row').addClass('d-none');
+    $('.' + selected).removeClass('d-none');
+}
+
+// Clear all wage progression events
+$('.clear-progression-events').on('click', function () {
+    if (!confirm(' Please confirm clearing the wage progression event dates.')) {} else {
+        $('.progression-event').each(function () {
+            $(this).val('');
+        });
+    }
 });
 
 /***/ }),

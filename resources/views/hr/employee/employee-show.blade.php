@@ -192,29 +192,31 @@
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="show-employee-wage-title">Wage Title</label>
-                    <input type="text" class="form-control" id="show-employee-wage-title" name="wage_title" value="@foreach($employee->position as $employeePosition) @foreach($employeePosition->wageTitle as $employeeWageTitle) {{ucwords($employeeWageTitle->description)}} @endforeach @endforeach">
+                    <input type="text" class="form-control" id="show-employee-wage-title" name="wage_title" value="@foreach($employee->position as $employeePosition) @foreach($employeePosition->wageTitle as $employeeWageTitle) {{ucwords($employeeWageTitle->description)}} @endforeach @endforeach" disabled>
                 </div>
             </div>
             <table class="table table-sm table-borderless">
                 <thead class="bg-header text-light">
                     <tr>
-                        <th>Month</th>
-                        <th>Amount</th>
-                        <th>Event Date</th>
+                        <th><span class="d-none d-sm-block">Month</span><span class="d-sm-none">Mth</span></th>
+                        <th><span class="d-none d-sm-block">Amount</span><span class="d-sm-none">Amt</span></th>
+                        <th><span class="d-none d-sm-block">Increase Date</span><span class="d-sm-none">Date</span></th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($employee->position as $employeePosition)
                     @foreach($employeePosition->wageTitle as $employeePositionWageTitle)
                     @foreach($employeePositionWageTitle->wageProgression as $employeePositionWageProgression)
-                    <tr class="" data-href="">
+                    <tr class="@foreach($employee->wageProgressionWageTitle as $employeeCurrentWage) {{$employeeCurrentWage->id === $employeePositionWageProgression->pivot->id ? 'table-info' : ''}} @endforeach" data-href="">
                         <td>{{$employeePositionWageProgression->month}}</td>
                         <td>{{$employeePositionWageProgression->pivot->amount}}</td>
+                        <td>
                         @foreach($employee->wageProgression as $employeeWageProgression)
                         @if($employeeWageProgression->pivot->wage_progression_id === $employeePositionWageProgression->pivot->wage_progression_id)
-                        <td>{{$employeeWageProgression->pivot->date->format('m/d/Y')}}</td>
+                            {{$employeeWageProgression->pivot->date->format('m/d/Y')}}
                         @endif
                         @endforeach
+                        </td>
                     </tr>
                     @endforeach
                     @endforeach

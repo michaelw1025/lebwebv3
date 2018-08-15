@@ -301,4 +301,10 @@ class Employee extends Model
     {
         return $this->belongsToMany('App\WageProgression')->withPivot('date');
     }
+
+    //Employee current wage relationship
+    public function wageProgressionWageTitle()
+    {
+        return $this->belongsToMany('App\WageProgressionWageTitle');
+    }
 }
