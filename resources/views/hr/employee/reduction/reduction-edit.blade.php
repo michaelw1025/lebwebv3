@@ -5,16 +5,16 @@
     @include('hr.sidebar')
 
     <article class="col-10 main-content-article">
-        <h2 class="mt-2 text-edit"><i class="fas fa-user-edit fa-lg"></i>&nbsp Edit Employee Reduction</h2>
+        <h2 class="mt-2 text-edit"><i class="fas fa-user-edit fa-lg"></i>&nbsp Edit {{$reduction->employee->first_name}} {{$reduction->employee->last_name}} Reduction</h2>
         <hr></hr>
 
         @include('alerts.validation-alert')
         @include('alerts.session-alert')
 
-        <form action="{{Route('reductions.update', $reduction->id)}}" class="mt-2" id="edit-reduction-form" method="POST">
+        <form action="{{Route('reductions.update', $reduction->id)}}" class="mt-2" id="edit-reduction-form" method="POST" autocomplete="off">
             @csrf
             @method('Patch')
-            <a href="{{route('employees.show', ['id' => $reduction->employee->id])}}" class="h3 text-primary my-4"><i class="fas fa-arrow-left"></i> Return To {{$reduction->employee->first_name}} {{$reduction->employee->last_name}}</a>
+            <a href="{{route('employees.show', ['id' => $reduction->employee->id])}}" class="h3 text-primary my-4"><i class="fas fa-arrow-left"></i> Return To Show {{$reduction->employee->first_name}} {{$reduction->employee->last_name}}</a>
 
             <p class="text-danger mt-4">@component('components.required-icon')@endComponent indicates a required field</p>
 
@@ -106,7 +106,7 @@
 
                 <div class="form-group col-md-4">
                     <label for="edit-reduction-home-cost-center">Home Cost Center @component('components.required-icon')@endComponent</label>
-                    <select type="text" class="custom-select {{$errors->has('home_cost_center') ? 'is-invalid' : ''}}" id="edit-reduction-home-cost-center" name="home_cost_center" value="">
+                    <select class="custom-select {{$errors->has('home_cost_center') ? 'is-invalid' : ''}}" id="edit-reduction-home-cost-center" name="home_cost_center">
                         @if(!old('home_cost_center'))
                         <option value="{{$reduction->home_cost_center}}" selected>{{$reduction->home_cost_center_number}} {{$reduction->home_cost_center_name}}</option>
                         @endif
@@ -127,7 +127,7 @@
                     Bump To Cost Center
                     @component('components.required-icon')@endComponent
                     </label>
-                    <select type="text" class="custom-select {{$errors->has('bump_to_cost_center') ? 'is-invalid' : ''}}" id="edit-reduction-bump-to-cost-center" name="bump_to_cost_center" value="">
+                    <select class="custom-select {{$errors->has('bump_to_cost_center') ? 'is-invalid' : ''}}" id="edit-reduction-bump-to-cost-center" name="bump_to_cost_center">
                         @if(!old('bump_to_cost_center'))
                         <option value="{{$reduction->bump_to_cost_center}}" selected>{{$reduction->bump_to_cost_center_number}} {{$reduction->bump_to_cost_center_name}}</option>
                         @endif
@@ -145,7 +145,7 @@
 
                 <div class="form-group col-md-4">
                     <label for="edit-reduction-home-shift">Home Shift @component('components.required-icon')@endComponent</label>
-                    <select type="text" class="custom-select {{$errors->has('home_shift') ? 'is-invalid' : ''}}" id="edit-reduction-home-shift" name="home_shift" value="">
+                    <select class="custom-select {{$errors->has('home_shift') ? 'is-invalid' : ''}}" id="edit-reduction-home-shift" name="home_shift">
                         @if(!old('home_shift'))
                         <option value="{{$reduction->home_shift}}" selected>{{$reduction->home_shift_name}}</option>
                         @endif
@@ -166,7 +166,7 @@
                     Bump To Shift
                     @component('components.required-icon')@endComponent
                     </label>
-                    <select type="text" class="custom-select {{$errors->has('bump_to_shift') ? 'is-invalid' : ''}}" id="edit-reduction-bump-to-shift" name="bump_to_shift" value="">
+                    <select class="custom-select {{$errors->has('bump_to_shift') ? 'is-invalid' : ''}}" id="edit-reduction-bump-to-shift" name="bump_to_shift">
                         @if(!old('bump_to_shift'))
                         <option value="{{$reduction->bump_to_shift}}" selected>{{$reduction->bump_to_shift_name}}</option>
                         @endif

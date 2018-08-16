@@ -101,7 +101,6 @@ class EmployeeController extends Controller
      */
     public function store(StoreEmployee $request)
     {
-        dd($request);
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
         // Create a new employee object
@@ -184,6 +183,18 @@ class EmployeeController extends Controller
                     } 
                 }
             }
+            // Save wage info
+            // Sync WageProgressionWageTitle for current wage
+            $employee->wageProgressionWageTitle()->sync($request->current_wage);
+            // Save wage progression event dates
+            $eventsArray = array();
+            foreach($request->progression_event as $event) {
+                if($event['date'] != null) {
+                    $eventDate = $this->setAsDate($event['date']);
+                    $eventsArray[$event['id']] = (['date' => $eventDate]);
+                }
+            }
+            $employee->wageProgression()->sync($eventsArray);
             // If the save was successful
             \Session::flash('status', 'Employee created successfully.');
             // Return the show employee view
@@ -490,5 +501,6 @@ class EmployeeController extends Controller
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin']);
         // Do not delete employees, set as inactive instead
+
     }
 }

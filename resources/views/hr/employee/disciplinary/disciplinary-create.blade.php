@@ -5,22 +5,22 @@
     @include('hr.sidebar')
 
     <article class="col-10 main-content-article">
-        <h2 class="mt-2 text-create"><i class="fas fa-user-edit fa-lg"></i>&nbsp Create Employee Disciplinary</h2>
+        <h2 class="mt-2 text-create"><i class="fas fa-user-edit fa-lg"></i>&nbsp Create {{$employee->first_name}} {{$employee->last_name}} Disciplinary</h2>
         <hr></hr>
 
         @include('alerts.validation-alert')
         @include('alerts.session-alert')
 
-        <form action="{{Route('disciplinaries.store', ['employee' => $employee->id])}}" class="mt-2" id="create-disciplinary-form" method="POST">
+        <form action="{{Route('disciplinaries.store', ['employee' => $employee->id])}}" class="mt-2" id="create-disciplinary-form" method="POST" autocomplete="off">
             @csrf
-            <a href="{{route('employees.show', ['id' => $employee->id])}}" class="h3 text-primary my-4"><i class="fas fa-arrow-left"></i> Return To {{$employee->first_name}} {{$employee->last_name}}</a>
+            <a href="{{route('employees.show', ['id' => $employee->id])}}" class="h3 text-primary my-4"><i class="fas fa-arrow-left"></i> Return To Show {{$employee->first_name}} {{$employee->last_name}}</a>
 
             <p class="text-danger mt-4">@component('components.required-icon')@endComponent indicates a required field</p>
 
             <div class="form-row mt-4">
                 <div class="form-group col-md-4">
                     <label for="create-disciplinary-type">Type @component('components.required-icon')@endComponent</label>
-                    <select type="text" class="custom-select {{$errors->has('type') ? 'is-invalid' : ''}}" id="create-disciplinary-type" name="type" value="">
+                    <select class="custom-select {{$errors->has('type') ? 'is-invalid' : ''}}" id="create-disciplinary-type" name="type">
                         <option {{old('type') ? (old('type') == '' ? 'selected' : '') : ''}} value=""></option>
                         <option {{old('type') ? (old('type') == 'attendance' ? 'selected' : '') : ''}} value="attendance">Attendance</option>
                         <option {{old('type') ? (old('type') == 'performance' ? 'selected' : '') : ''}} value="performance">Performance</option>
@@ -33,7 +33,7 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label for="create-disciplinary-level">Level @component('components.required-icon')@endComponent</label>
-                    <select type="text" class="custom-select {{$errors->has('level') ? 'is-invalid' : ''}}" id="create-disciplinary-level" name="level" value="">
+                    <select class="custom-select {{$errors->has('level') ? 'is-invalid' : ''}}" id="create-disciplinary-level" name="level">
                         <option {{old('level') ? (old('level') == '' ? 'selected' : '') : ''}} value=""></option>
                         <option {{old('level') ? (old('level') == 'first' ? 'selected' : '') : ''}} value="first">First</option>
                         <option {{old('level') ? (old('level') == 'second' ? 'selected' : '') : ''}} value="second">Second</option>
@@ -60,7 +60,7 @@
 
                 <div class="form-group col-md-4">
                     <label for="create-disciplinary-cost-center">Cost Center @component('components.required-icon')@endComponent</label>
-                    <select type="text" class="custom-select {{$errors->has('cost_center') ? 'is-invalid' : ''}}" id="create-disciplinary-cost-center" name="cost_center" value="">
+                    <select class="custom-select {{$errors->has('cost_center') ? 'is-invalid' : ''}}" id="create-disciplinary-cost-center" name="cost_center">
                         <option value=""></option>
                         @foreach($costCenters as $costCenter)
                         <option {{old('cost_center') ? (old('cost_center') == $costCenter->id ? 'selected' : '') : ''}} value="{{$costCenter->id}}">{{$costCenter->number}}  {{$costCenter->extension}}  {{$costCenter->description}}</option>
@@ -74,7 +74,7 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label for="create-disciplinary-issued-by">Issued By @component('components.required-icon')@endComponent</label>
-                    <select type="text" class="custom-select {{$errors->has('issued_by') ? 'is-invalid' : ''}}" id="create-disciplinary-issued-by" name="issued_by" value="">
+                    <select class="custom-select {{$errors->has('issued_by') ? 'is-invalid' : ''}}" id="create-disciplinary-issued-by" name="issued_by">
                         <option value=""></option>
                         @foreach($salariedEmployees as $salariedEmployee)
                         <option {{old('issued_by') ? (old('issued_by') == $salariedEmployee->id ? 'selected' : '') : ''}} value="{{$salariedEmployee->id}}">{{$salariedEmployee->first_name}} {{$salariedEmployee->last_name}}</option>
@@ -100,8 +100,6 @@
                 </div>
             </div>
 
-
-            
             <button type="submit" class="btn btn-success" id="create-disciplinary-submit-button">Create Disciplinary</button>
         </form>
 

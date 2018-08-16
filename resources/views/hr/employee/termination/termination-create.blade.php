@@ -5,22 +5,22 @@
     @include('hr.sidebar')
 
     <article class="col-10 main-content-article">
-        <h2 class="mt-2 text-create"><i class="fas fa-user-edit fa-lg"></i>&nbsp Create Employee Termination</h2>
+        <h2 class="mt-2 text-create"><i class="fas fa-user-edit fa-lg"></i>&nbsp Create {{$employee->first_name}} {{$employee->last_name}} Termination</h2>
         <hr></hr>
 
         @include('alerts.validation-alert')
         @include('alerts.session-alert')
 
-        <form action="{{Route('terminations.store', ['employee' => $employee->id])}}" class="mt-2" id="create-termination-form" method="POST">
+        <form action="{{Route('terminations.store', ['employee' => $employee->id])}}" class="mt-2" id="create-termination-form" method="POST" autocomplete="off">
             @csrf
-            <a href="{{route('employees.show', ['id' => $employee->id])}}" class="h3 text-primary my-4"><i class="fas fa-arrow-left"></i> Return To {{$employee->first_name}} {{$employee->last_name}}</a>
+            <a href="{{route('employees.show', ['id' => $employee->id])}}" class="h3 text-primary my-4"><i class="fas fa-arrow-left"></i> Return To Show {{$employee->first_name}} {{$employee->last_name}}</a>
 
             <p class="text-danger mt-4">@component('components.required-icon')@endComponent indicates a required field</p>
 
             <div class="form-row mt-4">
                 <div class="form-group col-md-4">
                     <label for="create-termination-type">Type @component('components.required-icon')@endComponent</label>
-                    <select type="text" class="custom-select {{$errors->has('type') ? 'is-invalid' : ''}}" id="create-termination-type" name="type" value="">
+                    <select class="custom-select {{$errors->has('type') ? 'is-invalid' : ''}}" id="create-termination-type" name="type">
                         <option {{old('type') ? (old('type') == '' ? 'selected' : '') : ''}} value=""></option>
                         <option {{old('type') ? (old('type') == 'voluntary' ? 'selected' : '') : ''}} value="voluntary">Voluntary</option>
                         <option {{old('type') ? (old('type') == 'involuntary' ? 'selected' : '') : ''}} value="involuntary">Involuntary</option>
@@ -63,8 +63,6 @@
                 </div>
             </div>
 
-
-            
             <button type="submit" class="btn btn-success" id="create-termination-submit-button">Create Termination</button>
         </form>
 

@@ -5,15 +5,15 @@
     @include('hr.sidebar')
 
     <article class="col-10 main-content-article">
-        <h2 class="mt-2 text-create"><i class="fas fa-user-edit fa-lg"></i>&nbsp Create Employee Reduction</h2>
+        <h2 class="mt-2 text-create"><i class="fas fa-user-edit fa-lg"></i>&nbsp Create {{$employee->first_name}} {{$employee->last_name}} Reduction</h2>
         <hr></hr>
 
         @include('alerts.validation-alert')
         @include('alerts.session-alert')
 
-        <form action="{{Route('reductions.store', ['employee' => $employee->id])}}" class="mt-2" id="create-reduction-form" method="POST">
+        <form action="{{Route('reductions.store', ['employee' => $employee->id])}}" class="mt-2" id="create-reduction-form" method="POST" autocomplete="off">
             @csrf
-            <a href="{{route('employees.show', ['id' => $employee->id])}}" class="h3 text-primary my-4"><i class="fas fa-arrow-left"></i> Return To {{$employee->first_name}} {{$employee->last_name}}</a>
+            <a href="{{route('employees.show', ['id' => $employee->id])}}" class="h3 text-primary my-4"><i class="fas fa-arrow-left"></i> Return To Show {{$employee->first_name}} {{$employee->last_name}}</a>
 
             <p class="text-danger mt-4">@component('components.required-icon')@endComponent indicates a required field</p>
 
@@ -103,7 +103,7 @@
 
                 <div class="form-group col-md-4">
                     <label for="create-reduction-home-cost-center">Home Cost Center @component('components.required-icon')@endComponent</label>
-                    <select type="text" class="custom-select {{$errors->has('home_cost_center') ? 'is-invalid' : ''}}" id="create-reduction-home-cost-center" name="home_cost_center" value="">
+                    <select class="custom-select {{$errors->has('home_cost_center') ? 'is-invalid' : ''}}" id="create-reduction-home-cost-center" name="home_cost_center">
                         <option></option>
                         @foreach($costCenters as $costCenter)
                         <option {{old('home_cost_center') ? (old('home_cost_center') == $costCenter->id ? 'selected' : '') : ''}} value="{{$costCenter->id}}">{{$costCenter->number}}  {{$costCenter->extension}}  {{$costCenter->description}}</option>
@@ -121,7 +121,7 @@
                     Bump To Cost Center
                     @component('components.required-icon')@endComponent
                     </label>
-                    <select type="text" class="custom-select {{$errors->has('bump_to_cost_center') ? 'is-invalid' : ''}}" id="create-reduction-bump-to-cost-center" name="bump_to_cost_center" value="">
+                    <select class="custom-select {{$errors->has('bump_to_cost_center') ? 'is-invalid' : ''}}" id="create-reduction-bump-to-cost-center" name="bump_to_cost_center">
                         <option></option>
                         @foreach($costCenters as $costCenter)
                         <option {{old('bump_to_cost_center') ? (old('bump_to_cost_center') == $costCenter->id ? 'selected' : '') : ''}} value="{{$costCenter->id}}">{{$costCenter->number}}  {{$costCenter->extension}}  {{$costCenter->description}}</option>
@@ -136,7 +136,7 @@
 
                 <div class="form-group col-md-4">
                     <label for="create-reduction-home-shift">Home Shift @component('components.required-icon')@endComponent</label>
-                    <select type="text" class="custom-select {{$errors->has('home_shift') ? 'is-invalid' : ''}}" id="create-reduction-home-shift" name="home_shift" value="">
+                    <select class="custom-select {{$errors->has('home_shift') ? 'is-invalid' : ''}}" id="create-reduction-home-shift" name="home_shift">
                         <option></option>
                         @foreach($shifts as $shift)
                         <option {{old('home_shift') ? (old('home_shift') == $shift->id ? 'selected' : '') : ''}} value="{{$shift->id}}">{{$shift->description}}</option>
@@ -154,7 +154,7 @@
                     Bump To Shift
                     @component('components.required-icon')@endComponent
                     </label>
-                    <select type="text" class="custom-select {{$errors->has('bump_to_shift') ? 'is-invalid' : ''}}" id="create-reduction-bump-to-shift" name="bump_to_shift" value="">
+                    <select class="custom-select {{$errors->has('bump_to_shift') ? 'is-invalid' : ''}}" id="create-reduction-bump-to-shift" name="bump_to_shift">
                         <option></option>
                         @foreach($shifts as $shift)
                         <option {{old('bump_to_shift') ? (old('bump_to_shift') == $shift->id ? 'selected' : '') : ''}} value="{{$shift->id}}">{{$shift->description}}</option>

@@ -14129,8 +14129,8 @@ $('.phone-number-format').on('keyup', function () {
         val = val.substr(6);
     }
     newVal += val;
-    var iteration = $(this).attr('id').substr($(this).attr('id').length - 1);
-    $('#edit-employee-phone-number-primary-' + iteration).val(newVal);
+    var iteration = $(this).attr('id') + '-primary';
+    $('#' + iteration).val(newVal);
     this.value = newVal;
 });
 

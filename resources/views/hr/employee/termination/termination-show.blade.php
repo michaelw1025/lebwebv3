@@ -5,15 +5,15 @@
     @include('hr.sidebar')
 
     <article class="col-10 main-content-article">
-        <h2 class="mt-2 text-primary"><i class="fas fa-user-tag fa-lg"></i>&nbsp Show Employee Termination</h2>
+        <h2 class="mt-2 text-primary"><i class="fas fa-user-tag fa-lg"></i>&nbsp Show {{$termination->employee->first_name}} {{$termination->employee->last_name}} Termination</h2>
         <hr></hr>
 
         @include('alerts.validation-alert')
         @include('alerts.session-alert')
 
-        <form action="" class="mt-2" id="show-termination-form" method="GET">
+        <form action="" class="mt-2" id="show-termination-form" method="GET" autocomplete="off">
             @csrf
-            <a href="{{route('employees.show', ['id' => $termination->employee->id])}}" class="h3 text-primary my-4"><i class="fas fa-arrow-left"></i> Return To {{$termination->employee->first_name}} {{$termination->employee->last_name}}</a>
+            <a href="{{route('employees.show', ['id' => $termination->employee->id])}}" class="h3 text-primary my-4"><i class="fas fa-arrow-left"></i> Return To Show {{$termination->employee->first_name}} {{$termination->employee->last_name}}</a>
 
             <div class="form-row mt-4">
                 <div class="form-group col-md-4">

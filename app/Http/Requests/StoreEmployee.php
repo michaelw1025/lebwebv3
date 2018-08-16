@@ -61,7 +61,8 @@ class StoreEmployee extends FormRequest
             'position' => 'required',
             'job' => 'required',
             'phone_number.*.number' => 'nullable|size:12',
-
+            'current_wage' => 'required',
+            'progression_event.*.date' => 'nullable|date'
         ];
 
         // Check emergency contacts
@@ -85,7 +86,7 @@ class StoreEmployee extends FormRequest
 
         // Check chosen wage title against chosen position
         if($this->position !== null){
-            $position = Position::with('wageTitle')->get($this->position);
+            $position = Position::with('wageTitle')->findOrFail($this->position);
             foreach($position->wageTitle as $wageTitle) {
                 $wageTitleID = $wageTitle->id;
             }
@@ -131,6 +132,8 @@ class StoreEmployee extends FormRequest
             'emergency_contact.*.number.size' => 'The emergency contact number field must be 12 characters including dashes.',
             'emergency_contact.*.name.required' => 'The emergency contact name field cannot be blank if a number is given.',
             'wage_title.in' => 'The selected wage title must be relevant for the selected position.',
+            'current_wage.required' => 'An amount must be selected.',
+            'progression_event.*.date.date' => 'The increase date is not a valid date.',
         ];
     }
 }

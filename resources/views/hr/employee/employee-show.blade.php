@@ -5,13 +5,13 @@
     @include('hr.sidebar')
 
     <article class="col-10 main-content-article">
-        <h2 class="mt-2 text-primary"><i class="fas fa-user-tag fa-lg"></i>&nbsp Show Employee</h2>
+        <h2 class="mt-2 text-primary"><i class="fas fa-user-tag fa-lg"></i>&nbsp Show {{$employee->first_name}} {{$employee->last_name}}</h2>
         <hr></hr>
 
         @include('alerts.validation-alert')
         @include('alerts.session-alert')
 
-        <form action="" class="mt-2" id="show-employee-form" method="GET">
+        <form action="" class="mt-2" id="show-employee-form" method="GET" autocomplete="off">
             @csrf
             @if($employee->photo_link !== null)
             <img src="/storage/{{$employee->photo_link}}" alt="Employee Photo" class="img-thumbnail mb-2" width="100" height="100">
@@ -108,15 +108,15 @@
                 <div class="card bg-light {{$employee->status === '1' ? 'border-success' : 'border-danger'}}">
                     <div class="card-header">Status</div>
                     <div class="card-body">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="status" id="show-employee-status-active" value="1" {{$employee->status == '1' ? 'checked' : ''}} disabled>
-                            <label class="form-check-label" for="show-employee-status-active">
+                        <div class="custom-control custom-radio">
+                            <input class="custom-control-input" type="radio" name="status" id="show-employee-status-active" value="1" {{$employee->status == '1' ? 'checked' : ''}} disabled>
+                            <label class="custom-control-label" for="show-employee-status-active">
                             Active
                             </label>
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="status" id="show-employee-status-inactive" value="0" {{$employee->status == '0' ? 'checked' : ''}} disabled>
-                            <label class="form-check-label" for="show-employee-status-inactive">
+                        <div class="custom-control custom-radio">
+                            <input class="custom-control-input" type="radio" name="status" id="show-employee-status-inactive" value="0" {{$employee->status == '0' ? 'checked' : ''}} disabled>
+                            <label class="custom-control-label" for="show-employee-status-inactive">
                             Inactive
                             </label>
                         </div>
@@ -125,15 +125,15 @@
                 <div class="card bg-light {{$employee->rehire === '1' ? 'border-success' : 'border-danger'}}">
                     <div class="card-header">Rehire</div>
                     <div class="card-body">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="rehire" id="show-employee-rehire-yes" value="1" {{$employee->rehire == '1' ? 'checked' : ''}} disabled>
-                            <label class="form-check-label" for="show-employee-rehire-yes">
+                        <div class="custom-control custom-radio">
+                            <input class="custom-control-input" type="radio" name="rehire" id="show-employee-rehire-yes" value="1" {{$employee->rehire == '1' ? 'checked' : ''}} disabled>
+                            <label class="custom-control-label" for="show-employee-rehire-yes">
                             Yes
                             </label>
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="rehire" id="show-employee-rehire-no" value="0" {{$employee->rehire == '0' ? 'checked' : ''}} disabled>
-                            <label class="form-check-label" for="show-employee-rehire-no">
+                        <div class="custom-control custom-radio">
+                            <input class="custom-control-input" type="radio" name="rehire" id="show-employee-rehire-no" value="0" {{$employee->rehire == '0' ? 'checked' : ''}} disabled>
+                            <label class="custom-control-label" for="show-employee-rehire-no">
                             No
                             </label>
                         </div>
@@ -142,15 +142,15 @@
                 <div class="card bg-light">
                     <div class="card-header">Reviews</div>
                     <div class="card-body">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="thirty_day_review" id="show-employee-thirty-day-review" value="1" {{$employee->thirty_day_review == '1' ? 'checked' : ''}} disabled>
-                            <label class="form-check-label" for="show-employee-thirty-day-review">
+                        <div class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox" name="thirty_day_review" id="show-employee-thirty-day-review" value="1" {{$employee->thirty_day_review == '1' ? 'checked' : ''}} disabled>
+                            <label class="custom-control-label" for="show-employee-thirty-day-review">
                             Thirty Day
                             </label>
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="sixty_day_review" id="show-employee-sixty-day-review" value="1" {{$employee->sixty_day_review == '1' ? 'checked' : ''}} disabled>
-                            <label class="form-check-label" for="show-employee-sixty-day-review">
+                        <div class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox" name="sixty_day_review" id="show-employee-sixty-day-review" value="1" {{$employee->sixty_day_review == '1' ? 'checked' : ''}} disabled>
+                            <label class="custom-control-label" for="show-employee-sixty-day-review">
                             Sixty Day
                             </label>
                         </div>

@@ -5,23 +5,23 @@
     @include('hr.sidebar')
 
     <article class="col-10 main-content-article">
-        <h2 class="mt-2 text-edit"><i class="fas fa-user-edit fa-lg"></i>&nbsp Edit Employee Disciplinary</h2>
+        <h2 class="mt-2 text-edit"><i class="fas fa-user-edit fa-lg"></i>&nbsp Edit {{$disciplinary->employee->first_name}} {{$disciplinary->employee->last_name}} Disciplinary</h2>
         <hr></hr>
 
         @include('alerts.validation-alert')
         @include('alerts.session-alert')
 
-        <form action="{{Route('disciplinaries.update', $disciplinary->id)}}" class="mt-2" id="edit-disciplinary-form" method="POST">
+        <form action="{{Route('disciplinaries.update', $disciplinary->id)}}" class="mt-2" id="edit-disciplinary-form" method="POST" autocomplete="off">
             @csrf
             @method('Patch')
-            <a href="{{route('employees.show', ['id' => $disciplinary->employee->id])}}" class="h3 text-primary my-4"><i class="fas fa-arrow-left"></i> Return To {{$disciplinary->employee->first_name}} {{$disciplinary->employee->last_name}}</a>
+            <a href="{{route('employees.show', ['id' => $disciplinary->employee->id])}}" class="h3 text-primary my-4"><i class="fas fa-arrow-left"></i> Return To Show {{$disciplinary->employee->first_name}} {{$disciplinary->employee->last_name}}</a>
 
             <p class="text-danger mt-4">@component('components.required-icon')@endComponent indicates a required field</p>
 
             <div class="form-row mt-4">
                 <div class="form-group col-md-4">
                     <label for="edit-disciplinary-type">Type @component('components.required-icon')@endComponent</label>
-                    <select type="text" class="custom-select {{$errors->has('type') ? 'is-invalid' : ''}}" id="edit-disciplinary-type" name="type" value="">
+                    <select class="custom-select {{$errors->has('type') ? 'is-invalid' : ''}}" id="edit-disciplinary-type" name="type">
                         @if(!old('type'))
                         <option value="{{$disciplinary->type}}" selected>{{ucwords($disciplinary->type)}}</option>
                         @endif
@@ -37,7 +37,7 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label for="edit-disciplinary-level">Level @component('components.required-icon')@endComponent</label>
-                    <select type="text" class="custom-select {{$errors->has('level') ? 'is-invalid' : ''}}" id="edit-disciplinary-level" name="level" value="">
+                    <select class="custom-select {{$errors->has('level') ? 'is-invalid' : ''}}" id="edit-disciplinary-level" name="level">
                         @if(!old('level'))
                         <option value="{{$disciplinary->level}}" selected>{{ucwords($disciplinary->level)}}</option>
                         @endif
@@ -67,7 +67,7 @@
 
                 <div class="form-group col-md-4">
                     <label for="edit-disciplinary-cost-center">Cost Center @component('components.required-icon')@endComponent</label>
-                    <select type="text" class="custom-select {{$errors->has('cost_center') ? 'is-invalid' : ''}}" id="edit-disciplinary-cost-center" name="cost_center" value="">
+                    <select class="custom-select {{$errors->has('cost_center') ? 'is-invalid' : ''}}" id="edit-disciplinary-cost-center" name="cost_center">
                         @if(!old('cost_center'))
                         <option value="{{$disciplinary->cost_center}}" selected>{{$disciplinary->cost_center_number}} {{$disciplinary->cost_center_name}}</option>
                         @endif
@@ -84,7 +84,7 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label for="edit-disciplinary-issued-by">Issued By @component('components.required-icon')@endComponent</label>
-                    <select type="text" class="custom-select {{$errors->has('issued_by') ? 'is-invalid' : ''}}" id="edit-disciplinary-issued-by" name="issued_by" value="">
+                    <select class="custom-select {{$errors->has('issued_by') ? 'is-invalid' : ''}}" id="edit-disciplinary-issued-by" name="issued_by">
                         @if(!old('issued_by'))
                         <option value="{{$disciplinary->issued_by}}" selected>{{$disciplinary->issuer_name}}</option>
                         @endif
@@ -113,8 +113,6 @@
                 </div>
             </div>
 
-
-            
             <button type="submit" class="btn btn-success" id="edit-disciplinary-submit-button">Save Disciplinary</button>
         </form>
         <form action="{{Route('disciplinaries.destroy', [$disciplinary->id, 'employee' => $disciplinary->employee->id])}}" class="mt-2" id="delete-disciplinary-form" method="POST">

@@ -5,18 +5,18 @@
     @include('hr.sidebar')
 
     <article class="col-10 main-content-article">
-        <h2 class="mt-2 text-edit"><i class="fas fa-user-edit fa-lg"></i>&nbsp Edit Employee</h2>
+        <h2 class="mt-2 text-edit"><i class="fas fa-user-edit fa-lg"></i>&nbsp Edit {{$employee->first_name}} {{$employee->last_name}}</h2>
         <hr></hr>
 
         @include('alerts.validation-alert')
         @include('alerts.session-alert')
 
 
-        <form action="{{Route('employees.update', $employee->id)}}" class="" id="edit-employee-form" method="POST" enctype="multipart/form-data">
+        <form action="{{Route('employees.update', $employee->id)}}" class="" id="edit-employee-form" method="POST" enctype="multipart/form-data" autocomplete="off">
             @csrf
             @method('Patch')
             <div class="form-row">
-                <a href="{{route('employees.show', ['id' => $employee->id])}}" class="h3 text-primary mb-4"><i class="fas fa-arrow-left"></i> Return To {{$employee->first_name}} {{$employee->last_name}}</a>
+                <a href="{{route('employees.show', ['id' => $employee->id])}}" class="h3 text-primary mb-4"><i class="fas fa-arrow-left"></i> Return To Show {{$employee->first_name}} {{$employee->last_name}}</a>
             </div>
             
             @if($employee->photo_link !== null)
@@ -37,7 +37,7 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label for="edit-employee-first-name">First Name @component('components.required-icon')@endComponent</label>
-                    <input type="text" class="form-control {{$errors->has('first_name') ? 'is-invalid' : ''}}" id="edit-employee-first-name" name="first_name" value="{{old('first_name') ? old('first_name') : $employee->first_name}}"  autofocus>
+                    <input type="text" class="form-control {{$errors->has('first_name') ? 'is-invalid' : ''}}" id="edit-employee-first-name" name="first_name" value="{{old('first_name') ? old('first_name') : $employee->first_name}}">
                     @if($errors->has('first_name'))
                         <span class="invalid-feedback" role="alert">
                             {{$errors->first('first_name')}}
@@ -62,8 +62,6 @@
                         </span>
                     @endif
                 </div>
-            <!-- </div>
-            <div class="form-row"> -->
                 <div class="form-group col-md-4">
                     <label for="edit-employee-maiden-name">Maiden Name</label>
                     <input type="text" class="form-control {{$errors->has('maiden_name') ? 'is-invalid' : ''}}" id="edit-employee-maiden-name" name="maiden_name" value="{{old('maiden_name') ? old('maiden_name') : $employee->maiden_name}}">
@@ -84,7 +82,7 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label for="edit-employee-suffix">Sufix</label>
-                    <select type="text" class="custom-select {{$errors->has('suffix') ? 'is-invalid' : ''}}" id="edit-employee-suffix" name="suffix">
+                    <select class="custom-select {{$errors->has('suffix') ? 'is-invalid' : ''}}" id="edit-employee-suffix" name="suffix">
                         @if(!old('suffix'))
                         <option value="{{$employee->suffix}}" selected>{{strtoupper($employee->suffix)}}</option>
                         @endif
@@ -103,8 +101,6 @@
                         </span>
                     @endif
                 </div>
-            <!-- </div>
-            <div class="form-row"> -->
                 <div class="form-group col-md-4">
                     <label for="edit-employee-ssn">SSN @component('components.required-icon')@endComponent</label>
                     <input type="text" class="form-control {{$errors->has('ssn') ? 'is-invalid' : ''}} ssn-format" id="edit-employee-ssn" name="ssn" value="{{old('ssn') ? old('ssn') : $employee->ssn}}"  maxlength="11">
@@ -116,7 +112,7 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label for="edit-employee-gender">Gender @component('components.required-icon')@endComponent</label>
-                    <select type="text" class="custom-select {{$errors->has('gender') ? 'is-invalid' : ''}}" id="edit-employee-gender" name="gender" value="">
+                    <select class="custom-select {{$errors->has('gender') ? 'is-invalid' : ''}}" id="edit-employee-gender" name="gender">
                         @if(!old('gender'))
                         <option value="{{$employee->gender}}" selected>{{ucwords($employee->gender)}}</option>
                         @endif
@@ -141,8 +137,6 @@
                         </span>
                     @endif
                 </div>
-            <!-- </div>
-            <div class="form-row"> -->
                 <div class="form-group col-md-4">
                     <label for="edit-employee-birth-date">Birth Date @component('components.required-icon')@endComponent</label>
                     <input type="text" class="form-control {{$errors->has('birth_date') ? 'is-invalid' : ''}} datepicker" id="edit-employee-birth-date" name="birth_date" value="{{old('birth_date') ? old('birth_date') : $employee->birth_date->format('m/d/Y')}}" >
@@ -203,7 +197,7 @@
                 </div>
                 <div class="form-group col-md-6 col-lg-3">
                     <label for="edit-employee-state">State @component('components.required-icon')@endComponent</label>
-                    <select type="text" class="custom-select {{$errors->has('state') ? 'is-invalid' : ''}}" id="edit-employee-state" name="state" value="" >
+                    <select class="custom-select {{$errors->has('state') ? 'is-invalid' : ''}}" id="edit-employee-state" name="state">
                         @if(!old('state'))
                         <option value="{{$employee->state}}" selected>{{$employee->state_full_name}}</option>
                         @endif
@@ -375,7 +369,7 @@
                 <div class="form-group col-md-6">
                     <div class="custom-control custom-checkbox">
                         <input class="custom-control-input" type="checkbox" id="delete-employee-photo" name="delete_photo_link">
-                        <label class="custom-control-label text-danger" for="delete-employee-photo">
+                        <label class="custom-control-label text-header" for="delete-employee-photo">
                             <i class="fas fa-long-arrow-alt-left fa-lg"></i> Check here to remove employee photo.
                         </label>
                     </div>
@@ -391,7 +385,7 @@
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="edit-employee-job">Job @component('components.required-icon')@endComponent</label>
-                    <select type="text" class="custom-select {{$errors->has('job') ? 'is-invalid' : ''}}" id="edit-employee-job" name="job" value="">
+                    <select class="custom-select {{$errors->has('job') ? 'is-invalid' : ''}}" id="edit-employee-job" name="job">
                         @foreach($employee->job as $employeeJob)
                         <option {{old('job') ? (old('job') == $employeeJob->id ? 'selected' : '') : 'selected'}} value="{{$employeeJob->id}}">{{$employeeJob->description}}</option>
                         @endforeach
@@ -409,7 +403,7 @@
 
                 <div class="form-group col-md-4">
                     <label for="edit-employee-position">Position @component('components.required-icon')@endComponent</label>
-                    <select type="text" class="custom-select {{$errors->has('position') ? 'is-invalid' : ''}}" id="edit-employee-position" name="position" value="">
+                    <select class="custom-select {{$errors->has('position') ? 'is-invalid' : ''}}" id="edit-employee-position" name="position">
                         @foreach($employee->position as $employeePosition)
                         <option {{old('position') ? (old('position') == $employeePosition->id ? 'selected' : '') : 'selected'}} value="{{$employeePosition->id}}">{{$employeePosition->description}}</option>
                         @endforeach
@@ -427,7 +421,7 @@
 
                 <div class="form-group col-md-4">
                     <label for="edit-employee-cost-center">Cost Center @component('components.required-icon')@endComponent</label>
-                    <select type="text" class="custom-select {{$errors->has('cost_center') ? 'is-invalid' : ''}}" id="edit-employee-cost-center" name="cost_center" value="">
+                    <select class="custom-select {{$errors->has('cost_center') ? 'is-invalid' : ''}}" id="edit-employee-cost-center" name="cost_center"">
                         @foreach($employee->costCenter as $employeeCostCenter)
                         <option {{old('cost_center') ? (old('cost_center') == $employeeCostCenter->id ? 'selected' : '') : 'selected'}} value="{{$employeeCostCenter->id}}">{{$employeeCostCenter->number}}  {{$employeeCostCenter->extension}}  {{$employeeCostCenter->description}}</option>
                         @endforeach
@@ -445,7 +439,7 @@
 
                 <div class="form-group col-md-4">
                     <label for="edit-employee-shift">Shift @component('components.required-icon')@endComponent</label>
-                    <select type="text" class="custom-select {{$errors->has('shift') ? 'is-invalid' : ''}}" id="edit-employee-shift" name="shift" value="">
+                    <select class="custom-select {{$errors->has('shift') ? 'is-invalid' : ''}}" id="edit-employee-shift" name="shift">
                         @foreach($employee->shift as $employeeShift)
                         <option {{old('shift') ? (old('shift') == $employeeShift->id ? 'selected' : '') : 'selected'}} value="{{$employeeShift->id}}">{{$employeeShift->description}}</option>
                         @endforeach
@@ -498,6 +492,13 @@
                         <th><span class="d-none d-sm-block">Increase Date</span><span class="d-sm-none">Date</span></th>
                     </tr>
                 </thead>
+
+                @if($errors->has('current_wage') || $errors->has('progression_event'))
+                <thead>
+                    <tr class="table-danger"><th colspan="3" class="text-danger">{{$errors->first('current_wage')}}</th></tr>
+                    <tr class="table-danger"><th colspan="3" class="text-danger">{{$errors->first('progression_event')}}</th></tr>
+                </thead>
+                @endif
                 
                 <tbody>
                     @foreach($wageProgressions as $wageProgression)
@@ -508,7 +509,7 @@
                         @if($wageTitleProgression->id === $wageProgression->id)
                         <td class="{{$wageTitle->description}} wage-progression-row d-none">
                             <div class="custom-control custom-radio">
-                                <input type="radio" id="edit-employee-current-wage-{{$wageTitleProgression->pivot->id}}" name="current_wage" class="custom-control-input" value="{{$wageTitleProgression->pivot->id}}" {{old('current_wage') !== null ? (old('current_wage') == $wageTitleProgression->pivot->id ? 'checked' : '') : ($employee->current_wage == $wageTitleProgression->pivot->id ? 'checked' : '')}}>
+                                <input type="radio" id="edit-employee-current-wage-{{$wageTitleProgression->pivot->id}}" name="current_wage" class="custom-control-input {{$errors->has('current_wage') ? 'is-invalid' : ''}}" value="{{$wageTitleProgression->pivot->id}}" {{old('current_wage') !== null ? (old('current_wage') == $wageTitleProgression->pivot->id ? 'checked' : '') : ($employee->current_wage == $wageTitleProgression->pivot->id ? 'checked' : '')}}>
                                 <label class="custom-control-label" for="edit-employee-current-wage-{{$wageTitleProgression->pivot->id}}">{{$wageTitleProgression->pivot->amount}}</label>
                             </div>
                         </td>
@@ -516,8 +517,13 @@
                         @endforeach
                         @endforeach
                         <td>
-                            <input type="text" class="form-control col-12 col-lg-6 datepicker progression-event" id="edit-employee-progression-event-date-{{$loop->iteration}}" name="progression_event[{{$loop->iteration}}][date]" value="@if(old('progression_event')) {{old('progression_event.'.$loop->iteration.'.date')}} @else @foreach($employee->wageProgression as $employeeProgression){{$employeeProgression->id == $wageProgression->id ? $employeeProgression->pivot->date->format('m/d/Y') : ''}}@endforeach @endif">
-                            <input type="text" class="form-control col-12 col-lg-6 d-none" id="edit-employee-progression-event-id-{{$loop->iteration}}" name="progression_event[{{$loop->iteration}}][id]" value="{{$wageProgression->id}}">
+                            <input type="text" class="form-control col-12 col-lg-6 datepicker progression-event {{$errors->has('progression_event.'.$loop->iteration.'.date') ? 'is-invalid' : ''}}" id="edit-employee-progression-event-date-{{$loop->iteration}}" name="progression_event[{{$loop->iteration}}][date]" value="@if(old('progression_event')) {{old('progression_event.'.$loop->iteration.'.date')}} @else @foreach($employee->wageProgression as $employeeProgression){{$employeeProgression->id == $wageProgression->id ? $employeeProgression->pivot->date->format('m/d/Y') : ''}}@endforeach @endif">
+                            <input hidden type="text" class="form-control col-12 col-lg-6" id="edit-employee-progression-event-id-{{$loop->iteration}}" name="progression_event[{{$loop->iteration}}][id]" value="{{$wageProgression->id}}">
+                            @if($errors->has('progression_event.'.$loop->iteration.'.date'))
+                            <span class="invalid-feedback" role="alert">
+                                {{$errors->first('progression_event.'.$loop->iteration.'.date')}}
+                            </span>
+                            @endif
                         </td>
                     </tr>
                     @endforeach   

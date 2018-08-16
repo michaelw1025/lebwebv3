@@ -5,15 +5,15 @@
     @include('hr.sidebar')
 
     <article class="col-10 main-content-article">
-        <h2 class="mt-2 text-primary"><i class="fas fa-user-tag fa-lg"></i>&nbsp Show Employee Reduction</h2>
+        <h2 class="mt-2 text-primary"><i class="fas fa-user-tag fa-lg"></i>&nbsp Show {{$reduction->employee->first_name}} {{$reduction->employee->last_name}} Reduction</h2>
         <hr></hr>
 
         @include('alerts.validation-alert')
         @include('alerts.session-alert')
 
-        <form action="" class="mt-2" id="show-reduction-form" method="GET">
+        <form action="" class="mt-2" id="show-reduction-form" method="GET" autocomplete="off">
             @csrf
-            <a href="{{route('employees.show', ['id' => $reduction->employee->id])}}" class="h3 text-primary my-4"><i class="fas fa-arrow-left"></i> Return To {{$reduction->employee->first_name}} {{$reduction->employee->last_name}}</a>
+            <a href="{{route('employees.show', ['id' => $reduction->employee->id])}}" class="h3 text-primary my-4"><i class="fas fa-arrow-left"></i> Return To Show {{$reduction->employee->first_name}} {{$reduction->employee->last_name}}</a>
 
             <div class="form-row card-deck mt-4 mb-3">
                 <div class="card bg-light {{$reduction->currently_active === '1' ? 'border-success' : 'border-danger'}}">

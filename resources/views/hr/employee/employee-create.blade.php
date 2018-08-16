@@ -11,7 +11,7 @@
         @include('alerts.validation-alert')
         @include('alerts.session-alert')
 
-        <form action="{{Route('employees.store')}}" class="mt-2" id="create-employee-form" method="POST" enctype="multipart/form-data">
+        <form action="{{Route('employees.store')}}" class="mt-2" id="create-employee-form" method="POST" enctype="multipart/form-data" autocomplete="off">
             @csrf
             <p class="text-danger">@component('components.required-icon')@endComponent indicates a required field</p>
 
@@ -21,7 +21,7 @@
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="create-employee-first-name">First Name @component('components.required-icon')@endComponent</label>
-                    <input type="text" class="form-control {{$errors->has('first_name') ? 'is-invalid' : ''}}" id="create-employee-first-name" name="first_name" value="{{old('first_name')}}"  autofocus>
+                    <input type="text" class="form-control {{$errors->has('first_name') ? 'is-invalid' : ''}}" id="create-employee-first-name" name="first_name" value="{{old('first_name')}}"  autofocus >
                     @if($errors->has('first_name'))
                         <span class="invalid-feedback" role="alert">
                             {{$errors->first('first_name')}}
@@ -68,15 +68,15 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label for="create-employee-suffix">Sufix</label>
-                    <select type="text" class="custom-select {{$errors->has('suffix') ? 'is-invalid' : ''}}" id="create-employee-suffix" name="suffix" value="{{old('suffix')}}">
-                        <option value=""></option>
-                        <option value="mr">Mr</option>
-                        <option value="mrs">Mrs</option>
-                        <option value="miss">Miss</option>
-                        <option value="jr">Jr</option>
-                        <option value="sr">Sr</option>
-                        <option value="ii">II</option>
-                        <option value="iii">III</option>
+                    <select class="custom-select {{$errors->has('suffix') ? 'is-invalid' : ''}}" id="create-employee-suffix" name="suffix">
+                        <option {{old('suffix') ? (old('suffix') == '' ? 'selected' : '') : ''}} value=""></option>
+                        <option {{old('suffix') ? (old('suffix') == 'mr' ? 'selected' : '') : ''}} value="mr">Mr</option>
+                        <option {{old('suffix') ? (old('suffix') == 'mrs' ? 'selected' : '') : ''}} value="mrs">Mrs</option>
+                        <option {{old('suffix') ? (old('suffix') == 'miss' ? 'selected' : '') : ''}} value="miss">Miss</option>
+                        <option {{old('suffix') ? (old('suffix') == 'jr' ? 'selected' : '') : ''}} value="jr">Jr</option>
+                        <option {{old('suffix') ? (old('suffix') == 'sr' ? 'selected' : '') : ''}} value="sr">Sr</option>
+                        <option {{old('suffix') ? (old('suffix') == 'ii' ? 'selected' : '') : ''}} value="ii">II</option>
+                        <option {{old('suffix') ? (old('suffix') == 'iii' ? 'selected' : '') : ''}} value="iii">III</option>
                     </select>
                     @if($errors->has('suffix'))
                         <span class="invalid-feedback" role="alert">
@@ -97,12 +97,12 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label for="create-employee-gender">Gender @component('components.required-icon')@endComponent</label>
-                    <select type="text" class="custom-select {{$errors->has('gender') ? 'is-invalid' : ''}}" id="create-employee-gender" name="gender" value="{{old('gender')}}" >
-                        <option value=""></option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                        <option value="other">Other</option>
-                        <option value="none">None</option>
+                    <select class="custom-select {{$errors->has('gender') ? 'is-invalid' : ''}}" id="create-employee-gender" name="gender">
+                        <option {{old('gender') ? (old('gender') == '' ? 'selected' : '') : ''}} value=""></option>
+                        <option {{old('gender') ? (old('gender') == 'male' ? 'selected' : '') : ''}} value="male">Male</option>
+                        <option {{old('gender') ? (old('gender') == 'female' ? 'selected' : '') : ''}} value="female">Female</option>
+                        <option {{old('gender') ? (old('gender') == 'other' ? 'selected' : '') : ''}} value="other">Other</option>
+                        <option {{old('gender') ? (old('gender') == 'none' ? 'selected' : '') : ''}} value="none">None</option>
                     </select>
                     @if($errors->has('gender'))
                         <span class="invalid-feedback" role="alert">
@@ -181,7 +181,7 @@
                 </div>
                 <div class="form-group col-md-4 col-lg-3">
                     <label for="create-employee-state">State @component('components.required-icon')@endComponent</label>
-                    <select type="text" class="custom-select {{$errors->has('state') ? 'is-invalid' : ''}}" id="create-employee-state" name="state" value="{{old('state')}}" >
+                    <select class="custom-select {{$errors->has('state') ? 'is-invalid' : ''}}" id="create-employee-state" name="state">
                         <option value="al">Alabama</option>
                         <option value="ak">Alaska</option>
                         <option value="az">Arizona</option>
@@ -262,7 +262,7 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input {{$errors->has('photo_link') ? 'is-invalid' : ''}}" id="create-employee-photo" name="photo_link">
+                        <input type="file" class="custom-file-input {{$errors->has('photo_link') ? 'is-invalid' : ''}} picture-upload" id="create-employee-photo" name="photo_link">
                         <label for="create-employee-photo" class="custom-file-label">Choose Employee Photo</label>
                     </div>
                 </div>
@@ -277,7 +277,7 @@
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="create-employee-job">Job @component('components.required-icon')@endComponent</label>
-                    <select type="text" class="custom-select {{$errors->has('job') ? 'is-invalid' : ''}}" id="create-employee-job" name="job" value="">
+                    <select class="custom-select {{$errors->has('job') ? 'is-invalid' : ''}}" id="create-employee-job" name="job">
                         <option value=""></option>
                         @foreach($jobs as $job)
                         <option {{old('job') ? (old('job') == $job->id ? 'selected' : '') : ''}} value="{{$job->id}}">{{$job->description}}</option>
@@ -292,7 +292,7 @@
 
                 <div class="form-group col-md-4">
                     <label for="create-employee-position">Position @component('components.required-icon')@endComponent</label>
-                    <select type="text" class="custom-select {{$errors->has('position') ? 'is-invalid' : ''}}" id="create-employee-position" name="position" value="">
+                    <select class="custom-select {{$errors->has('position') ? 'is-invalid' : ''}}" id="create-employee-position" name="position">
                         <option value=""></option>
                         @foreach($positions as $position)
                         <option {{old('position') ? (old('position') == $position->id ? 'selected' : '') : ''}} value="{{$position->id}}">{{$position->description}}</option>
@@ -307,7 +307,7 @@
 
                 <div class="form-group col-md-4">
                     <label for="create-employee-cost-center">Cost Center @component('components.required-icon')@endComponent</label>
-                    <select type="text" class="custom-select {{$errors->has('cost_center') ? 'is-invalid' : ''}}" id="create-employee-cost-center" name="cost_center" value="">
+                    <select class="custom-select {{$errors->has('cost_center') ? 'is-invalid' : ''}}" id="create-employee-cost-center" name="cost_center">
                         <option value=""></option>
                         @foreach($costCenters as $costCenter)
                         <option {{old('cost_center') ? (old('cost_center') == $costCenter->id ? 'selected' : '') : ''}} value="{{$costCenter->id}}">{{$costCenter->number}}  {{$costCenter->extension}}  {{$costCenter->description}}</option>
@@ -322,7 +322,7 @@
 
                 <div class="form-group col-md-4">
                     <label for="create-employee-shift">Shift @component('components.required-icon')@endComponent</label>
-                    <select type="text" class="custom-select {{$errors->has('shift') ? 'is-invalid' : ''}}" id="create-employee-shift" name="shift" value="">
+                    <select class="custom-select {{$errors->has('shift') ? 'is-invalid' : ''}}" id="create-employee-shift" name="shift">
                         <option value=""></option>
                         @foreach($shifts as $shift)
                         <option {{old('shift') ? (old('shift') == $shift->id ? 'selected' : '') : ''}} value="{{$shift->id}}">{{$shift->description}}</option>
@@ -367,6 +367,13 @@
                         <th><span class="d-none d-sm-block">Increase Date</span><span class="d-sm-none">Date</span></th>
                     </tr>
                 </thead>
+
+                @if($errors->has('current_wage') || $errors->has('progression_event'))
+                <thead>
+                    <tr class="table-danger"><th colspan="3" class="text-danger">{{$errors->first('current_wage')}}</th></tr>
+                    <tr class="table-danger"><th colspan="3" class="text-danger">{{$errors->first('progression_event')}}</th></tr>
+                </thead>
+                @endif
                 
                 <tbody>
                     @foreach($wageProgressions as $wageProgression)
@@ -377,7 +384,7 @@
                         @if($wageTitleProgression->id === $wageProgression->id)
                         <td class="{{$wageTitle->description}} wage-progression-row d-none">
                             <div class="custom-control custom-radio">
-                                <input type="radio" id="create-employee-current-wage-{{$wageTitleProgression->pivot->id}}" name="current_wage" class="custom-control-input" value="{{$wageTitleProgression->pivot->id}}" {{old('current_wage') == $wageTitleProgression->pivot->id ? 'checked' : ''}}>
+                                <input type="radio" id="create-employee-current-wage-{{$wageTitleProgression->pivot->id}}" name="current_wage" class="custom-control-input {{$errors->has('current_wage') ? 'is-invalid' : ''}}" value="{{$wageTitleProgression->pivot->id}}" {{old('current_wage') == $wageTitleProgression->pivot->id ? 'checked' : ''}} >
                                 <label class="custom-control-label" for="create-employee-current-wage-{{$wageTitleProgression->pivot->id}}">{{$wageTitleProgression->pivot->amount}}</label>
                             </div>
                         </td>
@@ -385,8 +392,13 @@
                         @endforeach
                         @endforeach
                         <td>
-                            <input type="text" class="form-control col-12 col-lg-6 datepicker progression-event" id="create-employee-progression-event-date-{{$loop->iteration}}" name="progression_event[{{$loop->iteration}}][date]" value="{{old('progression_event') ? old('progression_event.'.$loop->iteration.'.date') : ''}}">
-                            <input type="text" class="form-control col-12 col-lg-6 d-none" id="create-employee-progression-event-id-{{$loop->iteration}}" name="progression_event[{{$loop->iteration}}][id]" value="{{$wageProgression->id}}">
+                            <input type="text" class="form-control col-12 col-lg-6 datepicker progression-event {{$errors->has('progression_event.'.$loop->iteration.'.date') ? 'is-invalid' : ''}}" id="create-employee-progression-event-date-{{$loop->iteration}}" name="progression_event[{{$loop->iteration}}][date]" value="{{old('progression_event') ? old('progression_event.'.$loop->iteration.'.date') : ''}}" >
+                            <input hidden type="text" class="form-control col-12 col-lg-6" id="create-employee-progression-event-id-{{$loop->iteration}}" name="progression_event[{{$loop->iteration}}][id]" value="{{$wageProgression->id}}">
+                            @if($errors->has('progression_event.'.$loop->iteration.'.date'))
+                                <span class="invalid-feedback" role="alert">
+                                    {{$errors->first('progression_event.'.$loop->iteration.'.date')}}
+                                </span>
+                            @endif
                         </td>
                     </tr>
                     @endforeach   
@@ -410,8 +422,8 @@
                     <div class="input-group">
                         <div class="input-group-text">
                             <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input radio-select-primary" id="edit-employee-phone-number-primary-{{$loop->iteration}}" name="phone_number_is_primary" {{$oldPhoneNumber['number'] == old('phone_number_is_primary') ? 'checked' : ''}} value="{{$oldPhoneNumber['number']}}">
-                                <label for="edit-employee-phone-number-primary-{{$loop->iteration}}" class="custom-control-label radio-select-primary-label ">Primary</label>
+                                <input type="radio" class="custom-control-input radio-select-primary" id="edit-employee-phone-number-{{$loop->iteration}}-primary" name="phone_number_is_primary" {{$oldPhoneNumber['number'] == old('phone_number_is_primary') ? 'checked' : ''}} value="{{$oldPhoneNumber['number']}}">
+                                <label for="edit-employee-phone-number-{{$loop->iteration}}-primary" class="custom-control-label radio-select-primary-label ">Primary</label>
                             </div>
                         </div>
                         <input type="text" class="form-control phone-number-format {{$errors->has('phone_number.'.$loop->iteration.'.number') ? 'is-invalid' : ''}}" id="edit-employee-phone-number-{{$loop->iteration}}" name="phone_number[{{$loop->iteration}}][number]" value="{{$oldPhoneNumber['number']}}" maxlength="12">
@@ -445,8 +457,8 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">
                                 <div class="custom-control custom-radio">
-                                    <input type="radio" class="custom-control-input radio-select-primary" id="edit-employee-phone-number-primary-{{$phoneNumberCount}}" name="phone_number_is_primary" value="">
-                                    <label class="custom-control-label radio-select-primary-label " for="edit-employee-phone-number-primary-{{$phoneNumberCount}}">Primary</label>
+                                    <input type="radio" class="custom-control-input radio-select-primary" id="edit-employee-phone-number-{{$phoneNumberCount}}-primary" name="phone_number_is_primary" value="">
+                                    <label class="custom-control-label radio-select-primary-label " for="edit-employee-phone-number-{{$phoneNumberCount}}-primary">Primary</label>
                                 </div>
                             </div>
                         </div>
@@ -482,8 +494,8 @@
                     <div class="input-group">
                         <div class="input-group-text">
                             <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input radio-select-primary" id="edit-employee-emergency-contact-primary-{{$loop->iteration}}" name="emergency_contact_is_primary" {{$oldEmergencyContact['number'] == old('emergency_contact_is_primary') ? 'checked' : ''}} value="{{$oldEmergencyContact['number']}}">
-                                <label for="edit-employee-emergency-contact-primary-{{$loop->iteration}}" class="custom-control-label radio-select-primary-label ">Primary</label>
+                                <input type="radio" class="custom-control-input radio-select-primary" id="edit-employee-emergency-contact-{{$loop->iteration}}-primary" name="emergency_contact_is_primary" {{$oldEmergencyContact['number'] == old('emergency_contact_is_primary') ? 'checked' : ''}} value="{{$oldEmergencyContact['number']}}">
+                                <label for="edit-employee-emergency-contact-{{$loop->iteration}}-primary" class="custom-control-label radio-select-primary-label ">Primary</label>
                             </div>
                         </div>
                         <input type="text" class="form-control phone-number-format {{$errors->has('emergency_contact.'.$loop->iteration.'.number') ? 'is-invalid' : ''}}" id="edit-employee-emergency-contact-{{$loop->iteration}}" name="emergency_contact[{{$loop->iteration}}][number]" value="{{$oldEmergencyContact['number']}}" maxlength="12">
@@ -523,8 +535,8 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">
                                 <div class="custom-control custom-radio">
-                                    <input type="radio" class="custom-control-input radio-select-primary" id="edit-employee-emergency-contact-primary-{{$emergencyContactCount}}" name="emergency_contact_is_primary" value="">
-                                    <label class="custom-control-label radio-select-primary-label " for="edit-employee-emergency-contact-primary-{{$emergencyContactCount}}">Primary</label>
+                                    <input type="radio" class="custom-control-input radio-select-primary" id="edit-employee-emergency-contact-{{$emergencyContactCount}}-primary" name="emergency_contact_is_primary" value="">
+                                    <label class="custom-control-label radio-select-primary-label " for="edit-employee-emergency-contact-{{$emergencyContactCount}}-primary">Primary</label>
                                 </div>
                             </div>
                         </div>
