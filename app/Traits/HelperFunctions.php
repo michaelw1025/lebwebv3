@@ -11,7 +11,8 @@ trait HelperFunctions
 {
     public function setAsDate($date)
     {
-        $date = Carbon::createFromFormat('m-d-Y', $date)->toDateString();
+        // $date = Carbon::createFromFormat('m-d-Y', $date)->toDateString();
+        return Carbon::parse($date);
     }
 
     public function checkState($employee)
@@ -213,7 +214,7 @@ trait HelperFunctions
     public function setWageEventDate($employee)
     {
         foreach($employee->wageProgression as $employeeProgression){
-            $employeeProgression->pivot->date = Carbon::parse($employeeProgression->pivot->date);
+            $employeeProgression->pivot->date = $this->setAsDate($employeeProgression->pivot->date);
         }
     }
 

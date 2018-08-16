@@ -508,7 +508,7 @@
                         @if($wageTitleProgression->id === $wageProgression->id)
                         <td class="{{$wageTitle->description}} wage-progression-row d-none">
                             <div class="custom-control custom-radio">
-                                <input type="radio" id="edit-employee-current-wage-{{$wageTitleProgression->pivot->id}}" name="current_wage" class="custom-control-input" value="{{$wageTitleProgression->pivot->id}}" {{$employee->current_wage == $wageTitleProgression->pivot->id ? 'checked' : ''}}>
+                                <input type="radio" id="edit-employee-current-wage-{{$wageTitleProgression->pivot->id}}" name="current_wage" class="custom-control-input" value="{{$wageTitleProgression->pivot->id}}" {{old('current_wage') !== null ? (old('current_wage') == $wageTitleProgression->pivot->id ? 'checked' : '') : ($employee->current_wage == $wageTitleProgression->pivot->id ? 'checked' : '')}}>
                                 <label class="custom-control-label" for="edit-employee-current-wage-{{$wageTitleProgression->pivot->id}}">{{$wageTitleProgression->pivot->amount}}</label>
                             </div>
                         </td>
@@ -516,7 +516,8 @@
                         @endforeach
                         @endforeach
                         <td>
-                            <input type="text" class="form-control col-12 col-lg-6 datepicker progression-event" id="edit-employee-progression-event-{{$loop->iteration}}" name="progression_event[{{$loop->iteration}}]" value="@foreach($employee->wageProgression as $employeeProgression){{$employeeProgression->id == $wageProgression->id ? $employeeProgression->pivot->date->format('m/d/Y') : ''}}@endforeach">
+                            <input type="text" class="form-control col-12 col-lg-6 datepicker progression-event" id="edit-employee-progression-event-date-{{$loop->iteration}}" name="progression_event[{{$loop->iteration}}][date]" value="@if(old('progression_event')) {{old('progression_event.'.$loop->iteration.'.date')}} @else @foreach($employee->wageProgression as $employeeProgression){{$employeeProgression->id == $wageProgression->id ? $employeeProgression->pivot->date->format('m/d/Y') : ''}}@endforeach @endif">
+                            <input type="text" class="form-control col-12 col-lg-6 d-none" id="edit-employee-progression-event-id-{{$loop->iteration}}" name="progression_event[{{$loop->iteration}}][id]" value="{{$wageProgression->id}}">
                         </td>
                     </tr>
                     @endforeach   

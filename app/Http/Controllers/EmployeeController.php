@@ -78,12 +78,18 @@ class EmployeeController extends Controller
         $positions = Position::orderBy('description', 'asc')->get();
         // Get all jobs
         $jobs = Job::all();
+        // Get all wage titles with their progressions
+        $wageTitles = WageTitle::with('wageProgression')->get();
+        // Get all wage progressions
+        $wageProgressions = WageProgression::orderBy('month', 'asc')->get();
         // Return the create employee view
         return view('hr.employee.employee-create', [
             'costCenters' => $costCenters,
             'shifts' => $shifts,
             'positions' => $positions,
-            'jobs' => $jobs
+            'jobs' => $jobs,
+            'wageTitles' => $wageTitles,
+            'wageProgressions' => $wageProgressions
         ]);
     }
 
@@ -95,7 +101,7 @@ class EmployeeController extends Controller
      */
     public function store(StoreEmployee $request)
     {
-        // dd($request);
+        dd($request);
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
         // Create a new employee object
@@ -311,7 +317,7 @@ class EmployeeController extends Controller
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
 
-        return $request;
+        // return $request;
 
         // Get the employee to update
         $employee = Employee::findOrFail($id);
@@ -449,6 +455,17 @@ class EmployeeController extends Controller
                 }
             }
             // Save wage info
+            // Sync WageProgressionWageTitle for current wage
+            $employee->wageProgressionWageTitle()->sync($request->current_wage);
+            // Save wage progression event dates
+            $eventsArray = array();
+            foreach($request->progression_event as $event) {
+                if($event['date'] != null) {
+                    $eventDate = $this->setAsDate($event['date']);
+                    $eventsArray[$event['id']] = (['date' => $eventDate]);
+                }
+            }
+            $employee->wageProgression()->sync($eventsArray);
 
             // If the save was successful
             \Session::flash('status', 'Employee updated successfully.');

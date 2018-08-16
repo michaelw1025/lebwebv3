@@ -342,6 +342,56 @@
             <header class="alert alert-primary mt-4 h2" role="alert">
                 <i class="fas fa-money-bill-wave"></i> Wage
             </header>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="create-employee-wage-title">Wage Title @component('components.required-icon')@endComponent</label>
+                    <select name="wage_title" id="create-employee-wage-title" class="custom-select {{$errors->has('wage_title') ? 'is-invalid' : ''}} choose-wage-title">
+                        <option value=""></option>
+                        @foreach($wageTitles as $wageTitle)
+                        <option {{old('wage_title') == $wageTitle->id ? 'selected' : ''}} value="{{$wageTitle->id}}">{{ucwords($wageTitle->description)}}</option>
+                        @endforeach
+                    </select>
+                    @if($errors->has('wage_title'))
+                        <span class="invalid-feedback" role="alert">
+                            {{$errors->first('wage_title')}}
+                        </span>
+                    @endif
+                </div>
+            </div>
+            <table class="table table-sm table-borderless">
+            <caption><button type="button" class="btn btn-outline-info clear-progression-events"> Clear Wage Events</button></caption>
+                <thead class="bg-header text-light">
+                    <tr>
+                        <th><span class="d-none d-sm-block">Month</span><span class="d-sm-none">Mth</span></th>
+                        <th><span class="d-none d-sm-block">Amount</span><span class="d-sm-none">Amt</span></th>
+                        <th><span class="d-none d-sm-block">Increase Date</span><span class="d-sm-none">Date</span></th>
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    @foreach($wageProgressions as $wageProgression)
+                    <tr>
+                        <td>{{$wageProgression->month}}</td>
+                        @foreach($wageTitles as $wageTitle)
+                        @foreach($wageTitle->wageProgression as $wageTitleProgression)
+                        @if($wageTitleProgression->id === $wageProgression->id)
+                        <td class="{{$wageTitle->description}} wage-progression-row d-none">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="create-employee-current-wage-{{$wageTitleProgression->pivot->id}}" name="current_wage" class="custom-control-input" value="{{$wageTitleProgression->pivot->id}}" {{old('current_wage') == $wageTitleProgression->pivot->id ? 'checked' : ''}}>
+                                <label class="custom-control-label" for="create-employee-current-wage-{{$wageTitleProgression->pivot->id}}">{{$wageTitleProgression->pivot->amount}}</label>
+                            </div>
+                        </td>
+                        @endif
+                        @endforeach
+                        @endforeach
+                        <td>
+                            <input type="text" class="form-control col-12 col-lg-6 datepicker progression-event" id="create-employee-progression-event-date-{{$loop->iteration}}" name="progression_event[{{$loop->iteration}}][date]" value="{{old('progression_event') ? old('progression_event.'.$loop->iteration.'.date') : ''}}">
+                            <input type="text" class="form-control col-12 col-lg-6 d-none" id="create-employee-progression-event-id-{{$loop->iteration}}" name="progression_event[{{$loop->iteration}}][id]" value="{{$wageProgression->id}}">
+                        </td>
+                    </tr>
+                    @endforeach   
+                </tbody>
+            </table>
 
             <!-- ****************************************
             Phone Number

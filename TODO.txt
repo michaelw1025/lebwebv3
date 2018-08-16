@@ -6,8 +6,16 @@ Complete Shift resources and form request
 
 Combine Wage Events and Wage Progression into one table for employee
 
-Add code column to shifts table
-
 Chek if .employee-row is needed in employees table
 
 Place 'autocomplete="off"' on all date inputs
+
+Remove 'type' from all select inputs
+
+Remove 'value' from all select inputs
+
+Check all radio's and checkboxes use custom
+
+Check all edit and create inputs have the 'is-invalid' class
+
+Add employee id to all views for employee

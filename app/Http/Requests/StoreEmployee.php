@@ -29,8 +29,12 @@ class StoreEmployee extends FormRequest
      */
     public function rules()
     {
-        // Get user id from route
-        $id = $this->route('employee');
+        if($this->route()->named('employees.store')) { // If storing a new employee
+            
+        }else { // If updating an employee
+            // Get user id from route
+            $id = $this->route('employee');
+        }
 
         $rulesArray = [];
 
@@ -80,13 +84,19 @@ class StoreEmployee extends FormRequest
         }
 
         // Check chosen wage title against chosen position
-        $position = Position::with('wageTitle')->findOrFail($this->position);
-        foreach($position->wageTitle as $wageTitle) {
-            $wageTitleID = $wageTitle->id;
+        if($this->position !== null){
+            $position = Position::with('wageTitle')->get($this->position);
+            foreach($position->wageTitle as $wageTitle) {
+                $wageTitleID = $wageTitle->id;
+            }
+            $rulesArray += [
+                'wage_title' => 'required|in:'.$wageTitleID
+            ];
+        }else{
+            $rulesArray += [
+                'wage_title' => 'required'
+            ];
         }
-        $rulesArray += [
-            'wage_title' => 'required|in:'.$wageTitleID
-        ];
 
 
         if($this->route()->named('employees.store')) { // If storing a new employee
