@@ -4,7 +4,7 @@
 
     @include('hr.sidebar')
 
-    <article class="col-10 main-content-article">
+    <article class="col-8 col-xs-9 col-sm-10 main-content-article">
         <h2 class="mt-2 text-primary"><i class="fas fa-user-tag fa-lg"></i>&nbsp Show {{$reduction->employee->first_name}} {{$reduction->employee->last_name}} Reduction</h2>
         <hr></hr>
 
@@ -74,35 +74,35 @@
             </div>
 
             <div class="form-row">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="show-reduction-date">Date</label>
                     <input type="text" class="form-control" id="show-reduction-date" name="date" value="{{$reduction->date->format('m/d/Y')}}" disabled>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="show-reduction-home-cost-center">Home Cost Center</label>
                     <input type="text" class="form-control" id="show-reduction-home-cost-center" name="home_cost_center" value="{{$reduction->home_cost_center_number}} {{$reduction->home_cost_center_name}}" disabled>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="show-reduction-bump-to-cost-center">Bump To Cost Center</label>
                     <input type="text" class="form-control" id="show-reduction-bump-to-cost-center" name="bump_to_cost_center" value="{{$reduction->bump_to_cost_center_number}} {{$reduction->bump_to_cost_center_name}}" disabled>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="show-reduction-home-shift">Home Shift</label>
                     <input type="text" class="form-control" id="show-reduction-home-shift" name="home_shift" value="{{$reduction->home_shift_name}}" disabled>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="show-reduction-bump-to-shift">Bump To Shift</label>
                     <input type="text" class="form-control" id="show-reduction-bump-to-shift" name="bump_to_shift" value="{{$reduction->bump_to_shift_name}}" disabled>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="show-reduction-fiscal-week">Fiscal Week</label>
                     <input type="text" class="form-control" id="show-reduction-fiscal-week" name="fiscal_week" value="{{$reduction->fiscal_week}}" disabled>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="show-reduction-fiscal-year">Fiscal Year</label>
                     <input type="text" class="form-control" id="show-reduction-fiscal-year" name="fiscal_year" value="{{$reduction->fiscal_year}}" disabled>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="show-reduction-return-date">Expected Return Date</label>
                     <input type="text" class="form-control" id="show-reduction-return-date" name="return_date" value="{{$reduction->return_date->format('m/d/Y')}}" disabled>
                 </div>

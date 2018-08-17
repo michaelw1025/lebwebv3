@@ -9,3 +9,7 @@ Check all radio's and checkboxes use custom
 Add employee id to all views for employee
 
 Create Print media query in css
+
+Fix phone number at small sizes
+
+Fix emergency contact at small sizes

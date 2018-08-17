@@ -4,7 +4,7 @@
 
     @include('hr.sidebar')
 
-    <article class="col-10 main-content-article">
+    <article class="col-8 cl-xs-9 col-sm-10 main-content-article">
         <h2 class="mt-2 text-edit"><i class="fas fa-user-edit fa-lg"></i>&nbsp Edit {{$reduction->employee->first_name}} {{$reduction->employee->last_name}} Reduction</h2>
         <hr></hr>
 
@@ -94,7 +94,7 @@
             </div>
 
             <div class="form-row">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-reduction-date">Date @component('components.required-icon')@endComponent</label>
                     <input type="text" class="form-control {{$errors->has('date') ? 'is-invalid' : ''}} datepicker" id="edit-reduction-date" name="date" value="{{old('date') ? old('date') : $reduction->date->format('m/d/Y')}}">
                     @if($errors->has('date'))
@@ -104,7 +104,7 @@
                     @endif
                 </div>
 
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-reduction-home-cost-center">Home Cost Center @component('components.required-icon')@endComponent</label>
                     <select class="custom-select {{$errors->has('home_cost_center') ? 'is-invalid' : ''}}" id="edit-reduction-home-cost-center" name="home_cost_center">
                         @if(!old('home_cost_center'))
@@ -122,7 +122,7 @@
                     @endif
                 </div>
 
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-reduction-bump-to-cost-center" class="required-with-bump-displacement">
                     Bump To Cost Center
                     @component('components.required-icon')@endComponent
@@ -143,7 +143,7 @@
                     @endif
                 </div>
 
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-reduction-home-shift">Home Shift @component('components.required-icon')@endComponent</label>
                     <select class="custom-select {{$errors->has('home_shift') ? 'is-invalid' : ''}}" id="edit-reduction-home-shift" name="home_shift">
                         @if(!old('home_shift'))
@@ -161,7 +161,7 @@
                     @endif
                 </div>
 
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-reduction-bump-to-shift" class="required-with-bump-displacement">
                     Bump To Shift
                     @component('components.required-icon')@endComponent
@@ -182,7 +182,7 @@
                     @endif
                 </div>
 
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-reduction-fiscal-week">Fiscal Week @component('components.required-icon')@endComponent</label>
                     <input type="text" class="form-control {{$errors->has('fiscal_week') ? 'is-invalid' : ''}}" id="edit-reduction-fiscal-week" name="fiscal_week" value="{{old('fiscal_week') ? old('fiscal_week') : $reduction->fiscal_week}}">
                     @if($errors->has('fiscal_week'))
@@ -192,7 +192,7 @@
                     @endif
                 </div>
 
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-reduction-fiscal-year">Fiscal Year @component('components.required-icon')@endComponent</label>
                     <input type="text" class="form-control {{$errors->has('fiscal_year') ? 'is-invalid' : ''}}" id="edit-reduction-fiscal-year" name="fiscal_year" value="{{old('fiscal_year') ? old('fiscal_year') : $reduction->fiscal_year}}">
                     @if($errors->has('fiscal_year'))
@@ -202,7 +202,7 @@
                     @endif
                 </div>
 
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-reduction-return-date">Expected Return Date</label>
                     <input type="text" class="form-control {{$errors->has('return_date') ? 'is-invalid' : ''}} datepicker" id="edit-reduction-return-date" name="return_date" value="{{old('return_date') ? old('return_date') : $reduction->return_date->format('m/d/Y')}}">
                     @if($errors->has('return_date'))

@@ -4,7 +4,7 @@
 
     @include('hr.sidebar')
 
-    <article class="col-10 main-content-article">
+    <article class="col-8 col-xs-9 col-sm-10 main-content-article">
         <h2 class="mt-2 text-primary"><i class="fas fa-user-tag fa-lg"></i>&nbsp Show {{$employee->first_name}} {{$employee->last_name}}</h2>
         <hr></hr>
 
@@ -23,55 +23,55 @@
             Demographics
             **************************************** -->
             <div class="form-row">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="show-employee-id">Employee ID</label>
                     <input type="text" class="form-control" id="show-employee-id" name="id" value="{{$employee->id}}" disabled>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="show-employee-first-name">First Name</label>
                     <input type="text" class="form-control" id="show-employee-first-name" name="first_name" value="{{$employee->first_name}}" disabled>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="show-employee-last-name">Last Name</label>
                     <input type="text" class="form-control" id="show-employee-last-name" name="last_name" value="{{$employee->last_name}}" disabled>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="show-employee-middle-initial">MI</label>
                     <input type="text" class="form-control" id="show-employee-middle-initial" name="middle_initial" value="{{$employee->middle_initial}}" disabled>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="show-employee-maiden-name">Maiden Name</label>
                     <input type="text" class="form-control" id="show-employee-maiden-name" name="maiden_name" value="{{$employee->maiden_name}}" disabled>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="show-employee-nick-name">Nick Name</label>
                     <input type="text" class="form-control" id="show-employee-nick-name" name="nick_name" value="{{$employee->nick_name}}" disabled>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="show-employee-suffix">Sufix</label>
                     <input type="text" class="form-control" id="show-employee-suffix" name="suffix" value="{{strtoupper(strtoupper($employee->suffix))}}" disabled>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="show-employee-ssn">SSN</label>
                     <input type="text" class="form-control" id="show-employee-ssn" name="ssn" value="{{$employee->ssn}}" disabled>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="show-employee-gender">Gender</label>
                     <input type="text" class="form-control" id="show-employee-gender" name="gender" value="{{ucwords($employee->gender)}}" disabled>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="show-employee-oracle-number">Oracle Number</label>
                     <input type="text" class="form-control" id="show-employee-oracle-number" name="oracle_number" value="{{$employee->oracle_number}}" disabled>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="show-employee-birth-date">Birth Date</label>
                     <input type="text" class="form-control" id="show-employee-birth-date" name="birth_date" value="{{$employee->birth_date->format('m/d/Y')}}" disabled>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="show-employee-hire-date">Hire Date</label>
                     <input type="text" class="form-control" id="show-employee-hire-date" name="hire_date" value="{{$employee->hire_date->format('m/d/Y')}}" disabled>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="show-employee-service-date">Service Date</label>
                     <input type="text" class="form-control" id="show-employee-service-date" name="service_date" value="{{$employee->service_date->format('m/d/Y')}}" disabled>
                 </div>
@@ -87,19 +87,19 @@
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-6 col-lg-3">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="show-employee-city">City</label>
                     <input type="text" class="form-control" id="show-employee-city" name="city" value="{{$employee->city}}" disabled>
                 </div>
-                <div class="form-group col-md-6 col-lg-3">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="show-employee-state">State</label>
                     <input type="text" class="form-control" id="show-employee-state" name="state" value="{{$employee->state_full_name}}" disabled>
                 </div>
-                <div class="form-group col-md-6 col-lg-3">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="show-employee-zip-code">Zip Code</label>
                     <input type="text" class="form-control" id="show-employee-zip-code" name="zip_code" value="{{$employee->zip_code}}" disabled>
                 </div>
-                <div class="form-group col-md-6 col-lg-3">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="show-employee-county">County</label>
                     <input type="text" class="form-control" id="show-employee-county" name="county" value="{{$employee->county}}" disabled>
                 </div>
@@ -165,19 +165,19 @@
                 <i class="fas fa-dolly"></i> Occupation
             </header>
             <div class="form-row">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="show-employee-job">Job</label>
                     <input type="text" class="form-control" id="show-employee-job" name="job" value="@foreach($employee->job as $employeeJob) {{$employeeJob->description}} @endforeach" disabled>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="show-employee-position">Position</label>
                     <input type="text" class="form-control" id="show-employee-position" name="position" value="@foreach($employee->position as $employeePosition) {{$employeePosition->description}} @endforeach" disabled>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="show-employee-cost-center">Cost Center</label>
                     <input type="text" class="form-control" id="show-employee-cost-center" name="cost_center" value="@foreach($employee->costCenter as $employeeCostCenter) {{$employeeCostCenter->number}}  {{$employeeCostCenter->extension}}  {{$employeeCostCenter->description}} @endforeach" disabled>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="show-employee-shift">Shift</label>
                     <input type="text" class="form-control" id="show-employee-shift" name="shift" value="@foreach($employee->shift as $employeeShift) {{$employeeShift->description}} @endforeach" disabled>
                 </div>
@@ -190,7 +190,7 @@
                 <i class="fas fa-money-bill-wave"></i> Wage
             </header>
             <div class="form-row">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="show-employee-wage-title">Wage Title</label>
                     <input type="text" class="form-control" id="show-employee-wage-title" name="wage_title" value="@foreach($employee->position as $employeePosition) @foreach($employeePosition->wageTitle as $employeeWageTitle) {{ucwords($employeeWageTitle->description)}} @endforeach @endforeach" disabled>
                 </div>
@@ -232,7 +232,7 @@
             </header>
             <div class="form-row">
                 @foreach($employee->phoneNumber as $employeePhoneNumber)
-                <div class="col-md-6 col-lg-4 col-xl-3 mb-3">
+                <div class="col-md-6 col-xxl-4 mb-3">
                     <label for="show-employee-phone-number-{{$loop->iteration}}">Phone Number {{$loop->iteration}}</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
@@ -257,7 +257,7 @@
             </header>
             <div class="form-row">
                 @foreach($employee->emergencyContact as $employeeEmergencyContact)
-                <div class="col-12 col-xl-6 mb-3">
+                <div class="col-xxl-6 mb-3">
                     <label for="show-employee-emergency-contact-{{$loop->iteration}}">Emergency Contact {{$loop->iteration}} <span class="text-muted small">(number/name)</span></label>
                     <div class="input-group">
                         <div class="input-group-prepend">

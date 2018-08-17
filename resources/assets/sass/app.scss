@@ -54,3 +54,30 @@ body {
 .custom-checkbox .custom-control-input:checked~.custom-control-label-delete::after {
   background-color: red;
 }
+
+i {
+  &.sidebar-icon {
+    min-width: 30px !important;
+  }
+}
+
+// Extra extra small devices (less than 320px)
+// No media query for `xxs` since this is the default in Bootstrap
+
+// Extra small devices (320px and up)
+@media (min-width: 320px) {}
+
+// Small devices (448px and up)
+@media (min-width: 448px) {}
+
+// Medium devices (660px and up)
+@media (min-width: 660px) {}
+
+// Large devices (900px and up)
+@media (min-width: 900px) {}
+
+// Extra large devices (1050px and up)
+@media (min-width: 1050px) {}
+
+// Extra extra large devices (1200px and up)
+@media (min-width: 1200px) {}

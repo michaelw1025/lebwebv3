@@ -4,7 +4,7 @@
 
     @include('hr.sidebar')
 
-    <article class="col-10 main-content-article">
+    <article class="col-8 col-xs-9 col-sm-10 main-content-article">
         <h2 class="mt-2 text-edit"><i class="fas fa-user-edit fa-lg"></i>&nbsp Edit {{$termination->employee->first_name}} {{$termination->employee->last_name}} Termination</h2>
         <hr></hr>
 
@@ -19,7 +19,7 @@
             <p class="text-danger mt-4">@component('components.required-icon')@endComponent indicates a required field</p>
 
             <div class="form-row mt-4">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-termination-type">Type @component('components.required-icon')@endComponent</label>
                     <select class="custom-select {{$errors->has('type') ? 'is-invalid' : ''}}" id="edit-termination-type" name="type">
                         @if(!old('type'))
@@ -35,7 +35,7 @@
                         </span>
                     @endif
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-termination-date">Date @component('components.required-icon')@endComponent</label>
                     <input type="text" class="form-control datepicker {{$errors->has('date') ? 'is-invalid' : ''}}" id="edit-termination-date" name="date" value="{{old('date') ? old('date') : $termination->date->format('m/d/Y')}}">
                     @if($errors->has('date'))
@@ -44,7 +44,7 @@
                         </span>
                     @endif
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-termination-last-day">Last Day @component('components.required-icon')@endComponent</label>
                     <input type="text" class="form-control datepicker {{$errors->has('last_day') ? 'is-invalid' : ''}}" id="edit-termination-last-day" name="last_day" value="{{old('last_day') ? old('last_day') : $termination->last_day->format('m/d/Y')}}">
                     @if($errors->has('last_day'))

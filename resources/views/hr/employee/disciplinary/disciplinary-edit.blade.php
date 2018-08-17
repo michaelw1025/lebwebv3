@@ -4,7 +4,7 @@
 
     @include('hr.sidebar')
 
-    <article class="col-10 main-content-article">
+    <article class="col-8 col-xs-9 col-sm-10 main-content-article">
         <h2 class="mt-2 text-edit"><i class="fas fa-user-edit fa-lg"></i>&nbsp Edit {{$disciplinary->employee->first_name}} {{$disciplinary->employee->last_name}} Disciplinary</h2>
         <hr></hr>
 
@@ -19,7 +19,7 @@
             <p class="text-danger mt-4">@component('components.required-icon')@endComponent indicates a required field</p>
 
             <div class="form-row mt-4">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-disciplinary-type">Type @component('components.required-icon')@endComponent</label>
                     <select class="custom-select {{$errors->has('type') ? 'is-invalid' : ''}}" id="edit-disciplinary-type" name="type">
                         @if(!old('type'))
@@ -35,7 +35,7 @@
                         </span>
                     @endif
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-disciplinary-level">Level @component('components.required-icon')@endComponent</label>
                     <select class="custom-select {{$errors->has('level') ? 'is-invalid' : ''}}" id="edit-disciplinary-level" name="level">
                         @if(!old('level'))
@@ -55,7 +55,7 @@
                         </span>
                     @endif
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-disciplinary-date">Date @component('components.required-icon')@endComponent</label>
                     <input type="text" class="form-control datepicker {{$errors->has('date') ? 'is-invalid' : ''}}" id="edit-disciplinary-date" name="date" value="{{old('date') ? old('date') : $disciplinary->date->format('m/d/Y')}}">
                     @if($errors->has('date'))
@@ -65,7 +65,7 @@
                     @endif
                 </div>
 
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-disciplinary-cost-center">Cost Center @component('components.required-icon')@endComponent</label>
                     <select class="custom-select {{$errors->has('cost_center') ? 'is-invalid' : ''}}" id="edit-disciplinary-cost-center" name="cost_center">
                         @if(!old('cost_center'))
@@ -82,7 +82,7 @@
                         </span>
                     @endif
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-disciplinary-issued-by">Issued By @component('components.required-icon')@endComponent</label>
                     <select class="custom-select {{$errors->has('issued_by') ? 'is-invalid' : ''}}" id="edit-disciplinary-issued-by" name="issued_by">
                         @if(!old('issued_by'))

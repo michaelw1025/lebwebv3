@@ -4,7 +4,7 @@
 
     @include('hr.sidebar')
 
-    <article class="col-10 main-content-article">
+    <article class="col-8 col-xs-9 col-sm-10 main-content-article">
         <h2 class="mt-2 text-primary"><i class="fas fa-user-tag fa-lg"></i>&nbsp Show {{$termination->employee->first_name}} {{$termination->employee->last_name}} Termination</h2>
         <hr></hr>
 
@@ -16,15 +16,15 @@
             <a href="{{route('employees.show', ['id' => $termination->employee->id])}}" class="h3 text-primary my-4"><i class="fas fa-arrow-left"></i> Return To Show {{$termination->employee->first_name}} {{$termination->employee->last_name}}</a>
 
             <div class="form-row mt-4">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="show-termination-type">Type</label>
                     <input type="text" class="form-control" id="show-termination-type" name="type" value="{{ucwords($termination->type)}}" disabled>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="show-termination-date">Date</label>
                     <input type="text" class="form-control" id="show-termination-date" name="date" value="{{$termination->date->format('m/d/Y')}}" disabled>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="show-termination-last-day">Last Day</label>
                     <input type="text" class="form-control" id="show-termination-last-day" name="last_day" value="{{$termination->last_day->format('m/d/Y')}}" disabled>
                 </div>

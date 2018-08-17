@@ -1,4 +1,4 @@
-<!-- HE sidebar -->
+<!-- HR sidebar -->
 
 @php
     $employeesNavArray = array('employees.index', 'employees.create', 'employees.show', 'employees.edit', 'disciplinaries.index', 'disciplinaries.create', 'disciplinaries.show', 'disciplinaries.edit', 'terminations.index', 'terminations.create', 'terminations.show', 'terminations.edit', 'reductions.index', 'reductions.create', 'reductions.show', 'reductions.edit');
@@ -8,10 +8,10 @@
     $contractorsNavArray = array();
 @endphp
 
-<nav class="col-2 bg-light flex-column p-0">
+<nav class="col-4 col-xs-3 col-sm-2 bg-light flex-column p-0">
     <ul class="nav">
         <li class="nav-item dropdown w-100 {{in_array(Route::currentRouteName(), $employeesNavArray) ? 'text-primary bg-white' : 'text-dark'}}">
-            <a href="{{Route('users.index')}}" class="nav-link dropdown-toggle {{in_array(Route::currentRouteName(), $employeesNavArray) ? 'text-primary' : 'text-dark'}}" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-users fa-lg"></i><span class="d-none d-md-inline-block">&nbsp&nbspEmployees</span></a>
+            <a href="{{Route('users.index')}}" class="nav-link dropdown-toggle {{in_array(Route::currentRouteName(), $employeesNavArray) ? 'text-primary' : 'text-dark'}}" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-users fa-lg sidebar-icon"></i><span class="d-none d-lg-inline-block">Employees</span></a>
             <div class="dropdown-menu">
                 <a href="{{Route('employees.create')}}" class="dropdown-item">Add New</a>
                 <div class="dropdown-divider"></div>
@@ -20,25 +20,25 @@
             </div>
         </li>
         <li class="nav-item dropdown w-100 {{in_array(Route::currentRouteName(), $queriesNavArray) ? 'text-primary bg-white' : 'text-dark'}}">
-            <a href="{{Route('users.index')}}" class="nav-link dropdown-toggle {{in_array(Route::currentRouteName(), $queriesNavArray) ? 'text-primary' : 'text-dark'}}" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-search fa-lg"></i><span class="d-none d-md-inline-block">&nbsp&nbspQueries</span></a>
+            <a href="{{Route('users.index')}}" class="nav-link dropdown-toggle {{in_array(Route::currentRouteName(), $queriesNavArray) ? 'text-primary' : 'text-dark'}}" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-search fa-lg sidebar-icon"></i><span class="d-none d-lg-inline-block">Queries</span></a>
             <div class="dropdown-menu">
                 <a href="" class="dropdown-item">Add New</a>
             </div>
         </li>
         <li class="nav-item dropdown w-100 {{in_array(Route::currentRouteName(), $manageNavArray) ? 'text-primary bg-white' : 'text-dark'}}">
-            <a href="{{Route('users.index')}}" class="nav-link dropdown-toggle {{in_array(Route::currentRouteName(), $manageNavArray) ? 'text-primary' : 'text-dark'}}" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-cogs fa-lg"></i><span class="d-none d-md-inline-block">&nbsp&nbspManage</span></a>
+            <a href="{{Route('users.index')}}" class="nav-link dropdown-toggle {{in_array(Route::currentRouteName(), $manageNavArray) ? 'text-primary' : 'text-dark'}}" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-cogs fa-lg sidebar-icon"></i><span class="d-none d-lg-inline-block">Manage</span></a>
             <div class="dropdown-menu">
                 <a href="{{Route('costCenters.index')}}" class="dropdown-item">Cost Center</a>
             </div>
         </li>
         <li class="nav-item dropdown w-100 {{in_array(Route::currentRouteName(), $biddingNavArray) ? 'text-primary bg-white' : 'text-dark'}}">
-            <a href="{{Route('users.index')}}" class="nav-link dropdown-toggle {{in_array(Route::currentRouteName(), $biddingNavArray) ? 'text-primary' : 'text-dark'}}" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-receipt fa-lg"></i><span class="d-none d-md-inline-block">&nbsp&nbspBidding</span></a>
+            <a href="{{Route('users.index')}}" class="nav-link dropdown-toggle {{in_array(Route::currentRouteName(), $biddingNavArray) ? 'text-primary' : 'text-dark'}}" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-receipt fa-lg sidebar-icon"></i><span class="d-none d-lg-inline-block">Bidding</span></a>
             <div class="dropdown-menu">
                 <a href="" class="dropdown-item">Add New</a>
             </div>
         </li>
         <li class="nav-item dropdown w-100 {{in_array(Route::currentRouteName(), $contractorsNavArray) ? 'text-primary bg-white' : 'text-dark'}}">
-            <a href="{{Route('users.index')}}" class="nav-link dropdown-toggle {{in_array(Route::currentRouteName(), $contractorsNavArray) ? 'text-primary' : 'text-dark'}}" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-tag fa-lg"></i><span class="d-none d-md-inline-block">&nbsp&nbspContractors</span></a>
+            <a href="{{Route('users.index')}}" class="nav-link dropdown-toggle {{in_array(Route::currentRouteName(), $contractorsNavArray) ? 'text-primary' : 'text-dark'}}" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-tag fa-lg sidebar-icon"></i><span class="d-none d-lg-inline-block">Contractors</span></a>
             <div class="dropdown-menu">
                 <a href="" class="dropdown-item">Add New</a>
             </div>

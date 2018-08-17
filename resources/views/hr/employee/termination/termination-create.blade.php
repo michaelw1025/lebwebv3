@@ -4,7 +4,7 @@
 
     @include('hr.sidebar')
 
-    <article class="col-10 main-content-article">
+    <article class="col-8 col-xs-9 col-sm-10 main-content-article">
         <h2 class="mt-2 text-create"><i class="fas fa-user-edit fa-lg"></i>&nbsp Create {{$employee->first_name}} {{$employee->last_name}} Termination</h2>
         <hr></hr>
 
@@ -18,7 +18,7 @@
             <p class="text-danger mt-4">@component('components.required-icon')@endComponent indicates a required field</p>
 
             <div class="form-row mt-4">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="create-termination-type">Type @component('components.required-icon')@endComponent</label>
                     <select class="custom-select {{$errors->has('type') ? 'is-invalid' : ''}}" id="create-termination-type" name="type">
                         <option {{old('type') ? (old('type') == '' ? 'selected' : '') : ''}} value=""></option>
@@ -31,7 +31,7 @@
                         </span>
                     @endif
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="create-termination-date">Date @component('components.required-icon')@endComponent</label>
                     <input type="text" class="form-control datepicker {{$errors->has('date') ? 'is-invalid' : ''}}" id="create-termination-date" name="date" value="{{old('date') ? old('date') : ''}}" autocomplete="off">
                     @if($errors->has('date'))
@@ -40,7 +40,7 @@
                         </span>
                     @endif
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="create-termination-last-day">Last Day @component('components.required-icon')@endComponent</label>
                     <input type="text" class="form-control datepicker {{$errors->has('last_day') ? 'is-invalid' : ''}}" id="create-termination-last-day" name="last_day" value="{{old('last_day') ? old('last_day') : ''}}" autocomplete="off">
                     @if($errors->has('last_day'))

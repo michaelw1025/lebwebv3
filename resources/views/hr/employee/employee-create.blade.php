@@ -4,7 +4,7 @@
 
     @include('hr.sidebar')
 
-    <article class="col-10 main-content-article">
+    <article class="col-8 col-xs-9 col-sm-10 main-content-article">
         <h2 class="mt-2 text-create"><i class="fas fa-user-plus fa-lg"></i>&nbsp Create Employee</h2>
         <hr></hr>
 
@@ -19,7 +19,7 @@
             Demographics
             **************************************** -->
             <div class="form-row">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="create-employee-first-name">First Name @component('components.required-icon')@endComponent</label>
                     <input type="text" class="form-control {{$errors->has('first_name') ? 'is-invalid' : ''}}" id="create-employee-first-name" name="first_name" value="{{old('first_name')}}"  autofocus >
                     @if($errors->has('first_name'))
@@ -28,7 +28,7 @@
                         </span>
                     @endif
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="create-employee-last-name">Last Name @component('components.required-icon')@endComponent</label>
                     <input type="text" class="form-control {{$errors->has('last_name') ? 'is-invalid' : ''}}" id="create-employee-last-name" name="last_name" value="{{old('last_name')}}" >
                     @if($errors->has('last_name'))
@@ -37,7 +37,7 @@
                         </span>
                     @endif
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="create-employee-middle-initial">MI</label>
                     <input type="text" class="form-control {{$errors->has('middle_initial') ? 'is-invalid' : ''}}" id="create-employee-middle-initial" name="middle_initial" value="{{old('middle_initial')}}">
                     @if($errors->has('middle_initial'))
@@ -46,9 +46,7 @@
                         </span>
                     @endif
                 </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="create-employee-maiden-name">Maiden Name</label>
                     <input type="text" class="form-control {{$errors->has('maiden_name') ? 'is-invalid' : ''}}" id="create-employee-maiden-name" name="maiden_name" value="{{old('maiden_name')}}">
                     @if($errors->has('maiden_name'))
@@ -57,7 +55,7 @@
                         </span>
                     @endif
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="create-employee-nick-name">Nick Name</label>
                     <input type="text" class="form-control {{$errors->has('nick_name') ? 'is-invalid' : ''}}" id="create-employee-nick-name" name="nick_name" value="{{old('nick_name')}}">
                     @if($errors->has('nick_name'))
@@ -66,7 +64,7 @@
                         </span>
                     @endif
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="create-employee-suffix">Sufix</label>
                     <select class="custom-select {{$errors->has('suffix') ? 'is-invalid' : ''}}" id="create-employee-suffix" name="suffix">
                         <option {{old('suffix') ? (old('suffix') == '' ? 'selected' : '') : ''}} value=""></option>
@@ -84,9 +82,7 @@
                         </span>
                     @endif
                 </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="create-employee-ssn">SSN @component('components.required-icon')@endComponent</label>
                     <input type="text" class="form-control {{$errors->has('ssn') ? 'is-invalid' : ''}} ssn-format" id="create-employee-ssn" name="ssn" value="{{old('ssn')}}"  maxlength="11">
                     @if($errors->has('ssn'))
@@ -95,7 +91,7 @@
                         </span>
                     @endif
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="create-employee-gender">Gender @component('components.required-icon')@endComponent</label>
                     <select class="custom-select {{$errors->has('gender') ? 'is-invalid' : ''}}" id="create-employee-gender" name="gender">
                         <option {{old('gender') ? (old('gender') == '' ? 'selected' : '') : ''}} value=""></option>
@@ -110,7 +106,7 @@
                         </span>
                     @endif
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="create-employee-oracle-number">Oracle Number</label>
                     <input type="text" class="form-control {{$errors->has('oracle_number') ? 'is-invalid' : ''}} is-number" id="create-employee-oracle-number" name="oracle_number" value="{{old('oracle_number')}}">
                     @if($errors->has('oracle_number'))
@@ -119,9 +115,7 @@
                         </span>
                     @endif
                 </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="create-employee-birth-date">Birth Date @component('components.required-icon')@endComponent</label>
                     <input type="text" class="form-control {{$errors->has('birth_date') ? 'is-invalid' : ''}} datepicker" id="create-employee-birth-date" name="birth_date" value="{{old('birth_date')}}" >
                     @if($errors->has('birth_date'))
@@ -130,7 +124,7 @@
                         </span>
                     @endif
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="create-employee-hire-date">Hire Date @component('components.required-icon')@endComponent</label>
                     <input type="text" class="form-control {{$errors->has('hire_date') ? 'is-invalid' : ''}} datepicker" id="create-employee-hire-date" name="hire_date" value="{{old('hire_date')}}" >
                     @if($errors->has('hire_date'))
@@ -139,7 +133,7 @@
                         </span>
                     @endif
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="create-employee-service-date">Service Date @component('components.required-icon')@endComponent</label>
                     <input type="text" class="form-control {{$errors->has('service_date') ? 'is-invalid' : ''}} datepicker" id="create-employee-service-date" name="service_date" value="{{old('service_date')}}" >
                     @if($errors->has('service_date'))
@@ -170,7 +164,7 @@
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-4 col-lg-3">
+                <div class="form-group col-md-6 col-lg-4 col-lg-3">
                     <label for="create-employee-city">City @component('components.required-icon')@endComponent</label>
                     <input type="text" class="form-control {{$errors->has('city') ? 'is-invalid' : ''}}" id="create-employee-city" name="city" value="{{old('city')}}" >
                     @if($errors->has('city'))
@@ -179,7 +173,7 @@
                         </span>
                     @endif
                 </div>
-                <div class="form-group col-md-4 col-lg-3">
+                <div class="form-group col-md-6 col-lg-4 col-lg-3">
                     <label for="create-employee-state">State @component('components.required-icon')@endComponent</label>
                     <select class="custom-select {{$errors->has('state') ? 'is-invalid' : ''}}" id="create-employee-state" name="state">
                         <option value="al">Alabama</option>
@@ -240,7 +234,7 @@
                         </span>
                     @endif
                 </div>
-                <div class="form-group col-md-4 col-lg-3">
+                <div class="form-group col-md-6 col-lg-4 col-lg-3">
                     <label for="create-employee-zip-code">Zip Code @component('components.required-icon')@endComponent</label>
                     <input type="text" class="form-control {{$errors->has('zip_code') ? 'is-invalid' : ''}} is-number" id="create-employee-zip-code" name="zip_code" value="{{old('zip_code')}}" >
                     @if($errors->has('zip_code'))
@@ -249,7 +243,7 @@
                         </span>
                     @endif
                 </div>
-                <div class="form-group col-md-4 col-lg-3">
+                <div class="form-group col-md-6 col-lg-4 col-lg-3">
                     <label for="create-employee-county">County @component('components.required-icon')@endComponent</label>
                     <input type="text" class="form-control {{$errors->has('county') ? 'is-invalid' : ''}}" id="create-employee-county" name="county" value="{{old('county')}}" >
                     @if($errors->has('county'))
@@ -260,7 +254,7 @@
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-6">
+                <div class="form-group col-lg-6">
                     <div class="custom-file">
                         <input type="file" class="custom-file-input {{$errors->has('photo_link') ? 'is-invalid' : ''}} picture-upload" id="create-employee-photo" name="photo_link">
                         <label for="create-employee-photo" class="custom-file-label">Choose Employee Photo</label>
@@ -275,7 +269,7 @@
                 <i class="fas fa-dolly"></i> Occupation
             </header>
             <div class="form-row">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="create-employee-job">Job @component('components.required-icon')@endComponent</label>
                     <select class="custom-select {{$errors->has('job') ? 'is-invalid' : ''}}" id="create-employee-job" name="job">
                         <option value=""></option>
@@ -290,7 +284,7 @@
                     @endif
                 </div>
 
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="create-employee-position">Position @component('components.required-icon')@endComponent</label>
                     <select class="custom-select {{$errors->has('position') ? 'is-invalid' : ''}}" id="create-employee-position" name="position">
                         <option value=""></option>
@@ -305,7 +299,7 @@
                     @endif
                 </div>
 
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="create-employee-cost-center">Cost Center @component('components.required-icon')@endComponent</label>
                     <select class="custom-select {{$errors->has('cost_center') ? 'is-invalid' : ''}}" id="create-employee-cost-center" name="cost_center">
                         <option value=""></option>
@@ -320,7 +314,7 @@
                     @endif
                 </div>
 
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="create-employee-shift">Shift @component('components.required-icon')@endComponent</label>
                     <select class="custom-select {{$errors->has('shift') ? 'is-invalid' : ''}}" id="create-employee-shift" name="shift">
                         <option value=""></option>
@@ -343,7 +337,7 @@
                 <i class="fas fa-money-bill-wave"></i> Wage
             </header>
             <div class="form-row">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="create-employee-wage-title">Wage Title @component('components.required-icon')@endComponent</label>
                     <select name="wage_title" id="create-employee-wage-title" class="custom-select {{$errors->has('wage_title') ? 'is-invalid' : ''}} choose-wage-title">
                         <option value=""></option>
@@ -417,7 +411,7 @@
                 $phoneNumberCount = count(old('phone_number')) + 1;
                 @endphp
                 @foreach(old('phone_number') as $oldPhoneNumber)
-                <div class="col-md-6 col-xl-4 mb-3">
+                <div class="col-lg-6 col-xxl-4 mb-3">
                     <label for="edit-employee-phone-number-{{$loop->iteration}}">Phone Number {{$loop->iteration}}</label>
                     <div class="input-group">
                         <div class="input-group-text">
@@ -451,7 +445,7 @@
             @endif
 
             @for($phoneNumberCount; $phoneNumberCount < 6; $phoneNumberCount++)
-            <div class="col-md-6 col-xl-4 mb-3">
+            <div class="col-lg-6 col-xxl-4 mb-3">
                     <label for="edit-employee-phone-number-{{$phoneNumberCount}}">Phone Number {{$phoneNumberCount}}</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
@@ -489,7 +483,7 @@
                 $emergencyContactCount = count(old('emergency_contact')) + 1;
                 @endphp
                 @foreach(old('emergency_contact') as $oldEmergencyContact)
-                <div class="col-md-6 col-xl-4 mb-3">
+                <div class="col-xxl-6 mb-3">
                     <label for="edit-employee-emergency-contact-{{$loop->iteration}}">Emergency Contact {{$loop->iteration}} <span class="text-muted small">(number/name)</span></label>
                     <div class="input-group">
                         <div class="input-group-text">
@@ -529,7 +523,7 @@
             @endif
 
             @for($emergencyContactCount; $emergencyContactCount < 6; $emergencyContactCount++)
-            <div class="col-md-6 col-xl-4 mb-3">
+            <div class="col-xxl-6 mb-3">
                     <label for="edit-employee-emergency-contact-{{$emergencyContactCount}}">Emergency Contact {{$emergencyContactCount}} <span class="text-muted small">(number/name)</span></label>
                     <div class="input-group">
                         <div class="input-group-prepend">

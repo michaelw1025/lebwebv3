@@ -4,7 +4,7 @@
 
     @include('hr.sidebar')
 
-    <article class="col-10 main-content-article">
+    <article class="col-8 col-xs-9 col-sm-10 main-content-article">
         <h2 class="mt-2 text-edit"><i class="fas fa-user-edit fa-lg"></i>&nbsp Edit {{$employee->first_name}} {{$employee->last_name}}</h2>
         <hr></hr>
 
@@ -31,11 +31,11 @@
             Demographics
             **************************************** -->
             <div class="form-row">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="show-employee-id">Employee ID</label>
                     <input type="text" class="form-control" id="show-employee-id" name="id" value="{{$employee->id}}" disabled>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-employee-first-name">First Name @component('components.required-icon')@endComponent</label>
                     <input type="text" class="form-control {{$errors->has('first_name') ? 'is-invalid' : ''}}" id="edit-employee-first-name" name="first_name" value="{{old('first_name') ? old('first_name') : $employee->first_name}}">
                     @if($errors->has('first_name'))
@@ -44,7 +44,7 @@
                         </span>
                     @endif
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-employee-last-name">Last Name @component('components.required-icon')@endComponent</label>
                     <input type="text" class="form-control {{$errors->has('last_name') ? 'is-invalid' : ''}}" id="edit-employee-last-name" name="last_name" value="{{old('last_name') ? old('last_name') : $employee->last_name}}">
                     @if($errors->has('last_name'))
@@ -53,7 +53,7 @@
                         </span>
                     @endif
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-employee-middle-initial">MI</label>
                     <input type="text" class="form-control {{$errors->has('middle_initial') ? 'is-invalid' : ''}}" id="edit-employee-middle-initial" name="middle_initial" value="{{old('middle_initial') ? old('middle_initial') : $employee->middle_initial}}">
                     @if($errors->has('middle_initial'))
@@ -62,7 +62,7 @@
                         </span>
                     @endif
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-employee-maiden-name">Maiden Name</label>
                     <input type="text" class="form-control {{$errors->has('maiden_name') ? 'is-invalid' : ''}}" id="edit-employee-maiden-name" name="maiden_name" value="{{old('maiden_name') ? old('maiden_name') : $employee->maiden_name}}">
                     @if($errors->has('maiden_name'))
@@ -71,7 +71,7 @@
                         </span>
                     @endif
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-employee-nick-name">Nick Name</label>
                     <input type="text" class="form-control {{$errors->has('nick_name') ? 'is-invalid' : ''}}" id="edit-employee-nick-name" name="nick_name" value="{{old('nick_name') ? old('nick_name') : $employee->nick_name}}">
                     @if($errors->has('nick_name'))
@@ -80,7 +80,7 @@
                         </span>
                     @endif
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-employee-suffix">Sufix</label>
                     <select class="custom-select {{$errors->has('suffix') ? 'is-invalid' : ''}}" id="edit-employee-suffix" name="suffix">
                         @if(!old('suffix'))
@@ -101,7 +101,7 @@
                         </span>
                     @endif
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-employee-ssn">SSN @component('components.required-icon')@endComponent</label>
                     <input type="text" class="form-control {{$errors->has('ssn') ? 'is-invalid' : ''}} ssn-format" id="edit-employee-ssn" name="ssn" value="{{old('ssn') ? old('ssn') : $employee->ssn}}"  maxlength="11">
                     @if($errors->has('ssn'))
@@ -110,7 +110,7 @@
                         </span>
                     @endif
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-employee-gender">Gender @component('components.required-icon')@endComponent</label>
                     <select class="custom-select {{$errors->has('gender') ? 'is-invalid' : ''}}" id="edit-employee-gender" name="gender">
                         @if(!old('gender'))
@@ -128,7 +128,7 @@
                         </span>
                     @endif
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-employee-oracle-number">Oracle Number</label>
                     <input type="text" class="form-control {{$errors->has('oracle_number') ? 'is-invalid' : ''}} is-number" id="edit-employee-oracle-number" name="oracle_number" value="{{old('oracle_number') ? old('oracle_number') : $employee->oracle_number}}">
                     @if($errors->has('oracle_number'))
@@ -137,7 +137,7 @@
                         </span>
                     @endif
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-employee-birth-date">Birth Date @component('components.required-icon')@endComponent</label>
                     <input type="text" class="form-control {{$errors->has('birth_date') ? 'is-invalid' : ''}} datepicker" id="edit-employee-birth-date" name="birth_date" value="{{old('birth_date') ? old('birth_date') : $employee->birth_date->format('m/d/Y')}}" >
                     @if($errors->has('birth_date'))
@@ -146,7 +146,7 @@
                         </span>
                     @endif
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-employee-hire-date">Hire Date @component('components.required-icon')@endComponent</label>
                     <input type="text" class="form-control {{$errors->has('hire_date') ? 'is-invalid' : ''}} datepicker" id="edit-employee-hire-date" name="hire_date" value="{{old('hire_date') ? old('hire_date') : $employee->hire_date->format('m/d/Y')}}" >
                     @if($errors->has('hire_date'))
@@ -155,7 +155,7 @@
                         </span>
                     @endif
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-employee-service-date">Service Date @component('components.required-icon')@endComponent</label>
                     <input type="text" class="form-control {{$errors->has('service_date') ? 'is-invalid' : ''}} datepicker" id="edit-employee-service-date" name="service_date" value="{{old('service_date') ? old('service_date') : $employee->service_date->format('m/d/Y')}}" >
                     @if($errors->has('service_date'))
@@ -186,7 +186,7 @@
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-6 col-lg-3">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-employee-city">City @component('components.required-icon')@endComponent</label>
                     <input type="text" class="form-control {{$errors->has('city') ? 'is-invalid' : ''}}" id="edit-employee-city" name="city" value="{{old('city') ? old('city') : $employee->city}}" >
                     @if($errors->has('city'))
@@ -195,7 +195,7 @@
                         </span>
                     @endif
                 </div>
-                <div class="form-group col-md-6 col-lg-3">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-employee-state">State @component('components.required-icon')@endComponent</label>
                     <select class="custom-select {{$errors->has('state') ? 'is-invalid' : ''}}" id="edit-employee-state" name="state">
                         @if(!old('state'))
@@ -259,7 +259,7 @@
                         </span>
                     @endif
                 </div>
-                <div class="form-group col-md-6 col-lg-3">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-employee-zip-code">Zip Code @component('components.required-icon')@endComponent</label>
                     <input type="text" class="form-control {{$errors->has('zip_code') ? 'is-invalid' : ''}} is-number" id="edit-employee-zip-code" name="zip_code" value="{{old('zip_code') ? old('zip_code') : $employee->zip_code}}">
                     @if($errors->has('zip_code'))
@@ -268,7 +268,7 @@
                         </span>
                     @endif
                 </div>
-                <div class="form-group col-md-6 col-lg-3">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-employee-county">County @component('components.required-icon')@endComponent</label>
                     <input type="text" class="form-control {{$errors->has('county') ? 'is-invalid' : ''}}" id="edit-employee-county" name="county" value="{{old('county') ? old('county') : $employee->county}}" >
                     @if($errors->has('county'))
@@ -358,7 +358,7 @@
             </div>
 
             <div class="form-row">
-                <div class="form-group col-md-6">
+                <div class="form-group col-lg-6">
                     <div class="custom-file">
                         <input type="file" class="custom-file-input {{$errors->has('photo_link') ? 'is-invalid' : ''}}" id="edit-employee-photo" name="photo_link">
                         <label for="edit-employee-photo" class="custom-file-label {{$errors->has('photo_link') ? 'text-danger' : ''}}">
@@ -383,7 +383,7 @@
                 <i class="fas fa-dolly"></i> Occupation
             </header>
             <div class="form-row">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-employee-job">Job @component('components.required-icon')@endComponent</label>
                     <select class="custom-select {{$errors->has('job') ? 'is-invalid' : ''}}" id="edit-employee-job" name="job">
                         @foreach($employee->job as $employeeJob)
@@ -401,7 +401,7 @@
                     @endif
                 </div>
 
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-employee-position">Position @component('components.required-icon')@endComponent</label>
                     <select class="custom-select {{$errors->has('position') ? 'is-invalid' : ''}}" id="edit-employee-position" name="position">
                         @foreach($employee->position as $employeePosition)
@@ -419,7 +419,7 @@
                     @endif
                 </div>
 
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-employee-cost-center">Cost Center @component('components.required-icon')@endComponent</label>
                     <select class="custom-select {{$errors->has('cost_center') ? 'is-invalid' : ''}}" id="edit-employee-cost-center" name="cost_center"">
                         @foreach($employee->costCenter as $employeeCostCenter)
@@ -437,7 +437,7 @@
                     @endif
                 </div>
 
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-employee-shift">Shift @component('components.required-icon')@endComponent</label>
                     <select class="custom-select {{$errors->has('shift') ? 'is-invalid' : ''}}" id="edit-employee-shift" name="shift">
                         @foreach($employee->shift as $employeeShift)
@@ -463,7 +463,7 @@
                 <i class="fas fa-money-bill-wave"></i> Wage
             </header>
             <div class="form-row">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-employee-wage-title">Wage Title @component('components.required-icon')@endComponent</label>
                     <select name="wage_title" id="edit-employee-wage-title" class="custom-select {{$errors->has('wage_title') ? 'is-invalid' : ''}} choose-wage-title">
                         @foreach($employee->position as $employeePosition)
@@ -542,7 +542,7 @@
                 $phoneNumberCount = count(old('phone_number')) + 1;
                 @endphp
                 @foreach(old('phone_number') as $oldPhoneNumber)
-                <div class="col-md-6 col-xl-4 mb-3">
+                <div class="col-lg-6 col-xxl-4 mb-3">
                     <label for="edit-employee-phone-number-{{$loop->iteration}}">Phone Number {{$loop->iteration}}</label>
                     <div class="input-group">
                         <div class="input-group-text">
@@ -575,7 +575,7 @@
                 $phoneNumberCount = $employee->phoneNumber->count() + 1;
                 @endphp
                 @foreach($employee->phoneNumber as $employeePhoneNumber)
-                <div class="col-md-6 col-xl-4 mb-3">
+                <div class="col-lg-6 col-xxl-4 mb-3">
                     <label for="edit-employee-phone-number-{{$loop->iteration}}">Phone Number {{$loop->iteration}}</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
@@ -608,7 +608,7 @@
             @endif
 
             @for($phoneNumberCount; $phoneNumberCount < 6; $phoneNumberCount++)
-                <div class="col-md-6 col-xl-4 mb-3">
+                <div class="col-lg-6 col-xxl-4 mb-3">
                     <label for="edit-employee-phone-number-{{$phoneNumberCount}}">Phone Number {{$phoneNumberCount}}</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
@@ -647,7 +647,7 @@
                 $emergencyContactCount = count(old('emergency_contact')) + 1;
                 @endphp
                 @foreach(old('emergency_contact') as $oldEmergencyContact)
-                <div class="col-12 col-xl-6 mb-3">
+                <div class="col-xxl-6 mb-3">
                     <label for="edit-employee-emergency-contact-{{$loop->iteration}}">Emergency Contact {{$loop->iteration}} <span class="text-muted small">(number/name)</span></label>
                     <div class="input-group">
                         <div class="input-group-text">
@@ -686,7 +686,7 @@
                 $emergencyContactCount = $employee->emergencyContact->count() + 1;
                 @endphp
                 @foreach($employee->emergencyContact as $employeeEmergencyContact)
-                <div class="col-12 col-xl-6 mb-3">
+                <div class="col-xxl-6 mb-3">
                     <label for="edit-employee-emergency-contact-{{$loop->iteration}}">Emergency Contact {{$loop->iteration}} <span class="text-muted small">(number/name)</span></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
@@ -725,7 +725,7 @@
             @endif
 
             @for($emergencyContactCount; $emergencyContactCount < 6; $emergencyContactCount++)
-                <div class="col-12 col-xl-6 mb-3">
+                <div class="col-xxl-6 mb-3">
                     <label for="edit-employee-emergency-contact-{{$emergencyContactCount}}">Emergency Contact {{$emergencyContactCount}} <span class="text-muted small">(number/name)</span></label>
                     <div class="input-group">
                         <div class="input-group-prepend">

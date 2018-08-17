@@ -4,7 +4,7 @@
 
     @include('hr.sidebar')
 
-    <article class="col-10 main-content-article">
+    <article class="col-8 col-xs-9 col-sm-10 main-content-article">
         <h2 class="mt-2 text-create"><i class="fas fa-user-edit fa-lg"></i>&nbsp Create {{$employee->first_name}} {{$employee->last_name}} Disciplinary</h2>
         <hr></hr>
 
@@ -18,7 +18,7 @@
             <p class="text-danger mt-4">@component('components.required-icon')@endComponent indicates a required field</p>
 
             <div class="form-row mt-4">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="create-disciplinary-type">Type @component('components.required-icon')@endComponent</label>
                     <select class="custom-select {{$errors->has('type') ? 'is-invalid' : ''}}" id="create-disciplinary-type" name="type">
                         <option {{old('type') ? (old('type') == '' ? 'selected' : '') : ''}} value=""></option>
@@ -31,7 +31,7 @@
                         </span>
                     @endif
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="create-disciplinary-level">Level @component('components.required-icon')@endComponent</label>
                     <select class="custom-select {{$errors->has('level') ? 'is-invalid' : ''}}" id="create-disciplinary-level" name="level">
                         <option {{old('level') ? (old('level') == '' ? 'selected' : '') : ''}} value=""></option>
@@ -48,7 +48,7 @@
                         </span>
                     @endif
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="create-disciplinary-date">Date @component('components.required-icon')@endComponent</label>
                     <input type="text" class="form-control datepicker {{$errors->has('date') ? 'is-invalid' : ''}}" id="create-disciplinary-date" name="date" value="{{old('date') ? old('date') : ''}}" autocomplete="off">
                     @if($errors->has('date'))
@@ -58,7 +58,7 @@
                     @endif
                 </div>
 
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="create-disciplinary-cost-center">Cost Center @component('components.required-icon')@endComponent</label>
                     <select class="custom-select {{$errors->has('cost_center') ? 'is-invalid' : ''}}" id="create-disciplinary-cost-center" name="cost_center">
                         <option value=""></option>
@@ -72,7 +72,7 @@
                         </span>
                     @endif
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="create-disciplinary-issued-by">Issued By @component('components.required-icon')@endComponent</label>
                     <select class="custom-select {{$errors->has('issued_by') ? 'is-invalid' : ''}}" id="create-disciplinary-issued-by" name="issued_by">
                         <option value=""></option>
