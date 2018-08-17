@@ -2,8 +2,6 @@
 
 @section('content')
 
-    @include('hr.sidebar')
-
     <article class="col-8 col-xs-9 col-sm-10 main-content-article">
         <h2 class="mt-2 text-edit"><i class="fas fa-user-edit fa-lg"></i>&nbsp Edit {{$disciplinary->employee->first_name}} {{$disciplinary->employee->last_name}} Disciplinary</h2>
         <hr></hr>

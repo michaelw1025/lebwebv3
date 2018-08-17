@@ -1,12 +1,6 @@
 <!-- HR sidebar -->
 
-@php
-    $employeesNavArray = array('employees.index', 'employees.create', 'employees.show', 'employees.edit', 'disciplinaries.index', 'disciplinaries.create', 'disciplinaries.show', 'disciplinaries.edit', 'terminations.index', 'terminations.create', 'terminations.show', 'terminations.edit', 'reductions.index', 'reductions.create', 'reductions.show', 'reductions.edit');
-    $queriesNavArray = array();
-    $manageNavArray = array();
-    $biddingNavArray = array();
-    $contractorsNavArray = array();
-@endphp
+
 
 <nav class="col-4 col-xs-3 col-sm-2 bg-light flex-column p-0">
     <ul class="nav">
@@ -38,7 +32,7 @@
             </div>
         </li>
         <li class="nav-item dropdown w-100 {{in_array(Route::currentRouteName(), $contractorsNavArray) ? 'text-primary bg-white' : 'text-dark'}}">
-            <a href="{{Route('users.index')}}" class="nav-link dropdown-toggle {{in_array(Route::currentRouteName(), $contractorsNavArray) ? 'text-primary' : 'text-dark'}}" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-tag fa-lg sidebar-icon"></i><span class="d-none d-lg-inline-block">Contractors</span></a>
+            <a href="{{Route('users.index')}}" class="nav-link dropdown-toggle {{in_array(Route::currentRouteName(), $contractorsNavArray) ? 'text-primary' : 'text-dark'}}" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-clipboard-check fa-lg sidebar-icon"></i><span class="d-none d-lg-inline-block">Contractors</span></a>
             <div class="dropdown-menu">
                 <a href="" class="dropdown-item">Add New</a>
             </div>

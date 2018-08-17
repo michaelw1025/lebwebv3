@@ -2,8 +2,6 @@
 
 @section('content')
 
-    @include('admin.sidebar')
-
     <article class="col-10 main-content-article">
 
         <h2 class="mt-2 text-primary"><i class="fas fa-id-card fa-lg"></i> Show User</h2>

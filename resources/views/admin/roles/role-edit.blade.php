@@ -2,8 +2,6 @@
 
 @section('content')
 
-    @include('admin.sidebar')
-
     <article class="col-10  main-content-article">
 
         <h2 class="mt-2 text-edit"><i class="fas fa-edit fa-lg"></i> Edit Role</h2>

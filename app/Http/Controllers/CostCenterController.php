@@ -29,7 +29,6 @@ class CostCenterController extends Controller
         // Get all cost centers
         $costCenters = CostCenter::orderBy('number', 'asc')->orderBy('extension', 'asc')
         ->with('employeeStaffManager')->get();
-        return $costCenters;
         return view('hr.costCenter.cost-centers', [
             'costCenters' => $costCenters
         ]);

@@ -2,8 +2,6 @@
 
 @section('content')
 
-    @include('hr.sidebar')
-
     <article class="col-10 main-content-article">
         <h2 class="mt-2 text-primary"><i class="fas {{$statusType === 1 ? 'fa-user-check' : 'fa-user-slash'}} fa-lg"></i> Employees</h2>
         <hr></hr>

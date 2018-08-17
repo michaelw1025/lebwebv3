@@ -1,9 +1,5 @@
 Set input fields as required
 
-Complete Cost Center resources and form request
-
-Complete Shift resources and form request
-
 Check all radio's and checkboxes use custom
 
 Add employee id to all views for employee

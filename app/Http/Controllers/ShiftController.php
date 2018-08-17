@@ -7,13 +7,24 @@ use Illuminate\Http\Request;
 class ShiftController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
     }
 
     /**
@@ -23,7 +34,8 @@ class ShiftController extends Controller
      */
     public function create()
     {
-        //
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
     }
 
     /**
@@ -34,7 +46,8 @@ class ShiftController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
     }
 
     /**
@@ -45,7 +58,8 @@ class ShiftController extends Controller
      */
     public function show($id)
     {
-        //
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
     }
 
     /**
@@ -56,8 +70,8 @@ class ShiftController extends Controller
      */
     public function edit($id)
     {
-        //
-    }
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser'
 
     /**
      * Update the specified resource in storage.
@@ -68,7 +82,8 @@ class ShiftController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
     }
 
     /**
@@ -79,6 +94,7 @@ class ShiftController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin']);
     }
 }

@@ -1,10 +1,4 @@
 <!-- Admin sidebar -->
-
-@php
-    $usersNavArray = array('users.index', 'users.show', 'users.edit');
-    $rolesNavArray = array('roles.index', 'roles.show', 'roles.edit', 'roles.create');
-@endphp
-
 <nav class="col-4 col-xs-3 col-sm-2 bg-light flex-column p-0">
     <ul class="nav">
         <li class="nav-item w-100 {{in_array(Route::currentRouteName(), $usersNavArray) ? 'bg-white' : ''}}">
