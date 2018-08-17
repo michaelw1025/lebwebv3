@@ -1,12 +1,3 @@
-@php
-    $usersNavArray = array('users.index', 'users.show', 'users.edit');
-    $rolesNavArray = array('roles.index', 'roles.show', 'roles.edit', 'roles.create');
-    $employeesNavArray = array('employees.index', 'employees.create', 'employees.show', 'employees.edit', 'disciplinaries.index', 'disciplinaries.create', 'disciplinaries.show', 'disciplinaries.edit', 'terminations.index', 'terminations.create', 'terminations.show', 'terminations.edit', 'reductions.index', 'reductions.create', 'reductions.show', 'reductions.edit');
-    $queriesNavArray = array();
-    $manageNavArray = array();
-    $biddingNavArray = array();
-    $contractorsNavArray = array();
-@endphp
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -30,12 +21,10 @@
 
     <section class="container-fluid h-100 border-top">
         <section class="row h-100">
-            <!-- Sidebar -->
-            @include('sidebars.user-sidebar')
 
-            <article class="col-8 xol-xs-9 col-sm-10 main-content-article">
+
             @yield('content')
-            </article>
+
 
         </section>
     </section>

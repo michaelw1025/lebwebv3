@@ -71,7 +71,8 @@ class ShiftController extends Controller
     public function edit($id)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser'
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
+    }
 
     /**
      * Update the specified resource in storage.

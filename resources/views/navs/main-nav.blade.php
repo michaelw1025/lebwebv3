@@ -1,5 +1,6 @@
+
 <nav class="navbar navbar-expand-md navbar-light bg-light">
-    <a href="{{route('welcome')}}" class="navbar-brand text-primary">LebWebDev</a>
+    <a href="{{route('home')}}" class="navbar-brand text-primary">LebWebDev</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
         <!-- <span class="navbar-toggler-icon"></span> -->
         <i class="fas fa-bars text-dark"></i>
@@ -8,15 +9,15 @@
         <ul class="navbar-nav">
             @guest
             @else
-                @if(Auth::user()->navigationRoles(['admin']))
-                <li class="nav-item">
+                @if(Auth::user()->hasAnyRole(['admin']))
+                <!-- <li class="nav-item">
                     <a href="{{route('admin.home')}}" class="nav-link {{Route::current()->getPrefix() === '/admin' ? 'text-success' : 'text-dark'}}">Admin</a>
-                </li>
+                </li> -->
                 @endif
-                @if(Auth::user()->navigationRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']))
-                <li class="nav-item">
+                @if(Auth::user()->hasAnyRole(['admin', 'hrmanager', 'hruser', 'hrassistant']))
+                <!-- <li class="nav-item">
                     <a href="{{route('hr.home')}}" class="nav-link {{Route::current()->getPrefix() === '/hr' ? 'text-success' : 'text-dark'}}">Human Resources</a>
-                </li>
+                </li> -->
                 @endif
             @endguest
         </ul>

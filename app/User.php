@@ -94,16 +94,4 @@ class User extends Authenticatable
     {
     return null !== $this->role()->where('name', $role)->first();
     }
-
-    // ****************************************
-    // Nav authentication
-    // ****************************************
-    public function navigationRoles($roles)
-    {
-        if ($this->hasAnyRole($roles))
-        {
-            return true;
-        }
-        return false;
-    }
 }

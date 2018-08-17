@@ -21,8 +21,14 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('home');
+        // return view('home');
+        if($request->user()->hasRole(['admin'])){
+            return redirect()->route('admin.home');
+        }
+        if($request->user()->hasAnyRole(['hrmanager', 'hruser', 'hrassistant'])) {
+            return redirect()->route('hr.home');
+        }
     }
 }

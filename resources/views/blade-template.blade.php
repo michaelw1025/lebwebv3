@@ -2,8 +2,29 @@
 
 @section('content')
 
-                <h2 class="mt-2 text-primary">Title</h2>
-                <hr></hr>
+                <!-- Title for content -->
+        @component('components.content-title')
+                @slot('textClass')
+                        text-primary
+                @endslot
+
+                @slot('fontStyle')
+                        
+                @endslot
+
+                @slot('fontIcon')
+                        
+                @endslot
+
+                @slot('fontSize')
+                        
+                @endslot
+                
+                @slot('title')
+                        Title
+                @endslot
+        @endcomponent
+                
 
                 @include('alerts.validation-alert')
                 @include('alerts.session-alert')

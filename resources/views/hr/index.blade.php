@@ -2,8 +2,6 @@
 
 @section('content')
 
-        <h2 class="mt-2 text-primary"></i>Human Resources</h2>
-        <hr></hr>
         <!-- Title for content -->
         @component('components.content-title')
             @slot('textClass')
