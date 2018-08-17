@@ -2,9 +2,28 @@
 
 @section('content')
 
-    <article class="col-8 col-xs-9 col-sm-10 main-content-article">
-        <h2 class="mt-2 text-primary"><i class="fas fa-user-tag fa-lg"></i>&nbsp Show {{$reduction->employee->first_name}} {{$reduction->employee->last_name}} Reduction</h2>
-        <hr></hr>
+        <!-- Title for content -->
+        @component('components.content-title')
+            @slot('textClass')
+            text-primary
+            @endslot
+
+            @slot('fontStyle')
+            fas
+            @endslot
+
+            @slot('fontIcon')
+            fa-user-tag
+            @endslot
+
+            @slot('fontSize')
+            fa-lg
+            @endslot
+
+            @slot('title')
+            Show {{$reduction->employee->first_name}} {{$reduction->employee->last_name}} Reduction
+            @endslot
+        @endcomponent
 
         @include('alerts.validation-alert')
         @include('alerts.session-alert')
@@ -121,7 +140,5 @@
 
         <hr class="my-4"></hr>
         <hr class="my-4"></hr>
-
-    </article>
 
 @endsection

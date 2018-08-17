@@ -2,10 +2,28 @@
 
 @section('content')
 
-    <article class="col-10 main-content-article">
+        <!-- Title for content -->
+        @component('components.content-title')
+            @slot('textClass')
+            text-primary
+            @endslot
 
-        <h2 class="mt-2 text-primary"><i class="fas fa-id-card fa-lg"></i> Show User</h2>
-        <hr></hr>
+            @slot('fontStyle')
+            fas
+            @endslot
+
+            @slot('fontIcon')
+            fa-id-card
+            @endslot
+
+            @slot('fontSize')
+            fa-lg
+            @endslot
+
+            @slot('title')
+            Show User
+            @endslot
+        @endcomponent
 
         @include('alerts.validation-alert')
         @include('alerts.session-alert')
@@ -39,7 +57,5 @@
         </form>    
 
         <a href="{{route('users.edit', ['id' => $user->id])}}" class="btn btn-edit">Edit User</a>
-        
-    </article>
 
 @endsection

@@ -2,9 +2,28 @@
 
 @section('content')
 
-    <article class="col-10  main-content-article">
-        <h2 class="mt-2 text-primary"><i class="fas fa-shield-alt fa-lg"></i> Roles</h2>
-        <hr></hr>
+        <!-- Title for content -->
+        @component('components.content-title')
+            @slot('textClass')
+            text-primary
+            @endslot
+
+            @slot('fontStyle')
+            fas
+            @endslot
+
+            @slot('fontIcon')
+            fa-shield-alt
+            @endslot
+
+            @slot('fontSize')
+            fa-lg
+            @endslot
+
+            @slot('title')
+            Roles
+            @endslot
+        @endcomponent
 
         @include('alerts.validation-alert')
         @include('alerts.session-alert')
@@ -27,7 +46,5 @@
         </table>
 
         <a href="{{route('roles.create')}}" class="btn btn-create">Create New Role</a>
-
-    </article>
 
 @endsection

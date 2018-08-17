@@ -2,10 +2,28 @@
 
 @section('content')
 
-    <article class="col-10  main-content-article">
+        <!-- Title for content -->
+        @component('components.content-title')
+            @slot('textClass')
+            text-edit
+            @endslot
 
-        <h2 class="mt-2 text-edit"><i class="fas fa-edit fa-lg"></i> Edit Role</h2>
-        <hr></hr>
+            @slot('fontStyle')
+            fas
+            @endslot
+
+            @slot('fontIcon')
+            fa-edit
+            @endslot
+
+            @slot('fontSize')
+            fa-lg
+            @endslot
+
+            @slot('title')
+            Edit Role
+            @endslot
+        @endcomponent
 
         @include('alerts.validation-alert')
         @include('alerts.session-alert')
@@ -41,7 +59,5 @@
             @method('Delete')
             <button type="submit" class="btn btn-outline-danger delete-item" form="delete-role-form" name="site role">Delete Role</button>
         </form>
-
-    </article>
 
 @endsection

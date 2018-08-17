@@ -2,10 +2,28 @@
 
 @section('content')
 
-    <article class="col-10  main-content-article">
+        <!-- Title for content -->
+        @component('components.content-title')
+            @slot('textClass')
+            text-primary
+            @endslot
 
-        <h2 class="mt-2 text-primary"><i class="fas fa-user-shield fa-lg"></i> Show Role</h2>
-        <hr></hr>
+            @slot('fontStyle')
+            fas
+            @endslot
+
+            @slot('fontIcon')
+            fa-user-shield
+            @endslot
+
+            @slot('fontSize')
+            fa-lg
+            @endslot
+
+            @slot('title')
+            Show Role
+            @endslot
+        @endcomponent
 
         @include('alerts.validation-alert')
         @include('alerts.session-alert')
@@ -27,7 +45,5 @@
         </form>
         
         <a href="{{route('roles.edit', ['id' => $role->id])}}" class="btn btn-edit">Edit Role</a>
-
-    </article>
 
 @endsection

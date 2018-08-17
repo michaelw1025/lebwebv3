@@ -41,8 +41,9 @@
                 @default
             @endswitch
 
-            
+            <article class="col-8 xol-xs-9 col-sm-10 main-content-article">
             @yield('content')
+            </article>
 
         </section>
     </section>

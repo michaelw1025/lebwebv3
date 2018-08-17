@@ -1,11 +1,29 @@
 @extends('layouts.app')
 
 @section('content')
-
-    <article class="col-10  main-content-article">
     
-        <h2 class="mt-2 text-create"><i class="fas fa-pen fa-lg"></i> Create Role</h2>
-        <hr></hr>
+        <!-- Title for content -->
+        @component('components.content-title')
+            @slot('textClass')
+            text-create
+            @endslot
+
+            @slot('fontStyle')
+            fas
+            @endslot
+
+            @slot('fontIcon')
+            fa-pen
+            @endslot
+
+            @slot('fontSize')
+            fa-lg
+            @endslot
+
+            @slot('title')
+            Create Role
+            @endslot
+        @endcomponent
 
         @include('alerts.validation-alert')
         @include('alerts.session-alert')
@@ -38,8 +56,5 @@
             <button type="submit" class="btn btn-success" form="create-role-form">Save Role</button>
         
         </form>
-    
-    </article>
-
 
 @endsection

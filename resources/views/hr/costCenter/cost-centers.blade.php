@@ -2,9 +2,28 @@
 
 @section('content')
 
-    <article class="col-8 col-xs-9 col-sm-10 main-content-article">
-        <h2 class="mt-2 text-primary"><i class="far fa-address-book fa-lg"></i> Cost Centers</h2>
-        <hr></hr>
+        <!-- Title for content -->
+        @component('components.content-title')
+            @slot('textClass')
+            text-primary
+            @endslot
+
+            @slot('fontStyle')
+            far
+            @endslot
+
+            @slot('fontIcon')
+            fa-address-book
+            @endslot
+
+            @slot('fontSize')
+            fa-lg
+            @endslot
+
+            @slot('title')
+            Cost Centers
+            @endslot
+        @endcomponent
 
         @include('alerts.validation-alert')
         @include('alerts.session-alert')
@@ -31,7 +50,5 @@
                 @endforeach
             </tbody>
         </table>
-
-    </article>
 
 @endsection

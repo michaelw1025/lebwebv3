@@ -2,9 +2,28 @@
 
 @section('content')
 
-    <article class="col-10 main-content-article">
-        <h2 class="mt-2 text-primary"><i class="far fa-address-book fa-lg"></i> Users</h2>
-        <hr></hr>
+        <!-- Title for content -->
+        @component('components.content-title')
+            @slot('textClass')
+            text-primary
+            @endslot
+
+            @slot('fontStyle')
+            far
+            @endslot
+
+            @slot('fontIcon')
+            fa-address-book
+            @endslot
+
+            @slot('fontSize')
+            fa-lg
+            @endslot
+
+            @slot('title')
+            Users
+            @endslot
+        @endcomponent
 
         @include('alerts.validation-alert')
         @include('alerts.session-alert')
@@ -29,7 +48,5 @@
                 @endforeach
             </tbody>
         </table>
-
-    </article>
 
 @endsection

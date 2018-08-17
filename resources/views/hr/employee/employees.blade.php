@@ -2,9 +2,28 @@
 
 @section('content')
 
-    <article class="col-10 main-content-article">
-        <h2 class="mt-2 text-primary"><i class="fas {{$statusType === 1 ? 'fa-user-check' : 'fa-user-slash'}} fa-lg"></i> Employees</h2>
-        <hr></hr>
+        <!-- Title for content -->
+        @component('components.content-title')
+            @slot('textClass')
+            text-primary
+            @endslot
+
+            @slot('fontStyle')
+            fas
+            @endslot
+
+            @slot('fontIcon')
+            {{$statusType === 1 ? 'fa-user-check' : 'fa-user-slash'}}
+            @endslot
+
+            @slot('fontSize')
+            fa-lg
+            @endslot
+
+            @slot('title')
+            Employees
+            @endslot
+        @endcomponent
 
         @include('alerts.validation-alert')
         @include('alerts.session-alert')
@@ -62,7 +81,5 @@
                 @endforeach
             </tbody>
         </table>
-
-    </article>
 
 @endsection
