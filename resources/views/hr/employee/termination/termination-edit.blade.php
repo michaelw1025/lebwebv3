@@ -23,6 +23,10 @@
             @slot('title')
             Edit {{$termination->employee->first_name}} {{$termination->employee->last_name}} Termination
             @endslot
+
+            @slot('displayExport')
+            d-none
+            @endslot
         @endcomponent
 
         @include('alerts.validation-alert')

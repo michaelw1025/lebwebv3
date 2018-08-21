@@ -23,6 +23,10 @@
             @slot('title')
             Employees
             @endslot
+
+            @slot('displayExport')
+            d-none
+            @endslot
         @endcomponent
 
         @include('alerts.validation-alert')

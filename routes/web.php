@@ -39,4 +39,5 @@ Route::prefix('hr')->group(function() {
     Route::resource('disciplinaries', 'DisciplinaryController');
     Route::resource('terminations', 'TerminationController');
     Route::resource('reductions', 'ReductionController');
+    Route::get('/query-employee-alphabetical-hourly', 'HRController@employeeAlphabeticalHourly')->name('hr.queries.employee-alphabetical-hourly');
 });

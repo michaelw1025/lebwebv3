@@ -23,6 +23,10 @@
             @slot('title')
             Create {{$employee->first_name}} {{$employee->last_name}} Disciplinary
             @endslot
+
+            @slot('displayExport')
+            d-none
+            @endslot
         @endcomponent
 
         @include('alerts.validation-alert')

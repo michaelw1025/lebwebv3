@@ -23,6 +23,10 @@
             @slot('title')
             Cost Centers
             @endslot
+
+            @slot('displayExport')
+            d-none
+            @endslot
         @endcomponent
 
         @include('alerts.validation-alert')

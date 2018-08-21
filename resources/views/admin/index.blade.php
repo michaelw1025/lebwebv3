@@ -5,7 +5,7 @@
         <!-- Title for content -->
         @component('components.content-title')
                 @slot('textClass')
-                        text-primary
+                text-primary
                 @endslot
 
                 @slot('fontStyle')
@@ -21,7 +21,11 @@
                 @endslot
                 
                 @slot('title')
-                        Admin
+                Admin
+                @endslot
+
+                @slot('display')
+                d-none
                 @endslot
         @endcomponent
 

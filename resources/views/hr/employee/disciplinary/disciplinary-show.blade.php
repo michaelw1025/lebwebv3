@@ -23,6 +23,10 @@
             @slot('title')
             Show {{$disciplinary->employee->first_name}} {{$disciplinary->employee->last_name}} Disciplinary
             @endslot
+
+            @slot('displayExport')
+            d-block
+            @endslot
         @endcomponent
 
         @include('alerts.validation-alert')

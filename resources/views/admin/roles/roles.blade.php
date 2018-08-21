@@ -23,6 +23,10 @@
             @slot('title')
             Roles
             @endslot
+
+            @slot('displayExport')
+            d-none
+            @endslot
         @endcomponent
 
         @include('alerts.validation-alert')

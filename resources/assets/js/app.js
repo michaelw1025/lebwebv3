@@ -334,3 +334,10 @@ $('.clear-progression-events').on('click', function() {
         });
     }
 });
+
+// Toggle columns to view
+$('.toggle-column').on('click', function() {
+    var column = $(this).attr('id');
+    $(this).toggleClass('btn-header');
+    $('.'+column).toggleClass('d-none');
+});

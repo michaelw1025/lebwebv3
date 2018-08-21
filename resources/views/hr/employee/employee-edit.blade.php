@@ -23,6 +23,10 @@
             @slot('title')
             Edit {{$employee->first_name}} {{$employee->last_name}}
             @endslot
+
+            @slot('displayExport')
+            d-none
+            @endslot
         @endcomponent
 
         @include('alerts.validation-alert')

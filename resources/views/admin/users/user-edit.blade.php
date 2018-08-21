@@ -23,6 +23,10 @@
             @slot('title')
             Edit User
             @endslot
+
+            @slot('displayExport')
+            d-none
+            @endslot
         @endcomponent
 
         @include('alerts.validation-alert')
