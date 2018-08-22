@@ -24,7 +24,7 @@
                 Admin
                 @endslot
 
-                @slot('display')
+                @slot('displayExport')
                 d-none
                 @endslot
         @endcomponent

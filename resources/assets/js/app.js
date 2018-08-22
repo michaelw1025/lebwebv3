@@ -262,6 +262,15 @@ $('#reset-employee-search').on('click', function()
     $('.employee-row').removeClass('d-none');
 });
 
+// clear item search form
+$('.reset-item-search').on('click', function()
+{
+    var form = $(this).attr('name');
+    $('#'+form).find(':input').each(function() {
+        $(this).val('');
+    });
+});
+
 
 // Show file name when file selected for upload
 $('.custom-file-input').on('change', function()
