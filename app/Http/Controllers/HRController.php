@@ -71,6 +71,9 @@ class HRController extends Controller
             // Get employee supervisors from helper file
             $this->getEmployeeSupervisors($filteredEmployees);
 
+            // $employeeArray = $filteredEmployees->toJson();
+            // return $employeeArray;
+
             return view('hr.queries.employee-anniversary-combined', [
                 'employees' => $filteredEmployees,
                 'month' => $searchMonth,

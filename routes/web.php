@@ -42,3 +42,7 @@ Route::prefix('hr')->group(function() {
     Route::get('/query-employee-alphabetical-hourly', 'HRController@employeeAlphabeticalHourly')->name('hr.queries.employee-alphabetical-hourly');
     Route::get('/query-employee-anniversary-combined', 'HRController@employeeAnniversaryCombined')->name('hr.queries.employee-anniversary-combined');
 });
+
+Route::prefix('export')->group(function() {
+    Route::post('/export-employee-anniversary', 'ExportController@exportEmployeeAnniversary')->name('export-employee-anniversary');
+});

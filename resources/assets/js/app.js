@@ -350,3 +350,22 @@ $('.toggle-column').on('click', function() {
     $(this).toggleClass('btn-header');
     $('.'+column).toggleClass('d-none');
 });
+
+// Send export data to export controller
+$('.export-button').on('click', function() {
+    var exportRoute = $(this).attr('id');
+    // $.ajaxSetup({
+    //     headers: {
+    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //     }
+    // });
+    // $.ajax({
+    //     url: exportRoute,
+    //     method: 'post',
+    //     data: exportData,
+    //     contentType: 'json',
+    //     success: function(result) {
+    //         console.log(result);
+    //     }
+    // });
+});

@@ -27,6 +27,14 @@
                 @slot('displayExport')
                 d-none
                 @endslot
+
+                @slot('exportID')
+                
+                @endslot
+
+                @slot('exportScript')
+                
+                @endslot
         @endcomponent
 
         @include('alerts.validation-alert')
