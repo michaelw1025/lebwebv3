@@ -14173,23 +14173,22 @@ $('.toggle-column').on('click', function () {
 });
 
 // Send export data to export controller
-$('.export-button').on('click', function () {
-    var exportRoute = $(this).attr('id');
-    // $.ajaxSetup({
-    //     headers: {
-    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //     }
-    // });
-    // $.ajax({
-    //     url: exportRoute,
-    //     method: 'post',
-    //     data: exportData,
-    //     contentType: 'json',
-    //     success: function(result) {
-    //         console.log(result);
-    //     }
-    // });
-});
+// $('.export-button').on('click', function() {
+//     var exportRoute = $(this).attr('id');
+//     $.ajaxSetup({
+//         headers: {
+//             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+//         }
+//     });
+//     $.ajax({
+//         url: exportRoute,
+//         method: 'post',
+//         data: exportData,
+//         success: function(result) {
+//             console.log(result);
+//         }
+//     });
+// });
 
 /***/ }),
 /* 14 */

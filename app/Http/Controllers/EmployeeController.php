@@ -3,25 +3,38 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Employee;
-use App\Traits\HelperFunctions;
-use App\Http\Requests\StoreEmployee;
 use Illuminate\Support\Facades\Storage;
+use App\Notifications\EmployeeCreated;
+use Notification;
+
+
+// Models
 use App\CostCenter;
 use App\Shift;
 use App\Position;
 use App\Job;
 use App\PhoneNumber;
 use App\EmergencyContact;
-use App\Notifications\EmployeeCreated;
-use Notification;
 use App\User;
 use App\WageTitle;
 use App\WageProgression;
+use App\Employee;
+
+// Traits
+use App\Traits\DateTrait;
+use App\Traits\StateTrait;
+use App\Traits\DisciplinaryTrait;
+use App\Traits\WageTrait;
+
+// Requests
+use App\Http\Requests\StoreEmployee;
 
 class EmployeeController extends Controller
 {
-    use HelperFunctions;
+    use DateTrait;
+    use StateTrait;
+    use DisciplinaryTrait;
+    use WageTrait;
 
     /**
      * Create a new controller instance.

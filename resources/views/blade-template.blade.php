@@ -27,6 +27,10 @@
                 @slot('displayExport')
                 d-block
                 @endslot
+
+                @slot('exportRoute')
+
+                @endslot
         @endcomponent
                 
 

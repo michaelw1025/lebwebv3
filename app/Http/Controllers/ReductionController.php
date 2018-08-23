@@ -3,16 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\StoreReduction;
-use App\Traits\HelperFunctions;
+
+// Models
 use App\Reduction;
 use App\CostCenter;
 use App\Shift;
 use App\Employee;
 
+// Traits
+use App\Traits\ReductionTrait;
+
+// Requests
+use App\Http\Requests\StoreReduction;
+
 class ReductionController extends Controller
 {
-    use HelperFunctions;
+    use ReductionTrait;
 
     /**
      * Create a new controller instance.

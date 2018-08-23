@@ -23,6 +23,14 @@
             @slot('title')
             Human Resources
             @endslot
+
+            @slot('displayExport')
+            d-none
+            @endslot
+
+            @slot('exportRoute')
+
+            @endslot
         @endcomponent
 
         @include('alerts.validation-alert')

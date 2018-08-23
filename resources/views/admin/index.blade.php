@@ -28,11 +28,7 @@
                 d-none
                 @endslot
 
-                @slot('exportID')
-                
-                @endslot
-
-                @slot('exportScript')
+                @slot('exportRoute')
                 
                 @endslot
         @endcomponent

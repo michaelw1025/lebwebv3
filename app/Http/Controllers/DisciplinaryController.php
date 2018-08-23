@@ -3,15 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
+// Models
 use App\Disciplinary;
-use App\Traits\HelperFunctions;
 use App\CostCenter;
 use App\Employee;
+
+// Traits
+use App\Traits\DisciplinaryTrait;
+
+// Requests
 use App\Http\Requests\StoreDisciplinary;
 
 class DisciplinaryController extends Controller
 {
-    use HelperFunctions;
+    use DisciplinaryTrait;
 
     /**
      * Create a new controller instance.

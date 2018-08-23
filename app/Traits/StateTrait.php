@@ -2,19 +2,9 @@
 
 namespace App\Traits;
 
-use App\CostCenter;
-use App\Employee;
-use App\Shift;
-use Carbon\Carbon;
-
-trait HelperFunctions
+trait StateTrait
 {
-    protected function setAsDate($date)
-    {
-        // $date = Carbon::createFromFormat('m-d-Y', $date)->toDateString();
-        return Carbon::parse($date);
-    }
-
+    // Sets the state name based on model abbreviation
     protected function checkState($employee)
     {
         switch($employee->state) {
@@ -174,91 +164,6 @@ trait HelperFunctions
             default:
                 $employee->state_full_name = '';
         }           
-    }
-
-    // Get disciplinary info
-    protected function getDisciplinaryInfo($disciplinary)
-    {
-            $cc = CostCenter::find($disciplinary->cost_center);
-            $disciplinary->cost_center_number = $cc->number.' '.$cc->extension;
-            $disciplinary->cost_center_name = $cc->description;
-            $issuer = Employee::find($disciplinary->issued_by);
-            $disciplinary->issuer_name = $issuer->first_name.' '.$issuer->last_name;
-    }
-
-    // Get reduction info
-    protected function getReductionInfo($reduction)
-    {
-        $homeCC = CostCenter::find($reduction->home_cost_center);
-        $reduction->home_cost_center_number = $homeCC->number.' '.$homeCC->extension;
-        $reduction->home_cost_center_name = $homeCC->description;
-        $homeShift = Shift::find($reduction->home_shift);
-        $reduction->home_shift_name = $homeShift->description;
-        if($reduction->bump_to_cost_center != null) {
-            $bumpToCC = CostCenter::find($reduction->bump_to_cost_center);
-            $reduction->bump_to_cost_center_number = $bumpToCC->number.' '.$bumpToCC->extension;
-            $reduction->bump_to_cost_center_name = $bumpToCC->description;
-        } else {
-            $reduction->bump_to_cost_center_number = '';
-            $reduction->bump_to_cost_center_name = '';
-        }
-        if($reduction->bump_to_shift != null) {
-            $bumpShift = Shift::find($reduction->bump_to_shift);
-            $reduction->bump_to_shift_name = $bumpShift->description;
-        } else {
-            $reduction->bump_to_shift_name = '';
-        }     
-    }
-
-    // Convert wage progression event date from string to date
-    protected function setWageEventDate($employee)
-    {
-        foreach($employee->wageProgression as $employeeProgression){
-            $employeeProgression->pivot->date = $this->setAsDate($employeeProgression->pivot->date);
-        }
-    }
-
-    // Get employee supervisors
-    protected function getEmployeeSupervisors($employees) {
-        foreach($employees as $employee){
-            if($employee->shift->count() > 0){
-                foreach($employee->shift as $shift){
-                    if($shift->description == 'Day'){
-                        $employee->load(
-                            'costCenter.employeeDayTeamManager:first_name,last_name',
-                            'costCenter.employeeDayTeamLeader:first_name,last_name');
-                            foreach($employee->costCenter as $costCenter){
-                                foreach($costCenter->employeeDayTeamManager as $teamManager){
-                                    $employee->team_manager = $teamManager->first_name.' '.$teamManager->last_name;
-                                }
-                                foreach($costCenter->employeeDayTeamLeader as $teamLeader){
-                                    $employee->team_leader = $teamLeader->first_name.' '.$teamLeader->last_name;
-                                }
-                            }
-                    }elseif($shift->description == 'Night'){
-                        $employee->load(
-                            'costCenter.employeeNightTeamManager:first_name,last_name',
-                            'costCenter.employeeNightTeamLeader:first_name,last_name');
-                            foreach($employee->costCenter as $costCenter){
-                                foreach($costCenter->employeeDayTeamManager as $teamManager){
-                                    $employee->team_manager = $teamManager->first_name.' '.$teamManager->last_name;
-                                }
-                                foreach($costCenter->employeeDayTeamLeader as $teamLeader){
-                                    $employee->team_leader = $teamLeader->first_name.' '.$teamLeader->last_name;
-                                }
-                            }
-                    }else{
-                        $employee->load('costCenter');
-                        $employee->team_manager = null;
-                        $employee->team_leader = null;
-                    }
-                }
-            }else{
-                $employee->load('costCenter');
-                $employee->team_manager = null;
-                $employee->team_leader = null;
-            }
-        }
     }
 
 }

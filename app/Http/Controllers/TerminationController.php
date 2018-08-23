@@ -3,14 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Traits\HelperFunctions;
+
+// Models
 use App\Termination;
-use App\Http\Requests\StoreTermination;
 use App\Employee;
+
+// Traits
+
+// Requests
+use App\Http\Requests\StoreTermination;
 
 class TerminationController extends Controller
 {
-    use HelperFunctions;
+    
 
     /**
      * Create a new controller instance.

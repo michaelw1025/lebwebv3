@@ -44,5 +44,5 @@ Route::prefix('hr')->group(function() {
 });
 
 Route::prefix('export')->group(function() {
-    Route::post('/export-employee-anniversary', 'ExportController@exportEmployeeAnniversary')->name('export-employee-anniversary');
+    Route::get('/export-employee-anniversary', 'ExportController@exportEmployeeAnniversary')->name('export-employee-anniversary');
 });

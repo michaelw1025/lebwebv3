@@ -4,29 +4,33 @@
 
         <!-- Title for content -->
         @component('components.content-title')
-                @slot('textClass')
-                text-create
-                @endslot
+            @slot('textClass')
+            text-create
+            @endslot
 
-                @slot('fontStyle')
-                fas
-                @endslot
+            @slot('fontStyle')
+            fas
+            @endslot
 
-                @slot('fontIcon')
-                fa-user-plus
-                @endslot
+            @slot('fontIcon')
+            fa-user-plus
+            @endslot
 
-                @slot('fontSize')
-                fa-lg
-                @endslot
+            @slot('fontSize')
+            fa-lg
+            @endslot
 
-                @slot('title')
-                Create Employee
-                @endslot
+            @slot('title')
+            Create Employee
+            @endslot
 
-                @slot('displayExport')
-                d-none
-                @endslot
+            @slot('displayExport')
+            d-none
+            @endslot
+
+            @slot('exportRoute')
+            
+            @endslot
         @endcomponent
 
         @include('alerts.validation-alert')

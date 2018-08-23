@@ -19,13 +19,17 @@
                 @slot('fontSize')
                 fa-lg
                 @endslot
-                
+
                 @slot('title')
                 Query: Employees Alphabetical Hourly
                 @endslot
 
                 @slot('displayExport')
                 d-block
+                @endslot
+
+                @slot('exportRoute')
+            
                 @endslot
         @endcomponent
                 

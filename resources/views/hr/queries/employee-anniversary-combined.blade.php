@@ -25,18 +25,19 @@
                 @endslot
 
                 @slot('displayExport')
-                d-block
-                @endslot
-
-                @slot('exportID')
-                {{route('export-employee-anniversary')}}
-                @endslot
-
-                @slot('exportScript')
                 @if(isset($employees))
-                <script defer>var exportData = {!! $employees->toJson() !!};</script>
+                d-block
+                @else
+                d-none
                 @endif
                 @endslot
+
+                @slot('exportRoute')
+                @if(isset($employees))
+                {{route('export-employee-anniversary', ['month' => $month, 'year' => $year])}}
+                @endif
+                @endslot
+
         @endcomponent
                 
 
