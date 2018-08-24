@@ -41,11 +41,24 @@ class HRController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-        // Get all hourlyl employees from query trait
-        $employees = $this->getEmployeeAlphabeticalHourly($request);
+        // Get all hourly employees from query trait
+        $employees = $this->getEmployeeAlphabetical($request, 'hourly');
         // Get employee supervisors from helper file
         $employees = $this->getEmployeeSupervisors($employees);
         return view('hr.queries.employee-alphabetical-hourly', [
+            'employees' => $employees
+        ]);
+    }
+
+    public function employeeAlphabeticalSalary(Request $request)
+    {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        // Get all salary employees from query trait
+        $employees = $this->getEmployeeAlphabetical($request, 'salary');
+        // Get employee supervisors from helper file
+        $employees = $this->getEmployeeSupervisors($employees);
+        return view('hr.queries.employee-alphabetical-salary', [
             'employees' => $employees
         ]);
     }

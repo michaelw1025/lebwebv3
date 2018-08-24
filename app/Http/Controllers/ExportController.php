@@ -11,9 +11,8 @@ use App\Traits\QueryTrait;
 use App\Traits\SupervisorTrait;
 
 // Exports
-use App\Exports\ExportEmployeeAlphabeticalHourly;
-use App\Exports\ExportEmployeeAnniversaryByMonth;
-use App\Exports\ExportEmployeeAnniversaryByQuarter;
+use App\Exports\ExportEmployeeAlphabetical;
+use App\Exports\ExportEmployeeAnniversary;
 
 use App\Employee;
 class ExportController extends Controller
@@ -35,13 +34,26 @@ class ExportController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-        // Get all hourlyl employees from query trait
-        $employees = $this->getEmployeeAlphabeticalHourly($request);
+        // Get all hourly employees from query trait
+        $employees = $this->getEmployeeAlphabetical($request, 'hourly');
         // Get employee supervisors from helper file
         $employees = $this->getEmployeeSupervisors($employees);
         // Set the employee info for the export
         $employees = $this->setEmployeeAlphabeticalExportInfo($employees);
-        return (new ExportEmployeeAlphabeticalHourly($employees))->download('employees-alphabetical-hourly-'.Carbon::now()->format('m-d-Y').'.xlsx');
+        return (new ExportEmployeeAlphabetical($employees))->download('employees-alphabetical-hourly-'.Carbon::now()->format('m-d-Y').'.xlsx');
+    }
+
+    public function exportEmployeeAlphabeticalSalary(Request $request)
+    {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        // Get all salary employees from query trait
+        $employees = $this->getEmployeeAlphabetical($request, 'salary');
+        // Get employee supervisors from helper file
+        $employees = $this->getEmployeeSupervisors($employees);
+        // Set the employee info for the export
+        $employees = $this->setEmployeeAlphabeticalExportInfo($employees);
+        return (new ExportEmployeeAlphabetical($employees))->download('employees-alphabetical-salary-'.Carbon::now()->format('m-d-Y').'.xlsx');
     }
 
     public function exportEmployeeAnniversaryByMonth(Request $request)
@@ -58,7 +70,7 @@ class ExportController extends Controller
         // Set the employee info for the export
         $employees = $this->setEmployeeAnniversaryExportInfo($employees);
         // Return the export
-        return (new ExportEmployeeAnniversaryByMonth($employees))->download('employees-anniversary-by-month-'.Carbon::now()->format('m-d-Y').'.xlsx');
+        return (new ExportEmployeeAnniversary($employees))->download('employees-anniversary-by-month-'.Carbon::now()->format('m-d-Y').'.xlsx');
 
     }
 
@@ -76,6 +88,6 @@ class ExportController extends Controller
         // Set the employee info for the export
         $employees = $this->setEmployeeAnniversaryExportInfo($employees);
         // Return the export
-        return (new ExportEmployeeAnniversaryByQuarter($employees))->download('employees-anniversary-by-quarter-'.Carbon::now()->format('m-d-Y').'.xlsx');
+        return (new ExportEmployeeAnniversary($employees))->download('employees-anniversary-by-quarter-'.Carbon::now()->format('m-d-Y').'.xlsx');
     }
 }

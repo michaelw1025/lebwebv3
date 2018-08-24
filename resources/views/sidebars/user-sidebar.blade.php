@@ -28,6 +28,7 @@
             <a href="{{Route('users.index')}}" class="nav-link dropdown-toggle {{in_array(Route::currentRouteName(), $queriesNavArray) ? 'text-primary' : 'text-dark'}}" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-search fa-lg sidebar-icon"></i><span class="d-none d-lg-inline-block">Queries</span></a>
             <div class="dropdown-menu">
                 <a href="{{Route('hr.queries.employee-alphabetical-hourly')}}" class="dropdown-item">Employee Alphabetical Hourly</a>
+                <a href="{{Route('hr.queries.employee-alphabetical-salary')}}" class="dropdown-item">Employee Alphabetical Salary</a>
                 <a href="{{Route('hr.queries.employee-seniority')}}" class="dropdown-item">Employee Seniority</a>
                 <a href="{{Route('hr.queries.employee-anniversary-by-month')}}" class="dropdown-item">Employee Anniversary By Month</a>
                 <a href="{{Route('hr.queries.employee-anniversary-by-quarter')}}" class="dropdown-item">Employee Anniversary By Quarter</a>

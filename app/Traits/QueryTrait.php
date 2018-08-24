@@ -9,9 +9,9 @@ use App\Employee;
 
 trait QueryTrait
 {
-    protected function getEmployeeAlphabeticalHourly($request)
+    protected function getEmployeeAlphabetical($request, $job)
     {
-        // Get all hourly employees
+        // Get all employees
         $employees = Employee::select(
             'id',
             'first_name',
@@ -27,8 +27,8 @@ trait QueryTrait
             'zip_code',
             'county'
         )
-        ->where('status', 1)->whereHas('job', function($q) {
-            $q->where('description', 'hourly');
+        ->where('status', 1)->whereHas('job', function($q) use($job) {
+            $q->where('description', $job);
         })->with(['shift', 'position'
         ])->orderBy('last_name',  'asc')->orderBy('first_name', 'asc')->get();
         return $employees;

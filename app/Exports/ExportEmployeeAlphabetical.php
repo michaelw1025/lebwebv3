@@ -7,7 +7,7 @@ use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
 
-class ExportEmployeeAlphabeticalHourly implements FromCollection, WithHeadings{
+class ExportEmployeeAlphabetical implements FromCollection, WithHeadings{
 
     use Exportable;
 
