@@ -14,7 +14,8 @@ use App\Traits\QueryTrait;
 
 // Requests
 use App\Http\Requests\SearchEmployeeAnniversaryByMonth;
-use App\HTTP\Requests\SearchEmployeeAnniversaryByQuarter;
+use App\Http\Requests\SearchEmployeeAnniversaryByQuarter;
+use App\Http\Requests\SearchEmployeeBirthday;
 
 class HRController extends Controller
 {   
@@ -43,7 +44,7 @@ class HRController extends Controller
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         // Get all hourly employees from query trait
         $employees = $this->getEmployeeAlphabetical($request, 'hourly');
-        // Get employee supervisors from helper file
+        // Get employee supervisors from supervisor trait
         $employees = $this->getEmployeeSupervisors($employees);
         return view('hr.queries.employee-alphabetical-hourly', [
             'employees' => $employees
@@ -56,7 +57,7 @@ class HRController extends Controller
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         // Get all salary employees from query trait
         $employees = $this->getEmployeeAlphabetical($request, 'salary');
-        // Get employee supervisors from helper file
+        // Get employee supervisors from supervisor trait
         $employees = $this->getEmployeeSupervisors($employees);
         return view('hr.queries.employee-alphabetical-salary', [
             'employees' => $employees
@@ -75,7 +76,7 @@ class HRController extends Controller
             $searchYear = (int)$request->anniversary_year;
             // Get employees from query trait
             $employees = $this->getEmployeeAnniversaryByMonth($searchMonth, $searchYear);
-            // Get employee supervisors from helper file
+            // Get employee supervisors from supervisor trait
             $employees = $this->getEmployeeSupervisors($employees);
 
             return view('hr.queries.employee-anniversary-by-month', [
@@ -101,9 +102,8 @@ class HRController extends Controller
             $searchYear = (int)$request->anniversary_year;
             // Get employees from query trait
             $employees = $this->getEmployeeAnniversaryByQuarter($searchQuarter, $searchYear);
-            // Get employee supervisors from helper file
+            // Get employee supervisors from supervisor trait
             $employees = $this->getEmployeeSupervisors($employees);
-
             return view('hr.queries.employee-anniversary-by-quarter', [
                 'employees' => $employees,
                 'quarter' => $searchQuarter,
@@ -121,11 +121,34 @@ class HRController extends Controller
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         $employees = Employee::where('status', 1)->with(['job', 'shift', 'position'
         ])->orderBy('hire_date',  'asc')->get();
-        // Get employee supervisors from helper file
-        $this->getEmployeeSupervisors($employees);
+        // Get employee supervisors from supervisor trait
+        $employees = $this->getEmployeeSupervisors($employees);
         return view('hr.queries.employee-seniority', [
             'employees' => $employees
         ]);
+    }
+
+    public function employeeBirthday(SearchEmployeeBirthday $request)
+    {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+
+        // Check if search form is being submitted
+        if($request->has('birthday_month')){
+            // Set month from request
+            $searchMonth = (int)$request->birthday_month;
+            // Get employees from query trait
+            $employees = $this->getEmployeeBirthday($searchMonth);
+            // Get employee supervisors from supervisor trait
+            $employees = $this->getEmployeeSupervisors($employees);
+            return view('hr.queries.employee-birthday',[
+                'employees' => $employees,
+                'month' => $searchMonth 
+            ]);
+        }else{
+            // If search is not submitted give a blank form
+            return view('hr.queries.employee-birthday');
+        }
     }
 
 }

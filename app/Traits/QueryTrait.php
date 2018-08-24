@@ -133,5 +133,50 @@ trait QueryTrait
         return $employees;
     }
 
+    protected function getEmployeeBirthday($searchMonth)
+    {
+        // Get all active employoees with a birth date month equal to the search month
+        $allEmployees = Employee::select(
+            'id',
+            'first_name',
+            'last_name',
+            'birth_date',
+            'hire_date'
+        )->where('status', 1)
+        ->whereMonth('birth_date', $searchMonth)
+        ->with('shift', 'position', 'job')
+        ->orderBy('birth_date', 'asc')
+        ->get();
+        return $allEmployees;
+    }
+
+    protected function setEmployeeBirthdayExportInfo($employees)
+    {
+        foreach($employees as $employee){
+            $employee->date_of_birth = $employee->birth_date->format('m/d/Y');
+            $employee->date_of_hire = $employee->hire_date->format('m/d/Y');
+            foreach($employee->shift as $shift){
+                $employee->current_shift = $shift->description;
+            }
+            foreach($employee->costCenter as $costCenter){
+                $employee->current_cost_center = $costCenter->number.' '.$costCenter->extension.' '.$costCenter->description;
+            }
+            foreach($employee->job as $job){
+                $employee->current_job = $job->description;
+            }
+            foreach($employee->position as $position){
+                $employee->current_position = $position->description;
+            }
+
+            unset($employee->birth_date);
+            unset($employee->hire_date);
+            unset($employee->shift);
+            unset($employee->costCenter);
+            unset($employee->job);
+            unset($employee->position);
+        }
+        return $employees;
+    }
+
 }
 
