@@ -347,7 +347,7 @@ $('.clear-progression-events').on('click', function() {
 // Toggle columns to view
 $('.toggle-column').on('click', function() {
     var column = $(this).attr('id');
-    $(this).toggleClass('btn-header');
+    $(this).toggleClass('btn-highlight');
     $('.'+column).toggleClass('d-none');
 });
 

@@ -7,7 +7,7 @@ use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
 
-class ExportEmployeeAnniversary implements FromCollection, WithHeadings{
+class ExportEmployeeAnniversaryByMonth implements FromCollection, WithHeadings{
 
     use Exportable;
 

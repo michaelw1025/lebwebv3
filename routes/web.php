@@ -40,9 +40,13 @@ Route::prefix('hr')->group(function() {
     Route::resource('terminations', 'TerminationController');
     Route::resource('reductions', 'ReductionController');
     Route::get('/query-employee-alphabetical-hourly', 'HRController@employeeAlphabeticalHourly')->name('hr.queries.employee-alphabetical-hourly');
-    Route::get('/query-employee-anniversary-combined', 'HRController@employeeAnniversaryCombined')->name('hr.queries.employee-anniversary-combined');
+    Route::get('/query-employee-seniority', 'HRController@employeeSeniority')->name('hr.queries.employee-seniority');
+    Route::get('/query-employee-anniversary-by-month', 'HRController@employeeAnniversaryByMonth')->name('hr.queries.employee-anniversary-by-month');
+    Route::get('/query-employee-anniversary-by-quarter', 'HRController@employeeAnniversaryByQuarter')->name('hr.queries.employee-anniversary-by-quarter');
 });
 
 Route::prefix('export')->group(function() {
-    Route::get('/export-employee-anniversary', 'ExportController@exportEmployeeAnniversary')->name('export-employee-anniversary');
+    Route::get('/export-employee-alphabetical-hourly', 'ExportController@exportEmployeeAlphabeticalHourly')->name('export-employee-alphabetical-hourly');
+    Route::get('/export-employee-anniversary-by-month', 'ExportController@exportEmployeeAnniversaryByMonth')->name('export-employee-anniversary-by-month');
+    Route::get('/export-employee-anniversary-by-quarter', 'ExportController@exportEmployeeAnniversaryByQuarter')->name('export-employee-anniversary-by-quarter');
 });

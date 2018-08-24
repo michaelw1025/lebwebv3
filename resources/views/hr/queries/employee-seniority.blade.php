@@ -21,7 +21,7 @@
                 @endslot
 
                 @slot('title')
-                Query: Employees Alphabetical Hourly
+                Query: Employees Seniority
                 @endslot
 
                 @slot('displayExport')
@@ -29,7 +29,7 @@
                 @endslot
 
                 @slot('exportRoute')
-                {{route('export-employee-alphabetical-hourly')}}
+            
                 @endslot
         @endcomponent
                 
@@ -57,16 +57,6 @@
                 Birth Date
                 @endslot
         @endcomponent
-        <!-- Hire Date button -->
-        @component('components.table-column-toggle')
-                @slot('buttonID')
-                toggle-hire-date
-                @endslot
-
-                @slot('buttonText')
-                Hire Date
-                @endslot
-        @endcomponent
         <!-- Service Date button -->
         @component('components.table-column-toggle')
                 @slot('buttonID')
@@ -85,6 +75,16 @@
 
                 @slot('buttonText')
                 Address
+                @endslot
+        @endcomponent
+        <!-- Bid Eligible button -->
+        @component('components.table-column-toggle')
+                 @slot('buttonID')
+                toggle-bid-eligible
+                @endslot
+
+                @slot('buttonText')
+                Bid Eligible
                 @endslot
         @endcomponent
         <!-- Shift button -->
@@ -145,9 +145,9 @@
                     <th scope="col">ID</th>
                     <th scope="col">First</th>
                     <th scope="col">Last</th>
+                    <th scope="col" class="">Hire Date</th>
                     <th scope="col" class="d-none toggle-ssn">SSN</th>
                     <th scope="col" class="d-none toggle-birth-date">Birth Date</th>
-                    <th scope="col" class="d-none toggle-hire-date">Hire Date</th>
                     <th scope="col" class="d-none toggle-service-date">Service Date</th>
                     <th scope="col" class="d-none toggle-address">Address</th>
                     <th scope="col" class="d-none toggle-bid-eligible">Bid Eligible</th>
@@ -164,9 +164,9 @@
                     <td>{{$employee->id}}</td>
                     <td>{{$employee->first_name}}</td>
                     <td>{{$employee->last_name}}</td>
+                    <td class="">{{$employee->hire_date->format('m/d/Y')}}</td>
                     <td class="d-none toggle-ssn">{{$employee->ssn}}</td>
                     <td class="d-none toggle-birth-date">{{$employee->birth_date->format('m/d/Y')}}</td>
-                    <td class="d-none toggle-hire-date">{{$employee->hire_date->format('m/d/Y')}}</td>
                     <td class="d-none toggle-service-date">{{$employee->service_date->format('m/d/Y')}}</td>
                     <td class="d-none toggle-address">{{$employee->address_1}} {{$employee->address_2}}, {{$employee->city}}, {{$employee->state}}, {{$employee->zip_code}}</td>
                     <td class="d-none toggle-bid-eligible"><i class="{{$employee->bid_eligible == 1 ? 'far fa-thumbs-up text-success' : 'far fa-thumbs-down text-danger'}}"></i></td>

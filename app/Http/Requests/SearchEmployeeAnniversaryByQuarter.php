@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SearchEmployeeAnniversary extends FormRequest
+class SearchEmployeeAnniversaryByQuarter extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +14,7 @@ class SearchEmployeeAnniversary extends FormRequest
     public function authorize()
     {
         //Check if user is authorized to access this page
-        if($this->user()->authorizeRoles(['admin', 'hrmanager', 'hruser'])) {
+        if($this->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant'])) {
             return true;
         } else {
             return false;
@@ -29,9 +29,9 @@ class SearchEmployeeAnniversary extends FormRequest
     public function rules()
     {
         // Check if search form is being submitted
-        if($this->has('anniversary_month') && $this->has('anniversary_year')){
+        if($this->has('anniversary_quarter') && $this->has('anniversary_year')){
             return [
-                'anniversary_month' => 'required',
+                'anniversary_quarter' => 'required',
                 'anniversary_year' => 'required'
             ];
         }else{

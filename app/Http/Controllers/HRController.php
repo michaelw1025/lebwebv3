@@ -13,7 +13,8 @@ use App\Traits\SupervisorTrait;
 use App\Traits\QueryTrait;
 
 // Requests
-use App\Http\Requests\SearchEmployeeAnniversary;
+use App\Http\Requests\SearchEmployeeAnniversaryByMonth;
+use App\HTTP\Requests\SearchEmployeeAnniversaryByQuarter;
 
 class HRController extends Controller
 {   
@@ -40,18 +41,16 @@ class HRController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-        $employees = Employee::where('status', 1)->whereHas('job', function($q) {
-            $q->where('description', 'hourly');
-        })->with(['shift', 'position'
-        ])->orderBy('last_name',  'asc')->orderBy('first_name', 'asc')->get();
+        // Get all hourlyl employees from query trait
+        $employees = $this->getEmployeeAlphabeticalHourly($request);
         // Get employee supervisors from helper file
-        $this->getEmployeeSupervisors($employees);
+        $employees = $this->getEmployeeSupervisors($employees);
         return view('hr.queries.employee-alphabetical-hourly', [
             'employees' => $employees
         ]);
     }
 
-    public function employeeAnniversaryCombined(SearchEmployeeAnniversary $request)
+    public function employeeAnniversaryByMonth(SearchEmployeeAnniversaryByMonth $request)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
@@ -62,17 +61,58 @@ class HRController extends Controller
             $searchMonth = (int)$request->anniversary_month;
             $searchYear = (int)$request->anniversary_year;
             // Get employees from query trait
-            $employees = $this->employeeAnniversary($searchMonth, $searchYear);
+            $employees = $this->getEmployeeAnniversaryByMonth($searchMonth, $searchYear);
+            // Get employee supervisors from helper file
+            $employees = $this->getEmployeeSupervisors($employees);
 
-            return view('hr.queries.employee-anniversary-combined', [
+            return view('hr.queries.employee-anniversary-by-month', [
                 'employees' => $employees,
                 'month' => $searchMonth,
                 'year' => $searchYear
             ]);
         }else{
             // If search is not submitted give a blank form
-            return view('hr.queries.employee-anniversary-combined');
+            return view('hr.queries.employee-anniversary-by-month');
         }
+    }
+
+    public function employeeAnniversaryByQuarter(SearchEmployeeAnniversaryByQuarter $request)
+    {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+
+        // Check if search form is being submitted
+        if($request->has('anniversary_quarter') && $request->has('anniversary_year')){
+            // Set quarter and year from request
+            $searchQuarter = (int)$request->anniversary_quarter;
+            $searchYear = (int)$request->anniversary_year;
+            // Get employees from query trait
+            $employees = $this->getEmployeeAnniversaryByQuarter($searchQuarter, $searchYear);
+            // Get employee supervisors from helper file
+            $employees = $this->getEmployeeSupervisors($employees);
+
+            return view('hr.queries.employee-anniversary-by-quarter', [
+                'employees' => $employees,
+                'quarter' => $searchQuarter,
+                'year' => $searchYear
+            ]);
+        }else{
+            // If search is not submitted give a blank form
+            return view('hr.queries.employee-anniversary-by-quarter');
+        }
+    }
+
+    public function employeeSeniority(Request $request)
+    {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        $employees = Employee::where('status', 1)->with(['job', 'shift', 'position'
+        ])->orderBy('hire_date',  'asc')->get();
+        // Get employee supervisors from helper file
+        $this->getEmployeeSupervisors($employees);
+        return view('hr.queries.employee-seniority', [
+            'employees' => $employees
+        ]);
     }
 
 }

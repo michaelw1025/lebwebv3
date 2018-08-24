@@ -21,7 +21,7 @@
                 @endslot
                 
                 @slot('title')
-                Query: Employee Anniversary Combined
+                Query: Employee Anniversary By Quarter
                 @endslot
 
                 @slot('displayExport')
@@ -34,7 +34,7 @@
 
                 @slot('exportRoute')
                 @if(isset($employees))
-                {{route('export-employee-anniversary', ['month' => $month, 'year' => $year])}}
+                {{route('export-employee-anniversary-by-quarter', ['quarter' => $quarter, 'year' => $year])}}
                 @endif
                 @endslot
 
@@ -45,31 +45,23 @@
                 @include('alerts.session-alert')
 
                 <!-- Page content goes here -->
-        <form action="{{Route('hr.queries.employee-anniversary-combined')}}" class="mt-2" id="search-employee-anniversary-form" method="GET">
+        <form action="{{Route('hr.queries.employee-anniversary-by-quarter')}}" class="mt-2" id="search-employee-anniversary-by-quarter-form" method="GET">
             @csrf
             <h5>Search Anniversaries</h5>
             <p class="text-danger">@component('components.required-icon')@endComponent indicates a required field</p>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="employee-anniversary-search-month">Month @component('components.required-icon')@endComponent</label>
-                    <select name="anniversary_month" id="" class="custom-select {{$errors->has('anniversary_month') ? 'is-invalid' : ''}}">
+                    <label for="employee-anniversary-search-quarter">Calendar Quarter @component('components.required-icon')@endComponent</label>
+                    <select name="anniversary_quarter" id="" class="custom-select {{$errors->has('anniversary_quarter') ? 'is-invalid' : ''}}">
                         <option value=""></option>
-                        <option {{isset($month) ? ($month == 1 ? 'selected' : '') : ''}} value="1">1 - January</option>
-                        <option {{isset($month) ? ($month == 2 ? 'selected' : '') : ''}} value="2">2 - February</option>
-                        <option {{isset($month) ? ($month == 3 ? 'selected' : '') : ''}} value="3">3 - March</option>
-                        <option {{isset($month) ? ($month == 4 ? 'selected' : '') : ''}} value="4">4 - April</option>
-                        <option {{isset($month) ? ($month == 5 ? 'selected' : '') : ''}} value="5">5 - May</option>
-                        <option {{isset($month) ? ($month == 6 ? 'selected' : '') : ''}} value="6">6 - June</option>
-                        <option {{isset($month) ? ($month == 7 ? 'selected' : '') : ''}} value="7">7 - July</option>
-                        <option {{isset($month) ? ($month == 8 ? 'selected' : '') : ''}} value="8">8 - August</option>
-                        <option {{isset($month) ? ($month == 9 ? 'selected' : '') : ''}} value="9">9 - September</option>
-                        <option {{isset($month) ? ($month == 10 ? 'selected' : '') : ''}} value="10">10 - October</option>
-                        <option {{isset($month) ? ($month == 11 ? 'selected' : '') : ''}} value="11">11 - November</option>
-                        <option {{isset($month) ? ($month == 12 ? 'selected' : '') : ''}} value="12">12 - December</option>
+                        <option {{isset($quarter) ? ($quarter == 1 ? 'selected' : '') : ''}} value="1">Q1</option>
+                        <option {{isset($quarter) ? ($quarter == 2 ? 'selected' : '') : ''}} value="2">Q2</option>
+                        <option {{isset($quarter) ? ($quarter == 3 ? 'selected' : '') : ''}} value="3">Q3</option>
+                        <option {{isset($quarter) ? ($quarter == 4 ? 'selected' : '') : ''}} value="4">Q4</option>
                     </select>
-                    @if($errors->has('anniversary_month'))
+                    @if($errors->has('anniversary_quarter'))
                         <span class="invalid-feedback" role="alert">
-                            {{$errors->first('anniversary_month')}}
+                            {{$errors->first('anniversary_quarter')}}
                         </span>
                     @endif
                 </div>

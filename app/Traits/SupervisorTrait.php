@@ -45,6 +45,7 @@ trait SupervisorTrait
                 $employee->team_leader = null;
             }
         }
+        return $employees;
     }
 
 }
