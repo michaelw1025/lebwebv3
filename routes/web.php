@@ -39,12 +39,16 @@ Route::prefix('hr')->group(function() {
     Route::resource('disciplinaries', 'DisciplinaryController');
     Route::resource('terminations', 'TerminationController');
     Route::resource('reductions', 'ReductionController');
-    Route::get('/query-employee-alphabetical-hourly', 'HRController@employeeAlphabeticalHourly')->name('hr.queries.employee-alphabetical-hourly');
-    Route::get('/query-employee-alphabetical-salary', 'HRController@employeeAlphabeticalSalary')->name('hr.queries.employee-alphabetical-salary');
-    Route::get('/query-employee-seniority', 'HRController@employeeSeniority')->name('hr.queries.employee-seniority');
-    Route::get('/query-employee-anniversary-by-month', 'HRController@employeeAnniversaryByMonth')->name('hr.queries.employee-anniversary-by-month');
-    Route::get('/query-employee-anniversary-by-quarter', 'HRController@employeeAnniversaryByQuarter')->name('hr.queries.employee-anniversary-by-quarter');
-    Route::get('/query-employee-birthday', 'HRController@employeeBirthday')->name('hr.queries.employee-birthday');
+});
+
+Route::prefix('query')->group(function () {
+    Route::get('/query-employee-alphabetical-hourly', 'QueryController@employeeAlphabeticalHourly')->name('queries.employee-alphabetical-hourly');
+    Route::get('/query-employee-alphabetical-salary', 'QueryController@employeeAlphabeticalSalary')->name('queries.employee-alphabetical-salary');
+    Route::get('/query-employee-seniority', 'QueryController@employeeSeniority')->name('queries.employee-seniority');
+    Route::get('/query-employee-anniversary-by-month', 'QueryController@employeeAnniversaryByMonth')->name('queries.employee-anniversary-by-month');
+    Route::get('/query-employee-anniversary-by-quarter', 'QueryController@employeeAnniversaryByQuarter')->name('queries.employee-anniversary-by-quarter');
+    Route::get('/query-employee-birthday', 'QueryController@employeeBirthday')->name('queries.employee-birthday');
+    Route::get('/query-employee-wage-progression', 'QueryController@employeeWageProgression')->name('queries.employee-wage-progression');
 });
 
 Route::prefix('export')->group(function() {
@@ -53,4 +57,5 @@ Route::prefix('export')->group(function() {
     Route::get('/export-employee-anniversary-by-month', 'ExportController@exportEmployeeAnniversaryByMonth')->name('export-employee-anniversary-by-month');
     Route::get('/export-employee-anniversary-by-quarter', 'ExportController@exportEmployeeAnniversaryByQuarter')->name('export-employee-anniversary-by-quarter');
     Route::get('/export-employee-birthday', 'ExportController@exportEmployeeBirthday')->name('export-employee-birthday');
+    Route::get('/export-employee-wage-progression', 'ExportController@exportEmployeeWageProgression')->name('export-employee-wage-progression');
 });

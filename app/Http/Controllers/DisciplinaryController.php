@@ -58,7 +58,7 @@ class DisciplinaryController extends Controller
         $salariedEmployees = Employee::whereHas('job', function($q) {
             $q->where('description', 'salary');
         })->orderBy('last_name', 'asc')->get();
-        return view('hr.employee.disciplinary.disciplinary-create', [
+        return view('employee.disciplinary.disciplinary-create', [
             'costCenters' => $costCenters,
             'salariedEmployees' => $salariedEmployees,
             'employee' => $employee
@@ -114,7 +114,7 @@ class DisciplinaryController extends Controller
         $disciplinary = Disciplinary::with('employee')->findOrFail($id);
         // Set disciplinary info
         $this->getDisciplinaryInfo($disciplinary);
-        return view('hr.employee.disciplinary.disciplinary-show', [
+        return view('employee.disciplinary.disciplinary-show', [
             'disciplinary' => $disciplinary
         ]);
         
@@ -138,7 +138,7 @@ class DisciplinaryController extends Controller
         $salariedEmployees = Employee::whereHas('job', function($q) {
             $q->where('description', 'salary');
         })->orderBy('last_name', 'asc')->get();
-        return view('hr.employee.disciplinary.disciplinary-edit', [
+        return view('employee.disciplinary.disciplinary-edit', [
             'disciplinary' => $disciplinary,
             'costCenters' => $costCenters,
             'salariedEmployees' =>  $salariedEmployees

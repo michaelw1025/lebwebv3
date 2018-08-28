@@ -299,7 +299,7 @@ class Employee extends Model
     //Wage progression relationship
     public function wageProgression()
     {
-        return $this->belongsToMany('App\WageProgression')->withPivot('date');
+        return $this->belongsToMany('App\WageProgression')->withPivot('date')->orderBy('date', 'asc');
     }
 
     //Employee current wage relationship

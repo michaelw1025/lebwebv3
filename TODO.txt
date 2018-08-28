@@ -13,17 +13,15 @@ Fix emergency contact at small sizes
 Add slot for export button to all views
 
 Queries:
-    Employee Alphabetical Salary
-    Employee Seniority Hourly
-    Employee Seniority Salary
     Employee Reviews
     Employee Reductions Hourly
     Employee Reductions Salary
     Employee Turnover Hourly
     Employee Turnover Salary
     Employee Anniversaries
-    Employee Birthdays
     Employee Hire Date
     Cost Center
-    Wage Progression Hourlly
+    Wage Progression Hourly
     Bonus Hours Hourly
+
+Move dates from DateTime to Date

@@ -45,7 +45,7 @@
          @include('alerts.session-alert')
 
                 <!-- Page content goes here -->
-        <form action="{{Route('hr.queries.employee-birthday')}}" class="mt-2" id="search-employee-birthday-form" method="GET">
+        <form action="{{Route('queries.employee-birthday')}}" class="mt-2" id="search-employee-birthday-form" method="GET">
             @csrf
             <h5>Search Birthdays</h5>
             <p class="text-danger">@component('components.required-icon')@endComponent indicates a required field</p>

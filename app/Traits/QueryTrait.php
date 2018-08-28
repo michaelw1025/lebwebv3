@@ -178,5 +178,55 @@ trait QueryTrait
         return $employees;
     }
 
+    protected function getEmployeeWageProgression($searchMonth, $searchYear)
+    {
+        $employees = Employee::select(
+            'id',
+            'first_name',
+            'last_name',
+            'middle_initial', 
+            'ssn',
+            'oracle_number',
+            'hire_date'
+        )
+        ->where('status', 1)
+        ->with(['wageProgression' => function($q) use($searchMonth, $searchYear) {
+            $q->whereYear('date', $searchYear)->whereMonth('date', $searchMonth);
+        }, 'shift', 'position', 'job', 'wageProgressionWageTitle'])
+        ->whereHas('wageProgression', function($q) use($searchMonth, $searchYear) {
+            $q->whereYear('date', $searchYear)->whereMonth('date', $searchMonth);
+        })
+        ->orderBy('last_name', 'asc')
+        ->get();
+
+        return $employees;
+    }
+
+    protected function setEmployeeWageProgressionDateAsDate($employees)
+    {
+        // Set progression date as date instance
+        foreach($employees as $employee){
+            foreach($employee->wageProgression as $employeeWageProgression){
+                $employeeWageProgression->pivot->date = $this->setAsDate($employeeWageProgression->pivot->date);
+            }
+        }
+        return $employees;
+    }
+
+    protected function setEmployeeWageProgressionExportInfo($employees)
+    {
+
+        // foreach($employees as $employee){
+            //     foreach($employee->wageProgression as $employeeWageProgression){
+            //         $employee->progression_level = $employeeWageProgression->month;
+            //     }
+            // }
+            // $sorted = $employees->sortBy(function($employee) {
+            //     return $employee->progression_level;
+            // });
+            // return $sorted->values()->all();
+            return $employees;
+    }
+
 }
 

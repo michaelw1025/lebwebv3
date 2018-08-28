@@ -50,7 +50,7 @@ class TerminationController extends Controller
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
         // Get the employee for the request
         $employee = Employee::findOrFail($request->input('employee'));
-        return view('hr.employee.termination.termination-create', [
+        return view('employee.termination.termination-create', [
             'employee' => $employee
         ]);
     }
@@ -99,7 +99,7 @@ class TerminationController extends Controller
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         $termination = Termination::with('employee')->findOrFail($id);
-        return view('hr.employee.termination.termination-show', [
+        return view('employee.termination.termination-show', [
             'termination' => $termination
         ]);
     }
@@ -115,7 +115,7 @@ class TerminationController extends Controller
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
         $termination = Termination::with('employee')->findOrFail($id);
-        return view('hr.employee.termination.termination-edit', [
+        return view('employee.termination.termination-edit', [
             'termination' => $termination
         ]);
     }

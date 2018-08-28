@@ -27,12 +27,13 @@
         <li class="nav-item dropdown w-100 {{in_array(Route::currentRouteName(), $queriesNavArray) ? 'text-primary bg-white' : 'text-dark'}}">
             <a href="{{Route('users.index')}}" class="nav-link dropdown-toggle {{in_array(Route::currentRouteName(), $queriesNavArray) ? 'text-primary' : 'text-dark'}}" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-search fa-lg sidebar-icon"></i><span class="d-none d-lg-inline-block">Queries</span></a>
             <div class="dropdown-menu">
-                <a href="{{Route('hr.queries.employee-alphabetical-hourly')}}" class="dropdown-item">Employee Alphabetical Hourly</a>
-                <a href="{{Route('hr.queries.employee-alphabetical-salary')}}" class="dropdown-item">Employee Alphabetical Salary</a>
-                <a href="{{Route('hr.queries.employee-seniority')}}" class="dropdown-item">Employee Seniority</a>
-                <a href="{{Route('hr.queries.employee-birthday')}}" class="dropdown-item">Employee Birthday</a>
-                <a href="{{Route('hr.queries.employee-anniversary-by-month')}}" class="dropdown-item">Employee Anniversary By Month</a>
-                <a href="{{Route('hr.queries.employee-anniversary-by-quarter')}}" class="dropdown-item">Employee Anniversary By Quarter</a>
+                <a href="{{Route('queries.employee-alphabetical-hourly')}}" class="dropdown-item">Employee Alphabetical Hourly</a>
+                <a href="{{Route('queries.employee-alphabetical-salary')}}" class="dropdown-item">Employee Alphabetical Salary</a>
+                <a href="{{Route('queries.employee-seniority')}}" class="dropdown-item">Employee Seniority</a>
+                <a href="{{Route('queries.employee-birthday')}}" class="dropdown-item">Employee Birthday</a>
+                <a href="{{Route('queries.employee-anniversary-by-month')}}" class="dropdown-item">Employee Anniversary By Month</a>
+                <a href="{{Route('queries.employee-anniversary-by-quarter')}}" class="dropdown-item">Employee Anniversary By Quarter</a>
+                <a href="{{Route('queries.employee-wage-progression')}}" class="dropdown-item">Employee Wage Progression</a>
             </div>
         </li>
         <li class="nav-item dropdown w-100 {{in_array(Route::currentRouteName(), $manageNavArray) ? 'text-primary bg-white' : 'text-dark'}}">

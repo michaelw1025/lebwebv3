@@ -68,7 +68,7 @@ class EmployeeController extends Controller
         // Get requested employees
         $employees = Employee::where('status', $statusType)->orderBy('last_name', 'asc')->get();
         // Return the employees view
-        return view('hr.employee.employees', [
+        return view('employee.employees', [
             'employees' => $employees,
             'statusType' => $statusType
         ]);
@@ -96,7 +96,7 @@ class EmployeeController extends Controller
         // Get all wage progressions
         $wageProgressions = WageProgression::orderBy('month', 'asc')->get();
         // Return the create employee view
-        return view('hr.employee.employee-create', [
+        return view('employee.employee-create', [
             'costCenters' => $costCenters,
             'shifts' => $shifts,
             'positions' => $positions,
@@ -258,7 +258,7 @@ class EmployeeController extends Controller
         // Convert wage event dates from string to date
         $this->setWageEventDate($employee);
         // Return the show employee view
-        return view('hr.employee.employee-show', [
+        return view('employee.employee-show', [
             'employee' => $employee
         ]);
     }
@@ -318,7 +318,7 @@ class EmployeeController extends Controller
         }
         // return $wageTitles;
         // Return the edit employee view
-        return view('hr.employee.employee-edit', [
+        return view('employee.employee-edit', [
             'employee' => $employee,
             'costCenters' => $costCenters,
             'shifts' => $shifts,

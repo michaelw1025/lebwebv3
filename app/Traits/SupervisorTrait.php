@@ -26,10 +26,10 @@ trait SupervisorTrait
                             'costCenter.employeeNightTeamManager:first_name,last_name',
                             'costCenter.employeeNightTeamLeader:first_name,last_name');
                             foreach($employee->costCenter as $costCenter){
-                                foreach($costCenter->employeeDayTeamManager as $teamManager){
+                                foreach($costCenter->employeeNightTeamManager as $teamManager){
                                     $employee->team_manager = $teamManager->first_name.' '.$teamManager->last_name;
                                 }
-                                foreach($costCenter->employeeDayTeamLeader as $teamLeader){
+                                foreach($costCenter->employeeNightTeamLeader as $teamLeader){
                                     $employee->team_leader = $teamLeader->first_name.' '.$teamLeader->last_name;
                                 }
                             }

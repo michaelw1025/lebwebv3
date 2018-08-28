@@ -57,7 +57,7 @@ class ReductionController extends Controller
         $costCenters = CostCenter::orderBy('number', 'asc')->orderBy('extension', 'asc')->get();
         // Get all shifts
         $shifts = Shift::all();
-        return view('hr.employee.reduction.reduction-create', [
+        return view('employee.reduction.reduction-create', [
             'costCenters' => $costCenters,
             'shifts' => $shifts,
             'employee' => $employee
@@ -131,7 +131,7 @@ class ReductionController extends Controller
         $reduction = Reduction::with('employee')->findOrFail($id);
         // Get reduction info
         $this->getReductionInfo($reduction);
-        return view('hr.employee.reduction.reduction-show', [
+        return view('employee.reduction.reduction-show', [
             'reduction' => $reduction
         ]);
     }
@@ -154,7 +154,7 @@ class ReductionController extends Controller
         $costCenters = CostCenter::orderBy('number', 'asc')->orderBy('extension', 'asc')->get();
         // Get all shifts
         $shifts = Shift::all();
-        return view('hr.employee.reduction.reduction-edit', [
+        return view('employee.reduction.reduction-edit', [
             'reduction' => $reduction,
             'costCenters' => $costCenters,
             'shifts' => $shifts
