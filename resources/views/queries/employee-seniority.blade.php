@@ -142,6 +142,7 @@
         <table class="table table-sm table-hover table-striped table-borderless">
             <thead class="bg-header text-light">
                 <tr>
+                    <th scope="col">#</th>
                     <th scope="col">ID</th>
                     <th scope="col">First</th>
                     <th scope="col">Last</th>
@@ -161,6 +162,7 @@
             <tbody>
                 @foreach($employees as $employee)
                 <tr class="clickable-row employee-row" data-href="{{route('employees.show', ['id' => $employee->id])}}">
+                    <td>{{$loop->iteration}}</td>
                     <td>{{$employee->id}}</td>
                     <td>{{$employee->first_name}}</td>
                     <td>{{$employee->last_name}}</td>

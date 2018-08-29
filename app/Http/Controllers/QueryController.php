@@ -207,6 +207,25 @@ class QueryController extends Controller
         ]);
     }
 
+    public function employeeCostCenterIndividual(Request $request)
+    {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        // Get all cost centers for search form
+        $costCenters = CostCenter::all();
+        // Check if search form is being submitted
+        if($request->has('cost_center')){
+            return view('queries.employee-cost-center-individual', [
+                'costCenters' => $costCenters
+            ]);
+        }else{
+            // If search is not submitted give a blank form
+            return view('queries.employee-cost-center-individual', [
+                'costCenters' => $costCenters
+            ]);
+        }
+    }
+
     public function employeeDisciplinaryAll(Request $request)
     {
         //Check if user is authorized to access this page

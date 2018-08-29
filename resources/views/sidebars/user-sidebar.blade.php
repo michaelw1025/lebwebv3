@@ -35,6 +35,7 @@
                 <a href="{{Route('queries.employee-anniversary-by-quarter')}}" class="dropdown-item">Employee Anniversary By Quarter</a>
                 <a href="{{Route('queries.employee-wage-progression')}}" class="dropdown-item">Employee Wage Progression</a>
                 <a href="{{Route('queries.employee-cost-center-all')}}" class="dropdown-item">Cost Center - All</a>
+                <a href="{{Route('queries.employee-cost-center-individual')}}" class="dropdown-item">Cost Center - Individual</a>
                 <a href="{{Route('queries.employee-disciplinary-all')}}" class="dropdown-item">Employee Disciplinary All</a>
             </div>
         </li>

@@ -89,6 +89,8 @@
 
         <hr></hr>
 
+        @if(isset($employees))
+
         <!-- Team manager button -->
         @component('components.table-column-toggle')
             @slot('buttonID')
@@ -109,8 +111,6 @@
             Team Leader
             @endslot
         @endcomponent
-
-        @if(isset($employees))
 
         <table class="table table-sm table-hover">
             <thead class="bg-header text-light">

@@ -50,6 +50,7 @@ Route::prefix('query')->group(function () {
     Route::get('/query-employee-birthday', 'QueryController@employeeBirthday')->name('queries.employee-birthday');
     Route::get('/query-employee-wage-progression', 'QueryController@employeeWageProgression')->name('queries.employee-wage-progression');
     Route::get('/query-employee-cost-center-all', 'QueryController@employeeCostCenterAll')->name('queries.employee-cost-center-all');
+    Route::get('/query-employee-cost-center-individual', 'QueryController@employeeCostCenterIndividual')->name('queries.employee-cost-center-individual');
     Route::get('/query-employee-disciplinary-all', 'QueryController@employeeDisciplinaryAll')->name('queries.employee-disciplinary-all');
 });
 
@@ -61,5 +62,6 @@ Route::prefix('export')->group(function() {
     Route::get('/export-employee-birthday', 'ExportController@exportEmployeeBirthday')->name('export-employee-birthday');
     Route::get('/export-employee-wage-progression', 'ExportController@exportEmployeeWageProgression')->name('export-employee-wage-progression');
     Route::get('/export-employee-cost-center-all', 'ExportController@exportEmployeeCostCenterAll')->name('export-employee-cost-center-all');
+    Route::get('/export-employee-cost-center-individual', 'ExportController@exportEmployeeCostCenterIndividual')->name('export-employee-cost-center-individual');
     Route::get('/export-employee-disciplinary-all', 'ExportController@exportEmployeeDisciplinaryAll')->name('export-employee-disciplinary-all');
 });

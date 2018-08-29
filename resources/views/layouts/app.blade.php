@@ -2,7 +2,7 @@
     $usersNavArray = array('users.index', 'users.show', 'users.edit');
     $rolesNavArray = array('roles.index', 'roles.show', 'roles.edit', 'roles.create');
     $employeesNavArray = array('employees.index', 'employees.create', 'employees.show', 'employees.edit', 'disciplinaries.index', 'disciplinaries.create', 'disciplinaries.show', 'disciplinaries.edit', 'terminations.index', 'terminations.create', 'terminations.show', 'terminations.edit', 'reductions.index', 'reductions.create', 'reductions.show', 'reductions.edit');
-    $queriesNavArray = array('queries.employee-alphabetical-hourly', 'queries.employee-alphabetical-salary', 'queries.employee-anniversary-by-month', 'queries.employee-anniversary-by-quarter', 'queries.employee-birthday', 'queries.employee-seniority', 'queries.employee-wage-progression', 'queries.employee-cost-center-all', 'queries.employee-disciplinary-all');
+    $queriesNavArray = array('queries.employee-alphabetical-hourly', 'queries.employee-alphabetical-salary', 'queries.employee-anniversary-by-month', 'queries.employee-anniversary-by-quarter', 'queries.employee-birthday', 'queries.employee-seniority', 'queries.employee-wage-progression', 'queries.employee-cost-center-all', 'queries.employee-cost-center-individual', 'queries.employee-disciplinary-all');
     $manageNavArray = array();
     $biddingNavArray = array();
     $contractorsNavArray = array();
