@@ -38,25 +38,16 @@ trait QueryTrait
     protected function setEmployeeAlphabeticalExportInfo($employees)
     {
         foreach($employees as $employee){
-            $employee->date_of_birth = $employee->birth_date->format('m/d/Y');
-            $employee->date_of_hire = $employee->hire_date->format('m/d/Y');
-            $employee->date_of_service = $employee->service_date->format('m/d/Y');
-            foreach($employee->shift as $shift){
-                $employee->current_shift = $shift->description;
-            }
-            foreach($employee->position as $position){
-                $employee->current_position = $position->description;
-            }
-            foreach($employee->costCenter as $costCenter){
-                $employee->current_cost_center = $costCenter->number.' '.$costCenter->extension.' '.$costCenter->description;
-            }
+            $this->setEmployeeDateForExport($employee, 'birth');
+            $this->setEmployeeDateForExport($employee, 'hire');
+            $this->setEmployeeDateForExport($employee, 'service');
+            $this->setEmployeeShiftForExport($employee);
+            $this->setEmployeePositionForExport($employee);
+            $this->setEmployeeCostCenterForExport($employee);
 
             unset($employee->birth_date);
             unset($employee->hire_date);
             unset($employee->service_date);
-            unset($employee->shift);
-            unset($employee->position);
-            unset($employee->costCenter);
         }
         return $employees;
     }
@@ -119,16 +110,10 @@ trait QueryTrait
     {
         foreach($employees as $employee){
             $employee->date_of_service = $employee->service_date->format('m/d/Y');
-            foreach($employee->shift as $shift){
-                $employee->current_shift = $shift->description;
-            }
-            foreach($employee->costCenter as $costCenter){
-                $employee->current_cost_center = $costCenter->number.' '.$costCenter->extension.' '.$costCenter->description;
-            }
+            $this->setEmployeeShiftForExport($employee);
+            $this->setEmployeeCostCenterForExport($employee);
 
             unset($employee->service_date);
-            unset($employee->shift);
-            unset($employee->costCenter);
         }
         return $employees;
     }
@@ -155,25 +140,13 @@ trait QueryTrait
         foreach($employees as $employee){
             $employee->date_of_birth = $employee->birth_date->format('m/d/Y');
             $employee->date_of_hire = $employee->hire_date->format('m/d/Y');
-            foreach($employee->shift as $shift){
-                $employee->current_shift = $shift->description;
-            }
-            foreach($employee->costCenter as $costCenter){
-                $employee->current_cost_center = $costCenter->number.' '.$costCenter->extension.' '.$costCenter->description;
-            }
-            foreach($employee->job as $job){
-                $employee->current_job = $job->description;
-            }
-            foreach($employee->position as $position){
-                $employee->current_position = $position->description;
-            }
+            $this->setEmployeeShiftForExport($employee);
+            $this->setEmployeeCostCenterForExport($employee);
+            $this->setEmployeeJobForExport($employee);
+            $this->setEmployeePositionForExport($employee);
 
             unset($employee->birth_date);
             unset($employee->hire_date);
-            unset($employee->shift);
-            unset($employee->costCenter);
-            unset($employee->job);
-            unset($employee->position);
         }
         return $employees;
     }
@@ -192,7 +165,7 @@ trait QueryTrait
         ->where('status', 1)
         ->with(['wageProgression' => function($q) use($searchMonth, $searchYear) {
             $q->whereYear('date', $searchYear)->whereMonth('date', $searchMonth);
-        }, 'shift', 'position', 'job', 'wageProgressionWageTitle'])
+        }, 'shift', 'position.wageTitle', 'job', 'wageProgressionWageTitle'])
         ->whereHas('wageProgression', function($q) use($searchMonth, $searchYear) {
             $q->whereYear('date', $searchYear)->whereMonth('date', $searchMonth);
         })
@@ -202,30 +175,67 @@ trait QueryTrait
         return $employees;
     }
 
-    protected function setEmployeeWageProgressionDateAsDate($employees)
-    {
-        // Set progression date as date instance
-        foreach($employees as $employee){
-            foreach($employee->wageProgression as $employeeWageProgression){
-                $employeeWageProgression->pivot->date = $this->setAsDate($employeeWageProgression->pivot->date);
-            }
-        }
-        return $employees;
-    }
-
     protected function setEmployeeWageProgressionExportInfo($employees)
     {
+        foreach($employees as $employee){
+            $employee->date_of_hire = $employee->hire_date->format('m/d/Y');
+            foreach($employee->wageProgression as $employeeWageProgression){
+                // Set progression level
+                $employee->progression_level = $employeeWageProgression->month;
+                // Set progression date
+                $employee->progression_date = $employeeWageProgression->pivot->date->format('m/d/Y');
+            }
+            $this->setEmployeeCostCenterForExport($employee);
+            $this->setEmployeeShiftForExport($employee);
+            $this->setEmployeeJobForExport($employee);
+            $this->setEmployeePositionForExport($employee);
 
-        // foreach($employees as $employee){
-            //     foreach($employee->wageProgression as $employeeWageProgression){
-            //         $employee->progression_level = $employeeWageProgression->month;
-            //     }
-            // }
-            // $sorted = $employees->sortBy(function($employee) {
-            //     return $employee->progression_level;
-            // });
-            // return $sorted->values()->all();
-            return $employees;
+            unset($employee->hire_date);
+            unset($employee->wageProgression);
+            unset($employee->wageProgressionWageTitle);
+        }
+        // Sort in order of progression level
+        $sorted = $employees->sortBy('progression_level');
+        // Convert the sorted array to a collection for the export 
+        return collect($sorted->values()->all());     
+    }
+
+    protected function setEmployeeShiftForExport($employee)
+    {
+        foreach($employee->shift as $shift){
+            $employee->current_shift = $shift->description;
+        }
+        unset($employee->shift);
+        return $employee;
+    }
+    protected function setEmployeeCostCenterForExport($employee)
+    {
+        foreach($employee->costCenter as $costCenter){
+            $employee->current_cost_center = $costCenter->number.' '.$costCenter->extension.' '.$costCenter->description;
+        }
+        unset($employee->costCenter);
+        return $employee;
+    }
+    protected function setEmployeePositionForExport($employee)
+    {
+        foreach($employee->position as $position){
+            $employee->current_position = $position->description;
+        }
+        unset($employee->position);
+        return $employee;
+    }
+    protected function setEmployeeJobForExport($employee)
+    {
+        foreach($employee->job as $job){
+            $employee->current_job = $job->description;
+            unset($employee->job);
+            return $employee;
+        }
+    }
+    protected function setEmployeeDateForExport($employee, $label)
+    {
+        $employee['date_of_'.$label] = $employee[$label.'_date']->format('m/d/Y');
+        return $employee;
     }
 
 }

@@ -115,7 +115,7 @@
         <table class="table table-sm table-hover">
             <thead class="bg-header text-light">
                 <tr>
-                    <th scope="col" class="d-none d-lg-table-cell">ID</th>
+                    <th scope="col" class="d-none d-xxl-table-cell">ID</th>
                     <th scope="col" class="toggle-first-name">Name</th>
                     <th scope="col" class="toggle-ssn">SSN</th>
                     <th scope="col" class="toggle-oracle-number">Oracle Number</th>
@@ -124,6 +124,8 @@
                     <th scope="col" class="toggle-shift">Shift</th>
                     <th scope="col" class="toggle-cost-center">Cost Center</th>
                     <th scope="col" class="toggle-position">Position</th>
+                    <th scope="col" class="toggle-current-wage">Current Wage</th>
+                    <th scope="col" class="toggle-next-wage">Next Wage</th>
                     <th scope="col" class="d-none toggle-team-manager">Team Manager</th>
                     <th scope="col" class="d-none toggle-team-leader">Team Leader</th>
                 </tr>
@@ -138,7 +140,7 @@
                 @if($employeeWageProgression->id === $wageProgression->id)
                 
                 <tr class="clickable-row employee-row" data-href="{{route('employees.show', ['id' => $employee->id])}}">
-                    <td class="d-none d-lg-table-cell">{{$employee->id}}</td>
+                    <td class="d-none d-xxl-table-cell">{{$employee->id}}</td>
                     <td class="toggle-first-name">{{$employee->first_name}} {{$employee->middle_initial}} {{$employee->last_name}}</td>
                     <td class="toggle-ssn"><span class="d-inline-block">{{$employee->ssn}}</span></td>
                     <td class="toggle-oracle-number">{{$employee->oracle_number}}</td>
@@ -165,6 +167,8 @@
                     @else
                         <td class="toggle-position text-danger">Not Set</td>
                     @endif
+                    <td class="toggle-current-wage">{{$employee->current_wage}}</td>
+                    <td class="toggle-next-wage">{{$employee->next_wage}}</td>
                     <td class="d-none toggle-team-manager">{{$employee->team_manager}}</td>
                     <td class="d-none toggle-team-leader">{{$employee->team_leader}}</td>
                 </tr>

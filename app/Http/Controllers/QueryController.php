@@ -13,6 +13,7 @@ use App\WageProgression;
 use App\Traits\SupervisorTrait;
 use App\Traits\QueryTrait;
 use App\Traits\DateTrait;
+use App\Traits\WageTrait;
 
 // Requests
 use App\Http\Requests\SearchEmployeeAnniversaryByMonth;
@@ -25,6 +26,7 @@ class QueryController extends Controller
     use SupervisorTrait;
     use QueryTrait;
     use DateTrait;
+    use WageTrait;
 
     /**
      * Create a new controller instance.
@@ -164,19 +166,15 @@ class QueryController extends Controller
             $employees = $this->getEmployeeWageProgression($searchMonth, $searchYear);
             // Get employee supervisors from supervisor trait
             $employees = $this->getEmployeeSupervisors($employees);
+            // Set progression date as date instance in wage trait
+            foreach($employees as $employee){
+                $this->setWageEventDate($employee);
+            }
             // Get all wage progressions for table
             $wageProgressions = WageProgression::all();
-            // Set progression date as date instance in query trait
-            $employees = $this->setEmployeeWageProgressionDateAsDate($employees);
-            
-            // $employees = $this->setEmployeeWageProgressionExportInfo($employees);
-            foreach($employees as $employee){
-                foreach($employee->wageProgression as $employeeWageProgression){
-                    $nextWage = WageProgressionWageTitle::find($employeeWageProgression->id);
-                    
-                }
-            }
-            return $employees;
+            // Set employee current and next wage from wage trait
+            $employees = $this->setEmployeeWages($employees);
+
             return view('queries.employee-wage-progression', [
                 'employees' => $employees,
                 'month' => $searchMonth,

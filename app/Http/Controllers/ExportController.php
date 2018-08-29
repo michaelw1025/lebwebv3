@@ -9,18 +9,21 @@ use Excel;
 // Traits
 use App\Traits\QueryTrait;
 use App\Traits\SupervisorTrait;
+use App\Traits\WageTrait;
 use App\Traits\DateTrait;
 
 // Exports
 use App\Exports\ExportEmployeeAlphabetical;
 use App\Exports\ExportEmployeeAnniversary;
 use App\Exports\ExportEmployeeBirthday;
+use App\Exports\ExportEmployeeWageProgression;
 
 use App\Employee;
 class ExportController extends Controller
 {
     use QueryTrait;
     use SupervisorTrait;
+    use WageTrait;
     use DateTrait;
 
     /**
@@ -120,12 +123,15 @@ class ExportController extends Controller
         $employees = $this->getEmployeeWageProgression($searchMonth, $searchYear);
         // Get employee supervisors from supervisor trait
         $employees = $this->getEmployeeSupervisors($employees);
-        // Set progression date as date instance
+        // Set progression date as date instance in wage trait
         foreach($employees as $employee){
-            foreach($employee->wageProgression as $employeeWageProgression){
-                $employeeWageProgression->pivot->date = $this->setAsDate($employeeWageProgression->pivot->date);
-            }
+            $this->setWageEventDate($employee);
         }
-        
+        // Set employee current and next wage from wage trait
+        $employees = $this->setEmployeeWages($employees);
+        // Set the employee info for the export
+        $employees = $this->setEmployeeWageProgressionExportInfo($employees);
+        // Return the export
+        return (new ExportEmployeeWageProgression($employees))->download('employees-wage-progression-'.Carbon::now()->format('m-d-Y').'.xlsx');
     }
 }
