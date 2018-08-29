@@ -9,19 +9,19 @@
                 @endslot
 
                 @slot('fontStyle')
-                fas
+                        
                 @endslot
 
                 @slot('fontIcon')
-                sa-search
+                        
                 @endslot
 
                 @slot('fontSize')
-                fa-lg
+                        
                 @endslot
-
+                
                 @slot('title')
-                Query: Employees Seniority
+                Query: All Employee Disciplinary
                 @endslot
 
                 @slot('displayExport')
@@ -29,7 +29,7 @@
                 @endslot
 
                 @slot('exportRoute')
-            
+                {{Route('export-employee-disciplinary-all')}}
                 @endslot
         @endcomponent
                 
@@ -37,26 +37,6 @@
         @include('alerts.validation-alert')
         @include('alerts.session-alert')
 
-        <!-- SSN button -->
-        @component('components.table-column-toggle')
-                @slot('buttonID')
-                toggle-ssn
-                @endslot
-
-                @slot('buttonText')
-                SSN
-                @endslot
-        @endcomponent
-        <!-- Birth Date button -->
-        @component('components.table-column-toggle')
-                @slot('buttonID')
-                toggle-birth-date
-                @endslot
-
-                @slot('buttonText')
-                Birth Date
-                @endslot
-        @endcomponent
         <!-- Service Date button -->
         @component('components.table-column-toggle')
                 @slot('buttonID')
@@ -65,16 +45,6 @@
 
                 @slot('buttonText')
                 Service Date
-                @endslot
-        @endcomponent
-        <!-- Address button -->
-        @component('components.table-column-toggle')
-                 @slot('buttonID')
-                toggle-address
-                @endslot
-
-                @slot('buttonText')
-                Address
                 @endslot
         @endcomponent
         <!-- Bid Eligible button -->
@@ -137,7 +107,7 @@
                 Team Leader
                 @endslot
         @endcomponent
-        
+
         <!-- Page content goes here -->
         <table class="table table-sm table-hover table-striped table-borderless">
             <thead class="bg-header text-light">
@@ -146,10 +116,10 @@
                     <th scope="col">First</th>
                     <th scope="col">Last</th>
                     <th scope="col" class="">Hire Date</th>
-                    <th scope="col" class="d-none toggle-ssn">SSN</th>
-                    <th scope="col" class="d-none toggle-birth-date">Birth Date</th>
+                    <th scope="col">Level</th>
+                    <th scope="col">Disc Date</th>
+                    <th scope="col">Issued By</th>
                     <th scope="col" class="d-none toggle-service-date">Service Date</th>
-                    <th scope="col" class="d-none toggle-address">Address</th>
                     <th scope="col" class="d-none toggle-bid-eligible">Bid Eligible</th>
                     <th scope="col" class="d-none toggle-shift">Shift</th>
                     <th scope="col" class="d-none toggle-position">Position</th>
@@ -159,16 +129,23 @@
                 </tr>
             </thead>
             <tbody>
+            @php
+            $disciplinaryTypeArray = array('attendance', 'performance');
+            @endphp
+            @foreach($disciplinaryTypeArray as $type)
+            <tr class="{{$type == 'attendance' ? 'table-warning' : 'table-danger'}} text-center"><td colspan="14">{{strtoupper($type)}}</td></tr>
                 @foreach($employees as $employee)
-                <tr class="clickable-row employee-row" data-href="{{route('employees.show', ['id' => $employee->id])}}">
+                @foreach($employee->disciplinary as $employeeDisciplinary)
+                @if($employeeDisciplinary->type == $type)
+                <tr class="clickable-row employee-row" data-href="{{route('disciplinaries.show', ['id' => $employeeDisciplinary->id])}}">
                     <td>{{$employee->id}}</td>
                     <td>{{$employee->first_name}}</td>
                     <td>{{$employee->last_name}}</td>
                     <td class="">{{$employee->hire_date->format('m/d/Y')}}</td>
-                    <td class="d-none toggle-ssn">{{$employee->ssn}}</td>
-                    <td class="d-none toggle-birth-date">{{$employee->birth_date->format('m/d/Y')}}</td>
+                    <td>{{ucwords($employeeDisciplinary->level)}}</td>
+                    <td class="">{{$employeeDisciplinary->date->format('m/d/Y')}}</td>
+                    <td>{{$employeeDisciplinary->issued_by_name}}</td>
                     <td class="d-none toggle-service-date">{{$employee->service_date->format('m/d/Y')}}</td>
-                    <td class="d-none toggle-address">{{$employee->address_1}} {{$employee->address_2}}, {{$employee->city}}, {{$employee->state}}, {{$employee->zip_code}}</td>
                     <td class="d-none toggle-bid-eligible"><i class="{{$employee->bid_eligible == 1 ? 'far fa-thumbs-up text-success' : 'far fa-thumbs-down text-danger'}}"></i></td>
                     @if($employee->shift->count() > 0)
                         @foreach($employee->shift as $shift)
@@ -194,7 +171,10 @@
                     <td class="d-none toggle-team-manager">{{$employee->team_manager}}</td>
                     <td class="d-none toggle-team-leader">{{$employee->team_leader}}</td>
                 </tr>
+                @endif
                 @endforeach
+                @endforeach
+            @endforeach
             </tbody>
         </table>
             

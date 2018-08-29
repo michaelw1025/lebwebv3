@@ -11,12 +11,14 @@ use App\Traits\QueryTrait;
 use App\Traits\SupervisorTrait;
 use App\Traits\WageTrait;
 use App\Traits\DateTrait;
+use App\Traits\CostCenterTrait;
 
 // Exports
 use App\Exports\ExportEmployeeAlphabetical;
 use App\Exports\ExportEmployeeAnniversary;
 use App\Exports\ExportEmployeeBirthday;
 use App\Exports\ExportEmployeeWageProgression;
+use App\Exports\ExportEmployeeCostCenterAll;
 
 use App\Employee;
 class ExportController extends Controller
@@ -25,6 +27,7 @@ class ExportController extends Controller
     use SupervisorTrait;
     use WageTrait;
     use DateTrait;
+    use CostCenterTrait;
 
     /**
      * Create a new controller instance.
@@ -133,5 +136,19 @@ class ExportController extends Controller
         $employees = $this->setEmployeeWageProgressionExportInfo($employees);
         // Return the export
         return (new ExportEmployeeWageProgression($employees))->download('employees-wage-progression-'.Carbon::now()->format('m-d-Y').'.xlsx');
+    }
+
+    public function exportEmployeeCostCenterAll(Request $request)
+    {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        // Get all employees from query trait
+        $employees = $this->getEmployeeCostCenterAll();
+        // Get all cost centers from cost center trait
+        $costCenters = $this->getCostCentersAll();
+        // Set each cost center's leaders in cost center trait
+        $costCenters = $this->setCostCenterLeaders($costCenters);
+        // Return the export
+        return (new ExportEmployeeCostCenterAll($employees, $costCenters))->download('employees-cost-center-all-'.Carbon::now()->format('m-d-Y').'.xlsx');
     }
 }

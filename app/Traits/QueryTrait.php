@@ -200,6 +200,48 @@ trait QueryTrait
         return collect($sorted->values()->all());     
     }
 
+    protected function getEmployeeCostCenterAll()
+    {
+        $employees = Employee::select('id', 'first_name', 'last_name')->where('status', 1)->with(['costCenter', 'job', 'position'])->orderBy('last_name', 'asc')->orderBy('first_name', 'asc')->get();
+        return $employees;
+    }
+
+    protected function getEmployeeDisciplinaryAll()
+    {
+        $today = Carbon::today()->toDateTimeString();
+        $oneYear = Carbon::today()->subYear()->toDateTimeString();
+        $employees = Employee::where('status', 1)
+        ->with(['disciplinary' => function($q) use($today, $oneYear) {
+            $q->whereDate('date', '<=' ,$today)->whereDate('date', '>=', $oneYear);
+        }])
+        ->whereHas('disciplinary', function($q) use($today, $oneYear) {
+            $q->whereDate('date', '<=' ,$today)->whereDate('date', '>=', $oneYear);
+        })
+        ->orderBy('last_name', 'asc')
+        ->orderBy('first_name', 'asc')
+        ->get();
+        return $employees;
+    }
+
+    protected function getDisciplinaryIssuedBy($employees)
+    {
+        foreach($employees as $employee){
+            foreach($employee->disciplinary as $employeeDisciplinary){
+                $issuedBy = Employee::find($employeeDisciplinary->issued_by);
+                $employeeDisciplinary->issued_by_name = $issuedBy->first_name.' '.$issuedBy->last_name;
+            }
+        }
+        return $employees;
+    }
+
+
+
+
+
+
+
+
+
     protected function setEmployeeShiftForExport($employee)
     {
         foreach($employee->shift as $shift){

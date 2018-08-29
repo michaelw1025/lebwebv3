@@ -8,12 +8,14 @@ use Carbon\Carbon;
 // Models
 use App\Employee;
 use App\WageProgression;
+use App\CostCenter;
 
 // Traits
 use App\Traits\SupervisorTrait;
 use App\Traits\QueryTrait;
 use App\Traits\DateTrait;
 use App\Traits\WageTrait;
+use App\Traits\CostCenterTrait;
 
 // Requests
 use App\Http\Requests\SearchEmployeeAnniversaryByMonth;
@@ -27,6 +29,7 @@ class QueryController extends Controller
     use QueryTrait;
     use DateTrait;
     use WageTrait;
+    use CostCenterTrait;
 
     /**
      * Create a new controller instance.
@@ -185,6 +188,37 @@ class QueryController extends Controller
             // If search is not submitted give a blank form
             return view('queries.employee-wage-progression');
         }
+    }
 
+    public function employeeCostCenterAll(Request $request)
+    {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+
+        // Get all employees from query trait
+        $employees = $this->getEmployeeCostCenterAll();
+        // Get all cost centers from cost center trait
+        $costCenters = $this->getCostCentersAll();
+        // Set each cost center's leaders in cost center trait
+        $costCenters = $this->setCostCenterLeaders($costCenters);
+        return view('queries.employee-cost-center-all', [
+            'employees' => $employees,
+            'costCenters' => $costCenters
+        ]);
+    }
+
+    public function employeeDisciplinaryAll(Request $request)
+    {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        // Get all employees with disciplinaries in the past year from query trait
+        $employees = $this->getEmployeeDisciplinaryAll();
+        // Get disciplinary issued by from query trait
+        $employees = $this->getDisciplinaryIssuedBy($employees);
+        // Get employee supervisors from supervisor trait
+        $employees = $this->getEmployeeSupervisors($employees);
+        return view('queries.employee-disciplinary-all', [
+            'employees' => $employees
+        ]);
     }
 }
