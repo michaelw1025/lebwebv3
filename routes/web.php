@@ -54,6 +54,8 @@ Route::prefix('query')->group(function () {
     Route::get('/query-employee-disciplinary-all', 'QueryController@employeeDisciplinaryAll')->name('queries.employee-disciplinary-all');
     Route::get('/query-employee-review', 'QueryController@employeeReview')->name('queries.employee-review');
     Route::get('/query-employee-reduction', 'QueryController@employeeReduction')->name('queries.employee-reduction');
+    Route::get('/query-employee-turnover-hourly', 'QueryController@employeeTurnoverHourly')->name('queries.employee-turnover-hourly');
+    Route::get('/query-employee-turnover-salary', 'QueryController@employeeTurnoverSalary')->name('queries.employee-turnover-salary');
 });
 
 Route::prefix('export')->group(function() {
@@ -68,4 +70,6 @@ Route::prefix('export')->group(function() {
     Route::get('/export-employee-disciplinary-all', 'ExportController@exportEmployeeDisciplinaryAll')->name('export-employee-disciplinary-all');
     Route::get('/export-employee-review', 'ExportController@exportEmployeeReview')->name('export-employee-review');
     Route::get('/export-employee-reduction', 'ExportController@exportEmployeeReduction')->name('export-employee-reduction');
+    Route::get('/export-employee-turnover-hourly', 'ExportController@exportEmployeeTurnoverHourly')->name('export-employee-turnover-hourly');
+    Route::get('/export-employee-turnover-salary', 'ExportController@exportEmployeeTurnoverSalary')->name('export-employee-turnover-salary');
 });

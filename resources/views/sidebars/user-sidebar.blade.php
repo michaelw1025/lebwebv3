@@ -39,6 +39,8 @@
                 <a href="{{Route('queries.employee-disciplinary-all')}}" class="dropdown-item">Employee Disciplinary All</a>
                 <a href="{{Route('queries.employee-review')}}" class="dropdown-item">Employee Review</a>
                 <a href="{{Route('queries.employee-reduction')}}" class="dropdown-item">Employee Reduction</a>
+                <a href="{{Route('queries.employee-turnover-hourly')}}" class="dropdown-item">Employee Turnover - Hourly</a>
+                <a href="{{Route('queries.employee-turnover-salary')}}" class="dropdown-item">Employee Turnover - Salary</a>
             </div>
         </li>
         <li class="nav-item dropdown w-100 {{in_array(Route::currentRouteName(), $manageNavArray) ? 'text-primary bg-white' : 'text-dark'}}">

@@ -24,6 +24,7 @@ use App\Http\Requests\SearchEmployeeAnniversaryByQuarter;
 use App\Http\Requests\SearchEmployeeBirthday;
 use App\Http\Requests\SearchEmployeeWageProgression;
 use App\Http\Requests\SearchEmployeeCostCenterIndividual;
+use App\Http\Requests\SearchEmployeeTurnover;
 
 class QueryController extends Controller
 {
@@ -283,5 +284,53 @@ class QueryController extends Controller
         return view('queries.employee-reduction', [
             'employees' => $employees
         ]);
+    }
+
+    public function employeeTurnoverHourly(SearchEmployeeTurnover $request)
+    {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        // Set query for hourly
+        $searchJob = 'hourly';
+        // Check if search form is being submitted
+        if($request->has('start_date') && $request->has('end_date')){
+            // Set search start and end date from request
+            $startDate = $this->setAsDate($request->start_date);
+            $endDate = $this->setAsDate($request->end_date);
+            // Get employee turnover from query trait
+            $employees = $this->getEmployeeTurnover($searchJob, $startDate, $endDate);
+            return view('queries.employee-turnover-hourly', [
+                'employees' => $employees,
+                'startDate' => $startDate,
+                'endDate' => $endDate
+            ]);
+        }else{
+            // If search is not submitted give a blank form
+            return view('queries.employee-turnover-hourly');
+        }
+    }
+
+    public function employeeTurnoverSalary(SearchEmployeeTurnover $request)
+    {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        // Set query for salary
+        $searchJob = 'salary';
+        // Check if search form is being submitted
+        if($request->has('start_date') && $request->has('end_date')){
+            // Set search start and end date from request
+            $startDate = $this->setAsDate($request->start_date);
+            $endDate = $this->setAsDate($request->end_date);
+            // Get employee turnover from query trait
+            $employees = $this->getEmployeeTurnover($searchJob, $startDate, $endDate);
+            return view('queries.employee-turnover-salary', [
+                'employees' => $employees,
+                'startDate' => $startDate,
+                'endDate' => $endDate
+            ]);
+        }else{
+            // If search is not submitted give a blank form
+            return view('queries.employee-turnover-salary');
+        }
     }
 }

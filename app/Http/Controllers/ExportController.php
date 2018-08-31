@@ -23,6 +23,7 @@ use App\Exports\ExportEmployeeCostCenterAll;
 use App\Exports\ExportEmployeeCostCenterIndividual;
 use App\Exports\ExportEmployeeReview;
 use App\Exports\ExportEmployeeReduction;
+use App\Exports\ExportEmployeeTurnover;
 
 use App\Employee;
 class ExportController extends Controller
@@ -197,5 +198,35 @@ class ExportController extends Controller
         }
         // Return the export
         return (new ExportEmployeeReduction($employees))->download('employees-reduction-'.Carbon::now()->format('m-d-Y').'.xlsx');
+    }
+
+    public function exportEmployeeTurnoverHourly(Request $request)
+    {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        // Set query for hourly
+        $searchJob = 'hourly';
+        // Set search start and end date from request
+        $startDate = $this->setAsDate($request->start_date);
+        $endDate = $this->setAsDate($request->end_date);
+        // Get employee turnover from query trait
+        $employees = $this->getEmployeeTurnover($searchJob, $startDate, $endDate);
+        // Return the export
+        return (new ExportEmployeeTurnover($employees))->download('employees-termination-hourly-'.Carbon::now()->format('m-d-Y').'.xlsx');
+    }
+
+    public function exportEmployeeTurnoverSalary(Request $request)
+    {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        // Set query for salary
+        $searchJob = 'salary';
+        // Set search start and end date from request
+        $startDate = $this->setAsDate($request->start_date);
+        $endDate = $this->setAsDate($request->end_date);
+        // Get employee turnover from query trait
+        $employees = $this->getEmployeeTurnover($searchJob, $startDate, $endDate);
+        // Return the export
+        return (new ExportEmployeeTurnover($employees))->download('employees-termination-salary-'.Carbon::now()->format('m-d-Y').'.xlsx');
     }
 }

@@ -293,6 +293,29 @@ trait QueryTrait
         return $employees;
     }
 
+    protected function getEmployeeTurnover($searchJob, $startDate, $endDate)
+    {
+        $employees = Employee::select(
+            'id',
+            'first_name',
+            'last_name',
+            'hire_date',
+            'status'
+        )
+        ->whereHas('job', function($q) use($searchJob) {
+            $q->where('description', $searchJob);
+        })
+        ->whereHas('termination', function($q) use($startDate, $endDate) {
+            $q->whereDate('date', '<=', $endDate)->whereDate('date', '>=', $startDate);
+        })
+        ->with(['termination' => function($q) use($startDate, $endDate) {
+            $q->whereDate('date', '<=', $endDate)->whereDate('date', '>=', $startDate);
+        }, 'costCenter'])
+        ->orderBy('last_name', 'asc')
+        ->orderBy('first_name', 'asc')
+        ->get();
+        return $employees;
+    }
 
 
 

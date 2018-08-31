@@ -10,6 +10,9 @@
             <th scope="col" class="toggle-bump-to-cost-center">Bump To CC</th>
             <th scope="col" class="toggle-home-shift">Home Shift</th>
             <th scope="col" class="toggle-bump-to-shift">Bump To Shift</th>
+            <th scope="col" class="toggle-return-date">Return Date</th>
+            <th scope="col" class="toggle-fiscal-week">Fiscal Wk</th>
+            <th scope="col" class="toggle-fiscal-year">Fiscal Yr</th>
         </tr>
     </thead>
     <tbody>
@@ -19,7 +22,7 @@
     @endphp
         @foreach($reductionTypes as $reductionType)
         @foreach($reductionDisplacements as $reductionDisplacement)
-        <tr class="bg-info text-center"><td colspan="9">{{ucwords($reductionType)}} {{ucwords($reductionDisplacement)}}</td></tr>
+        <tr class="bg-info text-center"><td colspan="12">{{ucwords($reductionType)}} {{ucwords($reductionDisplacement)}}</td></tr>
         @foreach($employees as $employee)
         @foreach($employee->reduction as $employeeReduction)
         @if($employeeReduction->type == $reductionType && $employeeReduction->displacement == $reductionDisplacement)
@@ -33,6 +36,9 @@
             <td class="toggle-bump-to-cost-center">{{$employeeReduction->bump_to_cost_center_number}}</td>
             <td class="toggle-home-shift">{{$employeeReduction->home_shift_name}}</td>
             <td class="toggle-bump-to-shift">{{$employeeReduction->bump_to_shift_name}}</td>
+            <td class="toggle-return-date">{{$employeeReduction->return_date->format('m/d/Y')}}</td>
+            <td class="toggle-fiscal-week">{{$employeeReduction->fiscal_week}}</td>
+            <td class="toggle-fiscal-year">{{$employeeReduction->fiscal_year}}</td>
         </tr>
         @endif
         @endforeach
