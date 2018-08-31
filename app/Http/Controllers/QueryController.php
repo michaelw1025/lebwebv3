@@ -16,6 +16,7 @@ use App\Traits\QueryTrait;
 use App\Traits\DateTrait;
 use App\Traits\WageTrait;
 use App\Traits\CostCenterTrait;
+use App\Traits\ReductionTrait;
 
 // Requests
 use App\Http\Requests\SearchEmployeeAnniversaryByMonth;
@@ -31,6 +32,7 @@ class QueryController extends Controller
     use DateTrait;
     use WageTrait;
     use CostCenterTrait;
+    use ReductionTrait;
 
     /**
      * Create a new controller instance.
@@ -262,6 +264,23 @@ class QueryController extends Controller
         // Get employee supervisors from supervisor trait
         $employees = $this->getEmployeeSupervisors($employees);
         return view('queries.employee-review', [
+            'employees' => $employees
+        ]);
+    }
+
+    public function employeeReduction(Request $request)
+    {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        // Get all employees with an active reduction from query trait
+        $employees = $this->getEmployeeReduction();
+        // Get all reduction home and bump cost centers and shifts from reduction trait
+        foreach($employees as $employee){
+            foreach($employee->reduction as $employeeReduction){
+                $this->getReductionInfo($employeeReduction);
+            }
+        }
+        return view('queries.employee-reduction', [
             'employees' => $employees
         ]);
     }

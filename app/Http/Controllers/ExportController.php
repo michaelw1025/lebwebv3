@@ -12,6 +12,7 @@ use App\Traits\SupervisorTrait;
 use App\Traits\WageTrait;
 use App\Traits\DateTrait;
 use App\Traits\CostCenterTrait;
+use App\Traits\ReductionTrait;
 
 // Exports
 use App\Exports\ExportEmployeeAlphabetical;
@@ -21,6 +22,7 @@ use App\Exports\ExportEmployeeWageProgression;
 use App\Exports\ExportEmployeeCostCenterAll;
 use App\Exports\ExportEmployeeCostCenterIndividual;
 use App\Exports\ExportEmployeeReview;
+use App\Exports\ExportEmployeeReduction;
 
 use App\Employee;
 class ExportController extends Controller
@@ -30,6 +32,7 @@ class ExportController extends Controller
     use WageTrait;
     use DateTrait;
     use CostCenterTrait;
+    use ReductionTrait;
 
     /**
      * Create a new controller instance.
@@ -178,5 +181,21 @@ class ExportController extends Controller
         $employees = $this->getEmployeeSupervisors($employees);
         // Return the export
         return (new ExportEmployeeReview($employees))->download('employees-review-'.Carbon::now()->format('m-d-Y').'.xlsx');
+    }
+
+    public function exportEmployeeReduction(Request $request)
+    {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        // Get all employees with an active reduction from query trait
+        $employees = $this->getEmployeeReduction();
+        // Get all reduction home and bump cost centers and shifts from reduction trait
+        foreach($employees as $employee){
+            foreach($employee->reduction as $employeeReduction){
+                $this->getReductionInfo($employeeReduction);
+            }
+        }
+        // Return the export
+        return (new ExportEmployeeReduction($employees))->download('employees-reduction-'.Carbon::now()->format('m-d-Y').'.xlsx');
     }
 }

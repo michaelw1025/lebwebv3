@@ -274,6 +274,25 @@ trait QueryTrait
         return $employees;
     }
 
+    protected function getEmployeeReduction()
+    {
+        $employees = Employee::select(
+            'id',
+            'first_name',
+            'last_name',
+            'hire_date'
+        )
+        ->where('status', 1)
+        ->with(['reduction' => function($q) {
+            $q->where('currently_active', 1);
+        }])
+        ->whereHas('reduction', function($q) {
+            $q->where('currently_active', 1);
+        })
+        ->get();
+        return $employees;
+    }
+
 
 
 
