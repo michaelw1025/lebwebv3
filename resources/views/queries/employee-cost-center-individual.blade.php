@@ -29,7 +29,7 @@
                 @endslot
 
                 @slot('exportRoute')
-                {{Route('export-employee-cost-center-individual')}}
+                {{Route('export-employee-cost-center-individual', ['cost_center' => $searchCostCenter])}}
                 @endslot
         @endcomponent
                 
@@ -48,7 +48,7 @@
                     <select name="cost_center" id="employee-search-cost-center" class="custom-select {{$errors->has('cost_center') ? 'is-invalid' : ''}}">
                         <option value=""></option>
                         @foreach($costCenters as $costCenter)
-                        <option {{isset($searchCostCenter) ? ($searchCostCenter === $costCenter->id ? 'selected' : '') : ''}} value="{{$costCenter->id}}">{{$costCenter->number}} {{$costCenter->extension}} {{$costCenter->description}}</option>
+                        <option {{isset($searchCostCenter) ? ($searchCostCenter == $costCenter->id ? 'selected' : '') : ''}} value="{{$costCenter->id}}">{{$costCenter->number}} {{$costCenter->extension}} {{$costCenter->description}}</option>
                         @endforeach
                     </select>
                     @if($errors->has('cost_center'))
@@ -63,8 +63,8 @@
         </form>
 
         <hr></hr>
-        @if(isset($employees))
-        @include('queries.export-tables.cost-center-all')
+        @if(isset($searchedCostCenter))
+        @include('queries.export-tables.cost-center-individual')
         @endif
             
 @endsection

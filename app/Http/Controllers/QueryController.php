@@ -22,6 +22,7 @@ use App\Http\Requests\SearchEmployeeAnniversaryByMonth;
 use App\Http\Requests\SearchEmployeeAnniversaryByQuarter;
 use App\Http\Requests\SearchEmployeeBirthday;
 use App\Http\Requests\SearchEmployeeWageProgression;
+use App\Http\Requests\SearchEmployeeCostCenterIndividual;
 
 class QueryController extends Controller
 {
@@ -200,14 +201,16 @@ class QueryController extends Controller
         // Get all cost centers from cost center trait
         $costCenters = $this->getCostCentersAll();
         // Set each cost center's leaders in cost center trait
-        $costCenters = $this->setCostCenterLeaders($costCenters);
+        foreach($costCenters as $costCenter){
+            $costCenter = $this->setCostCenterLeaders($costCenter);
+        }
         return view('queries.employee-cost-center-all', [
             'employees' => $employees,
             'costCenters' => $costCenters
         ]);
     }
 
-    public function employeeCostCenterIndividual(Request $request)
+    public function employeeCostCenterIndividual(SearchEmployeeCostCenterIndividual $request)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
@@ -215,7 +218,16 @@ class QueryController extends Controller
         $costCenters = CostCenter::all();
         // Check if search form is being submitted
         if($request->has('cost_center')){
+            // Set search cost center from request
+            $searchCostCenter = $request->cost_center;
+            // Get cost center from query trait
+            $searchedCostCenter = $this->getCostCenterIndividual($searchCostCenter);
+            // Set each cost center's leaders in cost center trait
+            $searchedCostCenter = $this->setCostCenterLeaders($searchedCostCenter);
+            // return $searchedCostCenter;
             return view('queries.employee-cost-center-individual', [
+                'searchedCostCenter' => $searchedCostCenter,
+                'searchCostCenter' => $searchCostCenter,
                 'costCenters' => $costCenters
             ]);
         }else{

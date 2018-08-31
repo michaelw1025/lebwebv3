@@ -19,6 +19,7 @@ use App\Exports\ExportEmployeeAnniversary;
 use App\Exports\ExportEmployeeBirthday;
 use App\Exports\ExportEmployeeWageProgression;
 use App\Exports\ExportEmployeeCostCenterAll;
+use App\Exports\ExportEmployeeCostCenterIndividual;
 
 use App\Employee;
 class ExportController extends Controller
@@ -150,5 +151,19 @@ class ExportController extends Controller
         $costCenters = $this->setCostCenterLeaders($costCenters);
         // Return the export
         return (new ExportEmployeeCostCenterAll($employees, $costCenters))->download('employees-cost-center-all-'.Carbon::now()->format('m-d-Y').'.xlsx');
+    }
+
+    public function exportEmployeeCostCenterIndividual(Request $request)
+    {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        // Set search cost center from request
+        $searchCostCenter = $request->cost_center;
+        // Get cost center from query trait
+        $searchedCostCenter = $this->getCostCenterIndividual($searchCostCenter);
+        // Set each cost center's leaders in cost center trait
+        $searchedCostCenter = $this->setCostCenterLeaders($searchedCostCenter);
+        // Return the export
+        return (new ExportEmployeeCostCenterIndividual($searchedCostCenter))->download('employees-cost-center-individual-'.Carbon::now()->format('m-d-Y').'.xlsx');
     }
 }

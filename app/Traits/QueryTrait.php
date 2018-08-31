@@ -6,6 +6,7 @@ use Carbon\Carbon;
 
 // Models
 use App\Employee;
+use App\CostCenter;
 
 trait QueryTrait
 {
@@ -204,6 +205,21 @@ trait QueryTrait
     {
         $employees = Employee::select('id', 'first_name', 'last_name')->where('status', 1)->with(['costCenter', 'job', 'position'])->orderBy('last_name', 'asc')->orderBy('first_name', 'asc')->get();
         return $employees;
+    }
+
+    protected function getCostCenterIndividual($searchCostCenter)
+    {
+        $costCenter = CostCenter::with([
+            'employee.job',
+            'employee.position',
+            'employeeStaffManager',
+            'employeeDayTeamManager', 
+            'employeeNightTeamManager', 
+            'employeeDayTeamLeader',
+            'employeeNightTeamLeader'
+        ])
+        ->findOrFail($searchCostCenter);
+        return $costCenter;
     }
 
     protected function getEmployeeDisciplinaryAll()

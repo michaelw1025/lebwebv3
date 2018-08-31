@@ -9,18 +9,17 @@
         </tr>
     </thead>
     <tbody>
-    @foreach($costCenters as $costCenter)
-        <tr class="bg-info"><th scope="row" colspan="5">{{$costCenter->number}} {{$costCenter->extension}} {{$costCenter->description}}</th></tr>
+
+        <tr class="bg-info"><th scope="row" colspan="5">{{$searchedCostCenter->number}} {{$searchedCostCenter->extension}} {{$searchedCostCenter->description}}</th></tr>
         <tr class="table-info">
-                <td><strong>Staff:</strong> {{$costCenter->staff_manager}}</td>
-                <td><strong>Day TM:</strong> {{$costCenter->day_manager}}</td>
-                <td><strong>Day TL:</strong> {{$costCenter->day_leader}}</td>
-                <td><strong>Night TM:</strong> {{$costCenter->night_manager}}</td>
-                <td><strong>Night TL:</strong> {{$costCenter->night_leader}}</td>
+                <td><strong>Staff:</strong> {{$searchedCostCenter->staff_manager}}</td>
+                <td><strong>Day TM:</strong> {{$searchedCostCenter->day_manager}}</td>
+                <td><strong>Day TL:</strong> {{$searchedCostCenter->day_leader}}</td>
+                <td><strong>Night TM:</strong> {{$searchedCostCenter->night_manager}}</td>
+                <td><strong>Night TL:</strong> {{$searchedCostCenter->night_leader}}</td>
         </tr>
-        @foreach($employees as $employee)
-        @foreach($employee->costCenter as $employeeCostCenter)
-        @if($employeeCostCenter->id === $costCenter->id)
+        @foreach($searchedCostCenter->employee as $employee)
+
         <tr class="clickable-row employee-row" data-href="{{route('employees.show', ['id' => $employee->id])}}">
             <td>{{$employee->id}}</td>
             <td>{{$employee->first_name}}</td>
@@ -40,9 +39,8 @@
                 <td class=" text-danger">Not Set</td>
             @endif
         </tr>
-        @endif
+
         @endforeach
-        @endforeach
-    @endforeach
+
     </tbody>
 </table>
