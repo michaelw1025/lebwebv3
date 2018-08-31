@@ -20,6 +20,7 @@ use App\Exports\ExportEmployeeBirthday;
 use App\Exports\ExportEmployeeWageProgression;
 use App\Exports\ExportEmployeeCostCenterAll;
 use App\Exports\ExportEmployeeCostCenterIndividual;
+use App\Exports\ExportEmployeeReview;
 
 use App\Employee;
 class ExportController extends Controller
@@ -165,5 +166,17 @@ class ExportController extends Controller
         $searchedCostCenter = $this->setCostCenterLeaders($searchedCostCenter);
         // Return the export
         return (new ExportEmployeeCostCenterIndividual($searchedCostCenter))->download('employees-cost-center-individual-'.Carbon::now()->format('m-d-Y').'.xlsx');
+    }
+
+    public function exportEmployeeReview(Request $request)
+    {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        // Get all employees that need reviews from query trait
+        $employees = $this->getEmployeeReview();
+        // Get employee supervisors from supervisor trait
+        $employees = $this->getEmployeeSupervisors($employees);
+        // Return the export
+        return (new ExportEmployeeReview($employees))->download('employees-review-'.Carbon::now()->format('m-d-Y').'.xlsx');
     }
 }

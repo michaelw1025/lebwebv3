@@ -37,6 +37,7 @@
                 <a href="{{Route('queries.employee-cost-center-all')}}" class="dropdown-item">Cost Center - All</a>
                 <a href="{{Route('queries.employee-cost-center-individual')}}" class="dropdown-item">Cost Center - Individual</a>
                 <a href="{{Route('queries.employee-disciplinary-all')}}" class="dropdown-item">Employee Disciplinary All</a>
+                <a href="{{Route('queries.employee-review')}}" class="dropdown-item">Employee Review</a>
             </div>
         </li>
         <li class="nav-item dropdown w-100 {{in_array(Route::currentRouteName(), $manageNavArray) ? 'text-primary bg-white' : 'text-dark'}}">

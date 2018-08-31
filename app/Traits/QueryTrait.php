@@ -250,6 +250,30 @@ trait QueryTrait
         return $employees;
     }
 
+    protected function getEmployeeReview()
+    {
+        $employees = Employee::select(
+            'id',
+            'first_name',
+            'last_name',
+            'hire_date',
+            'thirty_day_review',
+            'sixty_day_review'
+        )
+        ->where('status', 1)
+        ->where(function($q) {
+            $q->where('thirty_day_review', 0)->orWhere('sixty_day_review', 0);
+        })
+        ->whereHas('job', function($q) {
+            $q->where('description', 'hourly');
+        })
+        ->with(['costCenter', 'shift'])
+        ->orderBy('last_name', 'asc')
+        ->orderBy('first_name', 'asc')
+        ->get();
+        return $employees;
+    }
+
 
 
 

@@ -252,4 +252,17 @@ class QueryController extends Controller
             'employees' => $employees
         ]);
     }
+
+    public function employeeReview(Request $request)
+    {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        // Get all employees that need reviews from query trait
+        $employees = $this->getEmployeeReview();
+        // Get employee supervisors from supervisor trait
+        $employees = $this->getEmployeeSupervisors($employees);
+        return view('queries.employee-review', [
+            'employees' => $employees
+        ]);
+    }
 }
