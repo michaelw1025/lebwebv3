@@ -41,6 +41,9 @@
                 <a href="{{Route('queries.employee-reduction')}}" class="dropdown-item">Employee Reduction</a>
                 <a href="{{Route('queries.employee-turnover-hourly')}}" class="dropdown-item">Employee Turnover - Hourly</a>
                 <a href="{{Route('queries.employee-turnover-salary')}}" class="dropdown-item">Employee Turnover - Salary</a>
+                <a href="{{Route('queries.employee-hire-date-hourly')}}" class="dropdown-item">Employee Hire Date - Hourly</a>
+                <a href="{{Route('queries.employee-hire-date-salary')}}" class="dropdown-item">Employee Hire Date - Salary</a>
+                <a href="{{Route('queries.employee-bonus-hours')}}" class="dropdown-item">Employee Bonus Hours</a>
             </div>
         </li>
         <li class="nav-item dropdown w-100 {{in_array(Route::currentRouteName(), $manageNavArray) ? 'text-primary bg-white' : 'text-dark'}}">

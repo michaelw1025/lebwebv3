@@ -317,6 +317,61 @@ trait QueryTrait
         return $employees;
     }
 
+    protected function getEmployeeHireDate($searchJob, $startDate, $endDate)
+    {
+        $employees = Employee::select(
+            'id',
+            'first_name',
+            'last_name',
+            'hire_date',
+            'status'
+        )->whereHas('job', function($q) use($searchJob) {
+            $q->where('description', $searchJob);
+        })->whereDate('hire_date', '<=', $endDate)
+        ->whereDate('hire_date', '>=', $startDate)
+        ->with('costCenter', 'shift')
+        ->orderBy('hire_date', 'asc')
+        ->get();
+        return $employees;
+    }
+
+    protected function getEmployeeBonusHours()
+    {
+        // Get todays date
+        $today = Carbon::now();
+        // Get the first day of the previous quarter
+        $firstDayOfPreviousQuarter = $today->copy()->subQuarter()->firstOfQuarter();
+        // Get the last day of the previous quarter
+        $lastDayOfPreviousQuarter = $today->copy()->subQuarter()->lastOfQuarter()->endOfDay();
+        // Get 5 year hire date from last day of previous quarter
+        $fiveYearHireDate = $firstDayOfPreviousQuarter->copy()->subYears(5);
+        // Get85 year hire date from last day of previous quarter
+        $eightYearHireDate = $firstDayOfPreviousQuarter->copy()->subYears(8);
+
+        $employees = Employee::select(
+            'id',
+            'first_name',
+            'last_name',
+            'hire_date'
+        )->where('status', 1)
+        ->whereDate('hire_date', '<', $fiveYearHireDate)
+        ->whereHas('job', function($q) {
+            $q->where('description', 'hourly');
+        })->with(['disciplinary' => function($q) use($firstDayOfPreviousQuarter, $lastDayOfPreviousQuarter) {
+            $q->whereDate('date', '<=', $lastDayOfPreviousQuarter)->whereDate('date', '>=', $firstDayOfPreviousQuarter);
+        }, 'costCenter', 'shift'])
+        ->orderBy('hire_date', 'desc')
+        ->get();
+        foreach($employees as $employee){
+            if($employee->hire_date <= $eightYearHireDate){
+                $employee->bonus_years = 8;
+            }else{
+                $employee->bonus_years = 5;
+            }
+        }
+        return $employees;
+    }
+
 
 
 

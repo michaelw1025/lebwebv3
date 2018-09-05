@@ -25,6 +25,7 @@ use App\Http\Requests\SearchEmployeeBirthday;
 use App\Http\Requests\SearchEmployeeWageProgression;
 use App\Http\Requests\SearchEmployeeCostCenterIndividual;
 use App\Http\Requests\SearchEmployeeTurnover;
+use App\Http\Requests\SearchEmployeeHireDate;
 
 class QueryController extends Controller
 {
@@ -332,5 +333,70 @@ class QueryController extends Controller
             // If search is not submitted give a blank form
             return view('queries.employee-turnover-salary');
         }
+    }
+
+    public function employeeHireDateHourly(Request $request)
+    {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        // Set query for hourly
+        $searchJob = 'hourly';
+        // Check if search form is being submitted
+        if($request->has('start_date') && $request->has('end_date')){
+            // Set search start and end date from request
+            $startDate = $this->setAsDate($request->start_date);
+            $endDate = $this->setAsDate($request->end_date);
+            // Get employees with hire date between search dates from query trait
+            $employees = $this->getEmployeeHireDate($searchJob, $startDate, $endDate);
+            // Get employee supervisors from supervisor trait
+            $employees = $this->getEmployeeSupervisors($employees);
+            return view('queries.employee-hire-date-hourly',[
+                'employees' => $employees,
+                'startDate' => $startDate,
+                'endDate' => $endDate
+            ]);
+        }else{
+            // If search is not submitted give a blank form
+            return view('queries.employee-hire-date-hourly');
+        }
+    }
+
+    public function employeeHireDateSalary(SearchEmployeeHireDate $request)
+    {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        // Set query for salary
+        $searchJob = 'salary';
+        // Check if search form is being submitted
+        if($request->has('start_date') && $request->has('end_date')){
+            // Set search start and end date from request
+            $startDate = $this->setAsDate($request->start_date);
+            $endDate = $this->setAsDate($request->end_date);
+            // Get employees with hire date between search dates from query trait
+            $employees = $this->getEmployeeHireDate($searchJob, $startDate, $endDate);
+            // Get employee supervisors from supervisor trait
+            $employees = $this->getEmployeeSupervisors($employees);
+            return view('queries.employee-hire-date-salary', [
+                'employees' => $employees,
+                'startDate' => $startDate,
+                'endDate' => $endDate
+            ]);
+        }else{
+            // If search is not submitted give a blank form
+            return view('queries.employee-hire-date-salary');
+        }
+    }
+
+    public function employeeBonusHours(Request $request){
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        // Get all employees who may qualify for bonus hours from query trait
+        $employees = $this->getEmployeeBonusHours();
+        // Get employee supervisors from supervisor trait
+        $employees = $this->getEmployeeSupervisors($employees);
+        return view('queries.employee-bonus-hours', [
+            'employees' => $employees
+        ]);
+
     }
 }

@@ -56,6 +56,9 @@ Route::prefix('query')->group(function () {
     Route::get('/query-employee-reduction', 'QueryController@employeeReduction')->name('queries.employee-reduction');
     Route::get('/query-employee-turnover-hourly', 'QueryController@employeeTurnoverHourly')->name('queries.employee-turnover-hourly');
     Route::get('/query-employee-turnover-salary', 'QueryController@employeeTurnoverSalary')->name('queries.employee-turnover-salary');
+    Route::get('/query-employee-hire-date-hourly', 'QueryController@employeeHireDateHourly')->name('queries.employee-hire-date-hourly');
+    Route::get('/query-employee-hire-date-salary', 'QueryController@employeeHireDateSalary')->name('queries.employee-hire-date-salary');
+    Route::get('/query-employee-bonus-hours', 'QueryController@employeeBonusHours')->name('queries.employee-bonus-hours');
 });
 
 Route::prefix('export')->group(function() {
@@ -72,4 +75,7 @@ Route::prefix('export')->group(function() {
     Route::get('/export-employee-reduction', 'ExportController@exportEmployeeReduction')->name('export-employee-reduction');
     Route::get('/export-employee-turnover-hourly', 'ExportController@exportEmployeeTurnoverHourly')->name('export-employee-turnover-hourly');
     Route::get('/export-employee-turnover-salary', 'ExportController@exportEmployeeTurnoverSalary')->name('export-employee-turnover-salary');
+    Route::get('/export-employee-hire-date-hourly', 'ExportController@exportEmployeeHireDateHourly')->name('export-employee-hire-date-hourly');
+    Route::get('/export-employee-hire-date-salary', 'ExportController@exportEmployeeHireDateSalary')->name('export-employee-hire-date-salary');
+    Route::get('/export-employee-bonus-hours', 'ExportController@exportEmployeeBonusHours')->name('export-employee-bonus-hours');
 });

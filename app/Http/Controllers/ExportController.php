@@ -24,6 +24,8 @@ use App\Exports\ExportEmployeeCostCenterIndividual;
 use App\Exports\ExportEmployeeReview;
 use App\Exports\ExportEmployeeReduction;
 use App\Exports\ExportEmployeeTurnover;
+use App\Exports\ExportEmployeeHireDate;
+use App\Exports\ExportEmployeeBonusHours;
 
 use App\Employee;
 class ExportController extends Controller
@@ -228,5 +230,51 @@ class ExportController extends Controller
         $employees = $this->getEmployeeTurnover($searchJob, $startDate, $endDate);
         // Return the export
         return (new ExportEmployeeTurnover($employees))->download('employees-termination-salary-'.Carbon::now()->format('m-d-Y').'.xlsx');
+    }
+
+    public function exportEmployeeHireDateHourly(Request $request)
+    {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        // Set query for hourly
+        $searchJob = 'hourly';
+        // Set search start and end date from request
+        $startDate = $this->setAsDate($request->start_date);
+        $endDate = $this->setAsDate($request->end_date);
+        // Get employees with hire date between search dates from query trait
+        $employees = $this->getEmployeeHireDate($searchJob, $startDate, $endDate);
+        // Get employee supervisors from supervisor trait
+        $employees = $this->getEmployeeSupervisors($employees);
+        // Return the export
+        return (new ExportEmployeeHireDate($employees))->download('employees-hire-date-hourly-'.Carbon::now()->format('m-d-Y').'.xlsx');
+    }
+
+    public function exportEmployeeHireDateSalary(Request $request)
+    {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        // Set query for salary
+        $searchJob = 'salary';
+        // Set search start and end date from request
+        $startDate = $this->setAsDate($request->start_date);
+        $endDate = $this->setAsDate($request->end_date);
+        // Get employees with hire date between search dates from query trait
+        $employees = $this->getEmployeeHireDate($searchJob, $startDate, $endDate);
+        // Get employee supervisors from supervisor trait
+        $employees = $this->getEmployeeSupervisors($employees);
+        // Return the export
+        return (new ExportEmployeeHireDate($employees))->download('employees-hire-date-salary-'.Carbon::now()->format('m-d-Y').'.xlsx');
+    }
+
+    public function exportEmployeeBonusHours(Request $request)
+    {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        // Get all employees who may qualify for bonus hours from query trait
+        $employees = $this->getEmployeeBonusHours();
+        // Get employee supervisors from supervisor trait
+        $employees = $this->getEmployeeSupervisors($employees);
+        // Return the export
+        return (new ExportEmployeeBonusHours($employees))->download('employees-bonus-hours-'.Carbon::now()->format('m-d-Y').'.xlsx');
     }
 }
