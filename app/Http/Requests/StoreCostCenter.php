@@ -41,6 +41,7 @@ class StoreCostCenter extends FormRequest
 
         return [
             'number' => ['required', new CostCenterNumber($id, $this->extension)],
+            'description' => 'required|string|max:50',
             'staff_manager' => 'required',
             'day_team_manager' => 'required',
             'night_team_manager' => 'required',

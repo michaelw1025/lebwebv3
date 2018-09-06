@@ -55,10 +55,15 @@ class CostCenterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
+        // Get supervisors from supervisor trait
+        $supervisors = $this->getAllSupervisors();
+        return view('cost-center.cost-center-create', [
+            'supervisors' => $supervisors
+        ]);
     }
 
     /**
@@ -71,6 +76,31 @@ class CostCenterController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
+        $costCenter = new CostCenter();
+        $costCenter->number = $request->number;
+        $costCenter->extension = $request->extension;
+        $costCenter->description = $request->description;
+        if($costCenter->save()){
+            // Sync staff manager
+            $costCenter->employeeStaffManager()->sync([$request->staff_manager]);
+            // Sync day team manager
+            $costCenter->employeeDayTeamManager()->sync([$request->day_team_manager]);
+            // Sync night team manager
+            $costCenter->employeeNightTeamManager()->sync([$request->night_team_manager]);
+            // Sync day team leader
+            $costCenter->employeeDayTeamLeader()->sync([$request->day_team_leader]);
+            // Sync night team leader
+            $costCenter->employeeNightTeamLeader()->sync([$request->night_team_leader]);
+            // If the save was successful
+            \Session::flash('status', 'Cost center created successfully.');
+            // Return the show cost center view
+            return redirect()->route('costCenters.show', ['id' => $costCenter->id]);
+        }else{
+            // If the save was unsuccessful
+            \Session::flash('error', 'An error occurred while creating the cost center.  Please contact support for help.');
+            // Return back to the create cost center view
+            return redirect()->back()->withInput();
+        }
     }
 
     /**
@@ -167,9 +197,32 @@ class CostCenterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin']);
+        // Get cost center to delete
+        $costCenter = CostCenter::findOrFail($id);
+        // Unsync staff manager
+        $costCenter->employeeStaffManager()->sync([]);
+        // Unsync day team manager
+        $costCenter->employeeDayTeamManager()->sync([]);
+        // Unsync night team manager
+        $costCenter->employeeNightTeamManager()->sync([]);
+        // Unsync day team leader
+        $costCenter->employeeDayTeamLeader()->sync([]);
+        // Unsync night team leader
+        $costCenter->employeeNightTeamLeader()->sync([]);
+        if($costCenter->delete()) {
+            // If the delete was successful
+            \Session::flash('status', 'Cost center deleted successfully.');
+            // Return the show cost center view
+            return redirect()->route('costCenters.index');
+        } else {
+            // If the delete was unsuccessful
+            \Session::flash('error', 'An error occurred while deleting the cost center.  Please contact support for help.');
+            // Return back to the edit cost center view
+            return redirect()->back()->withInput();
+        }
     }
 }
