@@ -2,6 +2,9 @@
 
 namespace App\Traits;
 
+// Models
+use App\Employee;
+
 trait SupervisorTrait
 {
     // Get employee supervisors
@@ -46,6 +49,26 @@ trait SupervisorTrait
             }
         }
         return $employees;
+    }
+
+    protected function getAllSupervisors()
+    {
+        $supervisors = Employee::select(
+            'id',
+            'first_name',
+            'last_name'
+        )
+        ->where('status', 1)
+        ->whereHas('job', function($q) {
+            $q->where('description', 'salary');
+        })
+        ->orWhereHas('position', function($q) {
+            $q->where('description', 'specialist operations');
+        })
+        ->orderBy('last_name', 'asc')
+        ->orderBy('first_name', 'asc')
+        ->get();
+        return $supervisors;
     }
 
 }

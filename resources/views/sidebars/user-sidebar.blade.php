@@ -49,7 +49,7 @@
         <li class="nav-item dropdown w-100 {{in_array(Route::currentRouteName(), $manageNavArray) ? 'text-primary bg-white' : 'text-dark'}}">
             <a href="{{Route('users.index')}}" class="nav-link dropdown-toggle {{in_array(Route::currentRouteName(), $manageNavArray) ? 'text-primary' : 'text-dark'}}" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-cogs fa-lg sidebar-icon"></i><span class="d-none d-lg-inline-block">Manage</span></a>
             <div class="dropdown-menu">
-                <a href="{{Route('costCenters.index')}}" class="dropdown-item">Cost Center</a>
+                <a href="{{Route('costCenters.index')}}" class="dropdown-item">Cost Centers</a>
             </div>
         </li>
         <li class="nav-item dropdown w-100 {{in_array(Route::currentRouteName(), $biddingNavArray) ? 'text-primary bg-white' : 'text-dark'}}">
