@@ -53,4 +53,10 @@ class Position extends Model
     {
         return $this->belongsToMany('App\WageTitle');
     }
+
+    // Job relationship
+    public function job()
+    {
+        return $this->belongsToMany('App\Job');
+    }
 }

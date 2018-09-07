@@ -51,6 +51,7 @@
             <div class="dropdown-menu">
                 <a href="{{Route('costCenters.index')}}" class="dropdown-item">Cost Centers</a>
                 <a href="{{Route('jobs.index')}}" class="dropdown-item">Jobs</a>
+                <a href="{{Route('positions.index')}}" class="dropdown-item">Positions</a>
             </div>
         </li>
         <li class="nav-item dropdown w-100 {{in_array(Route::currentRouteName(), $biddingNavArray) ? 'text-primary bg-white' : 'text-dark'}}">
