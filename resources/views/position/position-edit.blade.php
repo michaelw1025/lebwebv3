@@ -80,7 +80,7 @@
                     <select class="custom-select {{$errors->has('wage_title') ? 'is-invalid' : ''}}" id="edit-position-wage-title" name="wage_title">
                     @if(!old('wage_title') && $position->wageTitle->count() > 0)
                     @foreach($position->wageTitle as $positionWageTitle)
-                    <option selected value="{{$positionWageTitle->pivot->employee_id}}">{{ucwords($positionWageTitle->description)}}</option>
+                    <option selected value="{{$positionWageTitle->pivot->wage_title_id}}">{{ucwords($positionWageTitle->description)}}</option>
                     @endforeach
                     @endif
                     <option value=""></option>

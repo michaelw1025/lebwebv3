@@ -4,6 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+// Models
+use App\Shift;
+
+// Requests
+use App\Http\Requests\StoreShift;
+
 class ShiftController extends Controller
 {
     /**
@@ -21,10 +27,15 @@ class ShiftController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        // Get all shifts
+        $shifts = Shift::all();
+        return view('shift.shifts', [
+            'shifts' => $shifts
+        ]);
     }
 
     /**
@@ -32,10 +43,11 @@ class ShiftController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
+        return view('shift.shift-create');
     }
 
     /**
@@ -44,10 +56,23 @@ class ShiftController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreShift $request)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
+        $shift = new Shift();
+        $shift->description = $request->description;
+        if($shift->save()){
+            // If the save was successful
+            \Session::flash('status', 'Shift created successfully.');
+            // Return the show shift view
+            return redirect()->route('shifts.show', ['id' => $shift->id]);
+        }else{
+            // If the save was unsuccessful
+            \Session::flash('error', 'An error occurred while creating the shift.  Please contact support for help.');
+            // Return back to the create shift view
+            return redirect()->back()->withInput();
+        }
     }
 
     /**
@@ -56,10 +81,15 @@ class ShiftController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        // Get shift
+        $shift = Shift::findOrFail($id);
+        return view('shift.shift-show', [
+            'shift' => $shift
+        ]);
     }
 
     /**
@@ -68,10 +98,15 @@ class ShiftController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
+        // Get shift to edit
+        $shift = Shift::findOrFail($id);
+        return view('shift.shift-edit', [
+            'shift' => $shift
+        ]);
     }
 
     /**
@@ -85,6 +120,20 @@ class ShiftController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
+        // Get shift to update
+        $shift = Shift::findOrFail($id);
+        $shift->description = $request->description;
+        if($shift->save()){
+            // If the save was successful
+            \Session::flash('status', 'Shift updated successfully.');
+            // Return the show shift view
+            return redirect()->route('shifts.show', ['id' => $shift->id]);
+        }else{
+            // If the save was unsuccessful
+            \Session::flash('error', 'An error occurred while updating the shift.  Please contact support for help.');
+            // Return back to the edit shift view
+            return redirect()->back()->withInput();
+        }
     }
 
     /**
@@ -93,9 +142,22 @@ class ShiftController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin']);
+        // Get shift to delete
+        $shift = Shift::findOrFail($id);
+        if($shift->delete()) {
+            // If the delete was successful
+            \Session::flash('status', 'Shift deleted successfully.');
+            // Return the show shift view
+            return redirect()->route('shifts.index');
+        } else {
+            // If the delete was unsuccessful
+            \Session::flash('error', 'An error occurred while deleting the shift.  Please contact support for help.');
+            // Return back to the edit shift view
+            return redirect()->back()->withInput();
+        }
     }
 }
