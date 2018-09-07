@@ -4,6 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+// Models
+use App\WageProgression;
+
+// Requests
+use App\Http\Requests\StoreWageProgression;
+
 class WageProgressionController extends Controller
 {
     /**
@@ -21,10 +27,15 @@ class WageProgressionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        // Get all wage progressions
+        $wageProgressions = WageProgression::all();
+        return view('wage-progression.wage-progressions', [
+            'wageProgressions' => $wageProgressions
+        ]);
     }
 
     /**
@@ -32,10 +43,11 @@ class WageProgressionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
+        return view('wage-progression.wage-progression-create');
     }
 
     /**
@@ -44,10 +56,23 @@ class WageProgressionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreWageProgression $request)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
+        $wageProgression = new WageProgression();
+        $wageProgression->month = $request->month;
+        if($wageProgression->save()){
+            // If the save was successful
+            \Session::flash('status', 'Wage progression created successfully.');
+            // Return the show wage progression view
+            return redirect()->route('wageProgressions.show', ['id' => $wageProgression->id]);
+        }else{
+            // If the save was unsuccessful
+            \Session::flash('error', 'An error occurred while creating the wage progression.  Please contact support for help.');
+            // Return back to the create wage progression view
+            return redirect()->back()->withInput();
+        }
     }
 
     /**
@@ -56,10 +81,15 @@ class WageProgressionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        // Get wage progression
+        $wageProgression = WageProgression::findOrFail($id);
+        return view('wage-progression.wage-progression-show', [
+            'wageProgression' => $wageProgression
+        ]);
     }
 
     /**
@@ -68,10 +98,15 @@ class WageProgressionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
+        // Get wage progression to edit
+        $wageProgression = WageProgression::findOrFail($id);
+        return view('wage-progression.wage-progression-edit', [
+            'wageProgression' => $wageProgression
+        ]);
     }
 
     /**
@@ -81,10 +116,24 @@ class WageProgressionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreWageProgression $request, $id)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
+        // Get wage progression to update
+        $wageProgression = WageProgression::findOrFail($id);
+        $wageProgression->month = $request->month;
+        if($wageProgression->save()){
+            // If the save was successful
+            \Session::flash('status', 'Wage progression updated successfully.');
+            // Return the show wage progression view
+            return redirect()->route('wageProgressions.show', ['id' => $wageProgression->id]);
+        }else{
+            // If the save was unsuccessful
+            \Session::flash('error', 'An error occurred while updating the wage progression.  Please contact support for help.');
+            // Return back to the edit wage progression view
+            return redirect()->back()->withInput();
+        }
     }
 
     /**
@@ -93,9 +142,22 @@ class WageProgressionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin']);
+        // Get wage progression to delete
+        $wageProgression = WageProgression::findOrFail($id);
+        if($wageProgression->delete()) {
+            // If the delete was successful
+            \Session::flash('status', 'Wage progression deleted successfully.');
+            // Return the show wage progression view
+            return redirect()->route('wageProgressions.index');
+        } else {
+            // If the delete was unsuccessful
+            \Session::flash('error', 'An error occurred while deleting the wage progression.  Please contact support for help.');
+            // Return back to the edit wage progression view
+            return redirect()->back()->withInput();
+        }
     }
 }
