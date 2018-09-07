@@ -4,6 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+// Models
+use App\WageTitle;
+use App\WageProgression;
+
+// Requests
+use App\Http\Requests\StoreWageTitle;
+
 class WageTitleController extends Controller
 {
     /**
@@ -21,10 +28,15 @@ class WageTitleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        // Get all wage titles
+        $wageTitles = WageTitle::with(['wageProgression'])->get();
+        return view('wage-title.wage-titles', [
+            'wageTitles' => $wageTitles
+        ]);
     }
 
     /**
@@ -32,7 +44,7 @@ class WageTitleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
@@ -44,7 +56,7 @@ class WageTitleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreWageTitle $request)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
@@ -56,10 +68,15 @@ class WageTitleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        // Get wage title
+        $wageTitle = WageTitle::with(['wageProgression'])->findOrFail($id);
+        return view('wage-title.wage-title-show', [
+            'wageTitle' => $wageTitle
+        ]);
     }
 
     /**
@@ -68,10 +85,18 @@ class WageTitleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
+        // Get wage title to edit
+        $wageTitle = WageTitle::with(['wageProgression'])->findOrFail($id);
+        // Get all wage progressions
+        $wageProgressions = WageProgression::all();
+        return view('wage-title.wage-title-edit', [
+            'wageTitle' => $wageTitle,
+            'wageProgressions' => $wageProgressions
+        ]);
     }
 
     /**
@@ -81,7 +106,7 @@ class WageTitleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreWageTitle $request, $id)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
@@ -93,7 +118,7 @@ class WageTitleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin']);

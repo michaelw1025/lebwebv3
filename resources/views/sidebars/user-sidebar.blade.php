@@ -54,6 +54,7 @@
                 <a href="{{Route('positions.index')}}" class="dropdown-item">Positions</a>
                 <a href="{{Route('shifts.index')}}" class="dropdown-item">Shifts</a>
                 <a href="{{Route('wageProgressions.index')}}" class="dropdown-item">Wage Progressions</a>
+                <a href="{{Route('wageTitles.index')}}" class="dropdown-item">Wage Titles</a>
             </div>
         </li>
         <li class="nav-item dropdown w-100 {{in_array(Route::currentRouteName(), $biddingNavArray) ? 'text-primary bg-white' : 'text-dark'}}">

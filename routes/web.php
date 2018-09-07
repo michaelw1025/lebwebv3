@@ -40,6 +40,7 @@ Route::prefix('hr')->group(function() {
     Route::resource('terminations', 'TerminationController');
     Route::resource('reductions', 'ReductionController');
     Route::resource('wageProgressions', 'WageProgressionController');
+    Route::resource('wageTitles', 'WageTitleController');
 });
 
 Route::prefix('query')->group(function () {
