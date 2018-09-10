@@ -13,7 +13,7 @@
             @endslot
 
             @slot('fontIcon')
-            fa-funnel-dollar
+            fa-balance-scale
             @endslot
 
             @slot('fontSize')
