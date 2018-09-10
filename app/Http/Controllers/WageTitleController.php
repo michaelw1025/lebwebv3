@@ -48,6 +48,11 @@ class WageTitleController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
+        // Get all wage progressions
+        $wageProgressions = WageProgression::orderBy('month', 'asc')->get();
+        return view('wage-title.wage-title-create', [
+            'wageProgressions' => $wageProgressions
+        ]);
     }
 
     /**
@@ -60,6 +65,26 @@ class WageTitleController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
+        $wageTitle = new WageTitle();
+        $wageTitle->description = $request->description;
+        if($wageTitle->save()){
+            // Create an array to hold the wage progression sync data
+            $wageProgressionArray = array();
+            // Sync wage progression months and amounts
+            foreach($request->wage_progression as $wageProgression){
+                $wageProgressionArray += [$wageProgression['id'] => ['amount' => $wageProgression['amount']]];
+            }
+            $wageTitle->wageProgression()->sync($wageProgressionArray);
+            // If the save was successful
+            \Session::flash('status', 'Wage title created successfully.');
+            // Return the show wage title view
+            return redirect()->route('wageTitles.show', ['id' => $wageTitle->id]);
+        }else{
+            // If the save was unsuccessful
+            \Session::flash('error', 'An error occurred while creating the wage title.  Please contact support for help.');
+            // Return back to the create wage title view
+            return redirect()->back()->withInput();
+        }
     }
 
     /**
@@ -92,7 +117,7 @@ class WageTitleController extends Controller
         // Get wage title to edit
         $wageTitle = WageTitle::with(['wageProgression'])->findOrFail($id);
         // Get all wage progressions
-        $wageProgressions = WageProgression::all();
+        $wageProgressions = WageProgression::orderBy('month', 'asc')->get();
         return view('wage-title.wage-title-edit', [
             'wageTitle' => $wageTitle,
             'wageProgressions' => $wageProgressions
@@ -110,6 +135,27 @@ class WageTitleController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
+        // Get the wage title to update
+        $wageTitle = WageTitle::findOrFail($id);
+        $wageTitle->description = $request->description;
+        if($wageTitle->save()){
+            // Create an array to hold the wage progression sync data
+            $wageProgressionArray = array();
+            // Sync wage progression months and amounts
+            foreach($request->wage_progression as $wageProgression){
+                $wageProgressionArray += [$wageProgression['id'] => ['amount' => $wageProgression['amount']]];
+            }
+            $wageTitle->wageProgression()->sync($wageProgressionArray);
+            // If the save was successful
+            \Session::flash('status', 'Wage title updated successfully.');
+            // Return the show wage title view
+            return redirect()->route('wageTitles.show', ['id' => $wageTitle->id]);
+        }else{
+            // If the save was unsuccessful
+            \Session::flash('error', 'An error occurred while updating the wage title.  Please contact support for help.');
+            // Return back to the edit wage title view
+            return redirect()->back()->withInput();
+        }
     }
 
     /**
@@ -122,5 +168,20 @@ class WageTitleController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin']);
+        // Get the wage title to delete
+        $wageTitle = WageTitle::findOrFail($id);
+        // Unsync all wage progression months and amounts
+        $wageTitle->wageProgression()->sync([]);
+        if($wageTitle->delete()) {
+            // If the delete was successful
+            \Session::flash('status', 'Wage title deleted successfully.');
+            // Return the show wage title view
+            return redirect()->route('wageTitles.index');
+        } else {
+            // If the delete was unsuccessful
+            \Session::flash('error', 'An error occurred while deleting the wage title.  Please contact support for help.');
+            // Return back to the edit wage title view
+            return redirect()->back()->withInput();
+        }
     }
 }

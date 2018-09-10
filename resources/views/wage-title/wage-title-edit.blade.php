@@ -56,6 +56,16 @@
             </div>
 
             <div class="form-row mt-4">
+                @if($errors->has('wage_progression.*.amount'))
+                    <p class="text-danger">
+                        {{$errors->first('wage_progression.*.amount')}}
+                    </p>
+                @endif
+                @if($errors->has('wage_progression.*.numeric'))
+                    <p class="text-danger">
+                        {{$errors->first('wage_progression.*.numeric')}}
+                    </p>
+                @endif
 
                 @foreach($wageProgressions as $wageProgression)
                 <div class="input-group mb-2">
@@ -65,12 +75,15 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">$</span>
                     </div>
-                    <input type="text" class="form-control" id="edit-wage-title-wage-progression-{{$wageProgression->id}}-id" name="wage_progression[{{$loop->index}}][id]" value="{{$wageProgression->id}}" disabled>
-                    @if(old('wage_progression[{{$loop->index}}][amount]'))
-                    <!-- <input type="text" class="form-control" value="{{old('wage_progression.'.$loop->index.'.amount')}}"> -->
-                    yessss
+                    <input type="text" class="form-control d-none" id="edit-wage-title-wage-progression-{{$wageProgression->id}}-id" name="wage_progression[{{$loop->index}}][id]" value="{{$wageProgression->id}}" readonly>
+                    @if(old('wage_progression'))
+                    <input type="text" class="form-control {{$errors->has('wage_progression.'.$loop->index.'.amount') ? 'is-invalid' : ''}} {{$errors->has('wage_progression.'.$loop->index.'.numeric') ? 'is-invalid' : ''}}" name="wage_progression[{{$loop->index}}][amount]" value="{{old('wage_progression.'.$loop->index.'.amount')}}">
                     @else
-                    <input type="text" class="form-control" name="wage_progression[{{$loop->index}}][amount]" value="{{$loop->index}}">
+                    @foreach($wageTitle->wageProgression as $wageTitleWageProgression)
+                    @if($wageTitleWageProgression->pivot->wage_progression_id == $wageProgression->id)
+                    <input type="text" class="form-control {{$errors->has('wage_progression.'.$loop->parent->index.'.amount') ? 'is-invalid' : ''}} {{$errors->has('wage_progression.'.$loop->parent->index.'.numeric') ? 'is-invalid' : ''}}" name="wage_progression[{{$loop->parent->index}}][amount]" value="{{$wageTitleWageProgression->pivot->amount}}">
+                    @endif
+                    @endforeach
                     @endif
                                    
                 </div>

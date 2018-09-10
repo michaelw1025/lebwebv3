@@ -10,18 +10,4 @@ Fix phone number at small sizes
 
 Fix emergency contact at small sizes
 
-Add slot for export button to all views
-
-Queries:
-    Employee Reviews
-    Employee Reductions Hourly
-    Employee Reductions Salary
-    Employee Turnover Hourly
-    Employee Turnover Salary
-    Employee Anniversaries
-    Employee Hire Date
-    Cost Center
-    Wage Progression Hourly
-    Bonus Hours Hourly
-
-Move dates from DateTime to Date
+Manage -> Teams

@@ -29,7 +29,23 @@ class StoreWageTitle extends FormRequest
     public function rules()
     {
         return [
-            'test' => 'required'
+            'description' => 'required|string|max:25',
+            'wage_progression.*.amount' => 'required|numeric'
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            
+            'wage_progression.*.amount.required' => 'Each month of the progression must have a wage amount.  If a wage does not apply to a month please use 0.',
+            'wage_progression.*.numeric' => 'The amount field must be numeric.'
+
         ];
     }
 }
