@@ -1,0 +1,112 @@
+v 2.0.0
+-9-11-18
+-major upgrade
+
+v 1.6.8
+-7-23-18
+-changed hr anniversary query from using hire date to using service date
+
+v 1.6.7
+-7-23-18
+-removed clickable row from Show Wage Title, this was causing data entry to trigger a premature db query
+
+v 1.6.6
+-7-5-18
+-minor change to keep migrations updated
+
+v 1.6.6
+-7-3-18
+-removed salary employees from bonus hours query and excel export
+-corrected error in wage progression query where Position was showing incorrect information
+-tested adding a new Wage Title for FST
+
+v 1.6.5
+-6-26-18
+-corrected error where the id of edited wage_title_wage_progression amounts would be changed
+
+v 1.6.4
+-6-19-18
+-corrected error when getting an empty staffManager for employee with no assigned cost center
+-imported correct employee shifts
+
+v 1.6.3
+-6-19-18
+-corrected page errors when encountering blank employee data
+-changed orderBy of Disciplinary
+
+v 1.6.2
+-6-18-18
+-corrected emergency contact name character limit
+-corrected cost center error
+
+v 1.6.1
+-6-18-18
+-corrected error where cost centers could be duplicated
+
+v 1.6.0
+-6-18-18
+-added an extension to cost centers to account for multiple managers and leaders on same shift for same cost center
+
+v 1.5.4
+-6-18-18
+-minor bug fixes
+
+v 1.5.3
+-6-18-18
+-removed hrassistant from Job editing
+-remove hrassistant from Position editing
+-remove hrassistant from Shift editing
+-remove hrassistant from Team editing
+-remove hrassistant from Wage Progression editing
+-remove hrassistant from Wage Title editing
+
+
+v 1.5.2
+-6-18-18
+-alphabetized CC Team Managers/Leaders
+
+v 1.5.1
+-6-16-18
+-minor bug fix
+
+v 1.5.0
+-6-16-18
+-created import seeders
+-cost center query, changed from using indexes to foreach
+-hire date query, changed from using indexes to foreach
+-hire date query, removed references to terminations
+
+v 1.4.0
+-6-13-18
+-removed all insurances
+
+v 1.3.2
+-6-12-18
+-added middleware to all controllers to handle session timeout redirect
+
+v 1.3.1
+-6-12-18
+-added shift to anniversary query
+-fixed bonus hours query title
+-added Manage title to all manage tabs
+
+v 1.3.0
+-5-29-18
+-swapped job and position throughout site and db
+-added progression date and month to wage progression excel export
+
+v 1.2.1
+-5-17-18
+-Added progression date to wage progression query
+
+v 1.2.0
+-5-9-18
+-Added bonus hours excel export
+
+v 1.1.0
+-5-8-18
+-Added wage progression excel export
+
+v 1.0.0
+-5-7-18
+-Initial stable realease
