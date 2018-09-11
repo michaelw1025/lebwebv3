@@ -25,7 +25,11 @@
                 @endslot
 
                 @slot('displayExport')
+                @if(isset($searchCostCenter))
                 d-block
+                @else
+                d-none
+                @endif
                 @endslot
 
                 @slot('exportRoute')

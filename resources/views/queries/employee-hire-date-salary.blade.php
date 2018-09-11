@@ -25,7 +25,11 @@
                 @endslot
 
                 @slot('displayExport')
+                @if(isset($employees))
                 d-block
+                @else
+                d-none
+                @endif
                 @endslot
 
                 @slot('exportRoute')
