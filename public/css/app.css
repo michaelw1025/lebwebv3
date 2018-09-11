@@ -21087,7 +21087,7 @@ body {
 }
 
 body.welcome-body {
-  background: url("../images/beach.jpeg") no-repeat center center fixed;
+  background: url("../images/welcome1.jpg") no-repeat center center fixed;
   background-size: cover;
   -o-background-size: cover;
 }

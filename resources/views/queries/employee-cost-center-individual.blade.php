@@ -29,7 +29,9 @@
                 @endslot
 
                 @slot('exportRoute')
+                @if(isset($searchCostCenter))
                 {{Route('export-employee-cost-center-individual', ['cost_center' => $searchCostCenter])}}
+                @endif
                 @endslot
         @endcomponent
                 
