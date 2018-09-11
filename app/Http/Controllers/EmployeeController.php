@@ -82,7 +82,7 @@ class EmployeeController extends Controller
     public function create(Request $request)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         // Get all cost centers
         $costCenters = CostCenter::orderBy('number', 'asc')->orderBy('extension', 'asc')->get();
         // Get all shifts
@@ -115,7 +115,7 @@ class EmployeeController extends Controller
     public function store(StoreEmployee $request)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         // Create a new employee object
         $employee = new Employee();
         // Assign values to employee object
@@ -272,7 +272,7 @@ class EmployeeController extends Controller
     public function edit(Request $request, $id)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         // Get employee to edit
         $employee = Employee::with(
             'costCenter.employeeStaffManager',
@@ -339,7 +339,7 @@ class EmployeeController extends Controller
     public function update(StoreEmployee $request, $id)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
 
         // return $request;
 
