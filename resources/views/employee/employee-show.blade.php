@@ -25,7 +25,7 @@
             @endslot
 
             @slot('displayExport')
-            d-block
+            d-none
             @endslot
 
             @slot('exportRoute')
@@ -65,7 +65,7 @@
                     <input type="text" class="form-control" id="show-employee-middle-initial" name="middle_initial" value="{{$employee->middle_initial}}" disabled>
                 </div>
                 <div class="form-group col-md-6 col-lg-4">
-                    <label for="show-employee-maiden-name">Maiden Name</label>
+                    <label for="show-employee-maiden-name">Previous Name</label>
                     <input type="text" class="form-control" id="show-employee-maiden-name" name="maiden_name" value="{{$employee->maiden_name}}" disabled>
                 </div>
                 <div class="form-group col-md-6 col-lg-4">
@@ -224,8 +224,8 @@
                 <thead class="bg-header text-light">
                     <tr>
                         <th><span class="d-none d-sm-block">Month</span><span class="d-sm-none">Mth</span></th>
-                        <th><span class="d-none d-sm-block">Amount</span><span class="d-sm-none">Amt</span></th>
                         <th><span class="d-none d-sm-block">Increase Date</span><span class="d-sm-none">Date</span></th>
+                        <th><span class="d-none d-sm-block">Amount</span><span class="d-sm-none">Amt</span></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -234,7 +234,6 @@
                     @foreach($employeePositionWageTitle->wageProgression as $employeePositionWageProgression)
                     <tr class="@foreach($employee->wageProgressionWageTitle as $employeeCurrentWage) {{$employeeCurrentWage->id === $employeePositionWageProgression->pivot->id ? 'table-info' : ''}} @endforeach" data-href="">
                         <td>{{$employeePositionWageProgression->month}}</td>
-                        <td>{{$employeePositionWageProgression->pivot->amount}}</td>
                         <td>
                         @foreach($employee->wageProgression as $employeeWageProgression)
                         @if($employeeWageProgression->pivot->wage_progression_id === $employeePositionWageProgression->pivot->wage_progression_id)
@@ -242,6 +241,7 @@
                         @endif
                         @endforeach
                         </td>
+                        <td>{{$employeePositionWageProgression->pivot->amount}}</td>
                     </tr>
                     @endforeach
                     @endforeach

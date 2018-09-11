@@ -11,13 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
-
-Route::get('/theme', function () {
-    return view('theme-test');
-});
+Route::get('/', 'GuestController@welcome')->name('welcome');
 
 Auth::routes();
 

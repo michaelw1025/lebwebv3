@@ -72,7 +72,7 @@
                     @endif
                 </div>
                 <div class="form-group col-md-6 col-lg-4">
-                    <label for="create-employee-maiden-name">Maiden Name</label>
+                    <label for="create-employee-maiden-name">Previous Name</label>
                     <input type="text" class="form-control {{$errors->has('maiden_name') ? 'is-invalid' : ''}}" id="create-employee-maiden-name" name="maiden_name" value="{{old('maiden_name')}}">
                     @if($errors->has('maiden_name'))
                         <span class="invalid-feedback" role="alert">
@@ -382,8 +382,8 @@
                 <thead class="bg-header text-light">
                     <tr>
                         <th><span class="d-none d-sm-block">Month</span><span class="d-sm-none">Mth</span></th>
-                        <th><span class="d-none d-sm-block">Amount</span><span class="d-sm-none">Amt</span></th>
                         <th><span class="d-none d-sm-block">Increase Date</span><span class="d-sm-none">Date</span></th>
+                        <th><span class="d-none d-sm-block">Amount</span><span class="d-sm-none">Amt</span></th>
                     </tr>
                 </thead>
 
@@ -398,6 +398,15 @@
                     @foreach($wageProgressions as $wageProgression)
                     <tr>
                         <td>{{$wageProgression->month}}</td>
+                        <td>
+                            <input type="text" class="form-control col-12 col-lg-6 datepicker progression-event {{$errors->has('progression_event.'.$loop->iteration.'.date') ? 'is-invalid' : ''}}" id="create-employee-progression-event-date-{{$loop->iteration}}" name="progression_event[{{$loop->iteration}}][date]" value="{{old('progression_event') ? old('progression_event.'.$loop->iteration.'.date') : ''}}" >
+                            <input hidden type="text" class="form-control col-12 col-lg-6" id="create-employee-progression-event-id-{{$loop->iteration}}" name="progression_event[{{$loop->iteration}}][id]" value="{{$wageProgression->id}}">
+                            @if($errors->has('progression_event.'.$loop->iteration.'.date'))
+                                <span class="invalid-feedback" role="alert">
+                                    {{$errors->first('progression_event.'.$loop->iteration.'.date')}}
+                                </span>
+                            @endif
+                        </td>
                         @foreach($wageTitles as $wageTitle)
                         @foreach($wageTitle->wageProgression as $wageTitleProgression)
                         @if($wageTitleProgression->id === $wageProgression->id)
@@ -410,15 +419,6 @@
                         @endif
                         @endforeach
                         @endforeach
-                        <td>
-                            <input type="text" class="form-control col-12 col-lg-6 datepicker progression-event {{$errors->has('progression_event.'.$loop->iteration.'.date') ? 'is-invalid' : ''}}" id="create-employee-progression-event-date-{{$loop->iteration}}" name="progression_event[{{$loop->iteration}}][date]" value="{{old('progression_event') ? old('progression_event.'.$loop->iteration.'.date') : ''}}" >
-                            <input hidden type="text" class="form-control col-12 col-lg-6" id="create-employee-progression-event-id-{{$loop->iteration}}" name="progression_event[{{$loop->iteration}}][id]" value="{{$wageProgression->id}}">
-                            @if($errors->has('progression_event.'.$loop->iteration.'.date'))
-                                <span class="invalid-feedback" role="alert">
-                                    {{$errors->first('progression_event.'.$loop->iteration.'.date')}}
-                                </span>
-                            @endif
-                        </td>
                     </tr>
                     @endforeach   
                 </tbody>
