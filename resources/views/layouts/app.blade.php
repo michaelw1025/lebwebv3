@@ -5,7 +5,7 @@
     $queriesNavArray = array('queries.employee-alphabetical-hourly', 'queries.employee-alphabetical-salary', 'queries.employee-anniversary-by-month', 'queries.employee-anniversary-by-quarter', 'queries.employee-birthday', 'queries.employee-seniority', 'queries.employee-wage-progression', 'queries.employee-cost-center-all', 'queries.employee-cost-center-individual', 'queries.employee-disciplinary-all');
     $manageNavArray = array();
     $biddingNavArray = array();
-    $contractorsNavArray = array();
+    $contractorsNavArray = array('contractors.index', 'contractors.create', 'contractors.store', 'contractors.show', 'contractors.edit', 'contractors.update', 'contractors.destroy', 'contractorTrainings.index', 'contractorTrainings.create', 'contractorTrainings.store', 'contractorTrainings.show', 'contractorTrainings.edit', 'contractorTrainings.update', 'contractorTrainings.destroy');
 @endphp
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">

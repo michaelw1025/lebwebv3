@@ -66,9 +66,14 @@
         <!-- <li class="nav-item dropdown w-100 {{in_array(Route::currentRouteName(), $contractorsNavArray) ? 'text-primary bg-white' : 'text-dark'}}">
             <a href="{{Route('users.index')}}" class="nav-link dropdown-toggle {{in_array(Route::currentRouteName(), $contractorsNavArray) ? 'text-primary' : 'text-dark'}}" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-clipboard-check fa-lg sidebar-icon"></i><span class="d-none d-lg-inline-block">Contractors</span></a>
             <div class="dropdown-menu">
-                <a href="" class="dropdown-item">Add New</a>
+            <a href="{{Route('contractors.index')}}" class="dropdown-item">Company</a>
+            <a href="{{Route('contractorTrainings.index')}}" class="dropdown-item">Employee</a>
             </div>
         </li> -->
+        <li class="nav-item w-100 {{in_array(Route::currentRouteName(), $contractorsNavArray) ? 'text-primary bg-white' : ''}}">
+            <a href="{{Route('contractors.index')}}" class="nav-link {{in_array(Route::currentRouteName(), $contractorsNavArray) ? 'text-primary' : 'text-dark'}}"><i class="fas fa-clipboard-check fa-lg sidebar-icon"></i><span class="d-none d-lg-inline-block">Contractors</span>
+            </a>
+        </li>
         @endif
     </ul>
 </nav>
