@@ -25,6 +25,7 @@ use App\Traits\DateTrait;
 use App\Traits\StateTrait;
 use App\Traits\DisciplinaryTrait;
 use App\Traits\WageTrait;
+use App\Traits\SupervisorTrait;
 
 // Requests
 use App\Http\Requests\StoreEmployee;
@@ -35,6 +36,7 @@ class EmployeeController extends Controller
     use StateTrait;
     use DisciplinaryTrait;
     use WageTrait;
+    use SupervisorTrait;
 
     /**
      * Create a new controller instance.
@@ -232,11 +234,11 @@ class EmployeeController extends Controller
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         // Get employee
         $employee = Employee::with(
-            'costCenter.employeeStaffManager',
-            'costCenter.employeeDayTeamManager',
-            'costCenter.employeeNightTeamManager',
-            'costCenter.employeeDayTeamLeader',
-            'costCenter.employeeNightTeamLeader',
+            // 'costCenter.employeeStaffManager',
+            // 'costCenter.employeeDayTeamManager',
+            // 'costCenter.employeeNightTeamManager',
+            // 'costCenter.employeeDayTeamLeader',
+            // 'costCenter.employeeNightTeamLeader',
             'shift',
             'position.wageTitle.wageProgression',
             'job',
@@ -248,7 +250,8 @@ class EmployeeController extends Controller
             'wageProgression',
             'wageProgressionWageTitle'
         )->findOrFail($id);
-        // return $employee;
+        // Get employee supervisors from supervisor trait
+        $employee = $this->getEmployeeSupervisors($employee);
         // Get the full name of the state
         $this->checkState($employee);
         // Get disciplinary info
@@ -275,11 +278,6 @@ class EmployeeController extends Controller
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         // Get employee to edit
         $employee = Employee::with(
-            'costCenter.employeeStaffManager',
-            'costCenter.employeeDayTeamManager',
-            'costCenter.employeeNightTeamManager',
-            'costCenter.employeeDayTeamLeader',
-            'costCenter.employeeNightTeamLeader',
             'shift',
             'position.wageTitle.wageProgression',
             'job',
@@ -291,7 +289,8 @@ class EmployeeController extends Controller
             'wageProgression',
             'wageProgressionWageTitle'
         )->findOrFail($id);
-        // return $employee;
+        // Get employee supervisors from supervisor trait
+        $employee = $this->getEmployeeSupervisors($employee);
         // Get the full name of the state
         $this->checkState($employee);
         // Get all cost centers

@@ -54,7 +54,9 @@ class ExportController extends Controller
         // Get all hourly employees from query trait
         $employees = $this->getEmployeeAlphabetical($request, 'hourly');
         // Get employee supervisors from supervisor trait
-        $employees = $this->getEmployeeSupervisors($employees);
+        foreach($employees as $employee){
+            $employee = $this->getEmployeeSupervisors($employee);
+        }
         // Set the employee info for the export
         $employees = $this->setEmployeeAlphabeticalExportInfo($employees);
         return (new ExportEmployeeAlphabetical($employees))->download('employees-alphabetical-hourly-'.Carbon::now()->format('m-d-Y').'.xlsx');
@@ -67,7 +69,9 @@ class ExportController extends Controller
         // Get all salary employees from query trait
         $employees = $this->getEmployeeAlphabetical($request, 'salary');
         // Get employee supervisors from supervisor trait
-        $employees = $this->getEmployeeSupervisors($employees);
+        foreach($employees as $employee){
+            $employee = $this->getEmployeeSupervisors($employee);
+        }
         // Set the employee info for the export
         $employees = $this->setEmployeeAlphabeticalExportInfo($employees);
         return (new ExportEmployeeAlphabetical($employees))->download('employees-alphabetical-salary-'.Carbon::now()->format('m-d-Y').'.xlsx');
@@ -83,7 +87,9 @@ class ExportController extends Controller
         // Get employees from query trait
         $employees = $this->getEmployeeAnniversaryByMonth($searchMonth, $searchYear);
         // Get employee supervisors from supervisor trait
-        $employees = $this->getEmployeeSupervisors($employees);
+        foreach($employees as $employee){
+            $employee = $this->getEmployeeSupervisors($employee);
+        }
         // Set the employee info for the export
         $employees = $this->setEmployeeAnniversaryExportInfo($employees);
         // Return the export
@@ -101,7 +107,9 @@ class ExportController extends Controller
         // Get employees from query trait
         $employees = $this->getEmployeeAnniversaryByQuarter($searchQuarter, $searchYear);
         // Get employee supervisors from supervisor trait
-        $employees = $this->getEmployeeSupervisors($employees);
+        foreach($employees as $employee){
+            $employee = $this->getEmployeeSupervisors($employee);
+        }
         // Set the employee info for the export
         $employees = $this->setEmployeeAnniversaryExportInfo($employees);
         // Return the export
@@ -116,7 +124,9 @@ class ExportController extends Controller
         // Get employees from query trait
         $employees = $this->getEmployeeBirthday($searchMonth);
         // Get employee supervisors from supervisor trait
-        $employees = $this->getEmployeeSupervisors($employees);
+        foreach($employees as $employee){
+            $employee = $this->getEmployeeSupervisors($employee);
+        }
         // Set the employee info for the export
         $employees = $this->setEmployeeBirthdayExportInfo($employees);
         // Return the export
@@ -133,7 +143,9 @@ class ExportController extends Controller
         // Get employees from query trait
         $employees = $this->getEmployeeWageProgression($searchMonth, $searchYear);
         // Get employee supervisors from supervisor trait
-        $employees = $this->getEmployeeSupervisors($employees);
+        foreach($employees as $employee){
+            $employee = $this->getEmployeeSupervisors($employee);
+        }
         // Set progression date as date instance in wage trait
         foreach($employees as $employee){
             $this->setWageEventDate($employee);
@@ -181,7 +193,9 @@ class ExportController extends Controller
         // Get all employees that need reviews from query trait
         $employees = $this->getEmployeeReview();
         // Get employee supervisors from supervisor trait
-        $employees = $this->getEmployeeSupervisors($employees);
+        foreach($employees as $employee){
+            $employee = $this->getEmployeeSupervisors($employee);
+        }
         // Return the export
         return (new ExportEmployeeReview($employees))->download('employees-review-'.Carbon::now()->format('m-d-Y').'.xlsx');
     }
@@ -244,7 +258,9 @@ class ExportController extends Controller
         // Get employees with hire date between search dates from query trait
         $employees = $this->getEmployeeHireDate($searchJob, $startDate, $endDate);
         // Get employee supervisors from supervisor trait
-        $employees = $this->getEmployeeSupervisors($employees);
+        foreach($employees as $employee){
+            $employee = $this->getEmployeeSupervisors($employee);
+        }
         // Return the export
         return (new ExportEmployeeHireDate($employees))->download('employees-hire-date-hourly-'.Carbon::now()->format('m-d-Y').'.xlsx');
     }
@@ -261,7 +277,9 @@ class ExportController extends Controller
         // Get employees with hire date between search dates from query trait
         $employees = $this->getEmployeeHireDate($searchJob, $startDate, $endDate);
         // Get employee supervisors from supervisor trait
-        $employees = $this->getEmployeeSupervisors($employees);
+        foreach($employees as $employee){
+            $employee = $this->getEmployeeSupervisors($employee);
+        }
         // Return the export
         return (new ExportEmployeeHireDate($employees))->download('employees-hire-date-salary-'.Carbon::now()->format('m-d-Y').'.xlsx');
     }
@@ -273,7 +291,9 @@ class ExportController extends Controller
         // Get all employees who may qualify for bonus hours from query trait
         $employees = $this->getEmployeeBonusHours();
         // Get employee supervisors from supervisor trait
-        $employees = $this->getEmployeeSupervisors($employees);
+        foreach($employees as $employee){
+            $employee = $this->getEmployeeSupervisors($employee);
+        }
         // Return the export
         return (new ExportEmployeeBonusHours($employees))->download('employees-bonus-hours-'.Carbon::now()->format('m-d-Y').'.xlsx');
     }

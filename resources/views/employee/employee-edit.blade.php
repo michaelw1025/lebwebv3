@@ -44,11 +44,18 @@
                 <a href="{{route('employees.show', ['id' => $employee->id])}}" class="h3 text-primary mb-4"><i class="fas fa-arrow-left"></i> Return To Show {{$employee->first_name}} {{$employee->last_name}}</a>
             </div>
             
-            @if($employee->photo_link !== null)
-            <img src="/storage/{{$employee->photo_link}}" alt="Employee Photo" class="img-thumbnail mb-2" width="100" height="100">
-            @else
-            <img src="/storage/unknown.png" alt="Employee Photo" class="img-thumbnail mb-2" width="100" height="100">
-            @endif
+            <div class="clearfix">
+                @if($employee->photo_link !== null)
+                <img src="/storage/{{$employee->photo_link}}" alt="Employee Photo" class="img-thumbnail mb-2 float-md-left" width="100" height="100">
+                @else
+                <img src="/storage/unknown.png" alt="Employee Photo" class="img-thumbnail mb-2 float-md-left" width="100" height="100">
+                @endif
+
+                <div class="float-md-right bg-info p-2 mb-2">
+                    <h3>Team Manager: {{$employee->team_manager}}</h3>
+                    <h3>Team Leader: {{$employee->team_leader}}</h3>
+                </div>
+            </div>
 
             <p class="text-danger">@component('components.required-icon')@endComponent indicates a required field</p>
 

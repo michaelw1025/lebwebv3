@@ -53,7 +53,9 @@ class QueryController extends Controller
         // Get all hourly employees from query trait
         $employees = $this->getEmployeeAlphabetical($request, 'hourly');
         // Get employee supervisors from supervisor trait
-        $employees = $this->getEmployeeSupervisors($employees);
+        foreach($employees as $employee){
+            $employee = $this->getEmployeeSupervisors($employee);
+        }
         return view('queries.employee-alphabetical-hourly', [
             'employees' => $employees
         ]);
@@ -66,7 +68,9 @@ class QueryController extends Controller
         // Get all salary employees from query trait
         $employees = $this->getEmployeeAlphabetical($request, 'salary');
         // Get employee supervisors from supervisor trait
-        $employees = $this->getEmployeeSupervisors($employees);
+        foreach($employees as $employee){
+            $employee = $this->getEmployeeSupervisors($employee);
+        }
         return view('queries.employee-alphabetical-salary', [
             'employees' => $employees
         ]);
@@ -85,7 +89,9 @@ class QueryController extends Controller
             // Get employees from query trait
             $employees = $this->getEmployeeAnniversaryByMonth($searchMonth, $searchYear);
             // Get employee supervisors from supervisor trait
-            $employees = $this->getEmployeeSupervisors($employees);
+            foreach($employees as $employee){
+                $employee = $this->getEmployeeSupervisors($employee);
+            }
 
             return view('queries.employee-anniversary-by-month', [
                 'employees' => $employees,
@@ -111,7 +117,9 @@ class QueryController extends Controller
             // Get employees from query trait
             $employees = $this->getEmployeeAnniversaryByQuarter($searchQuarter, $searchYear);
             // Get employee supervisors from supervisor trait
-            $employees = $this->getEmployeeSupervisors($employees);
+            foreach($employees as $employee){
+                $employee = $this->getEmployeeSupervisors($employee);
+            }
             return view('queries.employee-anniversary-by-quarter', [
                 'employees' => $employees,
                 'quarter' => $searchQuarter,
@@ -130,7 +138,9 @@ class QueryController extends Controller
         $employees = Employee::where('status', 1)->with(['job', 'shift', 'position'
         ])->orderBy('hire_date',  'asc')->get();
         // Get employee supervisors from supervisor trait
-        $employees = $this->getEmployeeSupervisors($employees);
+        foreach($employees as $employee){
+            $employee = $this->getEmployeeSupervisors($employee);
+        }
         return view('queries.employee-seniority', [
             'employees' => $employees
         ]);
@@ -148,7 +158,9 @@ class QueryController extends Controller
             // Get employees from query trait
             $employees = $this->getEmployeeBirthday($searchMonth);
             // Get employee supervisors from supervisor trait
-            $employees = $this->getEmployeeSupervisors($employees);
+            foreach($employees as $employee){
+                $employee = $this->getEmployeeSupervisors($employee);
+            }
             
             return view('queries.employee-birthday',[
                 'employees' => $employees,
@@ -173,7 +185,9 @@ class QueryController extends Controller
             // Get employees from query trait
             $employees = $this->getEmployeeWageProgression($searchMonth, $searchYear);
             // Get employee supervisors from supervisor trait
-            $employees = $this->getEmployeeSupervisors($employees);
+            foreach($employees as $employee){
+                $employee = $this->getEmployeeSupervisors($employee);
+            }
             // Set progression date as date instance in wage trait
             foreach($employees as $employee){
                 $this->setWageEventDate($employee);
@@ -251,7 +265,9 @@ class QueryController extends Controller
         // Get disciplinary issued by from query trait
         $employees = $this->getDisciplinaryIssuedBy($employees);
         // Get employee supervisors from supervisor trait
-        $employees = $this->getEmployeeSupervisors($employees);
+        foreach($employees as $employee){
+            $employee = $this->getEmployeeSupervisors($employee);
+        }
         return view('queries.employee-disciplinary-all', [
             'employees' => $employees
         ]);
@@ -264,7 +280,9 @@ class QueryController extends Controller
         // Get all employees that need reviews from query trait
         $employees = $this->getEmployeeReview();
         // Get employee supervisors from supervisor trait
-        $employees = $this->getEmployeeSupervisors($employees);
+        foreach($employees as $employee){
+            $employee = $this->getEmployeeSupervisors($employee);
+        }
         return view('queries.employee-review', [
             'employees' => $employees
         ]);
@@ -349,7 +367,9 @@ class QueryController extends Controller
             // Get employees with hire date between search dates from query trait
             $employees = $this->getEmployeeHireDate($searchJob, $startDate, $endDate);
             // Get employee supervisors from supervisor trait
-            $employees = $this->getEmployeeSupervisors($employees);
+            foreach($employees as $employee){
+                $employee = $this->getEmployeeSupervisors($employee);
+            }
             return view('queries.employee-hire-date-hourly',[
                 'employees' => $employees,
                 'startDate' => $startDate,
@@ -375,7 +395,9 @@ class QueryController extends Controller
             // Get employees with hire date between search dates from query trait
             $employees = $this->getEmployeeHireDate($searchJob, $startDate, $endDate);
             // Get employee supervisors from supervisor trait
-            $employees = $this->getEmployeeSupervisors($employees);
+            foreach($employees as $employee){
+                $employee = $this->getEmployeeSupervisors($employee);
+            }
             return view('queries.employee-hire-date-salary', [
                 'employees' => $employees,
                 'startDate' => $startDate,
@@ -393,7 +415,9 @@ class QueryController extends Controller
         // Get all employees who may qualify for bonus hours from query trait
         $employees = $this->getEmployeeBonusHours();
         // Get employee supervisors from supervisor trait
-        $employees = $this->getEmployeeSupervisors($employees);
+        foreach($employees as $employee){
+            $employee = $this->getEmployeeSupervisors($employee);
+        }
         return view('queries.employee-bonus-hours', [
             'employees' => $employees
         ]);
