@@ -47,7 +47,7 @@
 
                 <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-position-description">Description @component('components.required-icon')@endComponent</label>
-                    <input type="text" class="form-control {{$errors->has('description') ? 'is-invalid' : ''}}" id="edit-position-description" name="description" value="{{old('description') ? old('description') : $position->description}}">
+                    <input type="text" class="form-control {{$errors->has('description') ? 'is-invalid' : ''}}" id="edit-position-description" name="description" value="{{old('description') ? old('description') : $position->description}}" required>
                     @if($errors->has('description'))
                         <span class="invalid-feedback" role="alert">
                             {{$errors->first('description')}}
@@ -57,7 +57,7 @@
 
                 <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-position-job">Job @component('components.required-icon')@endComponent</label>
-                    <select class="custom-select {{$errors->has('job') ? 'is-invalid' : ''}}" id="edit-position-job" name="job">
+                    <select class="custom-select {{$errors->has('job') ? 'is-invalid' : ''}}" id="edit-position-job" name="job" required>
                     @if(!old('job') && $position->job->count() > 0)
                     @foreach($position->job as $positionJob)
                     <option selected value="{{$positionJob->pivot->job_id}}">{{$positionJob->description}}</option>
@@ -77,7 +77,7 @@
 
                 <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-position-wage-title">Wage Title @component('components.required-icon')@endComponent</label>
-                    <select class="custom-select {{$errors->has('wage_title') ? 'is-invalid' : ''}}" id="edit-position-wage-title" name="wage_title">
+                    <select class="custom-select {{$errors->has('wage_title') ? 'is-invalid' : ''}}" id="edit-position-wage-title" name="wage_title" required>
                     @if(!old('wage_title') && $position->wageTitle->count() > 0)
                     @foreach($position->wageTitle as $positionWageTitle)
                     <option selected value="{{$positionWageTitle->pivot->wage_title_id}}">{{ucwords($positionWageTitle->description)}}</option>

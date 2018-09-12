@@ -1,5 +1,3 @@
-Set input fields as required
-
 Check all radio's and checkboxes use custom
 
 Add employee id to all views for employee

@@ -44,7 +44,7 @@
             <div class="form-row mt-4">
                 <div class="form-group col-md-6 col-lg-4">
                     <label for="create-wage-progression-month">Month @component('components.required-icon')@endComponent</label>
-                    <input type="text" class="form-control {{$errors->has('month') ? 'is-invalid' : ''}}" id="create-wage-progression-month" name="month" value="{{old('month')}}">
+                    <input type="text" class="form-control {{$errors->has('month') ? 'is-invalid' : ''}}" id="create-wage-progression-month" name="month" value="{{old('month')}}" required>
                     @if($errors->has('month'))
                         <span class="invalid-feedback" role="alert">
                             {{$errors->first('month')}}

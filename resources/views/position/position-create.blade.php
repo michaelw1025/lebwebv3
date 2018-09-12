@@ -44,7 +44,7 @@
             <div class="form-row mt-4">
                 <div class="form-group col-md-6 col-lg-4">
                     <label for="create-position-description">Description @component('components.required-icon')@endComponent</label>
-                    <input type="text" class="form-control {{$errors->has('description') ? 'is-invalid' : ''}}" id="create-position-description" name="description" value="{{old('description')}}">
+                    <input type="text" class="form-control {{$errors->has('description') ? 'is-invalid' : ''}}" id="create-position-description" name="description" value="{{old('description')}}" required>
                     @if($errors->has('description'))
                         <span class="invalid-feedback" role="alert">
                             {{$errors->first('description')}}
@@ -54,7 +54,7 @@
 
                 <div class="form-group col-md-6 col-lg-4">
                     <label for="create-position-job">Job @component('components.required-icon')@endComponent</label>
-                    <select class="custom-select {{$errors->has('job') ? 'is-invalid' : ''}}" id="create-position-job" name="job">
+                    <select class="custom-select {{$errors->has('job') ? 'is-invalid' : ''}}" id="create-position-job" name="job" required>
                     <option value=""></option>
                     @foreach($jobs as $job)
                     <option {{old('job') ? (old('job') == $job->id ? 'selected' : '') : ''}} value="{{$job->id}}">{{$job->description}}</option>
@@ -69,7 +69,7 @@
 
                 <div class="form-group col-md-6 col-lg-4">
                     <label for="create-position-wage-title">Wage Title @component('components.required-icon')@endComponent</label>
-                    <select class="custom-select {{$errors->has('wage_title') ? 'is-invalid' : ''}}" id="create-position-wage-title" name="wage_title">
+                    <select class="custom-select {{$errors->has('wage_title') ? 'is-invalid' : ''}}" id="create-position-wage-title" name="wage_title" required>
                     <option value=""></option>
                     @foreach($wageTitles as $wageTitle)
                     <option {{old('wage_title') ? (old('wage_title') == $wageTitle->id ? 'selected' : '') : ''}} value="{{$wageTitle->id}}">{{ucwords($wageTitle->description)}}</option>

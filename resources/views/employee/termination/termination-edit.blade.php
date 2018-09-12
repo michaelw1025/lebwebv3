@@ -46,7 +46,7 @@
             <div class="form-row mt-4">
                 <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-termination-type">Type @component('components.required-icon')@endComponent</label>
-                    <select class="custom-select {{$errors->has('type') ? 'is-invalid' : ''}}" id="edit-termination-type" name="type">
+                    <select class="custom-select {{$errors->has('type') ? 'is-invalid' : ''}}" id="edit-termination-type" name="type" required>
                         @if(!old('type'))
                         <option value="{{$termination->type}}" selected>{{ucwords($termination->type)}}</option>
                         @endif
@@ -62,7 +62,7 @@
                 </div>
                 <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-termination-date">Date @component('components.required-icon')@endComponent</label>
-                    <input type="text" class="form-control datepicker {{$errors->has('date') ? 'is-invalid' : ''}}" id="edit-termination-date" name="date" value="{{old('date') ? old('date') : $termination->date->format('m/d/Y')}}">
+                    <input type="text" class="form-control datepicker {{$errors->has('date') ? 'is-invalid' : ''}}" id="edit-termination-date" name="date" value="{{old('date') ? old('date') : $termination->date->format('m/d/Y')}}" required>
                     @if($errors->has('date'))
                         <span class="invalid-feedback" role="alert">
                             {{$errors->first('date')}}
@@ -71,7 +71,7 @@
                 </div>
                 <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-termination-last-day">Last Day @component('components.required-icon')@endComponent</label>
-                    <input type="text" class="form-control datepicker {{$errors->has('last_day') ? 'is-invalid' : ''}}" id="edit-termination-last-day" name="last_day" value="{{old('last_day') ? old('last_day') : $termination->last_day->format('m/d/Y')}}">
+                    <input type="text" class="form-control datepicker {{$errors->has('last_day') ? 'is-invalid' : ''}}" id="edit-termination-last-day" name="last_day" value="{{old('last_day') ? old('last_day') : $termination->last_day->format('m/d/Y')}}" required>
                     @if($errors->has('last_day'))
                         <span class="invalid-feedback" role="alert">
                             {{$errors->first('last_day')}}
@@ -83,7 +83,7 @@
             <div class="form-row">
                 <div class="form-group col-12">
                     <label for="edit-termination-comments">Comments @component('components.required-icon')@endComponent</label>
-                    <textarea name="comments" id="edit-termination-comments" rows="3" class="form-control {{$errors->has('comments') ? 'is-invalid' : ''}}" >{{old('comments') ? old('comments') : $termination->comments}}</textarea>
+                    <textarea name="comments" id="edit-termination-comments" rows="3" class="form-control {{$errors->has('comments') ? 'is-invalid' : ''}}" required>{{old('comments') ? old('comments') : $termination->comments}}</textarea>
                     @if($errors->has('comments'))
                         <span class="invalid-feedback" role="alert">
                             {{$errors->first('comments')}}

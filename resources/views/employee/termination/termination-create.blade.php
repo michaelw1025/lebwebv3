@@ -45,7 +45,7 @@
             <div class="form-row mt-4">
                 <div class="form-group col-md-6 col-lg-4">
                     <label for="create-termination-type">Type @component('components.required-icon')@endComponent</label>
-                    <select class="custom-select {{$errors->has('type') ? 'is-invalid' : ''}}" id="create-termination-type" name="type">
+                    <select class="custom-select {{$errors->has('type') ? 'is-invalid' : ''}}" id="create-termination-type" name="type" required>
                         <option {{old('type') ? (old('type') == '' ? 'selected' : '') : ''}} value=""></option>
                         <option {{old('type') ? (old('type') == 'voluntary' ? 'selected' : '') : ''}} value="voluntary">Voluntary</option>
                         <option {{old('type') ? (old('type') == 'involuntary' ? 'selected' : '') : ''}} value="involuntary">Involuntary</option>
@@ -58,7 +58,7 @@
                 </div>
                 <div class="form-group col-md-6 col-lg-4">
                     <label for="create-termination-date">Date @component('components.required-icon')@endComponent</label>
-                    <input type="text" class="form-control datepicker {{$errors->has('date') ? 'is-invalid' : ''}}" id="create-termination-date" name="date" value="{{old('date') ? old('date') : ''}}" autocomplete="off">
+                    <input type="text" class="form-control datepicker {{$errors->has('date') ? 'is-invalid' : ''}}" id="create-termination-date" name="date" value="{{old('date') ? old('date') : ''}}" required>
                     @if($errors->has('date'))
                         <span class="invalid-feedback" role="alert">
                             {{$errors->first('date')}}
@@ -67,7 +67,7 @@
                 </div>
                 <div class="form-group col-md-6 col-lg-4">
                     <label for="create-termination-last-day">Last Day @component('components.required-icon')@endComponent</label>
-                    <input type="text" class="form-control datepicker {{$errors->has('last_day') ? 'is-invalid' : ''}}" id="create-termination-last-day" name="last_day" value="{{old('last_day') ? old('last_day') : ''}}" autocomplete="off">
+                    <input type="text" class="form-control datepicker {{$errors->has('last_day') ? 'is-invalid' : ''}}" id="create-termination-last-day" name="last_day" value="{{old('last_day') ? old('last_day') : ''}}" required>
                     @if($errors->has('last_day'))
                         <span class="invalid-feedback" role="alert">
                             {{$errors->first('last_day')}}
@@ -79,7 +79,7 @@
             <div class="form-row">
                 <div class="form-group col-12">
                     <label for="create-termination-comments">Comments @component('components.required-icon')@endComponent</label>
-                    <textarea name="comments" id="create-termination-comments" rows="3" class="form-control {{$errors->has('comments') ? 'is-invalid' : ''}}" >{{old('comments') ? old('comments') : ''}}</textarea>
+                    <textarea name="comments" id="create-termination-comments" rows="3" class="form-control {{$errors->has('comments') ? 'is-invalid' : ''}}" required>{{old('comments') ? old('comments') : ''}}</textarea>
                     @if($errors->has('comments'))
                         <span class="invalid-feedback" role="alert">
                             {{$errors->first('comments')}}

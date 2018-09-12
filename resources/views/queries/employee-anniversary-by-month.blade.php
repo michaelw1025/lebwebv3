@@ -52,7 +52,7 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="employee-anniversary-search-month">Month @component('components.required-icon')@endComponent</label>
-                    <select name="anniversary_month" id="" class="custom-select {{$errors->has('anniversary_month') ? 'is-invalid' : ''}}">
+                    <select name="anniversary_month" id="" class="custom-select {{$errors->has('anniversary_month') ? 'is-invalid' : ''}}" required>
                         <option value=""></option>
                         <option {{isset($month) ? ($month == 1 ? 'selected' : '') : ''}} value="1">1 - January</option>
                         <option {{isset($month) ? ($month == 2 ? 'selected' : '') : ''}} value="2">2 - February</option>
@@ -75,7 +75,7 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label for="employee-anniversary-search-year">Year @component('components.required-icon')@endComponent</label>
-                    <select name="anniversary_year" id="" class="custom-select {{$errors->has('anniversary_year') ? 'is-invalid' : ''}}">
+                    <select name="anniversary_year" id="" class="custom-select {{$errors->has('anniversary_year') ? 'is-invalid' : ''}}" required>
                         <option value=""></option>
                         @for($i = 2015; $i < 2031; $i++)
                         <option {{isset($year) ? ($year == $i ? 'selected' : '') : ''}} value="{{$i}}">{{$i}}</option>

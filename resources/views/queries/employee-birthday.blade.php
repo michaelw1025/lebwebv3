@@ -52,7 +52,7 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="employee-birthday-search-month">Month @component('components.required-icon')@endComponent</label>
-                    <select name="birthday_month" id="employee-birthday-search-month" class="custom-select {{$errors->has('birthday_month') ? 'is-invalid' : ''}}">
+                    <select name="birthday_month" id="employee-birthday-search-month" class="custom-select {{$errors->has('birthday_month') ? 'is-invalid' : ''}}" required>
                         <option value=""></option>
                         <option {{isset($month) ? ($month == 1 ? 'selected' : '') : ''}} value="1">1 - January</option>
                         <option {{isset($month) ? ($month == 2 ? 'selected' : '') : ''}} value="2">2 - February</option>

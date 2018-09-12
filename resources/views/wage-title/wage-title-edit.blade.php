@@ -46,7 +46,7 @@
             <div class="form-row mt-4">
                 <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-wage-title-description">Description @component('components.required-icon')@endComponent</label>
-                    <input type="text" class="form-control {{$errors->has('description') ? 'is-invalid' : ''}}" id="edit-wage-title-description" name="description" value="{{old('description') ? old('description') : ucwords($wageTitle->description)}}">
+                    <input type="text" class="form-control {{$errors->has('description') ? 'is-invalid' : ''}}" id="edit-wage-title-description" name="description" value="{{old('description') ? old('description') : ucwords($wageTitle->description)}}" required>
                     @if($errors->has('description'))
                         <span class="invalid-feedback" role="alert">
                             {{$errors->first('description')}}
@@ -77,11 +77,11 @@
                     </div>
                     <input type="text" class="form-control d-none" id="edit-wage-title-wage-progression-{{$wageProgression->id}}-id" name="wage_progression[{{$loop->index}}][id]" value="{{$wageProgression->id}}" readonly>
                     @if(old('wage_progression'))
-                    <input type="text" class="form-control {{$errors->has('wage_progression.'.$loop->index.'.amount') ? 'is-invalid' : ''}} {{$errors->has('wage_progression.'.$loop->index.'.numeric') ? 'is-invalid' : ''}}" name="wage_progression[{{$loop->index}}][amount]" value="{{old('wage_progression.'.$loop->index.'.amount')}}">
+                    <input type="text" class="form-control {{$errors->has('wage_progression.'.$loop->index.'.amount') ? 'is-invalid' : ''}} {{$errors->has('wage_progression.'.$loop->index.'.numeric') ? 'is-invalid' : ''}}" name="wage_progression[{{$loop->index}}][amount]" value="{{old('wage_progression.'.$loop->index.'.amount')}}" required>
                     @else
                     @foreach($wageTitle->wageProgression as $wageTitleWageProgression)
                     @if($wageTitleWageProgression->pivot->wage_progression_id == $wageProgression->id)
-                    <input type="text" class="form-control {{$errors->has('wage_progression.'.$loop->parent->index.'.amount') ? 'is-invalid' : ''}} {{$errors->has('wage_progression.'.$loop->parent->index.'.numeric') ? 'is-invalid' : ''}}" name="wage_progression[{{$loop->parent->index}}][amount]" value="{{$wageTitleWageProgression->pivot->amount}}">
+                    <input type="text" class="form-control {{$errors->has('wage_progression.'.$loop->parent->index.'.amount') ? 'is-invalid' : ''}} {{$errors->has('wage_progression.'.$loop->parent->index.'.numeric') ? 'is-invalid' : ''}}" name="wage_progression[{{$loop->parent->index}}][amount]" value="{{$wageTitleWageProgression->pivot->amount}}" required>
                     @endif
                     @endforeach
                     @endif

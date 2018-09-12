@@ -46,7 +46,7 @@
             <div class="form-row mt-4">
                 <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-contractor-training-name">Contractor Employee Name @component('components.required-icon')@endComponent</label>
-                    <input type="text" class="form-control {{$errors->has('contractor_employee_name') ? 'is-invalid' : ''}}" id="edit-contractor-training-name" name="contractor_employee_name" value="{{old('contractor_employee_name') ? old('contractor_employee_name') : ucwords($contractorTraining->contractor_employee_name)}}">
+                    <input type="text" class="form-control {{$errors->has('contractor_employee_name') ? 'is-invalid' : ''}}" id="edit-contractor-training-name" name="contractor_employee_name" value="{{old('contractor_employee_name') ? old('contractor_employee_name') : ucwords($contractorTraining->contractor_employee_name)}}" required>
                     @if($errors->has('contractor_employee_name'))
                         <span class="invalid-feedback" role="alert">
                             {{$errors->first('contractor_employee_name')}}
@@ -78,13 +78,13 @@
                     <div class="card-header">Active @component('components.required-icon')@endComponent</div>
                     <div class="card-body">
                         <div class="custom-control custom-radio">
-                            <input class="custom-control-input boolean-radio-button" type="radio" name="active" id="edit-contractor-training-active-yes" value="1" {{old('active') !== null ? (old('active') === '1' ? 'checked' : '') : ($contractorTraining->active === '1' ? 'checked' : '')}}>
+                            <input class="custom-control-input boolean-radio-button" type="radio" name="active" id="edit-contractor-training-active-yes" value="1" {{old('active') !== null ? (old('active') === '1' ? 'checked' : '') : ($contractorTraining->active === '1' ? 'checked' : '')}} required>
                             <label class="custom-control-label" for="edit-contractor-training-active-yes">
                             Yes
                             </label>
                         </div>
                         <div class="custom-control custom-radio">
-                            <input class="custom-control-input boolean-radio-button" type="radio" name="active" id="edit-contractor-training-active-no" value="0" {{old('active') !== null ? (old('active') === '0' ? 'checked' : '') : ($contractorTraining->active === '0' ? 'checked' : '')}}>
+                            <input class="custom-control-input boolean-radio-button" type="radio" name="active" id="edit-contractor-training-active-no" value="0" {{old('active') !== null ? (old('active') === '0' ? 'checked' : '') : ($contractorTraining->active === '0' ? 'checked' : '')}} required>
                             <label class="custom-control-label" for="edit-contractor-training-active-no">
                             No
                             </label>

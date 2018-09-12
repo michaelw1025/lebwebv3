@@ -51,7 +51,7 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="employee-search-cost-center">Cost Center @component('components.required-icon')@endComponent</label>
-                    <select name="cost_center" id="employee-search-cost-center" class="custom-select {{$errors->has('cost_center') ? 'is-invalid' : ''}}">
+                    <select name="cost_center" id="employee-search-cost-center" class="custom-select {{$errors->has('cost_center') ? 'is-invalid' : ''}}" required>
                         <option value=""></option>
                         @foreach($costCenters as $costCenter)
                         <option {{isset($searchCostCenter) ? ($searchCostCenter == $costCenter->id ? 'selected' : '') : ''}} value="{{$costCenter->id}}">{{$costCenter->number}} {{$costCenter->extension}} {{$costCenter->description}}</option>

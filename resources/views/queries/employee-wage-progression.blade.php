@@ -51,7 +51,7 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="employee-wage-progression-search-month">Month @component('components.required-icon')@endComponent</label>
-                    <select name="wage_progression_month" id="employee-wage-progression-search-month" class="custom-select {{$errors->has('wage_progression_month') ? 'is-invalid' : ''}}">
+                    <select name="wage_progression_month" id="employee-wage-progression-search-month" class="custom-select {{$errors->has('wage_progression_month') ? 'is-invalid' : ''}}" required>
                         <option value=""></option>
                         <option {{isset($month) ? ($month == 1 ? 'selected' : '') : ''}} value="1">1 - January</option>
                         <option {{isset($month) ? ($month == 2 ? 'selected' : '') : ''}} value="2">2 - February</option>
@@ -74,7 +74,7 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label for="employee-wage-progression-search-year">Year @component('components.required-icon')@endComponent</label>
-                    <select name="wage_progression_year" id="employee-wage-progression-search-year" class="custom-select {{$errors->has('wage_progression_year') ? 'is-invalid' : ''}}">
+                    <select name="wage_progression_year" id="employee-wage-progression-search-year" class="custom-select {{$errors->has('wage_progression_year') ? 'is-invalid' : ''}}" required>
                         <option value=""></option>
                         @for($i = 2015; $i < 2031; $i++)
                         <option {{isset($year) ? ($year == $i ? 'selected' : '') : ''}} value="{{$i}}">{{$i}}</option>

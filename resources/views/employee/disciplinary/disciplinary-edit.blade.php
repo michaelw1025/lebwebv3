@@ -46,7 +46,7 @@
             <div class="form-row mt-4">
                 <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-disciplinary-type">Type @component('components.required-icon')@endComponent</label>
-                    <select class="custom-select {{$errors->has('type') ? 'is-invalid' : ''}}" id="edit-disciplinary-type" name="type">
+                    <select class="custom-select {{$errors->has('type') ? 'is-invalid' : ''}}" id="edit-disciplinary-type" name="type" required>
                         @if(!old('type'))
                         <option value="{{$disciplinary->type}}" selected>{{ucwords($disciplinary->type)}}</option>
                         @endif
@@ -62,7 +62,7 @@
                 </div>
                 <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-disciplinary-level">Level @component('components.required-icon')@endComponent</label>
-                    <select class="custom-select {{$errors->has('level') ? 'is-invalid' : ''}}" id="edit-disciplinary-level" name="level">
+                    <select class="custom-select {{$errors->has('level') ? 'is-invalid' : ''}}" id="edit-disciplinary-level" name="level" required>
                         @if(!old('level'))
                         <option value="{{$disciplinary->level}}" selected>{{ucwords($disciplinary->level)}}</option>
                         @endif
@@ -82,7 +82,7 @@
                 </div>
                 <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-disciplinary-date">Date @component('components.required-icon')@endComponent</label>
-                    <input type="text" class="form-control datepicker {{$errors->has('date') ? 'is-invalid' : ''}}" id="edit-disciplinary-date" name="date" value="{{old('date') ? old('date') : $disciplinary->date->format('m/d/Y')}}">
+                    <input type="text" class="form-control datepicker {{$errors->has('date') ? 'is-invalid' : ''}}" id="edit-disciplinary-date" name="date" value="{{old('date') ? old('date') : $disciplinary->date->format('m/d/Y')}}" required>
                     @if($errors->has('date'))
                         <span class="invalid-feedback" role="alert">
                             {{$errors->first('date')}}
@@ -92,7 +92,7 @@
 
                 <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-disciplinary-cost-center">Cost Center @component('components.required-icon')@endComponent</label>
-                    <select class="custom-select {{$errors->has('cost_center') ? 'is-invalid' : ''}}" id="edit-disciplinary-cost-center" name="cost_center">
+                    <select class="custom-select {{$errors->has('cost_center') ? 'is-invalid' : ''}}" id="edit-disciplinary-cost-center" name="cost_center" required>
                         @if(!old('cost_center'))
                         <option value="{{$disciplinary->cost_center}}" selected>{{$disciplinary->cost_center_number}} {{$disciplinary->cost_center_name}}</option>
                         @endif
@@ -109,7 +109,7 @@
                 </div>
                 <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-disciplinary-issued-by">Issued By @component('components.required-icon')@endComponent</label>
-                    <select class="custom-select {{$errors->has('issued_by') ? 'is-invalid' : ''}}" id="edit-disciplinary-issued-by" name="issued_by">
+                    <select class="custom-select {{$errors->has('issued_by') ? 'is-invalid' : ''}}" id="edit-disciplinary-issued-by" name="issued_by" required>
                         @if(!old('issued_by'))
                         <option value="{{$disciplinary->issued_by}}" selected>{{$disciplinary->issuer_name}}</option>
                         @endif
@@ -129,7 +129,7 @@
             <div class="form-row">
                 <div class="form-group col-12">
                     <label for="edit-disciplinary-comments">Comments @component('components.required-icon')@endComponent</label>
-                    <textarea name="comments" id="edit-disciplinary-comments" rows="3" class="form-control {{$errors->has('comments') ? 'is-invalid' : ''}}" >{{old('comments') ? old('comments') : $disciplinary->comments}}</textarea>
+                    <textarea name="comments" id="edit-disciplinary-comments" rows="3" class="form-control {{$errors->has('comments') ? 'is-invalid' : ''}}" required>{{old('comments') ? old('comments') : $disciplinary->comments}}</textarea>
                     @if($errors->has('comments'))
                         <span class="invalid-feedback" role="alert">
                             {{$errors->first('comments')}}

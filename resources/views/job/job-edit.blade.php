@@ -47,7 +47,7 @@
 
                 <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-job-description">Description @component('components.required-icon')@endComponent</label>
-                    <input type="text" class="form-control {{$errors->has('description') ? 'is-invalid' : ''}}" id="edit-job-description" name="description" value="{{old('description') ? old('description') : $job->description}}">
+                    <input type="text" class="form-control {{$errors->has('description') ? 'is-invalid' : ''}}" id="edit-job-description" name="description" value="{{old('description') ? old('description') : $job->description}}" required>
                     @if($errors->has('description'))
                         <span class="invalid-feedback" role="alert">
                             {{$errors->first('description')}}

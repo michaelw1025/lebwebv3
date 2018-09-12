@@ -44,7 +44,7 @@
             <div class="form-row mt-4">
                 <div class="form-group col-md-6 col-lg-4">
                     <label for="create-contractor-name">Contractor Name @component('components.required-icon')@endComponent</label>
-                    <input type="text" class="form-control {{$errors->has('contractor_name') ? 'is-invalid' : ''}}" id="create-contractor-name" name="contractor_name" value="{{old('contractor_name')}}">
+                    <input type="text" class="form-control {{$errors->has('contractor_name') ? 'is-invalid' : ''}}" id="create-contractor-name" name="contractor_name" value="{{old('contractor_name')}}" required>
                     @if($errors->has('contractor_name'))
                         <span class="invalid-feedback" role="alert">
                             {{$errors->first('contractor_name')}}

@@ -51,7 +51,7 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="employee-search-hire-date-start-date">Start Date @component('components.required-icon')@endComponent</label>
-                    <input type="text" class="form-control {{$errors->has('start_date') ? 'is-invalid' : ''}} datepicker" id="employee-search-hire-date-start-date" name="start_date" value="{{old('start_date') ? old('start_date') : (isset($startDate) ? $startDate->format('m/d/Y') :'')}}" >
+                    <input type="text" class="form-control {{$errors->has('start_date') ? 'is-invalid' : ''}} datepicker" id="employee-search-hire-date-start-date" name="start_date" value="{{old('start_date') ? old('start_date') : (isset($startDate) ? $startDate->format('m/d/Y') :'')}}" required>
                     @if($errors->has('start_date'))
                         <span class="invalid-feedback" role="alert">
                             {{$errors->first('start_date')}}
@@ -60,7 +60,7 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label for="employee-search-hire-date-end-date">End Date @component('components.required-icon')@endComponent</label>
-                    <input type="text" class="form-control {{$errors->has('end_date') ? 'is-invalid' : ''}} datepicker" id="employee-search-hire-date-end-date" name="end_date" value="{{old('end_date') ? old('end_date') : (isset($endDate) ? $endDate->format('m/d/Y') :'')}}" >
+                    <input type="text" class="form-control {{$errors->has('end_date') ? 'is-invalid' : ''}} datepicker" id="employee-search-hire-date-end-date" name="end_date" value="{{old('end_date') ? old('end_date') : (isset($endDate) ? $endDate->format('m/d/Y') :'')}}" required>
                     @if($errors->has('end_date'))
                         <span class="invalid-feedback" role="alert">
                             {{$errors->first('end_date')}}

@@ -46,7 +46,7 @@
             <div class="form-row mt-4">
                 <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-contractor-name">Contractor Name @component('components.required-icon')@endComponent</label>
-                    <input type="text" class="form-control {{$errors->has('contractor_name') ? 'is-invalid' : ''}}" id="edit-contractor-name" name="contractor_name" value="{{old('contractor_name') ? old('contractor_name') : strtoupper($contractor->contractor_name)}}">
+                    <input type="text" class="form-control {{$errors->has('contractor_name') ? 'is-invalid' : ''}}" id="edit-contractor-name" name="contractor_name" value="{{old('contractor_name') ? old('contractor_name') : strtoupper($contractor->contractor_name)}}" required>
                     @if($errors->has('contractor_name'))
                         <span class="invalid-feedback" role="alert">
                             {{$errors->first('contractor_name')}}
@@ -55,7 +55,7 @@
                 </div>
 
                 <div class="form-group col-md-6 col-lg-4">
-                    <label for="edit-contractor-contact-name">Contact Person @component('components.required-icon')@endComponent</label>
+                    <label for="edit-contractor-contact-name">Contact Person</label>
                     <input type="text" class="form-control {{$errors->has('contact_name') ? 'is-invalid' : ''}}" id="edit-contractor-contact-name" name="contact_name" value="{{old('contact_name') ? old('contact_name') : ucwords($contractor->contact_name)}}">
                     @if($errors->has('contact_name'))
                         <span class="invalid-feedback" role="alert">

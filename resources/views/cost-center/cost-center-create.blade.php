@@ -44,7 +44,7 @@
             <div class="form-row mt-4">
                 <div class="form-group col-md-6 col-lg-4">
                     <label for="create-cost-center-number">Number @component('components.required-icon')@endComponent</label>
-                    <input type="text" class="form-control {{$errors->has('number') ? 'is-invalid' : ''}}" id="create-cost-center-number" name="number" value="{{old('number')}}">
+                    <input type="text" class="form-control {{$errors->has('number') ? 'is-invalid' : ''}}" id="create-cost-center-number" name="number" value="{{old('number')}}" required>
                     @if($errors->has('number'))
                         <span class="invalid-feedback" role="alert">
                             {{$errors->first('number')}}
@@ -76,7 +76,7 @@
 
                 <div class="form-group col-md-6 col-lg-4">
                     <label for="create-cost-center-description">Description @component('components.required-icon')@endComponent</label>
-                    <input type="text" class="form-control {{$errors->has('description') ? 'is-invalid' : ''}}" id="create-cost-center-description" name="description" value="{{old('description')}}">
+                    <input type="text" class="form-control {{$errors->has('description') ? 'is-invalid' : ''}}" id="create-cost-center-description" name="description" value="{{old('description')}}" required>
                     @if($errors->has('description'))
                         <span class="invalid-feedback" role="alert">
                             {{$errors->first('description')}}
@@ -86,7 +86,7 @@
 
                 <div class="form-group col-md-6 col-lg-4">
                     <label for="create-cost-center-staff-manager">Staff Manager @component('components.required-icon')@endComponent</label>
-                    <select class="custom-select {{$errors->has('staff_manager') ? 'is-invalid' : ''}}" id="create-cost-center-staff-manager" name="staff_manager">
+                    <select class="custom-select {{$errors->has('staff_manager') ? 'is-invalid' : ''}}" id="create-cost-center-staff-manager" name="staff_manager" required>
                     <option value=""></option>
                     @foreach($supervisors as $supervisor)
                     <option {{old('staff_manager') ? (old('staff_manager') == $supervisor->id ? 'selected' : '') : ''}} value="{{$supervisor->id}}">{{$supervisor->first_name}} {{$supervisor->last_name}}</option>
@@ -101,7 +101,7 @@
 
                 <div class="form-group col-md-6 col-lg-4">
                     <label for="create-cost-center-day-team-manager">Day Team Manager @component('components.required-icon')@endComponent</label>
-                    <select class="custom-select {{$errors->has('day_team_manager') ? 'is-invalid' : ''}}" id="create-cost-center-day-team-manager" name="day_team_manager">
+                    <select class="custom-select {{$errors->has('day_team_manager') ? 'is-invalid' : ''}}" id="create-cost-center-day-team-manager" name="day_team_manager" required>
                     <option value=""></option>
                     @foreach($supervisors as $supervisor)
                     <option {{old('day_team_manager') ? (old('day_team_manager') == $supervisor->id ? 'selected' : '') : ''}} value="{{$supervisor->id}}">{{$supervisor->first_name}} {{$supervisor->last_name}}</option>
@@ -116,7 +116,7 @@
 
                 <div class="form-group col-md-6 col-lg-4">
                     <label for="create-cost-center-night-team-manager">Night Team Manager @component('components.required-icon')@endComponent</label>
-                    <select class="custom-select {{$errors->has('night_team_manager') ? 'is-invalid' : ''}}" id="create-cost-center-night-team-manager" name="night_team_manager">
+                    <select class="custom-select {{$errors->has('night_team_manager') ? 'is-invalid' : ''}}" id="create-cost-center-night-team-manager" name="night_team_manager" required>
                     <option value=""></option>
                     @foreach($supervisors as $supervisor)
                     <option {{old('night_team_manager') ? (old('night_team_manager') == $supervisor->id ? 'selected' : '') : ''}} value="{{$supervisor->id}}">{{$supervisor->first_name}} {{$supervisor->last_name}}</option>
@@ -131,7 +131,7 @@
 
                 <div class="form-group col-md-6 col-lg-4">
                     <label for="create-cost-center-day-team-leader">Day Team Leader @component('components.required-icon')@endComponent</label>
-                    <select class="custom-select {{$errors->has('day_team_leader') ? 'is-invalid' : ''}}" id="create-cost-center-day-team-leader" name="day_team_leader">
+                    <select class="custom-select {{$errors->has('day_team_leader') ? 'is-invalid' : ''}}" id="create-cost-center-day-team-leader" name="day_team_leader" required>
                     <option value=""></option>
                     @foreach($supervisors as $supervisor)
                     <option {{old('day_team_leader') ? (old('day_team_leader') == $supervisor->id ? 'selected' : '') : ''}} value="{{$supervisor->id}}">{{$supervisor->first_name}} {{$supervisor->last_name}}</option>
@@ -146,7 +146,7 @@
 
                 <div class="form-group col-md-6 col-lg-4">
                     <label for="create-cost-center-night-team-leader">Night Team Leader @component('components.required-icon')@endComponent</label>
-                    <select class="custom-select {{$errors->has('night_team_leader') ? 'is-invalid' : ''}}" id="create-cost-center-night-team-leader" name="night_team_leader">
+                    <select class="custom-select {{$errors->has('night_team_leader') ? 'is-invalid' : ''}}" id="create-cost-center-night-team-leader" name="night_team_leader" required>
                     <option value=""></option>
                     @foreach($supervisors as $supervisor)
                     <option {{old('night_team_leader') ? (old('night_team_leader') == $supervisor->id ? 'selected' : '') : ''}} value="{{$supervisor->id}}">{{$supervisor->first_name}} {{$supervisor->last_name}}</option>

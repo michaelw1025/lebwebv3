@@ -44,7 +44,7 @@
             <div class="form-row mt-4">
                 <div class="form-group col-md-6 col-lg-4">
                     <label for="create-wage-title-description">Description @component('components.required-icon')@endComponent</label>
-                    <input type="text" class="form-control {{$errors->has('description') ? 'is-invalid' : ''}}" id="create-wage-title-description" name="description" value="{{old('description')}}">
+                    <input type="text" class="form-control {{$errors->has('description') ? 'is-invalid' : ''}}" id="create-wage-title-description" name="description" value="{{old('description')}}" required>
                     @if($errors->has('description'))
                         <span class="invalid-feedback" role="alert">
                             {{$errors->first('description')}}
@@ -74,7 +74,7 @@
                         <span class="input-group-text">$</span>
                     </div>
                     <input type="text" class="form-control d-none" id="create-wage-title-wage-progression-{{$wageProgression->id}}-id" name="wage_progression[{{$loop->index}}][id]" value="{{$wageProgression->id}}" readonly>
-                    <input type="text" class="form-control {{$errors->has('wage_progression.'.$loop->index.'.amount') ? 'is-invalid' : ''}} {{$errors->has('wage_progression.'.$loop->index.'.numeric') ? 'is-invalid' : ''}}" name="wage_progression[{{$loop->index}}][amount]" value="{{old('wage_progression.'.$loop->index.'.amount')}}">
+                    <input type="text" class="form-control {{$errors->has('wage_progression.'.$loop->index.'.amount') ? 'is-invalid' : ''}} {{$errors->has('wage_progression.'.$loop->index.'.numeric') ? 'is-invalid' : ''}}" name="wage_progression[{{$loop->index}}][amount]" value="{{old('wage_progression.'.$loop->index.'.amount')}}" required>
                 </div>
                 @endforeach
 
