@@ -35,6 +35,11 @@ body {
   background-size: cover;
   -o-background-size: cover;
   }
+
+  .jumbotron{
+    opacity: .75;
+    font-size: 1.5rem;
+  }
 }
 
 // Make the page scroll only in the main content area
@@ -66,16 +71,40 @@ i {
 // No media query for `xxs` since this is the default in Bootstrap
 
 // Extra small devices (320px and up)
-@media (min-width: 320px) {}
+@media (min-width: 320px) {
+  body{
+    .jumbotron{
+      font-size: 2rem;
+    }
+  }
+}
 
 // Small devices (448px and up)
-@media (min-width: 448px) {}
+@media (min-width: 448px) {
+  body{
+    .jumbotron{
+      font-size: 2.75rem;
+    }
+  }
+}
 
 // Medium devices (660px and up)
-@media (min-width: 660px) {}
+@media (min-width: 660px) {
+  body{
+    .jumbotron{
+      font-size: 4rem;
+    }
+  }
+}
 
 // Large devices (900px and up)
-@media (min-width: 900px) {}
+@media (min-width: 900px) {
+  body{
+    .jumbotron{
+      font-size: 5rem;
+    }
+  }
+}
 
 // Extra large devices (1050px and up)
 @media (min-width: 1050px) {}
