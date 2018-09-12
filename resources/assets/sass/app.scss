@@ -38,7 +38,7 @@ body {
 
   .jumbotron{
     opacity: .75;
-    font-size: 1.5rem;
+    font-size: 24px;
   }
 }
 
@@ -74,7 +74,7 @@ i {
 @media (min-width: 320px) {
   body{
     .jumbotron{
-      font-size: 2rem;
+      font-size: 32px;
     }
   }
 }
@@ -83,7 +83,7 @@ i {
 @media (min-width: 448px) {
   body{
     .jumbotron{
-      font-size: 2.75rem;
+      font-size: 44px;
     }
   }
 }
@@ -92,7 +92,7 @@ i {
 @media (min-width: 660px) {
   body{
     .jumbotron{
-      font-size: 4rem;
+      font-size: 64px;
     }
   }
 }
@@ -101,7 +101,7 @@ i {
 @media (min-width: 900px) {
   body{
     .jumbotron{
-      font-size: 5rem;
+      font-size: 80px;
     }
   }
 }
