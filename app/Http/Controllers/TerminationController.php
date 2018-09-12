@@ -47,7 +47,7 @@ class TerminationController extends Controller
     public function create(Request $request)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         // Get the employee for the request
         $employee = Employee::findOrFail($request->input('employee'));
         return view('employee.termination.termination-create', [
@@ -64,7 +64,7 @@ class TerminationController extends Controller
     public function store(StoreTermination $request)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         // Get the employee for the request
         $employee = Employee::findOrFail($request->input('employee'));
         // Create a new termination object
@@ -113,7 +113,7 @@ class TerminationController extends Controller
     public function edit(Request $request, $id)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         $termination = Termination::with('employee')->findOrFail($id);
         return view('employee.termination.termination-edit', [
             'termination' => $termination
@@ -130,7 +130,7 @@ class TerminationController extends Controller
     public function update(StoreTermination $request, $id)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         // Get the termination to update
         $termination = Termination::findOrFail($id);
         // Set termination attributes
@@ -161,7 +161,7 @@ class TerminationController extends Controller
     public function destroy(Request $request, $id)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         // Get the termination to delete
         $termination = Termination::findOrFail($id);
         // Delete the termination

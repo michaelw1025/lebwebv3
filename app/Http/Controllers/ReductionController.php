@@ -50,7 +50,7 @@ class ReductionController extends Controller
     public function create(Request $request)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         // Get the employee for the request
         $employee = Employee::findOrFail($request->input('employee'));
         // Get all cost centers
@@ -73,7 +73,7 @@ class ReductionController extends Controller
     public function store(StoreReduction $request)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         // Get the employee for the request
         $employee = Employee::findOrFail($request->input('employee'));
         // Create a new reduction object
@@ -145,7 +145,7 @@ class ReductionController extends Controller
     public function edit(Request $request, $id)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         // Get the requested reduction
         $reduction = Reduction::with('employee')->findOrFail($id);
         // Get reduction info
@@ -171,7 +171,7 @@ class ReductionController extends Controller
     public function update(StoreReduction $request, $id)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         // Get the reduction to update
         $reduction = Reduction::findOrFail($id);
         // Set the reduction attributes
@@ -222,7 +222,7 @@ class ReductionController extends Controller
     public function destroy(Request $request, $id)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         // Get reduction to delete
         $reduction = Reduction::findOrFail($id);
         // Delete the reduction

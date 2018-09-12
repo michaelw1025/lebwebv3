@@ -49,7 +49,7 @@ class DisciplinaryController extends Controller
     public function create(Request $request)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         // Get the employee for the request
         $employee = Employee::findOrFail($request->input('employee'));
         // Get all cost centers
@@ -74,7 +74,7 @@ class DisciplinaryController extends Controller
     public function store(StoreDisciplinary $request)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         // Get the employee for the request
         $employee = Employee::findOrFail($request->input('employee'));
         // Create new disciplinary object
@@ -129,7 +129,7 @@ class DisciplinaryController extends Controller
     public function edit(Request $request, $id)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         $disciplinary = Disciplinary::findOrFail($id);
         $this->getDisciplinaryInfo($disciplinary);
         // Get all cost centers
@@ -155,7 +155,7 @@ class DisciplinaryController extends Controller
     public function update(StoreDisciplinary $request, $id)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         // Get the disciplinary to update
         $disciplinary = Disciplinary::findOrFail($id);
         // Set disciplinary attributes
@@ -188,7 +188,7 @@ class DisciplinaryController extends Controller
     public function destroy(Request $request, $id)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         // Get the disciplinary to delete
         $disciplinary = Disciplinary::findOrFail($id);
         // Delete the disciplinary
