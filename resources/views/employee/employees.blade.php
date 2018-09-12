@@ -42,7 +42,7 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="employee-search-last-name">Last Name</label>
-                    <input type="text" class="form-control" id="employee-search-last-name" name="employee_search_last_name">
+                    <input type="text" class="form-control" id="employee-search-last-name" name="employee_search_last_name" autofocus>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="employee-search-ssn">SSN</label>
@@ -59,8 +59,8 @@
                     <input type="text" class="form-control datepicker" id="employee-search-hire-date" name="employee_search_hire_date">
                 </div>
             </div>
-            <button type="button" class="btn btn-success" id="submit-employee-search">Search</button>
-            <button type="button" class="btn btn-info" id="reset-employee-search">Reset</button>
+            <button type="submit" class="btn btn-success" id="submit-employee-search">Search</button>
+            <p class="btn btn-info mt-3" id="reset-employee-search">Reset</p>
         </form>
 
         <hr></hr>

@@ -210,7 +210,7 @@ $('.ssn-format').on('keyup', function()
 
 
 // --------------------Search employees-------------------
-$('#submit-employee-search').on('click', function()
+$('#search-employee-form').submit(function(event)
 {
     var name = $('#employee-search-last-name').val().toLowerCase();
     var ssn = $('#employee-search-ssn').val();
@@ -251,7 +251,50 @@ $('#submit-employee-search').on('click', function()
     } else {
 
     }
+    event.preventDefault();
 });
+// $('#submit-employee-search').on('click', function()
+// {
+//     var name = $('#employee-search-last-name').val().toLowerCase();
+//     var ssn = $('#employee-search-ssn').val();
+//     var birthDate = $('#employee-search-birth-date').val();
+//     var hireDate = $('#employee-search-hire-date').val();
+//     if(name != '') {
+//         $('.employee-row').each(function(){
+//             if(name == $(this).find('.employee-name').text().toLowerCase()) {
+
+//             } else {
+//                 $(this).addClass('d-none');
+//             }
+//         });
+//     } else if (ssn != '') {
+//         $('.employee-row').each(function(){
+//             if(ssn == $(this).find('.employee-ssn').text()) {
+
+//             } else {
+//                 $(this).addClass('d-none');
+//             }
+//         });
+//     } else if (birthDate != '') {
+//         $('.employee-row').each(function(){
+//             if(birthDate == $(this).find('.employee-birth-date').text()) {
+
+//             } else {
+//                 $(this).addClass('d-none');
+//             }
+//         });
+//     } else if (hireDate != '') {
+//         $('.employee-row').each(function(){
+//             if(hireDate == $(this).find('.employee-hire-date').text()) {
+
+//             } else {
+//                 $(this).addClass('d-none');
+//             }
+//         });
+//     } else {
+
+//     }
+// });
 
 // Clear search employee form
 $('#reset-employee-search').on('click', function()
