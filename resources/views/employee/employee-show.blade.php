@@ -40,12 +40,12 @@
             @csrf
             <div class="clearfix">
                 @if($employee->photo_link !== null)
-                <img src="/storage/{{$employee->photo_link}}" alt="Employee Photo" class="img-thumbnail mb-2 float-md-left" width="100" height="100">
+                <img src="/storage/{{$employee->photo_link}}" alt="Employee Photo" class="img-thumbnail mb-4 float-md-left shadow" width="100" height="100">
                 @else
-                <img src="/storage/unknown.png" alt="Employee Photo" class="img-thumbnail mb-2 float-md-left" width="100" height="100">
+                <img src="/storage/unknown.png" alt="Employee Photo" class="img-thumbnail mb-4 float-md-left shadow" width="100" height="100">
                 @endif
 
-                <div class="float-md-right bg-info p-2 mb-2">
+                <div class="float-md-right p-2 mb-4 bg-light text-header shadow border">
                     <h3>Team Manager: {{$employee->team_manager}}</h3>
                     <h3>Team Leader: {{$employee->team_leader}}</h3>
                 </div>

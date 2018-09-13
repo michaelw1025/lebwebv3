@@ -21,7 +21,7 @@
             @endslot
 
             @slot('title')
-            Employees
+            Employees: {{$statusType === 1 ? 'Active' : 'Inactive'}}
             @endslot
 
             @slot('displayExport')
