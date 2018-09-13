@@ -134,8 +134,7 @@ class QueryController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-        $employees = Employee::where('status', 1)->with(['job', 'shift', 'position'
-        ])->orderBy('hire_date',  'asc')->get();
+        $employees = $this->getEmployeeSeniority();
         // Get employee supervisors from supervisor trait
         foreach($employees as $employee){
             $employee = $this->getEmployeeSupervisors($employee);
@@ -212,17 +211,14 @@ class QueryController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-
-        // Get all employees from query trait
-        $employees = $this->getEmployeeCostCenterAll();
-        // Get all cost centers from cost center trait
-        $costCenters = $this->getCostCentersAll();
+        // Get all cost centers with employees from query trait
+        $costCenters = $this->getEmployeeCostCenterAll();
         // Set each cost center's leaders in cost center trait
         foreach($costCenters as $costCenter){
             $costCenter = $this->setCostCenterLeaders($costCenter);
         }
         return view('queries.employee-cost-center-all', [
-            'employees' => $employees,
+            // 'employees' => $employees,
             'costCenters' => $costCenters
         ]);
     }
@@ -262,7 +258,9 @@ class QueryController extends Controller
         // Get all employees with disciplinaries in the past year from query trait
         $employees = $this->getEmployeeDisciplinaryAll();
         // Get disciplinary issued by from query trait
-        $employees = $this->getDisciplinaryIssuedBy($employees);
+        foreach($employees as $employee){
+            $employee = $this->getDisciplinaryIssuedBy($employee);
+        }
         // Get employee supervisors from supervisor trait
         foreach($employees as $employee){
             $employee = $this->getEmployeeSupervisors($employee);

@@ -29,6 +29,7 @@ use App\Exports\ExportEmployeeReduction;
 use App\Exports\ExportEmployeeTurnover;
 use App\Exports\ExportEmployeeHireDate;
 use App\Exports\ExportEmployeeBonusHours;
+use App\Exports\ExportEmployeeDisciplinaryAll;
 
 use App\Employee;
 class ExportController extends Controller
@@ -110,6 +111,7 @@ class ExportController extends Controller
         // Return the export
         return (new ExportEmployeeAnniversary($employees))->download('employees-anniversary-by-quarter-'.Carbon::now()->format('m-d-Y').'.xlsx');
     }
+
     public function exportEmployeeBirthday(Request $request)
     {
         //Check if user is authorized to access this page
@@ -154,14 +156,14 @@ class ExportController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-        // Get all employees from query trait
-        $employees = $this->getEmployeeCostCenterAll();
-        // Get all cost centers from cost center trait
-        $costCenters = $this->getCostCentersAll();
+        // Get all cost centers with employees from query trait
+        $costCenters = $this->getEmployeeCostCenterAll();
         // Set each cost center's leaders in cost center trait
-        $costCenters = $this->setCostCenterLeaders($costCenters);
+        foreach($costCenters as $costCenter){
+            $costCenter = $this->setCostCenterLeaders($costCenter);
+        }
         // Return the export
-        return (new ExportEmployeeCostCenterAll($employees, $costCenters))->download('employees-cost-center-all-'.Carbon::now()->format('m-d-Y').'.xlsx');
+        return (new ExportEmployeeCostCenterAll($costCenters))->download('employees-cost-center-all-'.Carbon::now()->format('m-d-Y').'.xlsx');
     }
 
     public function exportEmployeeCostCenterIndividual(Request $request)
@@ -176,6 +178,24 @@ class ExportController extends Controller
         $searchedCostCenter = $this->setCostCenterLeaders($searchedCostCenter);
         // Return the export
         return (new ExportEmployeeCostCenterIndividual($searchedCostCenter))->download('employees-cost-center-individual-'.Carbon::now()->format('m-d-Y').'.xlsx');
+    }
+
+    public function exportEmployeeDisciplinaryAll(Request $request)
+    {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        // Get all employees with disciplinaries in the past year from query trait
+        $employees = $this->getEmployeeDisciplinaryAll();
+        // Get disciplinary issued by from query trait
+        foreach($employees as $employee){
+            $employee = $this->getDisciplinaryIssuedBy($employee);
+        }
+        // Get employee supervisors from supervisor trait
+        foreach($employees as $employee){
+            $employee = $this->getEmployeeSupervisors($employee);
+        }
+        // Return the export
+        return (new ExportEmployeeDisciplinaryAll($employees))->download('employees-disciplinary-all-'.Carbon::now()->format('m-d-Y').'.xlsx');
     }
 
     public function exportEmployeeReview(Request $request)

@@ -32,6 +32,10 @@ trait QueryTrait
         ->where('status', 1)->whereHas('job', function($q) use($job) {
             $q->where('description', $job);
         })->with([
+            'costCenter.employeeDayTeamManager:first_name,last_name',
+            'costCenter.employeeDayTeamLeader:first_name,last_name',
+            'costCenter.employeeNightTeamManager:first_name,last_name',
+            'costCenter.employeeNightTeamLeader:first_name,last_name',
             'shift',
             'position'
         ])->orderBy('last_name',  'asc')->orderBy('first_name', 'asc')->get();
@@ -39,22 +43,22 @@ trait QueryTrait
     }
 
     // Sets employee alphabetical info for the export
-    protected function setEmployeeAlphabeticalExportInfo($employees)
-    {
-        foreach($employees as $employee){
-            $this->setEmployeeDateForExport($employee, 'birth');
-            $this->setEmployeeDateForExport($employee, 'hire');
-            $this->setEmployeeDateForExport($employee, 'service');
-            $this->setEmployeeShiftForExport($employee);
-            $this->setEmployeePositionForExport($employee);
-            $this->setEmployeeCostCenterForExport($employee);
+    // protected function setEmployeeAlphabeticalExportInfo($employees)
+    // {
+    //     foreach($employees as $employee){
+    //         $this->setEmployeeDateForExport($employee, 'birth');
+    //         $this->setEmployeeDateForExport($employee, 'hire');
+    //         $this->setEmployeeDateForExport($employee, 'service');
+    //         $this->setEmployeeShiftForExport($employee);
+    //         $this->setEmployeePositionForExport($employee);
+    //         $this->setEmployeeCostCenterForExport($employee);
 
-            unset($employee->birth_date);
-            unset($employee->hire_date);
-            unset($employee->service_date);
-        }
-        return $employees;
-    }
+    //         unset($employee->birth_date);
+    //         unset($employee->hire_date);
+    //         unset($employee->service_date);
+    //     }
+    //     return $employees;
+    // }
 
     protected function getEmployeeAnniversaryByMonth($searchMonth, $searchYear)
     {
@@ -67,7 +71,17 @@ trait QueryTrait
             'first_name',
             'last_name',
             'service_date'
-        )->where('status', 1)->whereMonth('service_date', $searchMonth)->orderBy('service_date', 'dsc')->get();
+        )->where('status', 1)
+        ->whereMonth('service_date', $searchMonth)
+        ->with([
+            'costCenter.employeeDayTeamManager:first_name,last_name',
+            'costCenter.employeeDayTeamLeader:first_name,last_name',
+            'costCenter.employeeNightTeamManager:first_name,last_name',
+            'costCenter.employeeNightTeamLeader:first_name,last_name',
+            'shift'
+        ])
+        ->orderBy('service_date', 'dsc')
+        ->get();
 
         // Filter out employees who do not have a service date at a five year interval to the search year
         $filteredEmployees = $allEmployees->filter(function($employee) use($searchDate) {
@@ -94,7 +108,16 @@ trait QueryTrait
             'first_name',
             'last_name',
             'service_date'
-        )->where('status', 1)->orderBy('service_date', 'dsc')->get();
+        )->where('status', 1)
+        ->with([
+            'costCenter.employeeDayTeamManager:first_name,last_name',
+            'costCenter.employeeDayTeamLeader:first_name,last_name',
+            'costCenter.employeeNightTeamManager:first_name,last_name',
+            'costCenter.employeeNightTeamLeader:first_name,last_name',
+            'shift'
+        ])
+        ->orderBy('service_date', 'dsc')
+        ->get();
 
         $filteredEmployees = $allEmployees->filter(function($employee) use($searchQuarter, $selectedYear) {
             if($employee->service_date->quarter === $searchQuarter ){
@@ -110,15 +133,32 @@ trait QueryTrait
     }
 
     // Sets employee anniversary info for the export
-    protected function setEmployeeAnniversaryExportInfo($employees)
-    {
-        foreach($employees as $employee){
-            $employee->date_of_service = $employee->service_date->format('m/d/Y');
-            $this->setEmployeeShiftForExport($employee);
-            $this->setEmployeeCostCenterForExport($employee);
+    // protected function setEmployeeAnniversaryExportInfo($employees)
+    // {
+    //     foreach($employees as $employee){
+    //         $employee->date_of_service = $employee->service_date->format('m/d/Y');
+    //         $this->setEmployeeShiftForExport($employee);
+    //         $this->setEmployeeCostCenterForExport($employee);
 
-            unset($employee->service_date);
-        }
+    //         unset($employee->service_date);
+    //     }
+    //     return $employees;
+    // }
+
+    protected function getEmployeeSeniority()
+    {
+        $employees = Employee::where('status', 1)
+        ->with([
+            'costCenter.employeeDayTeamManager:first_name,last_name',
+            'costCenter.employeeDayTeamLeader:first_name,last_name',
+            'costCenter.employeeNightTeamManager:first_name,last_name',
+            'costCenter.employeeNightTeamLeader:first_name,last_name',
+            'job',
+            'shift',
+            'position'
+        ])
+        ->orderBy('hire_date',  'asc')
+        ->get();
         return $employees;
     }
 
@@ -133,27 +173,35 @@ trait QueryTrait
             'hire_date'
         )->where('status', 1)
         ->whereMonth('birth_date', $searchMonth)
-        ->with('shift', 'position', 'job')
+        ->with([
+            'costCenter.employeeDayTeamManager:first_name,last_name',
+            'costCenter.employeeDayTeamLeader:first_name,last_name',
+            'costCenter.employeeNightTeamManager:first_name,last_name',
+            'costCenter.employeeNightTeamLeader:first_name,last_name',
+            'shift',
+            'position',
+            'job'
+        ])
         ->orderBy('birth_date', 'asc')
         ->get();
         return $allEmployees;
     }
 
-    protected function setEmployeeBirthdayExportInfo($employees)
-    {
-        foreach($employees as $employee){
-            $employee->date_of_birth = $employee->birth_date->format('m/d/Y');
-            $employee->date_of_hire = $employee->hire_date->format('m/d/Y');
-            $this->setEmployeeShiftForExport($employee);
-            $this->setEmployeeCostCenterForExport($employee);
-            $this->setEmployeeJobForExport($employee);
-            $this->setEmployeePositionForExport($employee);
+    // protected function setEmployeeBirthdayExportInfo($employees)
+    // {
+    //     foreach($employees as $employee){
+    //         $employee->date_of_birth = $employee->birth_date->format('m/d/Y');
+    //         $employee->date_of_hire = $employee->hire_date->format('m/d/Y');
+    //         $this->setEmployeeShiftForExport($employee);
+    //         $this->setEmployeeCostCenterForExport($employee);
+    //         $this->setEmployeeJobForExport($employee);
+    //         $this->setEmployeePositionForExport($employee);
 
-            unset($employee->birth_date);
-            unset($employee->hire_date);
-        }
-        return $employees;
-    }
+    //         unset($employee->birth_date);
+    //         unset($employee->hire_date);
+    //     }
+    //     return $employees;
+    // }
 
     protected function getEmployeeWageProgression($searchMonth, $searchYear)
     {
@@ -167,9 +215,19 @@ trait QueryTrait
             'hire_date'
         )
         ->where('status', 1)
-        ->with(['wageProgression' => function($q) use($searchMonth, $searchYear) {
-            $q->whereYear('date', $searchYear)->whereMonth('date', $searchMonth);
-        }, 'shift', 'position.wageTitle', 'job', 'wageProgressionWageTitle'])
+        ->with([
+            'wageProgression' => function($q) use($searchMonth, $searchYear) {
+                $q->whereYear('date', $searchYear)->whereMonth('date', $searchMonth);
+            },
+            'shift',
+            'position.wageTitle',
+            'job',
+            'wageProgressionWageTitle',
+            'costCenter.employeeDayTeamManager:first_name,last_name',
+            'costCenter.employeeDayTeamLeader:first_name,last_name',
+            'costCenter.employeeNightTeamManager:first_name,last_name',
+            'costCenter.employeeNightTeamLeader:first_name,last_name',
+        ])
         ->whereHas('wageProgression', function($q) use($searchMonth, $searchYear) {
             $q->whereYear('date', $searchYear)->whereMonth('date', $searchMonth);
         })
@@ -179,35 +237,46 @@ trait QueryTrait
         return $employees;
     }
 
-    protected function setEmployeeWageProgressionExportInfo($employees)
-    {
-        foreach($employees as $employee){
-            $employee->date_of_hire = $employee->hire_date->format('m/d/Y');
-            foreach($employee->wageProgression as $employeeWageProgression){
-                // Set progression level
-                $employee->progression_level = $employeeWageProgression->month;
-                // Set progression date
-                $employee->progression_date = $employeeWageProgression->pivot->date->format('m/d/Y');
-            }
-            $this->setEmployeeCostCenterForExport($employee);
-            $this->setEmployeeShiftForExport($employee);
-            $this->setEmployeeJobForExport($employee);
-            $this->setEmployeePositionForExport($employee);
+    // protected function setEmployeeWageProgressionExportInfo($employees)
+    // {
+    //     foreach($employees as $employee){
+    //         $employee->date_of_hire = $employee->hire_date->format('m/d/Y');
+    //         foreach($employee->wageProgression as $employeeWageProgression){
+    //             // Set progression level
+    //             $employee->progression_level = $employeeWageProgression->month;
+    //             // Set progression date
+    //             $employee->progression_date = $employeeWageProgression->pivot->date->format('m/d/Y');
+    //         }
+    //         $this->setEmployeeCostCenterForExport($employee);
+    //         $this->setEmployeeShiftForExport($employee);
+    //         $this->setEmployeeJobForExport($employee);
+    //         $this->setEmployeePositionForExport($employee);
 
-            unset($employee->hire_date);
-            unset($employee->wageProgression);
-            unset($employee->wageProgressionWageTitle);
-        }
-        // Sort in order of progression level
-        $sorted = $employees->sortBy('progression_level');
-        // Convert the sorted array to a collection for the export 
-        return collect($sorted->values()->all());     
-    }
+    //         unset($employee->hire_date);
+    //         unset($employee->wageProgression);
+    //         unset($employee->wageProgressionWageTitle);
+    //     }
+    //     // Sort in order of progression level
+    //     $sorted = $employees->sortBy('progression_level');
+    //     // Convert the sorted array to a collection for the export 
+    //     return collect($sorted->values()->all());     
+    // }
 
     protected function getEmployeeCostCenterAll()
     {
-        $employees = Employee::select('id', 'first_name', 'last_name')->where('status', 1)->with(['costCenter', 'job', 'position'])->orderBy('last_name', 'asc')->orderBy('first_name', 'asc')->get();
-        return $employees;
+        $costCenters = CostCenter::with([
+            'employeeStaffManager',
+            'employeeDayTeamManager',
+            'employeeNightTeamManager',
+            'employeeDayTeamLeader',
+            'employeeNightTeamLeader',
+            'employee.job',
+            'employee.position'
+        ])
+        ->orderBy('number', 'asc')
+        ->orderBy('extension', 'asc')
+        ->get();
+        return $costCenters;
     }
 
     protected function getCostCenterIndividual($searchCostCenter)
@@ -230,9 +299,17 @@ trait QueryTrait
         $today = Carbon::today()->toDateTimeString();
         $oneYear = Carbon::today()->subYear()->toDateTimeString();
         $employees = Employee::where('status', 1)
-        ->with(['disciplinary' => function($q) use($today, $oneYear) {
-            $q->whereDate('date', '<=' ,$today)->whereDate('date', '>=', $oneYear);
-        }])
+        ->with([
+            'disciplinary' => function($q) use($today, $oneYear) {
+                $q->whereDate('date', '<=' ,$today)->whereDate('date', '>=', $oneYear);
+            },
+            'costCenter.employeeDayTeamManager:first_name,last_name',
+            'costCenter.employeeDayTeamLeader:first_name,last_name',
+            'costCenter.employeeNightTeamManager:first_name,last_name',
+            'costCenter.employeeNightTeamLeader:first_name,last_name',
+            'shift',
+            'position'
+        ])
         ->whereHas('disciplinary', function($q) use($today, $oneYear) {
             $q->whereDate('date', '<=' ,$today)->whereDate('date', '>=', $oneYear);
         })
@@ -242,15 +319,13 @@ trait QueryTrait
         return $employees;
     }
 
-    protected function getDisciplinaryIssuedBy($employees)
+    protected function getDisciplinaryIssuedBy($employee)
     {
-        foreach($employees as $employee){
             foreach($employee->disciplinary as $employeeDisciplinary){
                 $issuedBy = Employee::find($employeeDisciplinary->issued_by);
                 $employeeDisciplinary->issued_by_name = $issuedBy->first_name.' '.$issuedBy->last_name;
             }
-        }
-        return $employees;
+        return $employee;
     }
 
     protected function getEmployeeReview()
@@ -270,7 +345,13 @@ trait QueryTrait
         ->whereHas('job', function($q) {
             $q->where('description', 'hourly');
         })
-        ->with(['costCenter', 'shift'])
+        ->with([
+            'costCenter.employeeDayTeamManager:first_name,last_name',
+            'costCenter.employeeDayTeamLeader:first_name,last_name',
+            'costCenter.employeeNightTeamManager:first_name,last_name',
+            'costCenter.employeeNightTeamLeader:first_name,last_name',
+            'shift'
+        ])
         ->orderBy('last_name', 'asc')
         ->orderBy('first_name', 'asc')
         ->get();
@@ -311,9 +392,12 @@ trait QueryTrait
         ->whereHas('termination', function($q) use($startDate, $endDate) {
             $q->whereDate('date', '<=', $endDate)->whereDate('date', '>=', $startDate);
         })
-        ->with(['termination' => function($q) use($startDate, $endDate) {
-            $q->whereDate('date', '<=', $endDate)->whereDate('date', '>=', $startDate);
-        }, 'costCenter'])
+        ->with([
+            'termination' => function($q) use($startDate, $endDate) {
+                $q->whereDate('date', '<=', $endDate)->whereDate('date', '>=', $startDate);
+            },
+            'costCenter'
+        ])
         ->orderBy('last_name', 'asc')
         ->orderBy('first_name', 'asc')
         ->get();
@@ -332,7 +416,13 @@ trait QueryTrait
             $q->where('description', $searchJob);
         })->whereDate('hire_date', '<=', $endDate)
         ->whereDate('hire_date', '>=', $startDate)
-        ->with('costCenter', 'shift')
+        ->with([
+            'costCenter.employeeDayTeamManager:first_name,last_name',
+            'costCenter.employeeDayTeamLeader:first_name,last_name',
+            'costCenter.employeeNightTeamManager:first_name,last_name',
+            'costCenter.employeeNightTeamLeader:first_name,last_name',
+            'shift'
+        ])
         ->orderBy('hire_date', 'asc')
         ->get();
         return $employees;
@@ -360,9 +450,16 @@ trait QueryTrait
         ->whereDate('hire_date', '<', $fiveYearHireDate)
         ->whereHas('job', function($q) {
             $q->where('description', 'hourly');
-        })->with(['disciplinary' => function($q) use($firstDayOfPreviousQuarter, $lastDayOfPreviousQuarter) {
-            $q->whereDate('date', '<=', $lastDayOfPreviousQuarter)->whereDate('date', '>=', $firstDayOfPreviousQuarter);
-        }, 'costCenter', 'shift'])
+        })->with([
+            'disciplinary' => function($q) use($firstDayOfPreviousQuarter,  $lastDayOfPreviousQuarter) {
+                $q->whereDate('date', '<=', $lastDayOfPreviousQuarter)->whereDate('date', '>=', $firstDayOfPreviousQuarter);
+            },
+            'costCenter.employeeDayTeamManager:first_name,last_name',
+            'costCenter.employeeDayTeamLeader:first_name,last_name',
+            'costCenter.employeeNightTeamManager:first_name,last_name',
+            'costCenter.employeeNightTeamLeader:first_name,last_name',
+            'shift'
+        ])
         ->orderBy('hire_date', 'desc')
         ->get();
         foreach($employees as $employee){

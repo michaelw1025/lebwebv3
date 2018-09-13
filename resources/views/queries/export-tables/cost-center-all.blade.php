@@ -18,30 +18,30 @@
                 <td><strong>Night TM:</strong> {{$costCenter->night_manager}}</td>
                 <td><strong>Night TL:</strong> {{$costCenter->night_leader}}</td>
         </tr>
-        @foreach($employees as $employee)
-        @foreach($employee->costCenter as $employeeCostCenter)
-        @if($employeeCostCenter->id === $costCenter->id)
-        <tr class="clickable-row employee-row" data-href="{{route('employees.show', ['id' => $employee->id])}}">
-            <td>{{$employee->id}}</td>
-            <td>{{$employee->first_name}}</td>
-            <td>{{$employee->last_name}}</td>
-            @if($employee->job->count() > 0)
-                @foreach($employee->job as $job)
+        @foreach($costCenter->employee as $costCenterEmployee)
+
+
+        <tr class="clickable-row employee-row" data-href="{{route('employees.show', ['id' => $costCenterEmployee->pivot->employee_id])}}">
+            <td>{{$costCenterEmployee->pivot->employee_id}}</td>
+            <td>{{$costCenterEmployee->first_name}}</td>
+            <td>{{$costCenterEmployee->last_name}}</td>
+            @if($costCenterEmployee->job->count() > 0)
+                @foreach($costCenterEmployee->job as $job)
                 <td class="">{{$job->description}}</td>
                 @endforeach
             @else
                 <td class=" text-danger">Not Set</td>
             @endif
-            @if($employee->position->count() > 0)
-                @foreach($employee->position as $position)
+            @if($costCenterEmployee->position->count() > 0)
+                @foreach($costCenterEmployee->position as $position)
                 <td class="">{{$position->description}}</td>
                 @endforeach
             @else
                 <td class=" text-danger">Not Set</td>
             @endif
         </tr>
-        @endif
-        @endforeach
+
+
         @endforeach
     @endforeach
     </tbody>
