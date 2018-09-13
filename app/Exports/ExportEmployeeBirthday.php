@@ -2,13 +2,13 @@
 
 namespace App\Exports;
 
-use Maatwebsite\Excel\Concerns\FromCollection;
+use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\Exportable;
-use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
 
-class ExportEmployeeBirthday implements FromCollection, WithHeadings, ShouldAutoSize{
+class ExportEmployeeBirthday implements FromView, ShouldAutoSize{
 
     use Exportable;
 
@@ -22,21 +22,11 @@ class ExportEmployeeBirthday implements FromCollection, WithHeadings, ShouldAuto
         return $this->employees;
     }
 
-    public function headings(): array
+    public function view(): View
     {
-        return[
-            'id',
-            'First Name',
-            'Last Name',
-            'Team Manager',
-            'Team Leader',
-            'Birth Date',
-            'Hire Date',
-            'Shift',
-            'Cost Center',
-            'Job',
-            'Position'
-        ];
+        return view('queries.export-tables.birthday', [
+            'employees' => $this->employees
+        ]);
     }
     
 }

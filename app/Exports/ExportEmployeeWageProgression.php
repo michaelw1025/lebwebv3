@@ -2,47 +2,28 @@
 
 namespace App\Exports;
 
-use Maatwebsite\Excel\Concerns\FromCollection;
+use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\Exportable;
-use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
 
-class ExportEmployeeWageProgression implements FromCollection, WithHeadings, ShouldAutoSize{
+class ExportEmployeeWageProgression implements FromView, ShouldAutoSize{
 
     use Exportable;
 
-    public function __construct($employees)
+    public function __construct($employees, $wageProgressions)
     {
         $this->employees = $employees;
+        $this->wageProgressions = $wageProgressions;
     }
 
-    public function collection()
+    public function view(): View
     {
-        return $this->employees;
-    }
-
-    public function headings(): array
-    {
-        return[
-            'id',
-            'First Name',
-            'Last Name',
-            'MI',
-            'SSN',
-            'Oracle Number',
-            'Team Manager',
-            'Team Leader',
-            'Current Wage',
-            'Next Wage',
-            'Hire Date',
-            'Next Progression Level',
-            'Next Progression Date',
-            'Cost Center',
-            'Shift',
-            'Job',
-            'Position'
-        ];
+        return view('queries.export-tables.wage-progression', [
+            'employees' => $this->employees,
+            'wageProgressions' => $this->wageProgressions
+        ]);
     }
     
 }

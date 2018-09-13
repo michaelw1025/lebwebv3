@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use carbon\Carbon;
 use Excel;
 
+// Models
+use App\WageProgression;
+
 // Traits
 use App\Traits\QueryTrait;
 use App\Traits\SupervisorTrait;
@@ -119,8 +122,6 @@ class ExportController extends Controller
         foreach($employees as $employee){
             $employee = $this->getEmployeeSupervisors($employee);
         }
-        // Set the employee info for the export
-        $employees = $this->setEmployeeBirthdayExportInfo($employees);
         // Return the export
         return (new ExportEmployeeBirthday($employees))->download('employees-birthday-'.Carbon::now()->format('m-d-Y').'.xlsx');
     }
@@ -144,10 +145,9 @@ class ExportController extends Controller
         }
         // Set employee current and next wage from wage trait
         $employees = $this->setEmployeeWages($employees);
-        // Set the employee info for the export
-        $employees = $this->setEmployeeWageProgressionExportInfo($employees);
-        // Return the export
-        return (new ExportEmployeeWageProgression($employees))->download('employees-wage-progression-'.Carbon::now()->format('m-d-Y').'.xlsx');
+        // Get all wage progressions for table
+        $wageProgressions = WageProgression::all();
+        return (new ExportEmployeeWageProgression($employees, $wageProgressions))->download('employees-wage-progression-'.Carbon::now()->format('m-d-Y').'.xlsx');
     }
 
     public function exportEmployeeCostCenterAll(Request $request)
