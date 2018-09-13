@@ -31,4 +31,9 @@ class HomeController extends Controller
             return redirect()->route('hr.home');
         }
     }
+
+    public function userAPI(Request $request)
+    {
+        return $request->user();
+    }
 }

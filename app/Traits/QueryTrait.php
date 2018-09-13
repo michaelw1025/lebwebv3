@@ -31,7 +31,9 @@ trait QueryTrait
         )
         ->where('status', 1)->whereHas('job', function($q) use($job) {
             $q->where('description', $job);
-        })->with(['shift', 'position'
+        })->with([
+            'shift',
+            'position'
         ])->orderBy('last_name',  'asc')->orderBy('first_name', 'asc')->get();
         return $employees;
     }
