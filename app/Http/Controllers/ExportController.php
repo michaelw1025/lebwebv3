@@ -57,8 +57,6 @@ class ExportController extends Controller
         foreach($employees as $employee){
             $employee = $this->getEmployeeSupervisors($employee);
         }
-        // Set the employee info for the export
-        $employees = $this->setEmployeeAlphabeticalExportInfo($employees);
         return (new ExportEmployeeAlphabetical($employees))->download('employees-alphabetical-hourly-'.Carbon::now()->format('m-d-Y').'.xlsx');
     }
 
@@ -72,8 +70,6 @@ class ExportController extends Controller
         foreach($employees as $employee){
             $employee = $this->getEmployeeSupervisors($employee);
         }
-        // Set the employee info for the export
-        $employees = $this->setEmployeeAlphabeticalExportInfo($employees);
         return (new ExportEmployeeAlphabetical($employees))->download('employees-alphabetical-salary-'.Carbon::now()->format('m-d-Y').'.xlsx');
     }
 
@@ -90,8 +86,6 @@ class ExportController extends Controller
         foreach($employees as $employee){
             $employee = $this->getEmployeeSupervisors($employee);
         }
-        // Set the employee info for the export
-        $employees = $this->setEmployeeAnniversaryExportInfo($employees);
         // Return the export
         return (new ExportEmployeeAnniversary($employees))->download('employees-anniversary-by-month-'.Carbon::now()->format('m-d-Y').'.xlsx');
 
@@ -110,8 +104,6 @@ class ExportController extends Controller
         foreach($employees as $employee){
             $employee = $this->getEmployeeSupervisors($employee);
         }
-        // Set the employee info for the export
-        $employees = $this->setEmployeeAnniversaryExportInfo($employees);
         // Return the export
         return (new ExportEmployeeAnniversary($employees))->download('employees-anniversary-by-quarter-'.Carbon::now()->format('m-d-Y').'.xlsx');
     }

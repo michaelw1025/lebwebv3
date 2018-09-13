@@ -26,7 +26,8 @@ trait QueryTrait
             'city',
             'state',
             'zip_code',
-            'county'
+            'county',
+            'bid_eligible'
         )
         ->where('status', 1)->whereHas('job', function($q) use($job) {
             $q->where('description', $job);

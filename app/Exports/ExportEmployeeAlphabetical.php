@@ -2,13 +2,13 @@
 
 namespace App\Exports;
 
-use Maatwebsite\Excel\Concerns\FromCollection;
+use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\Exportable;
-use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
 
-class ExportEmployeeAlphabetical implements FromCollection, WithHeadings, ShouldAutoSize{
+class ExportEmployeeAlphabetical implements FromView, ShouldAutoSize{
 
     use Exportable;
 
@@ -17,33 +17,10 @@ class ExportEmployeeAlphabetical implements FromCollection, WithHeadings, Should
         $this->employees = $employees;
     }
 
-    public function collection()
+    public function view(): View
     {
-        return $this->employees;
+        return view('queries.export-tables.alphabetical', [
+            'employees' => $this->employees
+        ]);
     }
-
-    public function headings(): array
-    {
-        return[
-            'id',
-            'First Name',
-            'Last Name',
-            'SSN',
-            'Address',
-            'Address Cont',
-            'City',
-            'State',
-            'Zip Code',
-            'County',
-            'Team Manager',
-            'Team Leader',
-            'Birth Date',
-            'Hire Date',
-            'Service Date',
-            'Shift',
-            'Position',
-            'Cost Center',
-        ];
-    }
-    
 }

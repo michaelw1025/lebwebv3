@@ -80,7 +80,6 @@ class QueryController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-
         // Check if search form is being submitted
         if($request->has('anniversary_month') && $request->has('anniversary_year')){
             // Set month and year from request
