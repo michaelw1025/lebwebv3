@@ -420,4 +420,18 @@ class QueryController extends Controller
         ]);
 
     }
+
+    public function teamLeader(Request $request)
+    {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        // Get all team leaders
+
+        // Check if search form is being submitted
+        if($request->has('team_leader')){
+
+        }else{
+
+        }
+    }
 }
