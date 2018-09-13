@@ -212,6 +212,7 @@ $('.ssn-format').on('keyup', function()
 // --------------------Search employees-------------------
 $('#search-employee-form').submit(function(event)
 {
+    event.preventDefault();
     var name = $('#employee-search-last-name').val().toLowerCase();
     var ssn = $('#employee-search-ssn').val();
     var birthDate = $('#employee-search-birth-date').val();
@@ -251,7 +252,7 @@ $('#search-employee-form').submit(function(event)
     } else {
 
     }
-    event.preventDefault();
+    
 });
 // $('#submit-employee-search').on('click', function()
 // {
