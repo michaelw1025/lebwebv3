@@ -234,11 +234,6 @@ class EmployeeController extends Controller
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         // Get employee
         $employee = Employee::with(
-            // 'costCenter.employeeStaffManager',
-            // 'costCenter.employeeDayTeamManager',
-            // 'costCenter.employeeNightTeamManager',
-            // 'costCenter.employeeDayTeamLeader',
-            // 'costCenter.employeeNightTeamLeader',
             'shift',
             'position.wageTitle.wageProgression',
             'job',
