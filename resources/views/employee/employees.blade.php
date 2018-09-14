@@ -71,6 +71,8 @@
                     <th scope="col">ID</th>
                     <th scope="col">First</th>
                     <th scope="col">Last</th>
+                    <th scope="col">MI</th>
+                    <th scope="col">SFX</th>
                     <th scope="col" class="d-none d-md-table-cell">SSN</th>
                     <th scope="col" class="d-none d-md-table-cell">Birth Date</th>
                     <th scope="col" class="d-none d-md-table-cell">Hire Date</th>
@@ -82,6 +84,8 @@
                     <td>{{$employee->id}}</td>
                     <td>{{$employee->first_name}}</td>
                     <td class="employee-name">{{$employee->last_name}}</td>
+                    <td>{{$employee->middle_initial}}</td>
+                    <td>{{strtoupper($employee->suffix)}}</td>
                     <td class="d-none d-md-table-cell employee-ssn">{{$employee->ssn}}</td>
                     <td class="d-none d-md-table-cell employee-birth-date">{{$employee->birth_date->format('m/d/Y')}}</td>
                     <td class="d-none d-md-table-cell employee-hire-date">{{$employee->hire_date->format('m/d/Y')}}</td>

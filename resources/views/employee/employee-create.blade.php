@@ -93,9 +93,6 @@
                     <label for="create-employee-suffix">Sufix</label>
                     <select class="custom-select {{$errors->has('suffix') ? 'is-invalid' : ''}}" id="create-employee-suffix" name="suffix">
                         <option {{old('suffix') ? (old('suffix') == '' ? 'selected' : '') : ''}} value=""></option>
-                        <option {{old('suffix') ? (old('suffix') == 'mr' ? 'selected' : '') : ''}} value="mr">Mr</option>
-                        <option {{old('suffix') ? (old('suffix') == 'mrs' ? 'selected' : '') : ''}} value="mrs">Mrs</option>
-                        <option {{old('suffix') ? (old('suffix') == 'miss' ? 'selected' : '') : ''}} value="miss">Miss</option>
                         <option {{old('suffix') ? (old('suffix') == 'jr' ? 'selected' : '') : ''}} value="jr">Jr</option>
                         <option {{old('suffix') ? (old('suffix') == 'sr' ? 'selected' : '') : ''}} value="sr">Sr</option>
                         <option {{old('suffix') ? (old('suffix') == 'ii' ? 'selected' : '') : ''}} value="ii">II</option>

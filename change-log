@@ -1,3 +1,10 @@
+v 2.1.2
+-9-14-18
+-added OS's to disciplinary issued_by option
+-adjusted suffix select options
+-removed access to Team Leader query for fixes
+
+
 v 2.1.1
 -9-12-18
 -gave hrassistant full access to disciplinary, reduction, and termination

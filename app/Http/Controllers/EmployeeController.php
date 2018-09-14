@@ -68,7 +68,7 @@ class EmployeeController extends Controller
             $statusType = 1;
         }
         // Get requested employees
-        $employees = Employee::where('status', $statusType)->orderBy('last_name', 'asc')->get();
+        $employees = Employee::where('status', $statusType)->orderBy('last_name', 'asc')->orderBy('first_name', 'asc')->get();
         // Return the employees view
         return view('employee.employees', [
             'employees' => $employees,

@@ -477,9 +477,13 @@ trait QueryTrait
         $costCenters = CostCenter::whereHas('employeeDayTeamLeader', function($q) use($id) {
             $q->where('employee_id', $id);
         })
+        ->orWhereHas('employeeNightTeamLeader', function($q) use($id) {
+            $q->where('employee_id', $id);
+        })
         ->with([
             'employee.job',
-            'employee.position'
+            'employee.position',
+            'employee.shift'
         ])
         ->get();
         return $costCenters;

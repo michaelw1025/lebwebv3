@@ -119,9 +119,6 @@
                         <option value="{{$employee->suffix}}" selected>{{strtoupper($employee->suffix)}}</option>
                         @endif
                         <option {{old('suffix') ? (old('suffix') === '' ? 'selected' : '') : ''}} value=""></option>
-                        <option {{old('suffix') ? (old('suffix') === 'mr' ? 'selected' : '') : ''}} value="mr">MR</option>
-                        <option {{old('suffix') ? (old('suffix') === 'mrs' ? 'selected' : '') : ''}} value="mrs">MRS</option>
-                        <option {{old('suffix') ? (old('suffix') === 'miss' ? 'selected' : '') : ''}} value="miss">MISS</option>
                         <option {{old('suffix') ? (old('suffix') === 'jr' ? 'selected' : '') : ''}} value="jr">JR</option>
                         <option {{old('suffix') ? (old('suffix') === 'sr' ? 'selected' : '') : ''}} value="sr">SR</option>
                         <option {{old('suffix') ? (old('suffix') === 'ii' ? 'selected' : '') : ''}} value="ii">II</option>

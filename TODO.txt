@@ -5,3 +5,5 @@ Fix phone number at small sizes
 Fix emergency contact at small sizes
 
 Manage -> Teams
+
+Separate Team leader query by shift

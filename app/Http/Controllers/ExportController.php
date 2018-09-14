@@ -320,6 +320,7 @@ class ExportController extends Controller
         // Get all cost centers for the team leader from the query trait
         $costCenters = $this->getEmployeeTeamLeader($searchTeamLeader->id);
         // Return the export
+        // return (new ExportEmployeeTeamLeader($searchTeamLeader, $costCenters))->download('employees-team-leader-'.Carbon::now()->format('m-d-Y').'.xlsx');
         return (new ExportEmployeeTeamLeader($searchTeamLeader, $costCenters))->download('employees-team-leader-'.Carbon::now()->format('m-d-Y').'.xlsx');
     }
 }

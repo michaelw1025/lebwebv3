@@ -11,6 +11,7 @@ use App\Employee;
 
 // Traits
 use App\Traits\DisciplinaryTrait;
+use App\Traits\SupervisorTrait;
 
 // Requests
 use App\Http\Requests\StoreDisciplinary;
@@ -18,6 +19,7 @@ use App\Http\Requests\StoreDisciplinary;
 class DisciplinaryController extends Controller
 {
     use DisciplinaryTrait;
+    use SupervisorTrait;
 
     /**
      * Create a new controller instance.
@@ -54,10 +56,8 @@ class DisciplinaryController extends Controller
         $employee = Employee::findOrFail($request->input('employee'));
         // Get all cost centers
         $costCenters = CostCenter::orderBy('number', 'asc')->orderBy('extension', 'asc')->get();
-        // Get all salaried employees
-        $salariedEmployees = Employee::whereHas('job', function($q) {
-            $q->where('description', 'salary');
-        })->orderBy('last_name', 'asc')->get();
+        // Get all salary employees including OS's from supervisor trait
+        $salariedEmployees = $this->getSalariedWithOS();
         return view('employee.disciplinary.disciplinary-create', [
             'costCenters' => $costCenters,
             'salariedEmployees' => $salariedEmployees,
@@ -134,10 +134,8 @@ class DisciplinaryController extends Controller
         $this->getDisciplinaryInfo($disciplinary);
         // Get all cost centers
         $costCenters = CostCenter::orderBy('number', 'asc')->orderBy('extension', 'asc')->get();
-        // Get all salaried employees
-        $salariedEmployees = Employee::whereHas('job', function($q) {
-            $q->where('description', 'salary');
-        })->orderBy('last_name', 'asc')->get();
+        // Get all salary employees including OS's from supervisor trait
+        $salariedEmployees = $this->getSalariedWithOS();
         return view('employee.disciplinary.disciplinary-edit', [
             'disciplinary' => $disciplinary,
             'costCenters' => $costCenters,

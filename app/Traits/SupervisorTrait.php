@@ -64,8 +64,24 @@ trait SupervisorTrait
     {
         $teamLeader = Employee::has('costCenterDayTeamLeader')
         ->orHas('costCenterNightTeamLeader')
+        ->orderBy('last_name', 'asc')
+        ->orderBy('first_name', 'asc')
         ->get();
         return $teamLeader;
+    }
+
+    protected function getSalariedWithOS()
+    {
+        $salariedEmployees = Employee::whereHas('job', function($q) {
+            $q->where('description', 'salary');
+        })
+        ->orWhereHas('position', function($q) {
+            $q->where('description', 'specialist operations');
+        })
+        ->orderBy('last_name', 'asc')
+        ->orderBy('first_name', 'asc')
+        ->get();
+        return $salariedEmployees;
     }
 
 }
