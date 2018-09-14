@@ -60,5 +60,13 @@ trait SupervisorTrait
         return $supervisors;
     }
 
+    protected function getAllTeamLeaders()
+    {
+        $teamLeader = Employee::has('costCenterDayTeamLeader')
+        ->orHas('costCenterNightTeamLeader')
+        ->get();
+        return $teamLeader;
+    }
+
 }
 

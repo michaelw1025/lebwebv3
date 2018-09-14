@@ -8,6 +8,7 @@ use Excel;
 
 // Models
 use App\WageProgression;
+use App\Employee;
 
 // Traits
 use App\Traits\QueryTrait;
@@ -30,8 +31,8 @@ use App\Exports\ExportEmployeeTurnover;
 use App\Exports\ExportEmployeeHireDate;
 use App\Exports\ExportEmployeeBonusHours;
 use App\Exports\ExportEmployeeDisciplinaryAll;
+use App\Exports\ExportEmployeeTeamLeader;
 
-use App\Employee;
 class ExportController extends Controller
 {
     use QueryTrait;
@@ -308,5 +309,17 @@ class ExportController extends Controller
         }
         // Return the export
         return (new ExportEmployeeBonusHours($employees))->download('employees-bonus-hours-'.Carbon::now()->format('m-d-Y').'.xlsx');
+    }
+
+    public function exportEmployeeTeamLeader(Request $request)
+    {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        // Get the team leader for the search
+        $searchTeamLeader = Employee::findOrFail((int)$request->input('team_leader'));
+        // Get all cost centers for the team leader from the query trait
+        $costCenters = $this->getEmployeeTeamLeader($searchTeamLeader->id);
+        // Return the export
+        return (new ExportEmployeeTeamLeader($searchTeamLeader, $costCenters))->download('employees-team-leader-'.Carbon::now()->format('m-d-Y').'.xlsx');
     }
 }

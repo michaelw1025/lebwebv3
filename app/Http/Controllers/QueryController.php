@@ -26,6 +26,7 @@ use App\Http\Requests\SearchEmployeeWageProgression;
 use App\Http\Requests\SearchEmployeeCostCenterIndividual;
 use App\Http\Requests\SearchEmployeeTurnover;
 use App\Http\Requests\SearchEmployeeHireDate;
+use App\Http\Requests\SearchTeamLeader;
 
 class QueryController extends Controller
 {
@@ -421,17 +422,27 @@ class QueryController extends Controller
 
     }
 
-    public function teamLeader(Request $request)
+    public function employeeTeamLeader(SearchTeamLeader $request)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-        // Get all team leaders
-
+        // Get all team leaders from the supervisor trait
+        $teamLeaders = $this->getAllTeamLeaders();
         // Check if search form is being submitted
         if($request->has('team_leader')){
-
+            // Get the team leader for the search
+            $searchTeamLeader = Employee::findOrFail($request->team_leader);
+            // Get all cost centers for the team leader from the query trait
+            $costCenters = $this->getEmployeeTeamLeader($searchTeamLeader->id);
+            return view('queries.employee-team-leader', [
+                'teamLeaders' => $teamLeaders,
+                'searchTeamLeader' => $searchTeamLeader,
+                'costCenters' => $costCenters
+            ]); 
         }else{
-
+            return view('queries.employee-team-leader', [
+                'teamLeaders' => $teamLeaders
+            ]);
         }
     }
 }

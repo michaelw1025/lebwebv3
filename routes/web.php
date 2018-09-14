@@ -57,7 +57,7 @@ Route::prefix('query')->group(function () {
     Route::get('/query-employee-hire-date-hourly', 'QueryController@employeeHireDateHourly')->name('queries.employee-hire-date-hourly');
     Route::get('/query-employee-hire-date-salary', 'QueryController@employeeHireDateSalary')->name('queries.employee-hire-date-salary');
     Route::get('/query-employee-bonus-hours', 'QueryController@employeeBonusHours')->name('queries.employee-bonus-hours');
-    Route::get('/query-team-leader', 'QueryController@teamLeader')->name('queries.team-leader');
+    Route::get('/query-employee-team-leader', 'QueryController@employeeTeamLeader')->name('queries.employee-team-leader');
 });
 
 Route::prefix('export')->group(function() {
@@ -77,4 +77,5 @@ Route::prefix('export')->group(function() {
     Route::get('/export-employee-hire-date-hourly', 'ExportController@exportEmployeeHireDateHourly')->name('export-employee-hire-date-hourly');
     Route::get('/export-employee-hire-date-salary', 'ExportController@exportEmployeeHireDateSalary')->name('export-employee-hire-date-salary');
     Route::get('/export-employee-bonus-hours', 'ExportController@exportEmployeeBonusHours')->name('export-employee-bonus-hours');
+    Route::get('/export-employee-team-leader', 'ExportController@exportEmployeeTeamLeader')->name('export-employee-team-leader');
 });

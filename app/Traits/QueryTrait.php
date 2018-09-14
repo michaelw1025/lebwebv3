@@ -472,50 +472,63 @@ trait QueryTrait
         return $employees;
     }
 
-
-
-
-
-
-
-
-    protected function setEmployeeShiftForExport($employee)
+    protected function getEmployeeTeamLeader($id)
     {
-        foreach($employee->shift as $shift){
-            $employee->current_shift = $shift->description;
-        }
-        unset($employee->shift);
-        return $employee;
+        $costCenters = CostCenter::whereHas('employeeDayTeamLeader', function($q) use($id) {
+            $q->where('employee_id', $id);
+        })
+        ->with([
+            'employee.job',
+            'employee.position'
+        ])
+        ->get();
+        return $costCenters;
     }
-    protected function setEmployeeCostCenterForExport($employee)
-    {
-        foreach($employee->costCenter as $costCenter){
-            $employee->current_cost_center = $costCenter->number.' '.$costCenter->extension.' '.$costCenter->description;
-        }
-        unset($employee->costCenter);
-        return $employee;
-    }
-    protected function setEmployeePositionForExport($employee)
-    {
-        foreach($employee->position as $position){
-            $employee->current_position = $position->description;
-        }
-        unset($employee->position);
-        return $employee;
-    }
-    protected function setEmployeeJobForExport($employee)
-    {
-        foreach($employee->job as $job){
-            $employee->current_job = $job->description;
-            unset($employee->job);
-            return $employee;
-        }
-    }
-    protected function setEmployeeDateForExport($employee, $label)
-    {
-        $employee['date_of_'.$label] = $employee[$label.'_date']->format('m/d/Y');
-        return $employee;
-    }
+
+
+
+
+
+
+
+
+    // protected function setEmployeeShiftForExport($employee)
+    // {
+    //     foreach($employee->shift as $shift){
+    //         $employee->current_shift = $shift->description;
+    //     }
+    //     unset($employee->shift);
+    //     return $employee;
+    // }
+    // protected function setEmployeeCostCenterForExport($employee)
+    // {
+    //     foreach($employee->costCenter as $costCenter){
+    //         $employee->current_cost_center = $costCenter->number.' '.$costCenter->extension.' '.$costCenter->description;
+    //     }
+    //     unset($employee->costCenter);
+    //     return $employee;
+    // }
+    // protected function setEmployeePositionForExport($employee)
+    // {
+    //     foreach($employee->position as $position){
+    //         $employee->current_position = $position->description;
+    //     }
+    //     unset($employee->position);
+    //     return $employee;
+    // }
+    // protected function setEmployeeJobForExport($employee)
+    // {
+    //     foreach($employee->job as $job){
+    //         $employee->current_job = $job->description;
+    //         unset($employee->job);
+    //         return $employee;
+    //     }
+    // }
+    // protected function setEmployeeDateForExport($employee, $label)
+    // {
+    //     $employee['date_of_'.$label] = $employee[$label.'_date']->format('m/d/Y');
+    //     return $employee;
+    // }
 
 }
 

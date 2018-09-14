@@ -25,7 +25,7 @@ return [
         | or downloading. Here you can customize that path.
         |
         */
-        'temp_path'  => sys_get_temp_dir(),
+        'temp_path'  => env('EXCEL_TEMP_PATH'),
 
         /*
         |--------------------------------------------------------------------------
