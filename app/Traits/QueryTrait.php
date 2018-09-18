@@ -472,20 +472,34 @@ trait QueryTrait
         return $employees;
     }
 
-    protected function getEmployeeTeamLeader($id)
+    protected function getTeamLeaderEmployees($id, $tlShift)
     {
-        $costCenters = CostCenter::whereHas('employeeDayTeamLeader', function($q) use($id) {
-            $q->where('employee_id', $id);
-        })
-        ->orWhereHas('employeeNightTeamLeader', function($q) use($id) {
+        if($tlShift === 1){
+            $ccShift = 'employeeDayTeamLeader';
+            $employeeShift = 'day';
+        }elseif($tlShift === 2){
+            $ccShift =  'employeeNightTeamLeader';
+            $employeeShift = 'night';
+        }else{
+            $ccShift = 'employeeDayTeamLeader';
+            $employeeShift = 'day';
+        }
+
+        $costCenters = CostCenter::whereHas($ccShift, function($q) use($id) {
             $q->where('employee_id', $id);
         })
         ->with([
+            'employee' => function($q) use($employeeShift) {
+                $q->whereHas('shift', function($q) use($employeeShift) {
+                    $q->where('description', $employeeShift);
+                });
+            },
+            'employee.shift',
             'employee.job',
-            'employee.position',
-            'employee.shift'
+            'employee.position'
         ])
         ->get();
+
         return $costCenters;
     }
 

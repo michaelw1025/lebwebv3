@@ -60,14 +60,14 @@ trait SupervisorTrait
         return $supervisors;
     }
 
-    protected function getAllTeamLeaders()
+    protected function getAllTeamLeaders($shift)
     {
-        $teamLeader = Employee::has('costCenterDayTeamLeader')
-        ->orHas('costCenterNightTeamLeader')
+        $costCenterShift = 'costCenter'.$shift.'TeamLeader';
+        $teamLeaders = Employee::has($costCenterShift)
         ->orderBy('last_name', 'asc')
         ->orderBy('first_name', 'asc')
         ->get();
-        return $teamLeader;
+        return $teamLeaders;
     }
 
     protected function getSalariedWithOS()

@@ -254,48 +254,7 @@ $('#search-employee-form').submit(function(event)
     }
     
 });
-// $('#submit-employee-search').on('click', function()
-// {
-//     var name = $('#employee-search-last-name').val().toLowerCase();
-//     var ssn = $('#employee-search-ssn').val();
-//     var birthDate = $('#employee-search-birth-date').val();
-//     var hireDate = $('#employee-search-hire-date').val();
-//     if(name != '') {
-//         $('.employee-row').each(function(){
-//             if(name == $(this).find('.employee-name').text().toLowerCase()) {
 
-//             } else {
-//                 $(this).addClass('d-none');
-//             }
-//         });
-//     } else if (ssn != '') {
-//         $('.employee-row').each(function(){
-//             if(ssn == $(this).find('.employee-ssn').text()) {
-
-//             } else {
-//                 $(this).addClass('d-none');
-//             }
-//         });
-//     } else if (birthDate != '') {
-//         $('.employee-row').each(function(){
-//             if(birthDate == $(this).find('.employee-birth-date').text()) {
-
-//             } else {
-//                 $(this).addClass('d-none');
-//             }
-//         });
-//     } else if (hireDate != '') {
-//         $('.employee-row').each(function(){
-//             if(hireDate == $(this).find('.employee-hire-date').text()) {
-
-//             } else {
-//                 $(this).addClass('d-none');
-//             }
-//         });
-//     } else {
-
-//     }
-// });
 
 // Clear search employee form
 $('#reset-employee-search').on('click', function()
@@ -395,20 +354,15 @@ $('.toggle-column').on('click', function() {
     $('.'+column).toggleClass('d-none');
 });
 
-// Send export data to export controller
-// $('.export-button').on('click', function() {
-//     var exportRoute = $(this).attr('id');
-//     $.ajaxSetup({
-//         headers: {
-//             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-//         }
-//     });
-//     $.ajax({
-//         url: exportRoute,
-//         method: 'post',
-//         data: exportData,
-//         success: function(result) {
-//             console.log(result);
-//         }
-//     });
+// Set team leader query form action based on team leader select
+// $('#team-leader-search').change(function() {
+//     var dayTL = '';
+//     var nightTL = '';
+//     var defaultRoute = '';
+//     var selectedTL = $(this.options[this.selectedIndex]).closest('optgroup').prop('label');
+//     switch(selectedTL){
+//         case "Day TL":
+//         case "Night TL":
+//         default:
+//     }
 // });

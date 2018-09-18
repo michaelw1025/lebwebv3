@@ -426,22 +426,30 @@ class QueryController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-        // Get all team leaders from the supervisor trait
-        $teamLeaders = $this->getAllTeamLeaders();
+        // Get all day team leaders from the supervisor trait
+        $dayTeamLeaders = $this->getAllTeamLeaders('Day');
+        $nightTeamLeaders = $this->getAllTeamLeaders('Night');
         // Check if search form is being submitted
         if($request->has('team_leader')){
+            // Get the desired team leader shift from the team_leader input
+            $tlShift = (int)substr($request->team_leader, 0, 1);
+            // Remove the first two characters of the team_leader input to get the search team leader id
+            $tlID = (int)substr($request->team_leader, 2, 10);
             // Get the team leader for the search
-            $searchTeamLeader = Employee::findOrFail($request->team_leader);
+            $searchTeamLeader = Employee::findOrFail($tlID);
             // Get all cost centers for the team leader from the query trait
-            $costCenters = $this->getEmployeeTeamLeader($searchTeamLeader->id);
+            $costCenters = $this->getTeamLeaderEmployees($searchTeamLeader->id, $tlShift);
             return view('queries.employee-team-leader', [
-                'teamLeaders' => $teamLeaders,
+                'dayTeamLeaders' => $dayTeamLeaders,
+                'nightTeamLeaders' => $nightTeamLeaders,
                 'searchTeamLeader' => $searchTeamLeader,
+                'tlShift' => $tlShift,
                 'costCenters' => $costCenters
             ]); 
         }else{
             return view('queries.employee-team-leader', [
-                'teamLeaders' => $teamLeaders
+                'dayTeamLeaders' => $dayTeamLeaders,
+                'nightTeamLeaders' => $nightTeamLeaders,
             ]);
         }
     }

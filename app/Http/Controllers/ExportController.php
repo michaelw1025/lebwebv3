@@ -315,10 +315,14 @@ class ExportController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        // Get the desired team leader shift from the request
+        $tlShift = (int)$request->shift;
+        // Get the desired team leader id from the request
+        $tlID = $request->team_leader;
         // Get the team leader for the search
-        $searchTeamLeader = Employee::findOrFail((int)$request->input('team_leader'));
+        $searchTeamLeader = Employee::findOrFail($tlID);
         // Get all cost centers for the team leader from the query trait
-        $costCenters = $this->getEmployeeTeamLeader($searchTeamLeader->id);
+        $costCenters = $this->getTeamLeaderEmployees($searchTeamLeader->id, $tlShift);
         // Return the export
         // return (new ExportEmployeeTeamLeader($searchTeamLeader, $costCenters))->download('employees-team-leader-'.Carbon::now()->format('m-d-Y').'.xlsx');
         return (new ExportEmployeeTeamLeader($searchTeamLeader, $costCenters))->download('employees-team-leader-'.Carbon::now()->format('m-d-Y').'.xlsx');

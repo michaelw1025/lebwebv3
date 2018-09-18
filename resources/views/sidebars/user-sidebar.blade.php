@@ -44,7 +44,7 @@
                 <a href="{{Route('queries.employee-hire-date-hourly')}}" class="dropdown-item">Employee Hire Date - Hourly</a>
                 <a href="{{Route('queries.employee-hire-date-salary')}}" class="dropdown-item">Employee Hire Date - Salary</a>
                 <a href="{{Route('queries.employee-bonus-hours')}}" class="dropdown-item">Employee Bonus Hours</a>
-                <!-- <a href="{{Route('queries.employee-team-leader')}}" class="dropdown-item">Team Leader</a> -->
+                <a href="{{Route('queries.employee-team-leader')}}" class="dropdown-item">Team Leader</a>
             </div>
         </li>
         <li class="nav-item dropdown w-100 {{in_array(Route::currentRouteName(), $manageNavArray) ? 'text-primary bg-white' : 'text-dark'}}">

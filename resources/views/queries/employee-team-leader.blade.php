@@ -34,7 +34,7 @@
 
                 @slot('exportRoute')
                 @if(isset($searchTeamLeader))
-                {{Route('export-employee-team-leader', ['team_leader' => $searchTeamLeader->id])}}
+                {{Route('export-employee-team-leader', ['team_leader' => $searchTeamLeader->id, 'shift' => $tlShift])}}
                 @endif
                 @endslot
         @endcomponent
@@ -53,9 +53,16 @@
                     <label for="team-leader-search">Team Leader @component('components.required-icon')@endComponent</label>
                     <select name="team_leader" id="team-leader-search" class="custom-select {{$errors->has('team_leader') ? 'is-invalid' : ''}}" >
                         <option value=""></option>
-                        @foreach($teamLeaders as $teamLeader)
-                        <option {{isset($searchTeamLeader) ? ($searchTeamLeader->id == $teamLeader->id ? 'selected' : '') : ''}} value="{{$teamLeader->id}}">{{$teamLeader->first_name}} {{$teamLeader->last_name}}</option>
+                        <optgroup label="Day TL">
+                        @foreach($dayTeamLeaders as $dayTeamLeader)
+                        <option value="1-{{$dayTeamLeader->id}}">{{$dayTeamLeader->first_name}} {{$dayTeamLeader->last_name}}</option>
                         @endforeach
+                        </optgroup>
+                        <optgroup label="Night TL">
+                        @foreach($nightTeamLeaders as $nightTeamLeader)
+                        <option value="2-{{$nightTeamLeader->id}}">{{$nightTeamLeader->first_name}} {{$nightTeamLeader->last_name}}</option>
+                        @endforeach
+                        </optgroup>
                     </select>
                     @if($errors->has('team_leader'))
                         <span class="invalid-feedback" role="alert">
