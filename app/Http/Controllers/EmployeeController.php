@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use App\Notifications\EmployeeCreated;
 use Notification;
 
 
@@ -29,6 +28,9 @@ use App\Traits\SupervisorTrait;
 
 // Requests
 use App\Http\Requests\StoreEmployee;
+
+// Notifications
+use App\Notifications\EmployeeCreated;
 
 class EmployeeController extends Controller
 {

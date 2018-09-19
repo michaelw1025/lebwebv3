@@ -16,7 +16,7 @@
         @endif
         @if(Auth::user()->hasAnyRole(['admin', 'hrmanager', 'hruser', 'hrassistant']))
         <li class="nav-item dropdown w-100 {{in_array(Route::currentRouteName(), $employeesNavArray) ? 'text-primary bg-white' : 'text-dark'}}">
-            <a href="{{Route('users.index')}}" class="nav-link dropdown-toggle {{in_array(Route::currentRouteName(), $employeesNavArray) ? 'text-primary' : 'text-dark'}}" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-users fa-lg sidebar-icon"></i><span class="d-none d-lg-inline-block">Employees</span></a>
+            <a href="" class="nav-link dropdown-toggle {{in_array(Route::currentRouteName(), $employeesNavArray) ? 'text-primary' : 'text-dark'}}" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-lg sidebar-icon"></i><span class="d-none d-lg-inline-block">Employee</span></a>
             <div class="dropdown-menu">
                 <a href="{{Route('employees.create')}}" class="dropdown-item">Add New</a>
                 <div class="dropdown-divider"></div>
@@ -25,7 +25,7 @@
             </div>
         </li>
         <li class="nav-item dropdown w-100 {{in_array(Route::currentRouteName(), $queriesNavArray) ? 'text-primary bg-white' : 'text-dark'}}">
-            <a href="{{Route('users.index')}}" class="nav-link dropdown-toggle {{in_array(Route::currentRouteName(), $queriesNavArray) ? 'text-primary' : 'text-dark'}}" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-search fa-lg sidebar-icon"></i><span class="d-none d-lg-inline-block">Queries</span></a>
+            <a href="" class="nav-link dropdown-toggle {{in_array(Route::currentRouteName(), $queriesNavArray) ? 'text-primary' : 'text-dark'}}" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-search fa-lg sidebar-icon"></i><span class="d-none d-lg-inline-block">Queries</span></a>
             <div class="dropdown-menu">
                 <a href="{{Route('queries.employee-alphabetical-hourly')}}" class="dropdown-item">Employee Alphabetical Hourly</a>
                 <a href="{{Route('queries.employee-alphabetical-salary')}}" class="dropdown-item">Employee Alphabetical Salary</a>
@@ -48,7 +48,7 @@
             </div>
         </li>
         <li class="nav-item dropdown w-100 {{in_array(Route::currentRouteName(), $manageNavArray) ? 'text-primary bg-white' : 'text-dark'}}">
-            <a href="{{Route('users.index')}}" class="nav-link dropdown-toggle {{in_array(Route::currentRouteName(), $manageNavArray) ? 'text-primary' : 'text-dark'}}" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-cogs fa-lg sidebar-icon"></i><span class="d-none d-lg-inline-block">Manage</span></a>
+            <a href="" class="nav-link dropdown-toggle {{in_array(Route::currentRouteName(), $manageNavArray) ? 'text-primary' : 'text-dark'}}" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-cogs fa-lg sidebar-icon"></i><span class="d-none d-lg-inline-block">Manage</span></a>
             <div class="dropdown-menu">
                 <a href="{{Route('costCenters.index')}}" class="dropdown-item">Cost Centers</a>
                 <a href="{{Route('jobs.index')}}" class="dropdown-item">Jobs</a>
@@ -56,10 +56,15 @@
                 <a href="{{Route('shifts.index')}}" class="dropdown-item">Shifts</a>
                 <a href="{{Route('wageProgressions.index')}}" class="dropdown-item">Wage Progressions</a>
                 <a href="{{Route('wageTitles.index')}}" class="dropdown-item">Wage Titles</a>
+                <a href="{{Route('teams.index')}}" class="dropdown-item">Teams</a>
             </div>
         </li>
+        <li class="nav-item w-100 {{in_array(Route::currentRouteName(), $biddingNavArray) ? 'bg-white' : ''}}">
+            <a href="{{route('bidding.index')}}" class="nav-link {{in_array(Route::currentRouteName(), $biddingNavArray) ? 'text-primary' : 'text-dark'}}"><i class="fas fa-receipt fa-lg sidebar-icon"></i><span class="d-none d-lg-inline-block">Bidding</span>
+            </a>
+        </li>
         <!-- <li class="nav-item dropdown w-100 {{in_array(Route::currentRouteName(), $biddingNavArray) ? 'text-primary bg-white' : 'text-dark'}}">
-            <a href="{{Route('users.index')}}" class="nav-link dropdown-toggle {{in_array(Route::currentRouteName(), $biddingNavArray) ? 'text-primary' : 'text-dark'}}" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-receipt fa-lg sidebar-icon"></i><span class="d-none d-lg-inline-block">Bidding</span></a>
+            <a href="" class="nav-link dropdown-toggle {{in_array(Route::currentRouteName(), $biddingNavArray) ? 'text-primary' : 'text-dark'}}" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-receipt fa-lg sidebar-icon"></i><span class="d-none d-lg-inline-block">Bidding</span></a>
             <div class="dropdown-menu">
                 <a href="" class="dropdown-item">Add New</a>
             </div>
