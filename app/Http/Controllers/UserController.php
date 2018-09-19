@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Role;
+
+// Requests
 use App\Http\Requests\UpdateUser;
 
 class UserController extends Controller

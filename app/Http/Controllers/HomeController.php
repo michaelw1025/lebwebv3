@@ -26,9 +26,10 @@ class HomeController extends Controller
         // return view('home');
         if($request->user()->hasRole(['admin'])){
             return redirect()->route('admin.home');
-        }
-        if($request->user()->hasAnyRole(['hrmanager', 'hruser', 'hrassistant'])) {
+        }elseif($request->user()->hasAnyRole(['hrmanager', 'hruser', 'hrassistant'])){
             return redirect()->route('hr.home');
+        }else{
+            return redirect()->route('welcome');
         }
     }
 

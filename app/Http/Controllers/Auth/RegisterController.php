@@ -7,6 +7,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Notification;
+
+// Models
+use App\Role;
+
+// Notifications
+use App\Notifications\userRegistered;
 
 class RegisterController extends Controller
 {
@@ -71,6 +78,16 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
         $user->role()->sync(Role::where('name', 'user')->first());
+
+        // Get admins for notification
+        $admins = User::whereHas('role', function($q) {
+            $q->where('name', 'admin');
+        })
+        ->get();
+        // Send notification
+        $notification = new UserRegistered($user);
+        Notification::send($admins, $notification);
+
         return $user;
     }
 }

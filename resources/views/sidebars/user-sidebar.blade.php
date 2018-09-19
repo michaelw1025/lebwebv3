@@ -1,9 +1,9 @@
 
 <nav class="col-4 col-xs-3 col-sm-2 bg-light flex-column p-0">
     <ul class="nav">
-        <!-- <li class="nav-item w-100">
-            <a href="" class="nav-link"><i class="fas fa-bullhorn fa-lg text-danger sidebar-icon"></i><span class="d-none d-lg-inline-block">Notifications</span></a>
-        </li> -->
+        <li class="nav-item w-100 {{in_array(Route::currentRouteName(), $notificationArray) ? 'bg-white' : ''}}">
+            <a href="{{Route('user-notifications')}}" class="nav-link {{in_array(Route::currentRouteName(), $notificationArray) ? 'text-primary' : 'text-dark'}}"><i class="fas fa-bullhorn fa-lg {{$userNotifications->isEmpty() ? '' : 'text-danger'}} sidebar-icon"></i><span class="d-none d-lg-inline-block">Notifications</span></a>
+        </li>
         @if(Auth::user()->hasAnyRole(['admin']))
         <li class="nav-item w-100 {{in_array(Route::currentRouteName(), $usersNavArray) ? 'bg-white' : ''}}">
             <a href="{{Route('users.index')}}" class="nav-link {{in_array(Route::currentRouteName(), $usersNavArray) ? 'text-primary' : 'text-dark'}}"><i class="far fa-address-book fa-lg sidebar-icon"></i><span class="d-none d-lg-inline-block">Users</span>

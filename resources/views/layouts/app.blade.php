@@ -6,6 +6,7 @@
     $manageNavArray = array('costCenters.index', 'costCenters.create', 'costCenters.store', 'costCenters.edit', 'costCenters.update', 'costCenters.destroy', 'jobs.index', 'jobs.create', 'jobs.store', 'jobs.edit', 'jobs.update', 'jobs.destroy', 'positions.index', 'positions.create', 'positions.store', 'positions.edit', 'positions.update', 'positions.destroy', 'shifts.index', 'shifts.create', 'shifts.store', 'shifts.edit', 'shifts.update', 'shifts.destroy', 'wageProgressions.index', 'wageProgressions.create', 'wageProgressions.store', 'wageProgressions.edit', 'wageProgressions.update', 'wageProgressions.destroy', 'wageTitles.index', 'wageTitles.create', 'wageTitles.store', 'wageTitles.edit', 'wageTitles.update', 'wageTitles.destroy');
     $biddingNavArray = array();
     $contractorsNavArray = array('contractors.index', 'contractors.create', 'contractors.store', 'contractors.show', 'contractors.edit', 'contractors.update', 'contractors.destroy', 'contractorTrainings.index', 'contractorTrainings.create', 'contractorTrainings.store', 'contractorTrainings.show', 'contractorTrainings.edit', 'contractorTrainings.update', 'contractorTrainings.destroy');
+    $notificationArray = array('user-notifications');
 @endphp
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
@@ -26,12 +27,14 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body class="{{in_array(Route::currentRouteName(), array('welcome', 'home', 'login', 'register')) ? 'welcome-body' : ''}}">
+    @inject('notifications', 'App\Services\UserNotificationService')
+
     @include('navs.main-nav')
 
     <section class="container-fluid h-100 border-top">
         <section class="row h-100">
             <!-- Sidebar -->
-            @include('sidebars.user-sidebar')
+            @include('sidebars.user-sidebar', ['userNotifications' => $notifications->getUnReadNotifications()])
 
             <article class="col-8 xol-xs-9 col-sm-10 main-content-article">
             @yield('content')

@@ -366,3 +366,28 @@ $('.toggle-column').on('click', function() {
 //         default:
 //     }
 // });
+
+// Mark notification as read
+$('.mark-as-read-checkbox').click(function(e) {
+    e.preventDefault();
+    var notificationID = $(this).attr('id');
+    var route = $(this).attr('name');
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        url: route,
+        method: 'get',
+        data:{
+            id: notificationID
+        },
+        success: function(data){
+            if(data['status'] == 'Success'){
+                $('#'+notificationID).prop('checked', true);
+                $('#row-'+notificationID).addClass('table-danger text-danger');
+            }
+        }
+    });
+})

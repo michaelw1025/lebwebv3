@@ -23,6 +23,9 @@ Route::prefix('admin')->group(function() {
     Route::resource('roles', 'RoleController');
 });
 
+Route::get('/user-notifications', 'NotificationController@getUserNotifications')->name('user-notifications');
+Route::get('/mark-notification-as-read/{id}', 'NotificationController@markNotificationAsRead')->name('mark-notification-as-read');
+
 Route::prefix('hr')->group(function() {
     Route::get('/index', 'HRController@index')->name('hr.home');
     Route::resource('costCenters', 'CostCenterController');
