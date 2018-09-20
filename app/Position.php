@@ -59,4 +59,10 @@ class Position extends Model
     {
         return $this->belongsToMany('App\Job');
     }
+
+    // Bid relationship
+    public function bid()
+    {
+        return $this->hasMany('App\Bid');
+    }
 }

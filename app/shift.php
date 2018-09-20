@@ -54,4 +54,10 @@ class shift extends Model
     {
         return $this->belongsToMany('App\Employee');
     }
+
+    // Bid relationship
+    public function bid()
+    {
+        return $this->hasMany('App\Bid');
+    }
 }

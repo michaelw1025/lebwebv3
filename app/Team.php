@@ -51,4 +51,9 @@ class Team extends Model
     // ****************************************
     // Relationships
     // ****************************************
+    // Bid relationship
+    public function bid()
+    {
+        return $this->hasMany('App\Bid');
+    }
 }

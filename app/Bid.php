@@ -59,4 +59,21 @@ class Bid extends Model
     // ****************************************
     // Relationships
     // ****************************************
+    // Team relationship
+    public function team()
+    {
+        return $this->belongsTo('App\Team');
+    }
+
+    // Position relationship
+    public function position()
+    {
+        return $this->belongsTo('App\Position');
+    }
+
+    // Shift relationship
+    public function shift()
+    {
+        return $this->belongsTo('App\Shift');
+    }
 }
