@@ -12,7 +12,25 @@ class Bid extends Model
      * @var array
      */
     protected $fillable = [
-        
+        'posting_number',
+        'post_date',
+        'pull_date',
+        'team_id',
+        'position_id',
+        'shift_id',
+        'number_of_openings',
+        'top_wage_id',
+        'top_wage_with_education_id',
+        'education_requirement',
+        'resume_required',
+        'tech_form_required',
+        'summary',
+        'essential_duties_responsibilities',
+        'qualifications',
+        'successful_bidder',
+        'education_experience',
+        'physical_demands',
+        'math_skills'
     ];
 
     /**
@@ -30,7 +48,8 @@ class Bid extends Model
      * @var array
      */
     protected $dates = [
-        
+        'post_date',
+        'pull_date'
     ];
 
     // ****************************************

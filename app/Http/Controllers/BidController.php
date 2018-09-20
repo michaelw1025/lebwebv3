@@ -11,6 +11,9 @@ use App\Shift;
 use App\Position;
 use App\WageTitle;
 
+// Requests
+use App\Http\Requests\StoreBid;
+
 class BidController extends Controller
 {
     /**
@@ -66,7 +69,7 @@ class BidController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreBid $request)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
