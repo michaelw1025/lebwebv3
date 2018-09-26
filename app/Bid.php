@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Bid extends Model
 {
@@ -19,8 +20,8 @@ class Bid extends Model
         'position_id',
         'shift_id',
         'number_of_openings',
-        'top_wage_id',
-        'top_wage_with_education_id',
+        'bid_top_wage_id',
+        'bid_education_top_wage_id',
         'education_requirement',
         'resume_required',
         'tech_form_required',
@@ -55,6 +56,17 @@ class Bid extends Model
     // ****************************************
     // Mutators
     // ****************************************
+    // Set post date format
+    public function setPostDateAttribute($date)
+    {
+        $this->attributes['post_date'] = Carbon::parse($date);
+    }
+
+    // Set pull date format
+    public function setPullDateAttribute($date)
+    {
+        $this->attributes['pull_date'] = Carbon::parse($date);
+    }
 
     // ****************************************
     // Relationships
@@ -75,5 +87,17 @@ class Bid extends Model
     public function shift()
     {
         return $this->belongsTo('App\Shift');
+    }
+
+    // Top wage relationship
+    public function bidTopWage()
+    {
+        return $this->belongsTo('App\BidTopWage');
+    }
+
+    // Education top wage relationship
+    public function bidEducationTopWage()
+    {
+        return $this->belongsTo('App\BidEducationTopWage');
     }
 }

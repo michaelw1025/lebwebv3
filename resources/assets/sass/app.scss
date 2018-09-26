@@ -61,9 +61,18 @@ body {
   background-color: red;
 }
 
+// Set width of sidebar icons
 i {
   &.sidebar-icon {
     min-width: 30px !important;
+  }
+}
+
+.input-group-prepend{
+  .input-group-text{
+    &.enabled-checkbox{
+      background-color: #ffffff;
+    }
   }
 }
 

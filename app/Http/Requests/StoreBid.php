@@ -30,7 +30,7 @@ class StoreBid extends FormRequest
     {
         $resultsArray = [];
 
-        if($this->route()->named('bidding.store')) { // If storing a new bid
+        if($this->route()->named('bids.store')) { // If storing a new bid
             $resultsArray += [
                 'posting_number' => 'required|unique:bids'
             ];
@@ -49,11 +49,11 @@ class StoreBid extends FormRequest
             'position_id' => 'required',
             'shift_id' => 'required',
             'number_of_openings' => 'required|int',
-            'top_wage_id' => 'required',
-            'top_wage_with_education_id' => 'required',
-            'education_requirement' => 'nullable|boolean',
-            'resume_required' => 'nullable|boolean',
-            'tech_form_required' => 'nullable|boolean',
+            'bid_top_wage_id' => 'required',
+            'bid_education_top_wage_id' => 'required',
+            'education_requirement' => 'nullable',
+            'resume_required' => 'nullable',
+            'tech_form_required' => 'nullable',
             'summary' => 'required',
             'essential_duties_responsibilities' => 'required',
             'qualifications' => 'required',

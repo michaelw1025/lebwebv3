@@ -13,7 +13,7 @@
             @endslot
 
             @slot('fontIcon')
-            fa-user
+            fa-users
             @endslot
 
             @slot('fontSize')

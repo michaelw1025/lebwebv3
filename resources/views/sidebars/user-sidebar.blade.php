@@ -60,7 +60,7 @@
             </div>
         </li>
         <li class="nav-item w-100 {{in_array(Route::currentRouteName(), $biddingNavArray) ? 'bg-white' : ''}}">
-            <a href="{{route('bidding.index')}}" class="nav-link {{in_array(Route::currentRouteName(), $biddingNavArray) ? 'text-primary' : 'text-dark'}}"><i class="fas fa-receipt fa-lg sidebar-icon"></i><span class="d-none d-lg-inline-block">Bidding</span>
+            <a href="{{route('bids.index')}}" class="nav-link {{in_array(Route::currentRouteName(), $biddingNavArray) ? 'text-primary' : 'text-dark'}}"><i class="fas fa-receipt fa-lg sidebar-icon"></i><span class="d-none d-lg-inline-block">Bidding</span>
             </a>
         </li>
         <!-- <li class="nav-item dropdown w-100 {{in_array(Route::currentRouteName(), $biddingNavArray) ? 'text-primary bg-white' : 'text-dark'}}">

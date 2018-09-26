@@ -36,12 +36,22 @@
         @include('alerts.validation-alert')
         @include('alerts.session-alert')
 
-        <form action="{{Route('bidding.store')}}" class="mt-2" id="create-bid-form" method="POST" autocomplete="off">
+        <form action="{{Route('bids.store')}}" class="mt-2" id="create-bid-form" method="POST" autocomplete="off">
             @csrf
 
             <p class="text-danger mt-4">@component('components.required-icon')@endComponent indicates a field</p>
 
             <div class="form-row mt-4">
+                <div class="form-group col-md-6 col-lg-4">
+                    <label for="create-bid-posting-number">Posting Number @component('components.required-icon')@endComponent</label>
+                    <input type="text" class="form-control {{$errors->has('posting_number') ? 'is-invalid' : ''}}" id="create-bid-posting-number" name="posting_number" value="{{old('posting_number')}}">
+                    @if($errors->has('posting_number'))
+                        <span class="invalid-feedback" role="alert">
+                            {{$errors->first('posting_number')}}
+                        </span>
+                    @endif
+                </div>
+
                 <div class="form-group col-md-6 col-lg-4">
                     <label for="create-bid-post-date">Post Date @component('components.required-icon')@endComponent</label>
                     <input type="text" class="form-control datepicker {{$errors->has('post_date') ? 'is-invalid' : ''}}" id="create-bid-post-date" name="post_date" value="{{old('post_date')}}">
@@ -58,16 +68,6 @@
                     @if($errors->has('pull_date'))
                         <span class="invalid-feedback" role="alert">
                             {{$errors->first('pull_date')}}
-                        </span>
-                    @endif
-                </div>
-
-                <div class="form-group col-md-6 col-lg-4">
-                    <label for="create-bid-posting-number">Posting Number @component('components.required-icon')@endComponent</label>
-                    <input type="text" class="form-control {{$errors->has('posting_number') ? 'is-invalid' : ''}}" id="create-bid-posting-number" name="posting_number" value="{{old('posting_number')}}">
-                    @if($errors->has('posting_number'))
-                        <span class="invalid-feedback" role="alert">
-                            {{$errors->first('posting_number')}}
                         </span>
                     @endif
                 </div>
@@ -90,9 +90,9 @@
                         <option {{old('team_id') ? (old('team_id') == $team->id ? 'selected' : '') : ''}} value="{{$team->id}}">{{$team->description}}</option>
                         @endforeach
                     </select>
-                    @if($errors->has('team'))
+                    @if($errors->has('team_id'))
                         <span class="invalid-feedback" role="alert">
-                            {{$errors->first('team')}}
+                            {{$errors->first('team_id')}}
                         </span>
                     @endif
                 </div>
@@ -105,9 +105,9 @@
                         <option {{old('shift_id') ? (old('shift_id') == $shift->id ? 'selected' : '') : ''}} value="{{$shift->id}}">{{$shift->description}}</option>
                         @endforeach
                     </select>
-                    @if($errors->has('shift'))
+                    @if($errors->has('shift_id'))
                         <span class="invalid-feedback" role="alert">
-                            {{$errors->first('shift')}}
+                            {{$errors->first('shift_id')}}
                         </span>
                     @endif
                 </div>
@@ -120,43 +120,43 @@
                         <option {{old('position_id') ? (old('position_id') == $position->id ? 'selected' : '') : ''}} value="{{$position->id}}">{{$position->description}}</option>
                         @endforeach
                     </select>
-                    @if($errors->has('position'))
+                    @if($errors->has('position_id'))
                         <span class="invalid-feedback" role="alert">
-                            {{$errors->first('position')}}
+                            {{$errors->first('position_id')}}
                         </span>
                     @endif
                 </div>
 
                 <div class="form-group col-md-6 col-lg-4">
-                    <label for="create-bid-top-wage">Top Wage @component('components.required-icon')@endComponent</label>
-                    <select class="custom-select {{$errors->has('top_wage_id') ? 'is-invalid' : ''}}" id="create-bid-top-wage" name="top_wage_id">
+                    <label for="create-bid-bid-top-wage">Top Wage @component('components.required-icon')@endComponent</label>
+                    <select class="custom-select {{$errors->has('bid_top_wage_id') ? 'is-invalid' : ''}}" id="create-bid-bid-top-wage" name="bid_top_wage_id">
                         <option value=""></option>
                         @foreach($wageTitles as $wageTitle)
                         @foreach($wageTitle->wageProgression as $wageTitleWageProgression)
-                        <option {{old('top_wage_id') ? (old('top_wage_id') == $wageTitleWageProgression->pivot->id ? 'selected' : '') : ''}} value="{{$wageTitleWageProgression->pivot->id}}">{{ucwords($wageTitle->description)}} - ({{$wageTitleWageProgression->month}}) - {{$wageTitleWageProgression->pivot->amount}}</option>
+                        <option {{old('bid_top_wage_id') ? (old('bid_top_wage_id') == $wageTitleWageProgression->pivot->id ? 'selected' : '') : ''}} value="{{$wageTitleWageProgression->pivot->id}}">{{ucwords($wageTitle->description)}} - ({{$wageTitleWageProgression->month}}) - {{$wageTitleWageProgression->pivot->amount}}</option>
                         @endforeach
                         @endforeach
                     </select>
-                    @if($errors->has('top_wage_id'))
+                    @if($errors->has('bid_top_wage_id'))
                         <span class="invalid-feedback" role="alert">
-                            {{$errors->first('top_wage_id')}}
+                            {{$errors->first('bid_top_wage_id')}}
                         </span>
                     @endif
                 </div>
 
                 <div class="form-group col-md-6 col-lg-4">
-                    <label for="create-bid-top-wage-with-education">Top Wage With Education @component('components.required-icon')@endComponent</label>
-                    <select class="custom-select {{$errors->has('top_wage_with_education_id') ? 'is-invalid' : ''}}" id="create-bid-top-wage-with-education" name="top_wage_with_education_id">
+                    <label for="create-bid-bid-education-top-wage">Top Wage With Education @component('components.required-icon')@endComponent</label>
+                    <select class="custom-select {{$errors->has('bid_education_top_wage_id') ? 'is-invalid' : ''}}" id="create-bid-bid-education-top-wage" name="bid_education_top_wage_id">
                         <option value=""></option>
                         @foreach($wageTitles as $wageTitle)
                         @foreach($wageTitle->wageProgression as $wageTitleWageProgression)
-                        <option {{old('top_wage_with_education_id') ? (old('top_wage_with_education_id') == $wageTitleWageProgression->pivot->id ? 'selected' : '') : ''}} value="{{$wageTitleWageProgression->pivot->id}}">{{ucwords($wageTitle->description)}} - ({{$wageTitleWageProgression->month}}) - {{$wageTitleWageProgression->pivot->amount}}</option>
+                        <option {{old('bid_education_top_wage_id') ? (old('bid_education_top_wage_id') == $wageTitleWageProgression->pivot->id ? 'selected' : '') : ''}} value="{{$wageTitleWageProgression->pivot->id}}">{{ucwords($wageTitle->description)}} - ({{$wageTitleWageProgression->month}}) - {{$wageTitleWageProgression->pivot->amount}}</option>
                         @endforeach
                         @endforeach
                     </select>
-                    @if($errors->has('top_wage_with_education_id'))
+                    @if($errors->has('bid_education_top_wage_id'))
                         <span class="invalid-feedback" role="alert">
-                            {{$errors->first('top_wage_with_education_id')}}
+                            {{$errors->first('bid_education_top_wage_id')}}
                         </span>
                     @endif
                 </div>
@@ -176,7 +176,7 @@
                 <div class="form-group col-md-6 col-lg-4 d-flex">
                     <div class="custom-control custom-checkbox my-auto">
                         <input type="checkbox" class="custom-control-input {{$errors->has('resume_required') ? 'is-invalid' : ''}}" id="create-bid-resume-required" name="resume_required" {{old('resume_required') ? 'checked' : ''}}>
-                        <label for="create-bid-resume-required" class="custom-control-label">Check here if a resume is</label>
+                        <label for="create-bid-resume-required" class="custom-control-label">Check here if a resume is required</label>
                     </div>
                     @if($errors->has('resume_required'))
                         <span class="invalid-feedback" role="alert">
@@ -188,7 +188,7 @@
                 <div class="form-group col-md-6 col-lg-4 d-flex">
                     <div class="custom-control custom-checkbox my-auto">
                         <input type="checkbox" class="custom-control-input {{$errors->has('tech_form_required') ? 'is-invalid' : ''}}" id="create-bid-tech-form-required" name="tech_form_required" {{old('tech_form_required') ? 'checked' : ''}}>
-                        <label for="create-bid-tech-form-required" class="custom-control-label">Check here if a tech form is</label>
+                        <label for="create-bid-tech-form-required" class="custom-control-label">Check here if a tech form is required</label>
                     </div>
                     @if($errors->has('tech_form_required'))
                         <span class="invalid-feedback" role="alert">

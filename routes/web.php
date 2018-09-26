@@ -41,7 +41,7 @@ Route::prefix('hr')->group(function() {
     Route::resource('contractors', 'ContractorController');
     Route::resource('contractorTrainings', 'ContractorTrainingController');
     Route::resource('teams', 'TeamController');
-    Route::resource('bidding', 'BidController');
+    Route::resource('bids', 'BidController');
 });
 
 Route::prefix('query')->group(function () {
