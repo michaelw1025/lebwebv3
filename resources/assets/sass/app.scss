@@ -29,17 +29,21 @@ body {
 
   // Create full screen background
   &.welcome-body  {
-    background: url("../images/welcome1.jpg") no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  background-size: cover;
-  -o-background-size: cover;
+    // background: url("../images/welcome0.jpeg") no-repeat center center fixed;
+    background-size: cover;
+  // -webkit-background-size: cover;
+  // -moz-background-size: cover;
+  // -o-background-size: cover;
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: center;
+    background-attachment: fixed;
   }
 
-  .jumbotron{
-    opacity: .75;
-    font-size: 24px;
-  }
+//   .jumbotron{
+//     opacity: .75;
+//     font-size: 24px;
+//   }
 }
 
 // Make the page scroll only in the main content area
@@ -48,7 +52,11 @@ body {
 }
 
 .semi-transparent-white-bg {
-  background-color: rgba($color: $white, $alpha: 0.8);
+  background-color: rgba($color: $white, $alpha: 0.75);
+}
+
+.jumbotron-text{
+  background-color: rgba($color: $white, $alpha: 0.90);
 }
 
 // Make clickable table rows have a pointer on hover

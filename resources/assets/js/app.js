@@ -24,6 +24,9 @@ window.Vue = require('vue');
 
 $(document).ready(function()
 {
+    // Random welcom image
+    changeBG();
+
     // Attach datepicker
     $('.datepicker').datepicker({
         changeMonth: true,
@@ -40,6 +43,15 @@ $(document).ready(function()
     checkWageProgressionTable() ;
 
 });
+
+// Random welcome backgound function
+function changeBG()
+{
+    var images = ['welcome1.jpeg', 'welcome2.jpeg', 'welcome3.jpeg', 'welcome4.jpeg', 'welcome5.jpeg', 'welcome6.jpeg', 'welcome7.jpeg', 'welcome8.jpeg', 'welcome9.jpeg'];
+    var action = 'background: url("../images/'+images[Math.floor(Math.random() * images.length)]+'")';
+    // alert(action);
+    $('.welcome-body').css({'background-image': 'url("../images/'+images[Math.floor(Math.random() * images.length)]+'")'});
+}
 
 
 // Check if review item is checked at load needed to load old data
