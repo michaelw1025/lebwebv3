@@ -17,4 +17,5 @@ mix.js('resources/assets/js/app.js', 'public/js')
         processCssUrls: false
     })
     .copy('node_modules/@fortawesome/fontawesome-free/webfonts', 'public/webfonts')
-    .copy('node_modules/jquery-ui/themes/base/images', 'public/css/images');
+    .copy('node_modules/jquery-ui/themes/base/images', 'public/css/images')
+    .version();
