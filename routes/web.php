@@ -12,6 +12,8 @@
 */
 
 Route::get('/', 'GuestController@welcome')->name('welcome');
+Route::get('/electronic-bidding', 'ElectronicBiddingController@index')->name('electronic-bidding.index');
+Route::get('/electronic-bidding/show/{id}', 'ElectronicBiddingController@show')->name('electronic-bidding.show');
 
 Auth::routes();
 

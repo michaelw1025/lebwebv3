@@ -19,11 +19,12 @@ class BidsTableSeeder extends Seeder
         $faker = Faker::create();
         $postingNumber = 100;
 
-        for($i = 0; $i < 101; $i++){
+        for($i = 0; $i < 11; $i++){
             $bid = new Bid();
 
             $bid->posting_number = "18-".$postingNumber;
-            $bid->is_active = $faker->randomElement($array = array(0, 1));
+            // $bid->is_active = $faker->randomElement($array = array(0, 1));
+            $bid->is_active = 1;
             $bid->post_date = $faker->numberBetween($min = 1, $max = 12).'/'.$faker->numberBetween($min = 1, $max = 25).'/2018';
             $bid->pull_date = $faker->numberBetween($min = 1, $max = 12).'/'.$faker->numberBetween($min = 1, $max = 25).'/2018';
             $bid->team_id = $faker->numberBetween($min = 1, $max = 9);

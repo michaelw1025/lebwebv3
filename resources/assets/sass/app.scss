@@ -51,6 +51,11 @@ body {
   overflow: scroll;
 }
 
+// Make show bids scroll only in the main content area
+.show-bid-content {
+  overflow-y: scroll;
+}
+
 .semi-transparent-white-bg {
   background-color: rgba($color: $white, $alpha: 0.75);
 }

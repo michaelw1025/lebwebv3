@@ -36,7 +36,7 @@
             <!-- Sidebar -->
             @include('sidebars.user-sidebar', ['userNotifications' => $notifications->getUnReadNotifications()])
 
-            <article class="col-8 xol-xs-9 col-sm-10 main-content-article">
+            <article class="col-8 col-xs-9 col-sm-10 main-content-article">
             @yield('content')
             </article>
 
