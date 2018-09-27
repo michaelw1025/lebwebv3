@@ -64,8 +64,10 @@ body {
   background-color: rgba($color: $white, $alpha: 0.90);
 }
 
-// Make clickable table rows have a pointer on hover
-.clickable-row{
+// Make clickable table rows and bid cards have a pointer on hover
+.clickable-row,
+.bid-card,
+.bid-card-input{
   cursor: pointer;
 }
 
@@ -81,12 +83,31 @@ i {
   }
 }
 
+// Set checkbox background of input group checkboxes to white
 .input-group-prepend{
   .input-group-text{
     &.enabled-checkbox{
       background-color: #ffffff;
     }
   }
+}
+
+// Set background color of show all bids page
+.show-bids-background{
+  background-color: #2b9eb3;
+}
+
+// Sets background color of electronic bidding nav bar
+.site-header {
+  background-color: rgba(0, 0, 0, .85);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+}
+
+// Set background color of bid card labels and inputs
+.bid-card-input-label,
+.bid-card input:disabled{
+  background-color: #fff;
 }
 
 

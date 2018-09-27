@@ -21273,7 +21273,9 @@ body.welcome-body {
   background-color: rgba(255, 255, 255, 0.9);
 }
 
-.clickable-row {
+.clickable-row,
+.bid-card,
+.bid-card-input {
   cursor: pointer;
 }
 
@@ -21287,6 +21289,21 @@ i.sidebar-icon {
 
 .input-group-prepend .input-group-text.enabled-checkbox {
   background-color: #ffffff;
+}
+
+.show-bids-background {
+  background-color: #2b9eb3;
+}
+
+.site-header {
+  background-color: rgba(0, 0, 0, 0.85);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+}
+
+.bid-card-input-label,
+.bid-card input:disabled {
+  background-color: #fff;
 }
 
 @media (min-width: 320px) {
