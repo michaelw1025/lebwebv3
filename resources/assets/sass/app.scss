@@ -94,14 +94,19 @@ i {
 
 // Set background color of show all bids page
 .show-bids-background{
-  background-color: #2b9eb3;
+  // background-color: #2b9eb3;
+  background: #feffff; /* Old browsers */
+background: -moz-radial-gradient(center, ellipse cover, #feffff 0%, #d2ebf9 100%); /* FF3.6-15 */
+background: -webkit-radial-gradient(center, ellipse cover, #feffff 0%,#d2ebf9 100%); /* Chrome10-25,Safari5.1-6 */
+background: radial-gradient(ellipse at center, #feffff 0%,#d2ebf9 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffff', endColorstr='#d2ebf9',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 
 // Sets background color of electronic bidding nav bar
 .site-header {
-  background-color: rgba(0, 0, 0, .85);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
-  backdrop-filter: saturate(180%) blur(20px);
+  // background-color: rgba(0, 0, 0, .85);
+  // -webkit-backdrop-filter: saturate(180%) blur(20px);
+  // backdrop-filter: saturate(180%) blur(20px);
 }
 
 // Set background color of bid card labels and inputs

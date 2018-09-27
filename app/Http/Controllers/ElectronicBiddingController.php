@@ -34,6 +34,15 @@ class ElectronicBiddingController extends Controller
 
     public function show($id)
     {
-        return ('here');
+        $bid = Bid::with([
+            'shift',
+            'team',
+            'position',
+            'bidTopWage',
+            'bidEducationTopWage'
+        ])->findOrFail($id);
+        return view('electronic-bidding.show-bid', [
+            'bid' => $bid
+        ]);
     }
 }

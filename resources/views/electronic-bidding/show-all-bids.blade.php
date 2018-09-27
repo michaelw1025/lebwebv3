@@ -17,11 +17,11 @@
     <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
 
 </head>
-<body class="show-bids-background">
+<body class="bg-transparent">
 
-    <nav class="site-header sticky-top px-2">
+    <nav class="site-header sticky-top px-2 bg-transparent shadow-sm">
         <a href="{{route('electronic-bidding.index')}}" class="navbar-brand text-primary">LebWeb</a>
-        <a href="{{route('electronic-bidding.index')}}" class="text-white">Show All Bids</a>
+        <a href="{{route('electronic-bidding.index')}}" class="text-header">Show All Bids</a>
     </nav>
     <div class="container-fluid">
         <div class="row">
