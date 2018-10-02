@@ -21241,81 +21241,57 @@ readers do not read off random characters that represent icons */
   font-weight: 400;
 }
 
-html {
-  height: 100%;
-}
-
 body {
-  height: calc(100% - 70px);
+  font-size: .875rem;
 }
 
-body.welcome-body {
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position-x: center;
-  background-position-y: center;
-  background-attachment: fixed;
+.feather {
+  width: 16px;
+  height: 16px;
+  vertical-align: text-bottom;
 }
 
-.main-content-article {
-  overflow: scroll;
+/*
+   * Sidebar
+   */
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  /* Behind the navbar */
+  padding: 48px 0 0;
+  /* Height of navbar */
+  -webkit-box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
+          box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
 }
 
-.show-bid-content {
-  overflow-y: scroll;
+.sidebar-sticky {
+  position: relative;
+  top: 0;
+  height: calc(100vh - 48px);
+  padding-top: .5rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+  /* Scrollable contents if viewport is shorter than content. */
 }
 
-.semi-transparent-white-bg {
-  background-color: rgba(255, 255, 255, 0.75);
-}
-
-.jumbotron-text {
-  background-color: rgba(255, 255, 255, 0.9);
-}
-
-.clickable-row,
-.bid-card,
-.bid-card-input {
-  cursor: pointer;
-}
-
-.custom-checkbox .custom-control-input:checked ~ .custom-control-label-delete::after {
-  background-color: red;
-}
-
-i.sidebar-icon {
-  min-width: 30px !important;
-}
-
-.input-group-prepend .input-group-text.enabled-checkbox {
-  background-color: #ffffff;
-}
-
-.bid-card-input-label,
-.bid-card input:disabled {
-  background-color: #fff;
-}
-
-@media (min-width: 320px) {
-  body .jumbotron {
-    font-size: 32px;
+@supports ((position: -webkit-sticky) or (position: sticky)) {
+  .sidebar-sticky {
+    position: -webkit-sticky;
+    position: sticky;
   }
 }
 
-@media (min-width: 448px) {
-  body .jumbotron {
-    font-size: 44px;
-  }
+/*
+   * Content
+   */
+[role="main"] {
+  padding-top: 48px;
+  /* Space for fixed navbar */
 }
 
-@media (min-width: 660px) {
-  body .jumbotron {
-    font-size: 64px;
-  }
-}
-
-@media (min-width: 900px) {
-  body .jumbotron {
-    font-size: 80px;
-  }
-}
+/*
+   * Navbar
+   */

@@ -416,13 +416,8 @@ $('.mark-as-read-checkbox').click(function(e) {
 // Auto size text areas
 function autoSizeTextArea()
 {
-    // $("textarea").height( $("textarea")[0].scrollHeight );
-    $('textarea').each(function () {
-        if ($(this).outerHeight() > this.scrollHeight){
-            $(this).height(1)
-        }
-        while ($(this).outerHeight() < this.scrollHeight + parseFloat($(this).css("borderTopWidth")) + parseFloat($(this).css("borderBottomWidth"))){
-            $(this).height($(this).height() + 1)
-        }
-    });
+    // $('.text-area-resize').each(function (){
+    //     console.log($(this).scrollHeight);
+    //     $(this).height(0).height(this.scrollHeight);
+    // }).change();
 }
