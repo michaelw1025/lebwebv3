@@ -21291,11 +21291,6 @@ i.sidebar-icon {
   background-color: #ffffff;
 }
 
-.bid-card-input-label,
-.bid-card input:disabled {
-  background-color: #fff;
-}
-
 @media (min-width: 320px) {
   body .jumbotron {
     font-size: 32px;

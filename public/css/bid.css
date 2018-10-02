@@ -21251,9 +21251,19 @@ body {
   vertical-align: text-bottom;
 }
 
+.bid-card-input-label,
+.bid-card input:disabled {
+  background-color: #fff;
+}
+
+.bid-card,
+.bid-card-input {
+  cursor: pointer;
+}
+
 /*
-   * Sidebar
-   */
+  * Sidebar
+  */
 .sidebar {
   position: fixed;
   top: 0;
@@ -21288,7 +21298,7 @@ body {
    * Content
    */
 [role="main"] {
-  padding-top: 48px;
+  padding-top: 50px;
   /* Space for fixed navbar */
 }
 

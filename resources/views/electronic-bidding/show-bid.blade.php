@@ -19,22 +19,18 @@
 </head>
 <body class="bg-transparent">
 
-    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 py-1 shadow">
       <a class="navbar-brand ml-4 text-primary" href="#">LebWeb</a>
-      <a class="mx-auto text-light" href="">Name</a>
-      <a class="navbar-brand mr-4" href="#">All Bids</a>
+      <a class="mx-auto btn btn-info" href="">Start Bidding</a>
+      <a class="navbar-brand mr-4 btn btn-warning text-dark" href="#"><i class="fas fa-question-circle fa-lg"></i> Help</a>
     </nav>
 
     <div class="container-fluid">
       <div class="row">
         <div class="col-3 bg-light sidebar text-center">
           <div class="sidebar-sticky">
-                <div class="">
-                    <a href="" class="btn btn-warning btn-lg btn-block" style="border-radius: 0;"><i class="fas fa-question-circle fa-lg"></i> Help</a>
-                </div>
-                <hr>
                 <div>
-                    <a href="" class="btn btn-primary btn-lg btn-block" style="border-radius: 0;"><i class="fas fa-long-arrow-alt-left fa-lg"></i> View Bids</a>
+                    <a href="" class="btn btn-primary btn-lg btn-block" style="border-radius: 0;"><i class="fas fa-long-arrow-alt-left fa-lg"></i> View Open Bids</a>
                 </div>
                 <hr>
                 <div>

@@ -19,44 +19,65 @@
 @import '~@fortawesome/fontawesome-free/scss/v4-shims.scss';
 
 body {
-    font-size: .875rem;
-  }
-  
-  .feather {
-    width: 16px;
-    height: 16px;
-    vertical-align: text-bottom;
-  }
-  
-  /*
-   * Sidebar
-   */
-  
-  .sidebar {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 100; /* Behind the navbar */
-    padding: 48px 0 0; /* Height of navbar */
-    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
-  }
-  
+  font-size: .875rem;
+}
+
+.feather {
+  width: 16px;
+  height: 16px;
+  vertical-align: text-bottom;
+}
+
+// Set background color of show all bids page
+.show-bids-background{
+  // background-color: #2b9eb3;
+//   background: #feffff; /* Old browsers */
+// background: -moz-radial-gradient(center, ellipse cover, #feffff 0%, #d2ebf9 100%); /* FF3.6-15 */
+// background: -webkit-radial-gradient(center, ellipse cover, #feffff 0%,#d2ebf9 100%); /* Chrome10-25,Safari5.1-6 */
+// background: radial-gradient(ellipse at center, #feffff 0%,#d2ebf9 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+// filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffff', endColorstr='#d2ebf9',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+// Set background color of bid card labels and inputs
+.bid-card-input-label,
+.bid-card input:disabled{
+  background-color: #fff;
+}
+
+.bid-card,
+.bid-card-input{
+  cursor: pointer;
+}
+
+/*
+  * Sidebar
+  */
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100; /* Behind the navbar */
+  padding: 48px 0 0; /* Height of navbar */
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+}
+
+.sidebar-sticky {
+  position: relative;
+  top: 0;
+  height: calc(100vh - 48px);
+  padding-top: .5rem;
+  overflow-x: hidden;
+  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+}
+
+@supports ((position: -webkit-sticky) or (position: sticky)) {
   .sidebar-sticky {
-    position: relative;
-    top: 0;
-    height: calc(100vh - 48px);
-    padding-top: .5rem;
-    overflow-x: hidden;
-    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    position: -webkit-sticky;
+    position: sticky;
   }
-  
-  @supports ((position: -webkit-sticky) or (position: sticky)) {
-    .sidebar-sticky {
-      position: -webkit-sticky;
-      position: sticky;
-    }
-  }
+}
   
 //   .sidebar .nav-link {
 //     font-weight: 500;
@@ -87,7 +108,7 @@ body {
    */
   
   [role="main"] {
-    padding-top: 48px; /* Space for fixed navbar */
+    padding-top: 50px; /* Space for fixed navbar */
   }
   
   /*
