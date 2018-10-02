@@ -169,7 +169,7 @@
 
                 <div class="form-group col-12">
                     <label for="show-bid-essential-duties-responsibilities">Essential Duties And Responsibilities</label>
-                    <textarea class="form-control" id="show-bid-essential-duties-responsibilities" rows="3" name="essential_duties_responsibilities" disabled>{{$bid->essential_duties_responsibilities}}</textarea>
+                    <textarea class="form-control" id="show-bid-essential-duties-responsibilities" name="essential_duties_responsibilities" disabled>{{$bid->essential_duties_responsibilities}}</textarea>
                 </div>
 
                 <div class="form-group col-12">

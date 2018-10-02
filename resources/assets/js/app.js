@@ -41,6 +41,8 @@ $(document).ready(function()
     checkDisplacementRadioOnLoad();
     // Check for correct wage progression table on load
     checkWageProgressionTable() ;
+    // Auto size text areas
+    autoSizeTextArea();
 
 });
 
@@ -348,9 +350,11 @@ $('.choose-wage-title').on('change', function() {
 // Check for correct wage progression table on load
 function checkWageProgressionTable() 
 {
-    var selected = $('.choose-wage-title').find(':selected').text().toLowerCase();
-    $('.wage-progression-row').addClass('d-none');
-    $('.'+selected).removeClass('d-none');
+    if($('.choose-wage-title').length){
+        var selected = $('.choose-wage-title').find(':selected').text().toLowerCase();
+        $('.wage-progression-row').addClass('d-none');
+        $('.'+selected).removeClass('d-none');
+    }
 }
 
 // Clear all wage progression events
@@ -407,4 +411,18 @@ $('.mark-as-read-checkbox').click(function(e) {
             }
         }
     });
-})
+});
+
+// Auto size text areas
+function autoSizeTextArea()
+{
+    // $("textarea").height( $("textarea")[0].scrollHeight );
+    $('textarea').each(function () {
+        if ($(this).outerHeight() > this.scrollHeight){
+            $(this).height(1)
+        }
+        while ($(this).outerHeight() < this.scrollHeight + parseFloat($(this).css("borderTopWidth")) + parseFloat($(this).css("borderBottomWidth"))){
+            $(this).height($(this).height() + 1)
+        }
+    });
+}

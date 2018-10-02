@@ -19,7 +19,7 @@
 </head>
 <body class="bg-transparent">
 
-    <nav class="site-header sticky-top px-2 bg-transparent shadow-sm">
+    <nav class="site-header sticky-top px-2 bg-white shadow-sm">
         <a href="{{route('electronic-bidding.index')}}" class="navbar-brand text-primary">LebWeb</a>
         <a href="{{route('electronic-bidding.index')}}" class="text-header">Show All Bids</a>
     </nav>
@@ -29,7 +29,7 @@
             <div class="col-md-6 col-xxl-3">
                 <div class="card bid-card shadow mb-1 mt-2" data-href="{{route('electronic-bidding.show', ['id' => $bid->id])}}">
                     <div class="card-body py-2">
-                        <h5 class="m-0 p-0">{{$bid->posting_number}} {{$bid->position->description}}</h5>
+                        <h5 class="m-0 p-0">{{$bid->posting_number}} <span class="text-create">{{$bid->position->description}}</span></h5>
                         <hr class="mt-1 mb-2 p-0">
                         <div class="input-group input-group-sm mb-2">
                             <div class="input-group-prepend">

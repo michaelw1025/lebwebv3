@@ -102,13 +102,6 @@ background: radial-gradient(ellipse at center, #feffff 0%,#d2ebf9 100%); /* W3C,
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffff', endColorstr='#d2ebf9',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 
-// Sets background color of electronic bidding nav bar
-.site-header {
-  // background-color: rgba(0, 0, 0, .85);
-  // -webkit-backdrop-filter: saturate(180%) blur(20px);
-  // backdrop-filter: saturate(180%) blur(20px);
-}
-
 // Set background color of bid card labels and inputs
 .bid-card-input-label,
 .bid-card input:disabled{
