@@ -1,39 +1,12 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="show-bids-background">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.electronic-bidding-app')
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+@section('content')
 
-    <title>{{ config('app.name', 'LebWebDev') }}</title>
-
-    <!-- Scripts -->
-    <script src="{{ mix('/js/app.js') }}" defer></script>
-
-    <!-- Styles -->
-    <link href="{{ mix('/css/bid.css') }}" rel="stylesheet">
-
-</head>
-<body class="bg-transparent">
-
-    <!-- <nav class="site-header sticky-top px-2 bg-white shadow-sm">
-        <a href="{{route('electronic-bidding.index')}}" class="navbar-brand text-primary">LebWeb</a>
-        <a href="{{route('electronic-bidding.index')}}" class="text-header">Show All Bids</a>
-    </nav> -->
-    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 py-1 shadow">
-      <a class="navbar-brand ml-4 text-primary" href="#">LebWeb</a>
-      <a class="mx-auto btn btn-info" href="">Start Bidding</a>
-      <!-- <a class="navbar-brand mr-4" href="#">All Bids</a> -->
-      <a class="navbar-brand mr-4 btn btn-warning text-dark" href="#"><i class="fas fa-question-circle fa-lg"></i> Help</a>
-    </nav>
     <div class="container-fluid" role="main">
         <div class="row">
             @foreach($bids as $bid)
             <div class="col-md-6 col-xxl-3">
-                <div class="card bid-card shadow mb-1 mt-2" data-href="{{route('electronic-bidding.show', ['id' => $bid->id])}}">
+                <div class="card bid-card shadow mb-1 mt-2" data-href="{{isset($employee) ? route('electronic-bidding.show-with-bidder', ['id' => $bid->id, 'bidder' => $employee->id])  : route('electronic-bidding.show', ['id' => encrypt($bid->id)])}}">
                     <div class="card-body py-2">
                         <h5 class="m-0 p-0">{{$bid->posting_number}} <span class="text-create">{{$bid->position->description}}</span></h5>
                         <hr class="mt-1 mb-2 p-0">
@@ -80,5 +53,4 @@
         </div>
     </div>
 
-</body>
-</html>
+@endsection

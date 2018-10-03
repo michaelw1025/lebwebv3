@@ -1,36 +1,16 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="bg-light">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.electronic-bidding-app')
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'LebWebDev') }}</title>
-
-    <!-- Scripts -->
-    <script src="{{ mix('/js/app.js') }}" defer></script>
-
-    <!-- Styles -->
-    <link href="{{ mix('/css/bid.css') }}" rel="stylesheet">
-
-</head>
-<body class="bg-transparent">
-
-    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 py-1 shadow">
-      <a class="navbar-brand ml-4 text-primary" href="#">LebWeb</a>
-      <a class="mx-auto btn btn-info" href="">Start Bidding</a>
-      <a class="navbar-brand mr-4 btn btn-warning text-dark" href="#"><i class="fas fa-question-circle fa-lg"></i> Help</a>
-    </nav>
+@section('content')
 
     <div class="container-fluid">
       <div class="row">
         <div class="col-3 bg-light sidebar text-center">
           <div class="sidebar-sticky">
                 <div>
-                    <a href="" class="btn btn-primary btn-lg btn-block" style="border-radius: 0;"><i class="fas fa-long-arrow-alt-left fa-lg"></i> View Open Bids</a>
+                    @if(isset($employee))
+                    @else
+                    <a href="{{route('electronic-bidding.index')}}" class="btn btn-primary btn-lg btn-block" style="border-radius: 0;"><i class="fas fa-long-arrow-alt-left fa-lg"></i> View Open Bids</a>
+                    @endif
                 </div>
                 <hr>
                 <div>
@@ -159,6 +139,4 @@
       </div>
     </div>
 
-
-</body>
-</html>
+@endsection

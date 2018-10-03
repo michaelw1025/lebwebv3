@@ -41,8 +41,6 @@ $(document).ready(function()
     checkDisplacementRadioOnLoad();
     // Check for correct wage progression table on load
     checkWageProgressionTable() ;
-    // Auto size text areas
-    autoSizeTextArea();
 
 });
 
@@ -132,11 +130,6 @@ $('.displacement-radio-button').change(function() {
 
 // Go to link when clickable row is clicked
 $('.clickable-row').on('click', function()
-{
-    window.location = $(this).data('href');
-});
-
-$('.bid-card').on('click', function()
 {
     window.location = $(this).data('href');
 });
@@ -375,19 +368,6 @@ $('.toggle-column').on('click', function() {
     $('.'+column).toggleClass('d-none');
 });
 
-// Set team leader query form action based on team leader select
-// $('#team-leader-search').change(function() {
-//     var dayTL = '';
-//     var nightTL = '';
-//     var defaultRoute = '';
-//     var selectedTL = $(this.options[this.selectedIndex]).closest('optgroup').prop('label');
-//     switch(selectedTL){
-//         case "Day TL":
-//         case "Night TL":
-//         default:
-//     }
-// });
-
 // Mark notification as read
 $('.mark-as-read-checkbox').click(function(e) {
     e.preventDefault();
@@ -413,11 +393,5 @@ $('.mark-as-read-checkbox').click(function(e) {
     });
 });
 
-// Auto size text areas
-function autoSizeTextArea()
-{
-    // $('.text-area-resize').each(function (){
-    //     console.log($(this).scrollHeight);
-    //     $(this).height(0).height(this.scrollHeight);
-    // }).change();
-}
+
+

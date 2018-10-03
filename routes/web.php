@@ -12,8 +12,20 @@
 */
 
 Route::get('/', 'GuestController@welcome')->name('welcome');
-Route::get('/electronic-bidding', 'ElectronicBiddingController@index')->name('electronic-bidding.index');
-Route::get('/electronic-bidding/show/{id}', 'ElectronicBiddingController@show')->name('electronic-bidding.show');
+
+
+
+
+
+
+Route::prefix('electronic-bidding')->group(function() {
+    Route::get('/index', 'ElectronicBiddingController@index')->name('electronic-bidding.index');
+    Route::get('/get-bidder', 'ElectronicBiddingController@getBidder')->name('electronic-bidding.get-bidder');
+    Route::get('/index-with-bidder/{bidder}', 'ElectronicBiddingController@indexWithBidder')->name('electronic-bidding.index-with-bidder');
+    Route::get('/show/{id}', 'ElectronicBiddingController@show')->name('electronic-bidding.show');
+    Route::get('/show-with-bidder/{id}/{bidder}', 'ElectronicBiddingController@showWithBidder')->name('electronic-bidding.show-with-bidder');
+});
+
 
 Auth::routes();
 

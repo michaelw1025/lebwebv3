@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="show-bids-background">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,23 +11,15 @@
     <title>{{ config('app.name', 'LebWebDev') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ mix('/js/app.js') }}" defer></script>
+    <script src="{{ mix('/js/bid.js') }}" defer></script>
 
     <!-- Styles -->
-    <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
+    <link href="{{ mix('/css/bid.css') }}" rel="stylesheet">
+
 </head>
-<body class="{{in_array(Route::currentRouteName(), array('welcome', 'home', 'login', 'register')) ? 'welcome-body' : ''}}">
+<body class="bg-transparent">
+    @include('electronic-bidding.includes.timer-form')
     @include('navs.electronic-bidding-nav')
-
-    <!-- <section class="container-fluid h-100 border-top">
-        <section class="row h-100 mt-2"> -->
-
-        <div class="container-fluid  h-100">
-            @yield('content')
-        </div>
-
-        <!-- </section>
-    </section> -->
-
+    @yield('content')
 </body>
 </html>
