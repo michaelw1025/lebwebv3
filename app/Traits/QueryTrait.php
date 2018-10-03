@@ -444,6 +444,7 @@ trait QueryTrait
         $employees = Employee::select(
             'id',
             'first_name',
+            'middle_initial',
             'last_name',
             'hire_date'
         )->where('status', 1)
