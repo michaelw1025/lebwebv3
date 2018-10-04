@@ -35,7 +35,7 @@ class ElectronicBiddingController extends Controller
 
     public function show($id)
     {
-        $bidderID = decrypt($id);
+        $bidderID = $id;
         $bid = Bid::with([
             'shift',
             'team',
@@ -50,14 +50,16 @@ class ElectronicBiddingController extends Controller
 
     public function showWithBidder($id, $bidder)
     {
+        $bidID = $id;
+        $bidderID = $bidder;
         $bid = Bid::with([
             'shift',
             'team',
             'position',
             'bidTopWage',
             'bidEducationTopWage'
-        ])->findOrFail($id);
-        $employee = Employee::findOrFail($bidder);
+        ])->findOrFail($bidID);
+        $employee = Employee::findOrFail($bidderID);
         return view('electronic-bidding.show-bid', [
             'bid' => $bid,
             'employee' => $employee
@@ -66,13 +68,15 @@ class ElectronicBiddingController extends Controller
 
     public function getBidder(Request $request)
     {
-        $bidder = encrypt($request->bidder);
+        $bidder = $request->bidder;
         return redirect()->route('electronic-bidding.index-with-bidder', ['bidder' => $bidder]);
     }
 
-    public function indexWithBidder($bidder)
+    public function indexWithBidder(Request $request)
     {
-        $employee = Employee::findOrFail(decrypt($bidder));
+        
+        $bidder = $request->bidder;
+        $employee = Employee::findOrFail($bidder);
         $bids = Bid::where('is_active', 1)
         ->with([
             'shift',

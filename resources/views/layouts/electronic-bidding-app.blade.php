@@ -18,6 +18,9 @@
 
 </head>
 <body class="bg-transparent">
+@if(isset($employee))
+<i id="employee-badge-verification">{{$employee->id}}</i>
+@endif
     @include('electronic-bidding.includes.timer-form')
     @include('navs.electronic-bidding-nav')
     @yield('content')

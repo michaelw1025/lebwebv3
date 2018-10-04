@@ -25,79 +25,104 @@ $(document).ready(function()
 
 });
 
+var isAddBidOpen = false;
+
 // Clickable bid card
 $('.bid-card').on('click', function()
 {
     window.location = $(this).data('href');
 });
 
-// Show start bidding modal
-$('#start-bidding').on('shown.bs.modal', function () {
-    $('#electronic-bidding-badge-number').trigger('focus');
-  });
 
-// Check if badge number input has 9 characters
-// When 9 characters are present submit the form to begin electronic bidding
-$('#electronic-bidding-badge-number').keyup(function() {
-    var numbers = $(this).val().length;
-    if(numbers >= 9){
-        var bidder = $(this).val();
-        var link = $('#index-with-bidder-link').attr('href');
-        var newLink = link+'?bidder='+bidder;
-        $('#index-with-bidder-link').attr('href', newLink);
-        jQuery('#index-with-bidder-link')[0].click();
-        // $('#electronic-bidding-badge-number-submit-form').submit();
+
+
+// Setup timer functions
+function zeros(i){
+    if(i < 10){
+        i = "0" + i;
     }
-});
-
-// Check if badge number input has 9 characters
-// When 9 characters are present submit the reset electronic bidding timer form
-$('#reset-electronic-bidding-timer-input').keyup(function() {
-    var numbers = $(this).val().length;
-    if(numbers >= 9){
-        $('#reset-electronic-bidding-timer').submit();
+    return i;
+}
+var minutes, seconds, timer, totalTime;
+var count = 90;
+// Start timer
+var counter = setInterval(timer, 1000);
+// Timer function
+function timer() {
+    count = count - 1;
+    minutes = zeros(Math.floor(count / 60));
+    seconds = zeros(count % 60);
+    if(count < 31){
+        $('#bidding-timer-badge').removeClass('badge-warning').addClass('badge-danger');
+        $('#cancel-bidding-button').removeClass('btn-warning').addClass('btn-danger');
     }
-});
-
-// Start electronic bidding timer on page load
-var timer = 89;
-var timeIntervalID = setInterval(function () {
-    minutes = parseInt(timer / 60, 10)   
-    seconds = parseInt(timer % 60, 10);   
-    minutes = minutes < 10 ? "0" + minutes : minutes;   
-    seconds = seconds < 10 ? "0" + seconds : seconds;  
-    $('.electronic-bidding-minutes').text(minutes); 
-    $('.electronic-bidding-seconds').text(seconds); 
-    if (--timer < 0) {
-        timer = 0; 
-        if (timer == 0) {
-            clearInterval(timeIntervalID);
-            if($('#cancel-bidding-button').length){
-                jQuery('#cancel-bidding-button')[0].click();
-            }
+    if(count == 0){
+        clearInterval(counter);
+        if($('#cancel-bidding-button').length){
+            jQuery('#cancel-bidding-button')[0].click();
         }
     }
-}, 1000);
+    totalTime = minutes + ':' + seconds;
+    $('.bidding-timer-badge').text(totalTime);
+}
 
-
-// Capture the reset electronic bidding timer form submit to reset the timer without reloading page
-$('#reset-electronic-bidding-timer').submit(function(e) {
-    e.preventDefault();
-    clearInterval(timeIntervalID);
-    timer = 90;
-    timeIntervalID = setInterval(function () {
-        minutes = parseInt(timer / 60, 10)   
-        seconds = parseInt(timer % 60, 10);   
-        minutes = minutes < 10 ? "0" + minutes : minutes;   
-        seconds = seconds < 10 ? "0" + seconds : seconds;  
-        $('.electronic-bidding-minutes').text(minutes); 
-        $('.electronic-bidding-seconds').text(seconds); 
-        if (--timer < 0) {
-            timer = 0; 
-            if (timer == 0) {
-                clearInterval(timeIntervalID);
+// Reset timer
+var bidderID = '';
+$(document).keyup(function(e){
+    bidderID = bidderID + e.key;
+    if(bidderID.length >= 9){
+        if($('#index-with-bidder-link').length){
+            var link = $('#index-with-bidder-link').attr('href');
+            var newLink = link + '?bidder=' + bidderID;
+            $('#index-with-bidder-link').attr('href', newLink);
+            bidderID = '';
+            jQuery('#index-with-bidder-link')[0].click();
+        }else{
+            var bidderIDVerification = $('#employee-badge-verification').text();
+            if(bidderID == bidderIDVerification) {
+                clearInterval(counter);
+                $('#bidding-timer-badge').removeClass('badge-danger').addClass('badge-warning');
+                $('#cancel-bidding-button').removeClass('btn-danger').addClass('btn-warning');
+                count = 90;
+                counter = setInterval(timer, 1000);
+                bidderID = '';
+                if(isAddBidOpen) {
+                    addBidToMyBids();
+                }
+            }else{
                 jQuery('#cancel-bidding-button')[0].click();
             }
-        }
-    }, 1000);
+        }        
+    }
 });
+
+// Add bid to my bids
+$('#add-bid').click(function(){
+    $('#exampleModal').modal('show');
+    isAddBidOpen = true;
+
+    // var newBid = '<div class="input-group my-bids">';
+    // newBid = newBid + '<div class="input-group-prepend">';
+    // newBid = newBid + '<span class="input-group-text"><i class="far fa-arrow-alt-circle-up fa-lg text-success"></i></span>';
+    // newBid = newBid + '<span class="input-group-text"><i class="far fa-arrow-alt-circle-down fa-lg text-edit"></i></span>';
+    // newBid = newBid + '</div>';
+    // newBid = newBid + '<input type="text" class="form-control" disabled value="18-100 Specialist Welding - Nights">';
+    // newBid = newBid + '<div class="input-group-append">';
+    // newBid = newBid + '<span class="input-group-text"><i class="fas fa-minus-circle fa-lg text-danger"></i></span>';
+    // newBid = newBid + '</div>';
+    // newBid = newBid + '</div>';
+    // console.log(newBid);
+});
+
+function addBidToMyBids() {
+    var bidIDNumber = $('.bid-id-number').text();
+    var myBidsCount = $('.my-bids').length;
+    var currentLink = $('#view-open-bids-link').attr('href');
+    var updatedLink = currentLink + '&bid=' + bidIDNumber;
+    $('#view-open-bids-link').attr('href', updatedLink);
+    console.log(myBidsCount);
+}
+
+$('#exampleModal').on('shown.bs.modal', function () {
+    $('#add-bid-input').trigger('focus')
+  })
