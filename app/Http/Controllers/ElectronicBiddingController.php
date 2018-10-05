@@ -48,10 +48,10 @@ class ElectronicBiddingController extends Controller
         ]);
     }
 
-    public function showWithBidder($id, $bidder)
+    public function showWithBidder(Request $request)
     {
-        $bidID = $id;
-        $bidderID = $bidder;
+        $bidID = $request->id;
+        $bidderID = $request->bidder;
         $bid = Bid::with([
             'shift',
             'team',
@@ -60,6 +60,21 @@ class ElectronicBiddingController extends Controller
             'bidEducationTopWage'
         ])->findOrFail($bidID);
         $employee = Employee::findOrFail($bidderID);
+        if($request->has('bidCount')){
+            $bidCount = $request->bidCount;
+            $myBids = collect();
+            for($i = 1; $i <= $bidCount; $i++){
+                $bidNumber = 'bid'.$i;
+                $bidID = $request->$bidNumber;
+                $myBids->push(Bid::findOrFail($bidID));
+            }
+            return view('electronic-bidding.show-bid', [
+                'bid' => $bid,
+                'employee' => $employee,
+                'myBids' => $myBids,
+                'bidCount' => $bidCount
+            ]);
+        }
         return view('electronic-bidding.show-bid', [
             'bid' => $bid,
             'employee' => $employee
@@ -74,7 +89,6 @@ class ElectronicBiddingController extends Controller
 
     public function indexWithBidder(Request $request)
     {
-        
         $bidder = $request->bidder;
         $employee = Employee::findOrFail($bidder);
         $bids = Bid::where('is_active', 1)
@@ -83,6 +97,21 @@ class ElectronicBiddingController extends Controller
             'team',
             'position'
         ])->get();
+        if($request->has('bidCount')){
+            $bidCount = $request->bidCount;
+            $myBids = collect();
+            for($i = 1; $i <= $bidCount; $i++){
+                $bidNumber = 'bid'.$i;
+                $bidID = $request->$bidNumber;
+                $myBids->push(Bid::findOrFail($bidID));
+            }
+            return view('electronic-bidding.show-all-bids', [
+                'bids' => $bids,
+                'employee' => $employee,
+                'myBids' => $myBids,
+                'bidCount' => $bidCount
+            ]);
+        }
         return view('electronic-bidding.show-all-bids', [
             'bids' => $bids,
             'employee' => $employee

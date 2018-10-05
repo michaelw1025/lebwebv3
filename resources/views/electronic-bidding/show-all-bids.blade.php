@@ -22,7 +22,9 @@
         <div class="row">
         @foreach($bids as $bid)
         <div class="col-md-6 col-xxl-4">
-            <div class="card bid-card shadow mb-1 mt-2" data-href="{{isset($employee) ? route('electronic-bidding.show-with-bidder', ['id' => $bid->id, 'bidder' => $employee->id])  : route('electronic-bidding.show', ['id' => $bid->id])}}">
+            <!-- <div class="card bid-card shadow mb-1 mt-2" data-href="{{isset($employee) ? route('electronic-bidding.show-with-bidder', ['id' => $bid->id, 'bidder' => $employee->id, ])  : route('electronic-bidding.show', ['id' => $bid->id])}}"> -->
+            <div class="card bid-card shadow mb-1 mt-2">
+                <a href="{{isset($employee) ? route('electronic-bidding.show-with-bidder', ['id' => $bid->id, 'bidder' => $employee->id, ])  : route('electronic-bidding.show', ['id' => $bid->id])}}" class="show-bid-link d-none">Show Bid Link</a>
                 <div class="card-body py-2">
                     <h5 class="m-0 p-0">{{$bid->posting_number}} <span class="text-create">{{$bid->position->description}}</span></h5>
                     <hr class="mt-1 mb-2 p-0">

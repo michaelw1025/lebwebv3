@@ -6,6 +6,7 @@
     <div class="row">
 
         @include('electronic-bidding.includes.add-bid-modal')
+        @include('electronic-bidding.includes.add-duplicate-bid-modal')
 
         @include('sidebars.electronic-bidding-sidebar')
 
@@ -13,8 +14,8 @@
 
         <main role="main" class="col-9 ml-auto px-4 bg-transparent">
             <div class="row mb-2">
-                <h3 class="text-primary ml-3">{{$bid->posting_number}} {{$bid->position->description}}</h3>
-                <p class="d-none bid-id-number">{{$bid->id}}</p>
+                <h3 class="text-primary ml-3 bid-name" id="{{$bid->id}}">{{$bid->posting_number}} {{$bid->position->description}}</h3>
+                <p class="d-none bid-id-number" id="{{$bid->id}}"></p>
             </div>
 
             <div class="row mb-2">
@@ -32,7 +33,7 @@
                 </div>
                 <div class="col-md-6 col-xl-4">
                     <h5 class="py-2 pl-2 table-primary shadow"><span class="text-create">Shift:</span>
-                        {{$bid->shift->description}}s</h5>
+                        <span class="bid-shift">{{$bid->shift->description}}s</span></h5>
                 </div>
                 <div class="col-md-6 col-xl-4">
                     <h5 class="py-2 pl-2 table-primary shadow"><span class="text-create">Openings:</span>

@@ -27,15 +27,6 @@ $(document).ready(function()
 
 var isAddBidOpen = false;
 
-// Clickable bid card
-$('.bid-card').on('click', function()
-{
-    window.location = $(this).data('href');
-});
-
-
-
-
 // Setup timer functions
 function zeros(i){
     if(i < 10){
@@ -70,6 +61,7 @@ function timer() {
 var bidderID = '';
 $(document).keyup(function(e){
     bidderID = bidderID + e.key;
+    // Add timer here
     if(bidderID.length >= 9){
         if($('#index-with-bidder-link').length){
             var link = $('#index-with-bidder-link').attr('href');
@@ -87,7 +79,7 @@ $(document).keyup(function(e){
                 counter = setInterval(timer, 1000);
                 bidderID = '';
                 if(isAddBidOpen) {
-                    addBidToMyBids();
+                    checkIfBidIsInMyBids();
                 }
             }else{
                 jQuery('#cancel-bidding-button')[0].click();
@@ -98,31 +90,118 @@ $(document).keyup(function(e){
 
 // Add bid to my bids
 $('#add-bid').click(function(){
-    $('#exampleModal').modal('show');
+    $('#add-bid-modal').modal('show');
     isAddBidOpen = true;
-
-    // var newBid = '<div class="input-group my-bids">';
-    // newBid = newBid + '<div class="input-group-prepend">';
-    // newBid = newBid + '<span class="input-group-text"><i class="far fa-arrow-alt-circle-up fa-lg text-success"></i></span>';
-    // newBid = newBid + '<span class="input-group-text"><i class="far fa-arrow-alt-circle-down fa-lg text-edit"></i></span>';
-    // newBid = newBid + '</div>';
-    // newBid = newBid + '<input type="text" class="form-control" disabled value="18-100 Specialist Welding - Nights">';
-    // newBid = newBid + '<div class="input-group-append">';
-    // newBid = newBid + '<span class="input-group-text"><i class="fas fa-minus-circle fa-lg text-danger"></i></span>';
-    // newBid = newBid + '</div>';
-    // newBid = newBid + '</div>';
-    // console.log(newBid);
 });
 
-function addBidToMyBids() {
-    var bidIDNumber = $('.bid-id-number').text();
-    var myBidsCount = $('.my-bids').length;
-    var currentLink = $('#view-open-bids-link').attr('href');
-    var updatedLink = currentLink + '&bid=' + bidIDNumber;
-    $('#view-open-bids-link').attr('href', updatedLink);
-    console.log(myBidsCount);
+function checkIfBidIsInMyBids() {
+    if($('.my-bids').length){
+        // Set false variable to set to true if bid is in my bids
+        var inMyBids = false;
+        // Get the bid number to add
+        var bidIDNumber = $('.bid-id-number').attr('id');
+        $('.my-bids').each(function() {
+            if($(this).children(':input').attr('id') == bidIDNumber){
+                inMyBids = true;
+            }
+        });
+        if(inMyBids) {
+            // Close the add bid modal
+            $('#add-bid-modal').modal('hide');
+            // Open the add duplicate bid modal
+            $('#add-duplicate-bid-modal').modal('show');
+            isAddBidOpen = false;
+        }else{
+            addBidToMyBids();
+        }
+    }else{
+        addBidToMyBids();
+    }
+
 }
 
-$('#exampleModal').on('shown.bs.modal', function () {
-    $('#add-bid-input').trigger('focus')
-  })
+
+function addBidToMyBids() {
+    var myBidsCount = $('.my-bids').length;
+    // Get the bid number to add
+    var bidIDNumber = $('.bid-id-number').attr('id');
+    // Build the my bid div
+    var newBid = buildMyBidDiv(bidIDNumber);
+    // Get the current view open bids link
+    var currentLink = $('#view-open-bids-link').attr('href');
+    // Close the add bid modal
+    $('#add-bid-modal').modal('hide');
+    // Reset isAddBidOpen
+    isAddBidOpen = false;
+    // Remove the empty my bids label
+    if(myBidsCount == 0 || myBidsCount == null){
+        $('.my-bids-empty').remove();
+    }
+    // Add the new bid to my bids
+    $('#my-bids-header').last().after(newBid);
+}
+
+$('.bid-card').click(function() {
+    // Get the current show bid link
+    var currentLink = $(this).children('.show-bid-link').attr('href');
+    // Set bidIDNumber to 0
+    // var bidIDNumber = 0;
+    // Create new link
+    var updatedLink = createNewLink(currentLink);
+    // Replace the show bid link
+    $(this).children('.show-bid-link').attr('href', updatedLink);
+    // Click the link
+    jQuery(this).children('.show-bid-link')[0].click();
+});
+
+$('#view-open-bids-link').click(function() {
+    // Get the current view open bids link
+    var currentLink = $('#view-open-bids-link').attr('href');
+    // Set bidIDNumber to 0
+    // var bidIDNumber = 0;
+    // Create new link
+    var updatedLink = createNewLink(currentLink);
+    // Replace the view open bids link
+    $('#view-open-bids-link').attr('href', updatedLink);
+    // Click the link
+    jQuery(this)[0].click();
+});
+
+function createNewLink(currentLink) {
+    var myBidsCount = $('.my-bids').length;
+    if(myBidsCount > 0){
+        // Set an array to hold the id's of the bids in my bids
+        var myBidArray = [];
+        // For each bid in my bids get the bid number
+        $('.my-bids').each(function() {
+            myBidArray.push($(this).children(':input').attr('id'));
+        });
+        // Add the myBidArray count to the link
+        var updatedLink = currentLink + '&bidCount=' + myBidArray.length;
+        // Add each item in the myBidArray to the link
+        for(let i = 0; i < myBidArray.length; i++){
+            updatedLink = updatedLink + '&bid' + (i+1) + '=' + myBidArray[i];
+        }
+        return updatedLink;
+    }else{
+        return currentLink;
+    }
+}
+
+function buildMyBidDiv(bidIDNumber) {
+    // Get the name of the bid
+    var bidName = $('.bid-name').text();
+    // Get the shift of the bid
+    var bidShift = $('.bid-shift').text();
+    var newBid = '<div class="input-group my-bids">';
+    newBid = newBid + '<div class="input-group-prepend">';
+    newBid = newBid + '<span class="input-group-text"><i class="far fa-arrow-alt-circle-up fa-lg text-success"></i></span>';
+    newBid = newBid + '<span class="input-group-text"><i class="far fa-arrow-alt-circle-down fa-lg text-edit"></i></span>';
+    newBid = newBid + '</div>';
+    newBid = newBid + '<input type="text" class="form-control" id="'+bidIDNumber+'" disabled value="'+bidName+' - '+bidShift+'">';
+    newBid = newBid + '<div class="input-group-append">';
+    newBid = newBid + '<span class="input-group-text"><i class="fas fa-minus-circle fa-lg text-danger"></i></span>';
+    newBid = newBid + '</div>';
+    newBid = newBid + '</div>';
+    return newBid;
+}
