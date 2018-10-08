@@ -25,9 +25,11 @@ $(document).ready(function()
 
 });
 
+// Prepare a variable to tell when the add bid modal is open, this lets the system know to add the selected bid to My Bids
 var isAddBidOpen = false;
 
 // Setup timer functions
+// This adds a zero in front of any single digit time
 function zeros(i){
     if(i < 10){
         i = "0" + i;
@@ -35,6 +37,7 @@ function zeros(i){
     return i;
 }
 var minutes, seconds, timer, totalTime;
+// Set the initial electronic bidding counter time
 var count = 90;
 // Start timer
 var counter = setInterval(timer, 1000);
@@ -43,30 +46,42 @@ function timer() {
     count = count - 1;
     minutes = zeros(Math.floor(count / 60));
     seconds = zeros(count % 60);
+    // When the timer reaches 30 seconds alert the user
     if(count < 31){
         $('#bidding-timer-badge').removeClass('badge-warning').addClass('badge-danger');
         $('#cancel-bidding-button').removeClass('btn-warning').addClass('btn-danger');
-    }
+    } 
+    // When the timer reaches 0
     if(count == 0){
+        // Clear the timer
         clearInterval(counter);
+        // If the user is bidding reset the page
         if($('#cancel-bidding-button').length){
             jQuery('#cancel-bidding-button')[0].click();
         }
     }
+    // Shows the timer on the page
     totalTime = minutes + ':' + seconds;
     $('.bidding-timer-badge').text(totalTime);
 }
 
+// Key up timer
+// Set the initial value of the timer
 var keyUpCount = 2;
+// initialize the timer variable
 var keyUpCounter ='';
+// Timer function
 function keyUpTimer() {
-    console.log('timer');
     keyUpCount = keyUpCount - 1;
+    // When the timer reaches 0
     if(keyUpCount == 0){
-        clearInterval(counter);
+        // Clear the keyUpTimer timer
+        clearInterval(keyUpCounter);
+        // If the user is bidding reset the page
         if($('#cancel-bidding-button').length){
             jQuery('#cancel-bidding-button')[0].click();
         }
+        // Clear the bidderID variable
         bidderID = '';
     }
 }
@@ -74,33 +89,52 @@ function keyUpTimer() {
 // Reset timer
 var bidderID = '';
 $(document).keyup(function(e){
+    // Get the key press and append it to the bidderID variable
     bidderID = bidderID + e.key;
+    // Clear the key up timer to prepare it for the next interval
     clearInterval(keyUpCounter);
+    // Reset the keyUpCount variable
     keyUpCount = 2;
+    // Restart the key up timer
     keyUpCounter = setInterval(keyUpTimer, 75);
-
+    // When the bidderID has reached 9 digits
     if(bidderID.length >= 9){
+        // Clear the key up timer
         clearInterval(keyUpCounter);
+        // Reset the keyUpCount variable
         keyUpCount = 2;
+        // If the user is not bidding
         if($('#index-with-bidder-link').length){
+            // Get the bidding link and append the bidderID to it
             var link = $('#index-with-bidder-link').attr('href');
             var newLink = link + '?bidder=' + bidderID;
             $('#index-with-bidder-link').attr('href', newLink);
             bidderID = '';
             jQuery('#index-with-bidder-link')[0].click();
         }else{
+            // If the user is bidding
+            // Get the current user's id
             var bidderIDVerification = $('#employee-badge-verification').text();
+            // Check if the scan id matches the current user's id
+            // If the numbers match
             if(bidderID == bidderIDVerification) {
+                // Clear the page timer
                 clearInterval(counter);
+                // Reset any warnings
                 $('#bidding-timer-badge').removeClass('badge-danger').addClass('badge-warning');
                 $('#cancel-bidding-button').removeClass('btn-danger').addClass('btn-warning');
+                // Reset the page timer count
                 count = 90;
+                // Start the page timer
                 counter = setInterval(timer, 1000);
+                // Clear the bidderID variable
                 bidderID = '';
+                // If the add bid modal is open check to add the current bid to My Bids
                 if(isAddBidOpen) {
                     checkIfBidIsInMyBids();
                 }
             }else{
+                // If the numbers do not match reset the page
                 jQuery('#cancel-bidding-button')[0].click();
             }
         }        
@@ -108,11 +142,13 @@ $(document).keyup(function(e){
 });
 
 // Add bid to my bids
+// When the add bid button is clicked open the add bid modal and set the isAddBidOpen variable to true
 $('#add-bid').click(function(){
     $('#add-bid-modal').modal('show');
     isAddBidOpen = true;
 });
 
+// Check to see if the current bid can be added to My Bids
 function checkIfBidIsInMyBids() {
     if($('.my-bids').length){
         // Set false variable to set to true if bid is in my bids
@@ -120,6 +156,7 @@ function checkIfBidIsInMyBids() {
         // Get the bid number to add
         var bidIDNumber = $('.bid-id-number').attr('id');
         $('.my-bids').each(function() {
+            // If the current bid is in My Bids set the inMyBids variable to true
             if($(this).children(':input').attr('id') == bidIDNumber){
                 inMyBids = true;
             }
