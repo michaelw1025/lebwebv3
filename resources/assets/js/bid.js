@@ -57,12 +57,31 @@ function timer() {
     $('.bidding-timer-badge').text(totalTime);
 }
 
+var keyUpCount = 2;
+var keyUpCounter ='';
+function keyUpTimer() {
+    console.log('timer');
+    keyUpCount = keyUpCount - 1;
+    if(keyUpCount == 0){
+        clearInterval(counter);
+        if($('#cancel-bidding-button').length){
+            jQuery('#cancel-bidding-button')[0].click();
+        }
+        bidderID = '';
+    }
+}
+
 // Reset timer
 var bidderID = '';
 $(document).keyup(function(e){
     bidderID = bidderID + e.key;
-    // Add timer here
+    clearInterval(keyUpCounter);
+    keyUpCount = 2;
+    keyUpCounter = setInterval(keyUpTimer, 75);
+
     if(bidderID.length >= 9){
+        clearInterval(keyUpCounter);
+        keyUpCount = 2;
         if($('#index-with-bidder-link').length){
             var link = $('#index-with-bidder-link').attr('href');
             var newLink = link + '?bidder=' + bidderID;
