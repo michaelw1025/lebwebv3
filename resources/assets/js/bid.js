@@ -150,30 +150,45 @@ $('#add-bid').click(function(){
 
 // Check to see if the current bid can be added to My Bids
 function checkIfBidIsInMyBids() {
+    // Check if there are any bids in My Bids
     if($('.my-bids').length){
-        // Set false variable to set to true if bid is in my bids
+        // First check to see if the selected bid is already in My Bids
+        // Set variable to check if bid is in My Bids
         var inMyBids = false;
-        // Get the bid number to add
+        // Get the selected bid number
         var bidIDNumber = $('.bid-id-number').attr('id');
+        // Check the selected bid against all bids in My Bids
         $('.my-bids').each(function() {
-            // If the current bid is in My Bids set the inMyBids variable to true
             if($(this).children(':input').attr('id') == bidIDNumber){
+                // If the bid is in My Bids set the inMyBids variable to true
                 inMyBids = true;
             }
         });
-        if(inMyBids) {
+        if(inMyBids){
+            // If the bid is in My Bids already
             // Close the add bid modal
             $('#add-bid-modal').modal('hide');
             // Open the add duplicate bid modal
             $('#add-duplicate-bid-modal').modal('show');
+            // Reset the isAddBidOpen variable
             isAddBidOpen = false;
         }else{
-            addBidToMyBids();
+            // Check to see if three bids are already in My Bids
+            if($('.my-bids').length >= 3){
+                // If three bids are already in My Bids
+                // Close the add bid modal
+                $('#add-bid-modal').modal('hide');
+                // open the max number of bids modal
+                $('#max-number-of-bids-modal').modal('show');
+            }else{
+                // If there are less than three bids in My Bids, add the current bid
+                addBidToMyBids();
+            }
         }
     }else{
+        // If there are no bids in My Bids go ahead and add the selected bid
         addBidToMyBids();
     }
-
 }
 
 

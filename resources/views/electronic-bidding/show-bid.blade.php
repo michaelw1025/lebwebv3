@@ -7,6 +7,7 @@
 
         @include('electronic-bidding.includes.add-bid-modal')
         @include('electronic-bidding.includes.add-duplicate-bid-modal')
+        @include('electronic-bidding.includes.max-number-of-bids-modal')
 
         @include('sidebars.electronic-bidding-sidebar')
 
