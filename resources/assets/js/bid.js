@@ -288,8 +288,12 @@ function addBidToMyBids() {
     if(myBidsCount == 0 || myBidsCount == null){
         $('.my-bids-empty').addClass('d-none');
     }
-    // Add the new bid to my bids
-    $('#my-bids-header').last().after(newBid);
+    // Add the new bid to the end of my bids
+    if(!$('.my-bids').length){
+        $('#my-bids-header').after(newBid);
+    }else{
+        $('.my-bids').last().after(newBid);
+    }
 }
 
 $('.bid-card').click(function() {
