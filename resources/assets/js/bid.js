@@ -28,7 +28,9 @@ $(document).ready(function()
 // Prepare a variable to tell when the add bid modal is open, this lets the system know to add the selected bid to My Bids
 var isAddBidOpen = false;
 
-// Setup timer functions
+/*------------------------------------------------------------------------------------------------------------------
+Timer for electronic bidding page
+------------------------------------------------------------------------------------------------------------------*/
 // This adds a zero in front of any single digit time
 function zeros(i){
     if(i < 10){
@@ -43,7 +45,7 @@ var count = 90;
 var counter = setInterval(timer, 1000);
 // Timer function
 function timer() {
-    count = count - 1;
+    count = --count;
     minutes = zeros(Math.floor(count / 60));
     seconds = zeros(count % 60);
     // When the timer reaches 30 seconds alert the user
@@ -65,14 +67,16 @@ function timer() {
     $('.bidding-timer-badge').text(totalTime);
 }
 
-// Key up timer
+/*------------------------------------------------------------------------------------------------------------------
+Timer for key up when inputing badge barcode number
+------------------------------------------------------------------------------------------------------------------*/
 // Set the initial value of the timer
 var keyUpCount = 2;
-// initialize the timer variable
-var keyUpCounter ='';
+// Initialize the timer variable
+var keyUpCounter = '';
 // Timer function
 function keyUpTimer() {
-    keyUpCount = keyUpCount - 1;
+    keyUpCount = --keyUpCount;
     // When the timer reaches 0
     if(keyUpCount == 0){
         // Clear the keyUpTimer timer
@@ -83,6 +87,28 @@ function keyUpTimer() {
         }
         // Clear the bidderID variable
         bidderID = '';
+    }
+}
+
+/*------------------------------------------------------------------------------------------------------------------
+Timer for removing the bidder not eligible modal
+------------------------------------------------------------------------------------------------------------------*/
+// Set the initial value for the timer
+var ineligibleCount = 15;
+// Initialize the timer variable
+var ineligibleCounter = '';
+// Timer function
+function ineligibleTimer() {
+    console.log(ineligibleCount);
+    ineligibleCount = --ineligibleCount;
+    // When the timer reaches 0
+    if(ineligibleCount == 0){
+        // Clear the ineligibleCounter timer
+        clearInterval(ineligibleCounter);
+        // Reset the ineligibleCount variable
+        ineligibleCount = 15;
+        // Hide the bidder not eligible modal
+        $('#bidder-not-eligible-modal').modal('hide');
     }
 }
 
@@ -124,17 +150,23 @@ $(document).keyup(function(e){
                         var newLink = link + '?bidder=' + bidderID;
                         $('#index-with-bidder-link').attr('href', newLink);
                         bidderID = '';
+                        // Clear the ineligibleCounter timer
+                        clearInterval(ineligibleCounter);
+                        // Reset the ineligibleCount variable
+                        ineligibleCount = 15;
                         jQuery('#index-with-bidder-link')[0].click();
                     }else{
                         // If the user is not eligible to bid
                         bidderID = '';
                         $('#bidder-not-eligible-modal').modal('show');
+                        ineligibleCounter = setInterval(ineligibleTimer, 1000);
                     }
                 },
                 // If the ajax request returns an error
                 error: function() {
                     bidderID = '';
                     $('#bidder-not-eligible-modal').modal('show');
+                    ineligibleCounter = setInterval(ineligibleTimer, 1000);
                 },
             });
         }else{
@@ -161,7 +193,10 @@ $(document).keyup(function(e){
                 }
             }else{
                 // If the numbers do not match reset the page
-                jQuery('#cancel-bidding-button')[0].click();
+                $('#badge-numbers-do-not-match-modal').modal('show');
+                setTimeout(function() {
+                    jQuery('#cancel-bidding-button')[0].click();
+                }, 8000);
             }
         }    
             
