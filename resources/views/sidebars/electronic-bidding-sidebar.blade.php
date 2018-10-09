@@ -16,14 +16,13 @@
                     <span class="input-group-text"><i class="far fa-arrow-alt-circle-down fa-lg text-edit"></i></span>
                 </div>
                 <input type="text" class="form-control" id="{{$myBid->id}}" disabled value="{{$myBid->posting_number}} {{$myBid->position->description}} - {{$myBid->shift->description}}">
-                <div class="input-group-append">
+                <div class="input-group-append remove-bid-button">
                     <span class="input-group-text"><i class="fas fa-minus-circle fa-lg text-danger"></i></span>
                 </div>
             </div>
             @endforeach
-            @else
-            <p class="lead text-danger my-bids-empty">None</p>
             @endif
+            <p class="lead text-danger my-bids-empty {{isset($myBids) ? 'd-none' : ''}}">None</p>
             
             <hr>
             @endif
@@ -42,44 +41,6 @@
             <hr>
             @endif
         </div>
-
-
-        <!-- 
-        <hr>
-
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <span class="input-group-text"><i class="far fa-arrow-alt-circle-up fa-lg text-success"></i></span>
-                <span class="input-group-text"><i class="far fa-arrow-alt-circle-down fa-lg text-edit"></i></span>
-            </div>
-            <input type="text" class="form-control" disabled value="18-100 Specialist Welding - Nights">
-            <div class="input-group-append">
-                <span class="input-group-text"><i class="fas fa-minus-circle fa-lg text-danger"></i></span>
-            </div>
-        </div>
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <span class="input-group-text"><i class="far fa-arrow-alt-circle-up fa-lg text-success"></i></span>
-                <span class="input-group-text"><i class="far fa-arrow-alt-circle-down fa-lg text-edit"></i></span>
-            </div>
-            <input type="text" class="form-control" disabled value="18-101 Maintenance Component - Days">
-            <div class="input-group-append">
-                <span class="input-group-text"><i class="fas fa-minus-circle fa-lg text-danger"></i></span>
-            </div>
-        </div>
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <span class="input-group-text"><i class="far fa-arrow-alt-circle-up fa-lg text-success"></i></span>
-                <span class="input-group-text"><i class="far fa-arrow-alt-circle-down fa-lg text-edit"></i></span>
-            </div>
-            <input type="text" class="form-control" disabled value="18-102 Machinist - Nights">
-            <div class="input-group-append">
-                <span class="input-group-text"><i class="fas fa-minus-circle fa-lg text-danger"></i></span>
-            </div>
-        </div>
-        <div class="mb-3 mt-2">
-            <a href="" class="btn btn-site-logo btn-lg btn-block" style="border-radius: 0;">Complete Bidding</a>
-        </div> -->
 
     </div>
 </div>

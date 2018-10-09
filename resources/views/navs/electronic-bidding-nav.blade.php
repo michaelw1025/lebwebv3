@@ -8,4 +8,5 @@
     <a class="mx-auto btn btn-info" href="#">To Start Bidding Please Scan Your Badge</a>
     @endif
     <a class="navbar-brand mr-4 btn btn-warning text-dark" href="#"><i class="fas fa-question-circle fa-lg"></i> Help</a>
+    <a href="{{route('electronic-bidding.check-bidder-eligible')}}" class="d-none check-bidder-eligible-link">Check Bidder Eligible Link</a>
 </nav>

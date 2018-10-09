@@ -21,6 +21,11 @@
 @if(isset($employee))
 <i id="employee-badge-verification">{{$employee->id}}</i>
 @endif
+    @include('electronic-bidding.includes.add-bid-modal')
+    @include('electronic-bidding.includes.add-duplicate-bid-modal')
+    @include('electronic-bidding.includes.max-number-of-bids-modal')
+    @include('electronic-bidding.includes.bidder-not-eligible-modal')
+
     @include('electronic-bidding.includes.timer-form')
     @include('navs.electronic-bidding-nav')
     @yield('content')

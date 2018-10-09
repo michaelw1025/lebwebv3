@@ -5,13 +5,7 @@
 <div class="container-fluid">
     <div class="row">
 
-        @include('electronic-bidding.includes.add-bid-modal')
-        @include('electronic-bidding.includes.add-duplicate-bid-modal')
-        @include('electronic-bidding.includes.max-number-of-bids-modal')
-
         @include('sidebars.electronic-bidding-sidebar')
-
-
 
         <main role="main" class="col-9 ml-auto px-4 bg-transparent">
             <div class="row mb-2">

@@ -49427,12 +49427,38 @@ $(document).keyup(function (e) {
         keyUpCount = 2;
         // If the user is not bidding
         if ($('#index-with-bidder-link').length) {
-            // Get the bidding link and append the bidderID to it
-            var link = $('#index-with-bidder-link').attr('href');
-            var newLink = link + '?bidder=' + bidderID;
-            $('#index-with-bidder-link').attr('href', newLink);
-            bidderID = '';
-            jQuery('#index-with-bidder-link')[0].click();
+            // Check to see if the user is eligible to bid
+            // Get the check bidder link
+            var link = $('.check-bidder-eligible-link').attr('href');
+            // Send an ajax request to check if the users bid_eligible property is set to 1
+            $.ajax({
+                url: link,
+                method: 'get',
+                data: {
+                    bidder: bidderID
+                },
+                // If the ajax request returns a response
+                success: function success(result) {
+                    // If the user is eligible to bid
+                    if (result.response == true) {
+                        // Get the bidding link and append the bidderID to it
+                        var link = $('#index-with-bidder-link').attr('href');
+                        var newLink = link + '?bidder=' + bidderID;
+                        $('#index-with-bidder-link').attr('href', newLink);
+                        bidderID = '';
+                        jQuery('#index-with-bidder-link')[0].click();
+                    } else {
+                        // If the user is not eligible to bid
+                        bidderID = '';
+                        $('#bidder-not-eligible-modal').modal('show');
+                    }
+                },
+                // If the ajax request returns an error
+                error: function error() {
+                    bidderID = '';
+                    $('#bidder-not-eligible-modal').modal('show');
+                }
+            });
         } else {
             // If the user is bidding
             // Get the current user's id
@@ -49527,7 +49553,7 @@ function addBidToMyBids() {
     isAddBidOpen = false;
     // Remove the empty my bids label
     if (myBidsCount == 0 || myBidsCount == null) {
-        $('.my-bids-empty').remove();
+        $('.my-bids-empty').addClass('d-none');
     }
     // Add the new bid to my bids
     $('#my-bids-header').last().after(newBid);
@@ -49591,12 +49617,21 @@ function buildMyBidDiv(bidIDNumber) {
     newBid = newBid + '<span class="input-group-text"><i class="far fa-arrow-alt-circle-down fa-lg text-edit"></i></span>';
     newBid = newBid + '</div>';
     newBid = newBid + '<input type="text" class="form-control" id="' + bidIDNumber + '" disabled value="' + bidName + ' - ' + bidShift + '">';
-    newBid = newBid + '<div class="input-group-append">';
+    newBid = newBid + '<div class="input-group-append remove-bid-button">';
     newBid = newBid + '<span class="input-group-text"><i class="fas fa-minus-circle fa-lg text-danger"></i></span>';
     newBid = newBid + '</div>';
     newBid = newBid + '</div>';
     return newBid;
 }
+
+// Remove a bid from My Bids
+$(document).on('click', '.remove-bid-button', function () {
+    $(this).parent().remove();
+    // Check if there are any bids in My Bids
+    if ($('.my-bids').length) {} else {
+        $('.my-bids-empty').removeClass('d-none');
+    }
+});
 
 /***/ }),
 

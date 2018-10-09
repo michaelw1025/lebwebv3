@@ -81,11 +81,11 @@ class ElectronicBiddingController extends Controller
         ]);
     }
 
-    public function getBidder(Request $request)
-    {
-        $bidder = $request->bidder;
-        return redirect()->route('electronic-bidding.index-with-bidder', ['bidder' => $bidder]);
-    }
+    // public function getBidder(Request $request)
+    // {
+    //     $bidder = $request->bidder;
+    //     return redirect()->route('electronic-bidding.index-with-bidder', ['bidder' => $bidder]);
+    // }
 
     public function indexWithBidder(Request $request)
     {
@@ -116,5 +116,16 @@ class ElectronicBiddingController extends Controller
             'bids' => $bids,
             'employee' => $employee
         ]);
+    }
+
+    public function checkBidderEligible(Request $request)
+    {
+        $bidderID = $request->bidder;
+        $bidder = Employee::findOrFail($bidderID);
+        if($bidder->bid_eligible == 1){
+            return response()->json(['response' => true]);
+        }else{
+            return response()->json(['response' => false]);
+        }
     }
 }

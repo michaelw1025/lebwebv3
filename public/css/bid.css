@@ -21257,7 +21257,8 @@ body {
 }
 
 .bid-card,
-.bid-card-input {
+.bid-card-input,
+.remove-bid-button {
   cursor: pointer;
 }
 
