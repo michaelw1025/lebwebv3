@@ -26,6 +26,7 @@
     @include('electronic-bidding.includes.max-number-of-bids-modal')
     @include('electronic-bidding.includes.bidder-not-eligible-modal')
     @include('electronic-bidding.includes.badge-numbers-do-not-match-modal')
+    @include('electronic-bidding.includes.remove-bid-modal')
 
     @include('electronic-bidding.includes.timer-form')
     @include('navs.electronic-bidding-nav')

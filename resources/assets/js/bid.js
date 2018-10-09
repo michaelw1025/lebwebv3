@@ -27,6 +27,10 @@ $(document).ready(function()
 
 // Prepare a variable to tell when the add bid modal is open, this lets the system know to add the selected bid to My Bids
 var isAddBidOpen = false;
+// Prepare variable to tell when the remove bid modal is open, this lets the system know to remove the selected bid from My Bids
+var isRemoveBidOpen = false;
+// Prepare a variable to hold the bid that should be removed
+var removeBidID = '';
 
 /*------------------------------------------------------------------------------------------------------------------
 Timer for electronic bidding page
@@ -112,6 +116,11 @@ function ineligibleTimer() {
     }
 }
 
+
+
+
+
+
 // Reset timer
 var bidderID = '';
 $(document).keyup(function(e){
@@ -188,8 +197,12 @@ $(document).keyup(function(e){
                 // Clear the bidderID variable
                 bidderID = '';
                 // If the add bid modal is open check to add the current bid to My Bids
-                if(isAddBidOpen) {
+                if(isAddBidOpen && $('body').hasClass('modal-open')) {
                     checkIfBidIsInMyBids();
+                }
+                // If the remove bid modal is open remove the selected bid from My Bids
+                if(isRemoveBidOpen && $('body').hasClass('modal-open')) {
+                    removeBidFromMyBids();
                 }
             }else{
                 // If the numbers do not match reset the page
@@ -209,6 +222,10 @@ $(document).keyup(function(e){
 $('#add-bid').click(function(){
     $('#add-bid-modal').modal('show');
     isAddBidOpen = true;
+});
+
+$('#add-bid-modal').on('hidden.bs.modal', function () {
+    isAddBidOpen = false;
 });
 
 // Check to see if the current bid can be added to My Bids
@@ -342,11 +359,37 @@ function buildMyBidDiv(bidIDNumber) {
 
 // Remove a bid from My Bids
 $(document).on('click', '.remove-bid-button', function() {
-    $(this).parent().remove()
+    // Get the bid name to remove
+    var bidName = $(this).parent().children(':input').val();
+    // Set the bid number variable to remove the bid
+    removeBidID = $(this).parent().children(':input').attr('id');
+    // Set the bid name in the remove bid modal
+    $('#remove-bid-name').text(bidName);
+    // Show the remove bid modal
+    $('#remove-bid-modal').modal('show');
+    // Set the isRemoveBidOpen variable to true
+    isRemoveBidOpen = true;
+    // console.log(bid);
+    // $(this).parent().remove()
     // Check if there are any bids in My Bids
-    if($('.my-bids').length){
+    // if($('.my-bids').length){
 
-    }else{
+    // }else{
+    //     $('.my-bids-empty').removeClass('d-none');
+    // }
+});
+
+function removeBidFromMyBids() {
+    $('#'+removeBidID).parent().remove();
+    removeBidID = '';
+    $('#remove-bid-modal').modal('hide');
+    isRemoveBidOpen = false;
+    if(!$('.my-bids').length){
         $('.my-bids-empty').removeClass('d-none');
     }
+}
+
+$('#remove-bid-modal').on('hidden.bs.modal', function () {
+    isRemoveBidOpen = false;
+    removeBidID = '';
 });
