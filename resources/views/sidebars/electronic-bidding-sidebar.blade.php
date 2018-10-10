@@ -10,7 +10,7 @@
             <h5 id="my-bids-header">My Bids</h5>
             @if(isset($myBids))
             @foreach($myBids as $myBid)
-            <div class="input-group my-bids">
+            <div class="input-group my-bids" id="bid-choice-{{$loop->iteration}}">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="far fa-arrow-alt-circle-up fa-lg text-success"></i></span>
                     <span class="input-group-text"><i class="far fa-arrow-alt-circle-down fa-lg text-edit"></i></span>

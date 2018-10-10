@@ -277,7 +277,7 @@ function addBidToMyBids() {
     // Get the bid number to add
     var bidIDNumber = $('.bid-id-number').attr('id');
     // Build the my bid div
-    var newBid = buildMyBidDiv(bidIDNumber);
+    var newBid = buildMyBidDiv(bidIDNumber, myBidsCount);
     // Get the current view open bids link
     var currentLink = $('#view-open-bids-link').attr('href');
     // Close the add bid modal
@@ -343,12 +343,14 @@ function createNewLink(currentLink) {
     }
 }
 
-function buildMyBidDiv(bidIDNumber) {
+function buildMyBidDiv(bidIDNumber, myBidsCount) {
     // Get the name of the bid
     var bidName = $('.bid-name').text();
     // Get the shift of the bid
     var bidShift = $('.bid-shift').text();
-    var newBid = '<div class="input-group my-bids">';
+    // Set this bids choice number
+    var bidCoice = myBidsCount + 1;
+    var newBid = '<div class="input-group my-bids" id="bid-choice-'+bidCoice+'">';
     newBid = newBid + '<div class="input-group-prepend">';
     newBid = newBid + '<span class="input-group-text"><i class="far fa-arrow-alt-circle-up fa-lg text-success"></i></span>';
     newBid = newBid + '<span class="input-group-text"><i class="far fa-arrow-alt-circle-down fa-lg text-edit"></i></span>';
