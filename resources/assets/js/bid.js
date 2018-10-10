@@ -352,8 +352,8 @@ function buildMyBidDiv(bidIDNumber, myBidsCount) {
     var bidCoice = myBidsCount + 1;
     var newBid = '<div class="input-group my-bids" id="bid-choice-'+bidCoice+'">';
     newBid = newBid + '<div class="input-group-prepend">';
-    newBid = newBid + '<span class="input-group-text"><i class="far fa-arrow-alt-circle-up fa-lg text-success"></i></span>';
-    newBid = newBid + '<span class="input-group-text"><i class="far fa-arrow-alt-circle-down fa-lg text-edit"></i></span>';
+    newBid = newBid + '<span class="input-group-text move-bid-up"><i class="far fa-arrow-alt-circle-up fa-lg text-success"></i></span>';
+    newBid = newBid + '<span class="input-group-text move-bid-down"><i class="far fa-arrow-alt-circle-down fa-lg text-edit"></i></span>';
     newBid = newBid + '</div>';
     newBid = newBid + '<input type="text" class="form-control" id="'+bidIDNumber+'" disabled value="'+bidName+' - '+bidShift+'">';
     newBid = newBid + '<div class="input-group-append remove-bid-button">';
@@ -375,14 +375,6 @@ $(document).on('click', '.remove-bid-button', function() {
     $('#remove-bid-modal').modal('show');
     // Set the isRemoveBidOpen variable to true
     isRemoveBidOpen = true;
-    // console.log(bid);
-    // $(this).parent().remove()
-    // Check if there are any bids in My Bids
-    // if($('.my-bids').length){
-
-    // }else{
-    //     $('.my-bids-empty').removeClass('d-none');
-    // }
 });
 
 function removeBidFromMyBids() {
@@ -392,6 +384,9 @@ function removeBidFromMyBids() {
     isRemoveBidOpen = false;
     if(!$('.my-bids').length){
         $('.my-bids-empty').removeClass('d-none');
+    }else{
+        // Reset the my bids div id numbers
+        resetMyBidsDivID();
     }
 }
 
@@ -399,3 +394,53 @@ $('#remove-bid-modal').on('hidden.bs.modal', function () {
     isRemoveBidOpen = false;
     removeBidID = '';
 });
+
+// Move bid up in my bids
+$(document).on('click', '.move-bid-up', function() {
+    // Get the selected bid's my bids id
+    var selectedBidID = $(this).closest('.my-bids').attr('id');
+    // Get the selected bid's choice number
+    var selectedBidChoice = selectedBidID.substr(-1);
+    // Check if the selected bid is already at number one
+    if(selectedBidChoice != 1){
+        // Get the selected my-bids div
+        var myBidsDiv = $(this).closest('.my-bids');
+        // Place the selected bid before the previous my bids div id
+        $('#'+selectedBidID).prev('.my-bids').before(myBidsDiv);
+        // Reset the my bids div id numbers
+        resetMyBidsDivID();
+    }
+});
+
+// Move bid down in my bids
+$(document).on('click', '.move-bid-down', function() {
+    // Get the selected bid's my bids id
+    var selectedBidID = $(this).closest('.my-bids').attr('id');
+    // Get the selected bid's choice number
+    var selectedBidChoice = selectedBidID.substr(-1);
+    // Get count of my bids
+    var myBidsCount = $('.my-bids').length;
+    // Check if the selected bid is already last
+    if(selectedBidChoice != myBidsCount){
+        // Get the selected my-bids div
+        var myBidsDiv = $(this).closest('.my-bids');
+        // Place the selected bid after the next my bids div id
+        $('#'+selectedBidID).next('.my-bids').after(myBidsDiv);
+        // Reset the my bids div id numbers
+        resetMyBidsDivID();
+    }
+});
+
+function resetMyBidsDivID() {
+    // Reset the my bids div id numbers
+    // Set a variable for the amount of bids in my bids
+    var myBidsCount = 1;
+    $('.my-bids').each(function() {
+        // Set the new id to a variable
+        var newMyBidsID = 'bid-choice-'+myBidsCount;
+        // Set the new id
+        $(this).attr('id', newMyBidsID);
+        // Increment the myBidsCount variable
+        myBidsCount = ++myBidsCount;
+    });
+}

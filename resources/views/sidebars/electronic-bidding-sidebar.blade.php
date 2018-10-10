@@ -12,8 +12,8 @@
             @foreach($myBids as $myBid)
             <div class="input-group my-bids" id="bid-choice-{{$loop->iteration}}">
                 <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="far fa-arrow-alt-circle-up fa-lg text-success"></i></span>
-                    <span class="input-group-text"><i class="far fa-arrow-alt-circle-down fa-lg text-edit"></i></span>
+                    <span class="input-group-text move-bid-up"><i class="far fa-arrow-alt-circle-up fa-lg text-success"></i></span>
+                    <span class="input-group-text move-bid-down"><i class="far fa-arrow-alt-circle-down fa-lg text-edit"></i></span>
                 </div>
                 <input type="text" class="form-control" id="{{$myBid->id}}" disabled value="{{$myBid->posting_number}} {{$myBid->position->description}} - {{$myBid->shift->description}}">
                 <div class="input-group-append remove-bid-button">
