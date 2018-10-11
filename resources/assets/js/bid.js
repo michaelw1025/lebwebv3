@@ -31,6 +31,8 @@ var isAddBidOpen = false;
 var isRemoveBidOpen = false;
 // Prepare a variable to hold the bid that should be removed
 var removeBidID = '';
+// Prepare variable to let the system know when the submit bids modal is open
+var submitBidsOpen = false;
 
 /*------------------------------------------------------------------------------------------------------------------
 Timer for electronic bidding page
@@ -279,18 +281,19 @@ function addBidToMyBids() {
     // Build the my bid div
     var newBid = buildMyBidDiv(bidIDNumber, myBidsCount);
     // Get the current view open bids link
-    var currentLink = $('#view-open-bids-link').attr('href');
+    // var currentLink = $('#view-open-bids-link').attr('href');
     // Close the add bid modal
     $('#add-bid-modal').modal('hide');
     // Reset isAddBidOpen
     isAddBidOpen = false;
     // Remove the empty my bids label
-    if(myBidsCount == 0 || myBidsCount == null){
+    // if(myBidsCount == 0 || myBidsCount == null){
         $('.my-bids-empty').addClass('d-none');
-    }
+        $('#submit-my-bids-div').removeClass('d-none');
+    // }
     // Add the new bid to the end of my bids
     if(!$('.my-bids').length){
-        $('#my-bids-header').after(newBid);
+        $('#my-bids-container').html(newBid);
     }else{
         $('.my-bids').last().after(newBid);
     }
@@ -365,6 +368,9 @@ function buildMyBidDiv(bidIDNumber, myBidsCount) {
 
 // Remove a bid from My Bids
 $(document).on('click', '.remove-bid-button', function() {
+    if(submitBidsOpen){
+        $('#submit-bids-modal').modal('hide');
+    }
     // Get the bid name to remove
     var bidName = $(this).parent().children(':input').val();
     // Set the bid number variable to remove the bid
@@ -384,6 +390,7 @@ function removeBidFromMyBids() {
     isRemoveBidOpen = false;
     if(!$('.my-bids').length){
         $('.my-bids-empty').removeClass('d-none');
+        $('#submit-my-bids-div').addClass('d-none');
     }else{
         // Reset the my bids div id numbers
         resetMyBidsDivID();
@@ -444,3 +451,12 @@ function resetMyBidsDivID() {
         myBidsCount = ++myBidsCount;
     });
 }
+
+// Submit my bids
+$('#submit-my-bids-button').click(function() {
+    submitBidsOpen = true;
+    // Show the submit bids modal
+    $('#submit-bids-modal').modal('show');
+    // Replace the submit bids modal body
+    // $('#submit-bids-modal-body').html($('#my-bids-container').html());
+});
