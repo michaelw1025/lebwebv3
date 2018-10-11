@@ -362,8 +362,13 @@ class EmployeeController extends Controller
         $employee->county = $request->county;
         $employee->status = $request->status;
         $employee->rehire = $request->rehire;
-        $employee->bid_eligible = 1;
-        $employee->bid_eligible_date = $request->hire_date;
+        $employee->bid_eligible = $request->bid_eligible;
+        if($request->bid_eligible_date == ''){
+            $employee->bid_eligible_date = '01/01/1970';
+        }else{
+            $employee->bid_eligible_date = $request->bid_eligible_date;
+        }
+        $employee->bid_eligible_comment = $request->bid_eligible_comment;
         // Check if a thirty day review is being set
         if($request->has('thirty_day_review')) {
             $employee->thirty_day_review = 1;

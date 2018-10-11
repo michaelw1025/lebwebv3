@@ -191,6 +191,44 @@
             </div>
 
             <!-- ****************************************
+            Bidding
+            **************************************** -->
+            <header class="alert alert-primary mt-4 h2" role="alert">
+                <i class="fas fa-dolly"></i> Bidding
+            </header>
+            <div class="form-row">
+
+                <div class="card card-status col-md-6 col-lg-4 {{$employee->bid_eligible === '1' ? 'border-success' : 'border-danger'}} p-0 ml-1 mr-1 mb-3">
+                    <div class="card-header">Bid Eligible</div>
+                    <div class="card-body">
+                        <div class="custom-control custom-radio">
+                            <input class="custom-control-input boolean-radio-button" type="radio" name="bid_eligible" id="show-employee-bid-eligible-active" value="1" {{$employee->bid_eligible === '1' ? 'checked' : ''}} disabled>
+                            <label class="custom-control-label" for="show-employee-bid-eligible-active">
+                            Active
+                            </label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input class="custom-control-input boolean-radio-button" type="radio" name="bid_eligible" id="show-employee-bid-eligible-inactive" value="0" {{$employee->bid_eligible === '0' ? 'checked' : ''}} disabled>
+                            <label class="custom-control-label" for="show-employee-bid-eligible-inactive">
+                            Inactive
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-6 col-lg-4">
+                    <label for="show-employee-bid-eligible-date">Bid Eligible Date</label>
+                    <input type="text" class="form-control datepicker" id="show-employee-bid-eligible-date" name="bid_eligible_date" value="{{$employee->bid_eligible_date->format('m/d/Y')}}" disabled>
+                </div>
+
+                <div class="form-group col-12">
+                    <label for="show-employee-bid-eligible-comment">Comments</label>
+                    <textarea name="bid_eligible_comment" id="show-employee-bid-eligible-comment" rows="3" class="form-control" disabled>{{$employee->bid_eligible_comment}}</textarea>
+                </div>
+
+            </div>
+
+            <!-- ****************************************
             Occupation
             **************************************** -->
             <header class="alert alert-primary mt-4 h2" role="alert">
