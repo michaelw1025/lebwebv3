@@ -438,7 +438,7 @@
 
                 <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-employee-bid-eligible-date">Bid Eligible Date</label>
-                    <input type="text" class="form-control {{$errors->has('bid_eligible_date') ? 'is-invalid' : ''}} datepicker" id="edit-employee-bid-eligible-date" name="bid_eligible_date" value="{{old('bid_eligible_date') ? old('bid_eligible_date') : $employee->bid_eligible_date->format('m/d/Y')}}">
+                    <input type="text" class="form-control {{$errors->has('bid_eligible_date') ? 'is-invalid' : ''}} datepicker" id="edit-employee-bid-eligible-date" name="bid_eligible_date" value="{{old('bid_eligible_date') ? old('bid_eligible_date') : ($employee->bid_eligible_date == '' ? '' : $employee->bid_eligible_date->format('m/d/Y'))}}">
                     @if($errors->has('bid_eligible_date'))
                         <span class="invalid-feedback" role="alert">
                             {{$errors->first('bid_eligible_date')}}

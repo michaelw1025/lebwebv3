@@ -218,7 +218,7 @@
 
                 <div class="form-group col-md-6 col-lg-4">
                     <label for="show-employee-bid-eligible-date">Bid Eligible Date</label>
-                    <input type="text" class="form-control datepicker" id="show-employee-bid-eligible-date" name="bid_eligible_date" value="{{$employee->bid_eligible_date->format('m/d/Y')}}" disabled>
+                    <input type="text" class="form-control datepicker" id="show-employee-bid-eligible-date" name="bid_eligible_date" value="{{$employee->bid_eligible_date == '' ? '' : $employee->bid_eligible_date->format('m/d/Y')}}" disabled>
                 </div>
 
                 <div class="form-group col-12">
