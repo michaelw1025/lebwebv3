@@ -66,7 +66,13 @@ class ElectronicBiddingController extends Controller
             for($i = 1; $i <= $bidCount; $i++){
                 $bidNumber = 'bid'.$i;
                 $bidID = $request->$bidNumber;
-                $myBids->push(Bid::findOrFail($bidID));
+                $myBids->push(Bid::with([
+                    'shift',
+                    'team',
+                    'position',
+                    'bidTopWage',
+                    'bidEducationTopWage'
+                ])->findOrFail($bidID));
             }
             return view('electronic-bidding.show-bid', [
                 'bid' => $bid,
@@ -127,5 +133,14 @@ class ElectronicBiddingController extends Controller
         }else{
             return response()->json(['response' => false]);
         }
+    }
+
+    public function submitBids(Request $request)
+    {
+        $bids = '';
+        foreach($request->bid_choice as $bidChoice){
+            $bids = $bids . $bidChoice;
+        }
+        return $bids;
     }
 }

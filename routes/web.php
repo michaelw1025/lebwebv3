@@ -26,6 +26,7 @@ Route::prefix('electronic-bidding')->group(function() {
     Route::get('/show/{id}', 'ElectronicBiddingController@show')->name('electronic-bidding.show');
     Route::get('/show-with-bidder', 'ElectronicBiddingController@showWithBidder')->name('electronic-bidding.show-with-bidder');
     Route::get('/check-bidder-eligible', 'ElectronicBiddingController@checkBidderEligible')->name('electronic-bidding.check-bidder-eligible');
+    Route::post('/submit-bids', 'ElectronicBiddingController@submitBids')->name('electronic-bidding.submit-bids');
 });
 
 

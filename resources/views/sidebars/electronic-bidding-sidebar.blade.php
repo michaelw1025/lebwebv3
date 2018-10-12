@@ -27,11 +27,13 @@
                         id="bidding-timer-badge"></span></h3>
             </div>
             <h4 class="text-primary" id="my-bids-header">My Bids</h4>
+            <p>In order of preference</p>
             <div id="my-bids-container">
                 @if(isset($myBids))
                 @foreach($myBids as $myBid)
                 <div class="input-group my-bids" id="bid-choice-{{$loop->iteration}}">
                     <div class="input-group-prepend">
+                        <span class="input-group-text bid-preference">{{$loop->iteration}}</span>
                         <span class="input-group-text move-bid-up"><i class="far fa-arrow-alt-circle-up fa-lg text-success"></i></span>
                         <span class="input-group-text move-bid-down"><i class="far fa-arrow-alt-circle-down fa-lg text-edit"></i></span>
                     </div>

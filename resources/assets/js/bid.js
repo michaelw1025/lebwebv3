@@ -208,6 +208,8 @@ $(document).keyup(function(e){
                 }
             }else{
                 // If the numbers do not match reset the page
+                // Close all open modals
+                $('.modal').modal('hide');
                 $('#badge-numbers-do-not-match-modal').modal('show');
                 setTimeout(function() {
                     jQuery('#cancel-bidding-button')[0].click();
@@ -222,6 +224,8 @@ $(document).keyup(function(e){
 // Add bid to my bids
 // When the add bid button is clicked open the add bid modal and set the isAddBidOpen variable to true
 $('#add-bid').click(function(){
+    // Close all open modals
+    $('.modal').modal('hide');
     $('#add-bid-modal').modal('show');
     isAddBidOpen = true;
 });
@@ -302,8 +306,6 @@ function addBidToMyBids() {
 $('.bid-card').click(function() {
     // Get the current show bid link
     var currentLink = $(this).children('.show-bid-link').attr('href');
-    // Set bidIDNumber to 0
-    // var bidIDNumber = 0;
     // Create new link
     var updatedLink = createNewLink(currentLink);
     // Replace the show bid link
@@ -312,17 +314,16 @@ $('.bid-card').click(function() {
     jQuery(this).children('.show-bid-link')[0].click();
 });
 
-$('#view-open-bids-link').click(function() {
+$('#view-open-bids-link').click(function(e) {
+    // e.preventDefault();
     // Get the current view open bids link
     var currentLink = $('#view-open-bids-link').attr('href');
-    // Set bidIDNumber to 0
-    // var bidIDNumber = 0;
     // Create new link
     var updatedLink = createNewLink(currentLink);
     // Replace the view open bids link
     $('#view-open-bids-link').attr('href', updatedLink);
     // Click the link
-    jQuery(this)[0].click();
+    // jQuery(this)[0].click();
 });
 
 function createNewLink(currentLink) {
@@ -355,6 +356,7 @@ function buildMyBidDiv(bidIDNumber, myBidsCount) {
     var bidCoice = myBidsCount + 1;
     var newBid = '<div class="input-group my-bids" id="bid-choice-'+bidCoice+'">';
     newBid = newBid + '<div class="input-group-prepend">';
+    newBid = newBid + '<span class="input-group-text bid-preference">'+bidCoice+'</span>';
     newBid = newBid + '<span class="input-group-text move-bid-up"><i class="far fa-arrow-alt-circle-up fa-lg text-success"></i></span>';
     newBid = newBid + '<span class="input-group-text move-bid-down"><i class="far fa-arrow-alt-circle-down fa-lg text-edit"></i></span>';
     newBid = newBid + '</div>';
@@ -368,9 +370,11 @@ function buildMyBidDiv(bidIDNumber, myBidsCount) {
 
 // Remove a bid from My Bids
 $(document).on('click', '.remove-bid-button', function() {
-    if(submitBidsOpen){
-        $('#submit-bids-modal').modal('hide');
-    }
+    // if(submitBidsOpen){
+    //     $('#submit-bids-modal').modal('hide');
+    // }
+    // Close all open modals
+    $('.modal').modal('hide');
     // Get the bid name to remove
     var bidName = $(this).parent().children(':input').val();
     // Set the bid number variable to remove the bid
@@ -447,6 +451,7 @@ function resetMyBidsDivID() {
         var newMyBidsID = 'bid-choice-'+myBidsCount;
         // Set the new id
         $(this).attr('id', newMyBidsID);
+        $(this).find('.bid-preference').text(myBidsCount);
         // Increment the myBidsCount variable
         myBidsCount = ++myBidsCount;
     });
@@ -454,9 +459,39 @@ function resetMyBidsDivID() {
 
 // Submit my bids
 $('#submit-my-bids-button').click(function() {
+    // Close all open modals
+    $('.modal').modal('hide');
     submitBidsOpen = true;
     // Show the submit bids modal
     $('#submit-bids-modal').modal('show');
     // Replace the submit bids modal body
-    // $('#submit-bids-modal-body').html($('#my-bids-container').html());
+    var submitAllBids = createSubmitBidsDivs();
+    $('#submit-bids-modal-body').html(submitAllBids);
 });
+
+$('#submit-my-bids-modal').on('hidden.bs.modal', function () {
+    submitBidsOpen = false;
+    var submitAllBids = '';
+    $('#submit-bids-modal-body').html(submitAllBids);
+});
+
+function createSubmitBidsDivs() {
+    // Set variable to hold all my bids
+    var submitAllBids = '';
+    var submitBidChoice = '';
+    var submitBidName = '';
+    var submitBidID = '';
+    $('.my-bids').each(function() {
+        submitBidChoice = $(this).find('.bid-preference').text();
+        submitBidName = $(this).find(':input').val();
+        submitBidID = $(this).find(':input').attr('id');
+        submitAllBids =submitAllBids + '<div class="input-group">'
+        submitAllBids = submitAllBids + '<div class="input-group-prepend">';
+        submitAllBids = submitAllBids + '<span class="input-group-text bid-preference">Choice #'+submitBidChoice+'</span>';
+        submitAllBids = submitAllBids + '</div>';
+        submitAllBids = submitAllBids + '<input type="text" class="form-control" disabled value="'+submitBidName+'">';
+        submitAllBids = submitAllBids + '<input type="text" class="form-control" readonly name="bid_choice['+submitBidChoice+']" value="'+submitBidID+'">';
+        submitAllBids = submitAllBids + '</div>';
+    });
+    return submitAllBids;
+}
