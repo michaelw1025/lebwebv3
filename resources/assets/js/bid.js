@@ -105,7 +105,6 @@ var ineligibleCount = 15;
 var ineligibleCounter = '';
 // Timer function
 function ineligibleTimer() {
-    console.log(ineligibleCount);
     ineligibleCount = --ineligibleCount;
     // When the timer reaches 0
     if(ineligibleCount == 0){
@@ -205,6 +204,10 @@ $(document).keyup(function(e){
                 // If the remove bid modal is open remove the selected bid from My Bids
                 if(isRemoveBidOpen && $('body').hasClass('modal-open')) {
                     removeBidFromMyBids();
+                }
+                // If the submit bids modal is open submit my bids
+                if(submitBidsOpen && $('body').hasClass('modal-open')) {
+                    $('#submit-bids-form').submit();
                 }
             }else{
                 // If the numbers do not match reset the page
@@ -490,7 +493,8 @@ function createSubmitBidsDivs() {
         submitAllBids = submitAllBids + '<span class="input-group-text bid-preference">Choice #'+submitBidChoice+'</span>';
         submitAllBids = submitAllBids + '</div>';
         submitAllBids = submitAllBids + '<input type="text" class="form-control" disabled value="'+submitBidName+'">';
-        submitAllBids = submitAllBids + '<input type="text" class="form-control" readonly name="bid_choice['+submitBidChoice+']" value="'+submitBidID+'">';
+        submitAllBids = submitAllBids + '<input type="text" class="form-control" readonly name="bid_choice['+submitBidChoice+'][bid_number]" value="'+submitBidID+'">';
+        submitAllBids = submitAllBids + '<input type="text" class="form-control" readonly name="bid_choice['+submitBidChoice+'][bid_choice]" value="'+submitBidChoice+'">';
         submitAllBids = submitAllBids + '</div>';
     });
     return submitAllBids;

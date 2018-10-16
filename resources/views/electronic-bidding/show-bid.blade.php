@@ -7,7 +7,7 @@
 
         @include('sidebars.electronic-bidding-sidebar')
 
-        <main role="main" class="col-9 ml-auto px-4 bg-transparent">
+        <main role="main" class="col-9 ml-auto px-4 bg-transparent show-bid-page">
             <div class="row mb-2">
                 <h3 class="text-primary ml-3 bid-name" id="{{$bid->id}}">{{$bid->posting_number}} {{$bid->position->description}}</h3>
                 <p class="d-none bid-id-number" id="{{$bid->id}}"></p>

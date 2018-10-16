@@ -1,3 +1,4 @@
+@if(isset($bid))
 <div class="modal fade" id="add-duplicate-bid-modal" tabindex="-1" role="dialog" aria-labelledby="add-duplicate-bid-modal-label" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
@@ -13,3 +14,4 @@
     </div>
   </div>
 </div>
+@endif

@@ -14,6 +14,8 @@ class Bid extends Model
      */
     protected $fillable = [
         'posting_number',
+        'is_active',
+        'is_posted',
         'post_date',
         'pull_date',
         'team_id',
@@ -99,5 +101,11 @@ class Bid extends Model
     public function bidEducationTopWage()
     {
         return $this->belongsTo('App\BidEducationTopWage');
+    }
+
+    // Bid on relationship
+    public function bidChoice()
+    {
+        return $this->belongsToMany('App\Employee', 'bid_employee_choice')->withPivot('choice', 'date')->withTimestamps();
     }
 }

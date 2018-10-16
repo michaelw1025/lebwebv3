@@ -7,10 +7,10 @@
           <i class="far fa-times-circle fa-lg text-danger" aria-hidden="true"></i>
         </button>
       </div>
-      <form action="{{route('electronic-bidding.submit-bids')}}" method="POST">
+      <form action="{{route('electronic-bidding.submit-bids')}}" method="POST" id="submit-bids-form">
         @csrf
         <div class="modal-body">
-          <h5>Please review your selected bids.  Ensure that your choice in bids are in the correct order.  If you need to adjust the bid order please click on the "Return To My Bids" button.  If you are satisfied with your choice of bids please click the "Complete Bidding" button.</h5>
+          <h5>Please review your selected bids.  Ensure that your choice in bids are in the correct order.  If you need to adjust the bid order please click on the "Return To My Bids" button.  <span class="text-primary">If you are satisfied with your choice of bids please scan your employee badge barcode to complete the bidding process.</span></h5>
           <input type="text" name="bidder_id" class="d-none" value="{{isset($employee) ? $employee->id : ''}}">
             <div id="submit-bids-modal-body" class="col">
 
@@ -18,7 +18,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-info" data-dismiss="modal">Return To My Bids</button>
-          <button type="submit" class="btn btn-success">Complete Bidding</button>
+          <!-- <button type="button" class="btn btn-success" id="complete-submit-bids-button">Complete Bidding</button> -->
         </div>
       </form>
     </div>

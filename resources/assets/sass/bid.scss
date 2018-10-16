@@ -114,7 +114,12 @@ body {
    * Content
    */
   
-  [role="main"] {
+
+   .show-all-bids-page {
+    padding-top: 50px; /* Space for fixed navbar */
+  }
+
+  .show-bid-page {
     padding-top: 50px; /* Space for fixed navbar */
   }
   

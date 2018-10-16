@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 // Models
 use App\Bid;
@@ -22,7 +23,7 @@ class ElectronicBiddingController extends Controller
 
     public function index()
     {
-        $bids = Bid::where('is_active', 1)
+        $bids = Bid::where('is_posted', 1)
         ->with([
             'shift',
             'team',
@@ -87,17 +88,11 @@ class ElectronicBiddingController extends Controller
         ]);
     }
 
-    // public function getBidder(Request $request)
-    // {
-    //     $bidder = $request->bidder;
-    //     return redirect()->route('electronic-bidding.index-with-bidder', ['bidder' => $bidder]);
-    // }
-
     public function indexWithBidder(Request $request)
     {
         $bidder = $request->bidder;
         $employee = Employee::findOrFail($bidder);
-        $bids = Bid::where('is_active', 1)
+        $bids = Bid::where('is_posted', 1)
         ->with([
             'shift',
             'team',
@@ -137,10 +132,22 @@ class ElectronicBiddingController extends Controller
 
     public function submitBids(Request $request)
     {
-        $bids = '';
-        foreach($request->bid_choice as $bidChoice){
-            $bids = $bids . $bidChoice;
+        // Get the employee for bidding
+        $employee = Employee::findOrFail($request->bidder_id);
+        // Cycle through each bid
+        foreach($request->bid_choice as $bid){
+            $bidNumber = $bid['bid_number'];
+            $bidChoice = $bid['bid_choice'];
+            $bidDate = Carbon::now();
+
+            // Check if the bidder has already bid on this job
+            $exists = $employee->bidChoice->contains($bidNumber);
+            if($exists){
+                
+            }else{
+                $employee->bidChoice()->attach($bidNumber, ['choice' => $bidChoice, 'date' => $bidDate]);
+            }
         }
-        return $bids;
+        return $request;
     }
 }

@@ -19,7 +19,7 @@
 </head>
 <body class="bg-transparent">
 @if(isset($employee))
-<i id="employee-badge-verification">{{$employee->id}}</i>
+<i id="employee-badge-verification" class="d-none">{{$employee->id}}</i>
 @endif
     @include('electronic-bidding.includes.add-bid-modal')
     @include('electronic-bidding.includes.add-duplicate-bid-modal')

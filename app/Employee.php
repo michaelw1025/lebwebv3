@@ -307,4 +307,10 @@ class Employee extends Model
     {
         return $this->belongsToMany('App\WageProgressionWageTitle');
     }
+
+    // Bid on relationship
+    public function bidChoice()
+    {
+        return $this->belongsToMany('App\Bid', 'bid_employee_choice')->withPivot('choice', 'date')->withTimestamps();
+    }
 }

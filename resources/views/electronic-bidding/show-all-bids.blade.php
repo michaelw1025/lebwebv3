@@ -18,7 +18,7 @@
 
 
 
-        <main role="main" class="col-9 ml-auto px-4 bg-transparent">
+        <main role="main" class="col-9 ml-auto px-4 bg-transparent show-all-bids-page">
         <div class="row">
         @foreach($bids as $bid)
         <div class="col-md-6 col-xxl-4">
