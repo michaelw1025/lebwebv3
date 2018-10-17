@@ -91,7 +91,11 @@ class ElectronicBiddingController extends Controller
     public function indexWithBidder(Request $request)
     {
         $bidder = $request->bidder;
-        $employee = Employee::findOrFail($bidder);
+        $employee = Employee::with(['bidChoice'=>function($q) {
+            $q->where('is_active', 1)->orderBy('choice', 'asc');
+        }])
+        ->findOrFail($bidder);
+        // $employee = Employee::findOrFail($bidder);
         $bids = Bid::where('is_posted', 1)
         ->with([
             'shift',
@@ -113,9 +117,14 @@ class ElectronicBiddingController extends Controller
                 'bidCount' => $bidCount
             ]);
         }
+        $myBids = collect();
+        foreach($employee->bidChoice as $bidChoice){
+            $myBids = $myBids->push($bidChoice);
+        }
         return view('electronic-bidding.show-all-bids', [
             'bids' => $bids,
-            'employee' => $employee
+            'employee' => $employee,
+            'myBids' => $myBids
         ]);
     }
 
@@ -142,9 +151,7 @@ class ElectronicBiddingController extends Controller
 
             // Check if the bidder has already bid on this job
             $exists = $employee->bidChoice->contains($bidNumber);
-            if($exists){
-                
-            }else{
+            if(!$exists){
                 $employee->bidChoice()->attach($bidNumber, ['choice' => $bidChoice, 'date' => $bidDate]);
             }
         }
