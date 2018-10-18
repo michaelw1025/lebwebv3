@@ -22,7 +22,11 @@ window.Vue = require('vue');
 
 $(document).ready(function()
 {
-
+    // This checks to see if the current page is the after bid submission page, and if so runs the afterBidSubmission function
+    if($('#after-bid-submission-modal').length) {
+        afterBidSubmission();
+    }
+    
 });
 
 // Prepare a variable to tell when the add bid modal is open, this lets the system know to add the selected bid to My Bids
@@ -498,4 +502,12 @@ function createSubmitBidsDivs() {
         submitAllBids = submitAllBids + '</div>';
     });
     return submitAllBids;
+}
+
+// Show the after bid submission modal and start the timer to redirect to the index page
+function afterBidSubmission() {
+    $('#after-bid-submission-modal').modal('show');
+    setTimeout(function() {
+        $('#after-bid-submission-modal').modal('hide');
+    }, 8000);
 }

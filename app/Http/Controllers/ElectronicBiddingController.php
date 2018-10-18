@@ -21,7 +21,7 @@ class ElectronicBiddingController extends Controller
         
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $bids = Bid::where('is_posted', 1)
         ->with([
@@ -29,6 +29,13 @@ class ElectronicBiddingController extends Controller
             'team',
             'position'
         ])->get();
+        // Checks to see if the request is a redirect from submitBids which will cause the after-bid-submission-modal to show on the index page
+        if($request->has('after_bidding')) {
+            return view('electronic-bidding.show-all-bids', [
+                'bids' => $bids,
+                'afterBidding' => true
+            ]);
+        }
         return view('electronic-bidding.show-all-bids', [
             'bids' => $bids
         ]);
@@ -155,6 +162,11 @@ class ElectronicBiddingController extends Controller
                 $employee->bidChoice()->attach($bidNumber, ['choice' => $bidChoice, 'date' => $bidDate]);
             }
         }
-        return $request;
+        return redirect()->route('electronic-bidding.index', ['after_bidding' => true]);
     }
+
+    // public function afterBidSubmission() 
+    // {
+    //     return view('electronic-bidding.after-bid-submission');
+    // }
 }
