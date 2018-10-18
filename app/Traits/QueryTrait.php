@@ -42,24 +42,6 @@ trait QueryTrait
         return $employees;
     }
 
-    // Sets employee alphabetical info for the export
-    // protected function setEmployeeAlphabeticalExportInfo($employees)
-    // {
-    //     foreach($employees as $employee){
-    //         $this->setEmployeeDateForExport($employee, 'birth');
-    //         $this->setEmployeeDateForExport($employee, 'hire');
-    //         $this->setEmployeeDateForExport($employee, 'service');
-    //         $this->setEmployeeShiftForExport($employee);
-    //         $this->setEmployeePositionForExport($employee);
-    //         $this->setEmployeeCostCenterForExport($employee);
-
-    //         unset($employee->birth_date);
-    //         unset($employee->hire_date);
-    //         unset($employee->service_date);
-    //     }
-    //     return $employees;
-    // }
-
     protected function getEmployeeAnniversaryByMonth($searchMonth, $searchYear)
     {
         // If search is submitted set time base on month and year
@@ -132,19 +114,6 @@ trait QueryTrait
         return $filteredEmployees;
     }
 
-    // Sets employee anniversary info for the export
-    // protected function setEmployeeAnniversaryExportInfo($employees)
-    // {
-    //     foreach($employees as $employee){
-    //         $employee->date_of_service = $employee->service_date->format('m/d/Y');
-    //         $this->setEmployeeShiftForExport($employee);
-    //         $this->setEmployeeCostCenterForExport($employee);
-
-    //         unset($employee->service_date);
-    //     }
-    //     return $employees;
-    // }
-
     protected function getEmployeeSeniority()
     {
         $employees = Employee::where('status', 1)
@@ -187,22 +156,6 @@ trait QueryTrait
         return $allEmployees;
     }
 
-    // protected function setEmployeeBirthdayExportInfo($employees)
-    // {
-    //     foreach($employees as $employee){
-    //         $employee->date_of_birth = $employee->birth_date->format('m/d/Y');
-    //         $employee->date_of_hire = $employee->hire_date->format('m/d/Y');
-    //         $this->setEmployeeShiftForExport($employee);
-    //         $this->setEmployeeCostCenterForExport($employee);
-    //         $this->setEmployeeJobForExport($employee);
-    //         $this->setEmployeePositionForExport($employee);
-
-    //         unset($employee->birth_date);
-    //         unset($employee->hire_date);
-    //     }
-    //     return $employees;
-    // }
-
     protected function getEmployeeWageProgression($searchMonth, $searchYear)
     {
         $employees = Employee::select(
@@ -236,31 +189,6 @@ trait QueryTrait
 
         return $employees;
     }
-
-    // protected function setEmployeeWageProgressionExportInfo($employees)
-    // {
-    //     foreach($employees as $employee){
-    //         $employee->date_of_hire = $employee->hire_date->format('m/d/Y');
-    //         foreach($employee->wageProgression as $employeeWageProgression){
-    //             // Set progression level
-    //             $employee->progression_level = $employeeWageProgression->month;
-    //             // Set progression date
-    //             $employee->progression_date = $employeeWageProgression->pivot->date->format('m/d/Y');
-    //         }
-    //         $this->setEmployeeCostCenterForExport($employee);
-    //         $this->setEmployeeShiftForExport($employee);
-    //         $this->setEmployeeJobForExport($employee);
-    //         $this->setEmployeePositionForExport($employee);
-
-    //         unset($employee->hire_date);
-    //         unset($employee->wageProgression);
-    //         unset($employee->wageProgressionWageTitle);
-    //     }
-    //     // Sort in order of progression level
-    //     $sorted = $employees->sortBy('progression_level');
-    //     // Convert the sorted array to a collection for the export 
-    //     return collect($sorted->values()->all());     
-    // }
 
     protected function getEmployeeCostCenterAll()
     {

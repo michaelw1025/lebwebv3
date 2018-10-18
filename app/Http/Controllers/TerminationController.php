@@ -76,6 +76,16 @@ class TerminationController extends Controller
         $termination->comments = $request->comments;
         // Save termination
         if($employee->termination()->save($termination)) {
+            $employee->status = 0;
+            if($employee->save()){
+                // If the save was successful
+                \Session::flash('status', 'Employee termination created successfully.');
+                // Return the show termination view
+                return redirect()->route('terminations.show', ['id' => $termination->id]);
+            }else{
+                // If the employee was not set as inactive
+                \Session::flash('error', 'The employee termination was saved successfully, however, the employee has not been set as inactive.  Please set the employee as inactive manually.  If you need assistance please contact support for help.');
+            }
             // If the save was successful
             \Session::flash('status', 'Employee termination created successfully.');
             // Return the show termination view
