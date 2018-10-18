@@ -423,6 +423,7 @@
 
             <!-- ****************************************
             Phone Number
+            is_primary is labeled as cell
             **************************************** -->
             <header class="alert alert-primary mt-4 h2" role="alert">
                 <i class="fas fa-phone"></i> Phone Numbers
@@ -439,7 +440,7 @@
                         <div class="input-group-text">
                             <div class="custom-control custom-radio">
                                 <input type="radio" class="custom-control-input radio-select-primary" id="edit-employee-phone-number-{{$loop->iteration}}-primary" name="phone_number_is_primary" {{$oldPhoneNumber['number'] == old('phone_number_is_primary') ? 'checked' : ''}} value="{{$oldPhoneNumber['number']}}">
-                                <label for="edit-employee-phone-number-{{$loop->iteration}}-primary" class="custom-control-label radio-select-primary-label ">Primary</label>
+                                <label for="edit-employee-phone-number-{{$loop->iteration}}-primary" class="custom-control-label radio-select-primary-label ">Cell</label>
                             </div>
                         </div>
                         <input type="text" class="form-control phone-number-format {{$errors->has('phone_number.'.$loop->iteration.'.number') ? 'is-invalid' : ''}}" id="edit-employee-phone-number-{{$loop->iteration}}" name="phone_number[{{$loop->iteration}}][number]" value="{{$oldPhoneNumber['number']}}" maxlength="12">
@@ -474,7 +475,7 @@
                             <div class="input-group-text">
                                 <div class="custom-control custom-radio">
                                     <input type="radio" class="custom-control-input radio-select-primary" id="edit-employee-phone-number-{{$phoneNumberCount}}-primary" name="phone_number_is_primary" value="">
-                                    <label class="custom-control-label radio-select-primary-label " for="edit-employee-phone-number-{{$phoneNumberCount}}-primary">Primary</label>
+                                    <label class="custom-control-label radio-select-primary-label " for="edit-employee-phone-number-{{$phoneNumberCount}}-primary">Cell</label>
                                 </div>
                             </div>
                         </div>
