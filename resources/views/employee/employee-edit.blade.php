@@ -306,6 +306,15 @@
                         </span>
                     @endif
                 </div>
+                <div class="form-group col-md-6 col-lg-4">
+                    <label for="edit-employee-email">Email</label>
+                    <input type="email" class="form-control {{$errors->has('email') ? 'is-invalid' : ''}}" id="edit-employee-email" name="email" value="{{old('email') ? old('email') : $employee->email}}" required>
+                    @if($errors->has('email'))
+                        <span class="invalid-feedback" role="alert">
+                            {{$errors->first('email')}}
+                        </span>
+                    @endif
+                </div>
             </div>
 
             <div class="form-row card-deck mb-3">

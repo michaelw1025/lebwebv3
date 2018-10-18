@@ -135,6 +135,10 @@
                     <label for="show-employee-county">County</label>
                     <input type="text" class="form-control" id="show-employee-county" name="county" value="{{$employee->county}}" disabled>
                 </div>
+                <div class="form-group col-md-6 col-lg-4">
+                    <label for="show-employee-email">Email</label>
+                    <input type="email" class="form-control" id="show-employee-email" name="email" value="{{$employee->email}}" disabled>
+                </div>
             </div>
             <div class="form-row card-deck mb-3">
                 <div class="card bg-light {{$employee->status === '1' ? 'border-success' : 'border-danger'}}">
