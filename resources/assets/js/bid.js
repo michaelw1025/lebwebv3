@@ -132,15 +132,15 @@ $(document).keyup(function(e){
     // Get the key press and append it to the bidderID variable
     bidderID = bidderID + e.key;
     // Clear the key up timer to prepare it for the next interval
-    clearInterval(keyUpCounter);
+    // clearInterval(keyUpCounter);
     // Reset the keyUpCount variable
     keyUpCount = 2;
     // Restart the key up timer
-    keyUpCounter = setInterval(keyUpTimer, 75);
+    // keyUpCounter = setInterval(keyUpTimer, 75);
     // When the bidderID has reached 9 digits
     if(bidderID.length >= 9){
         // Clear the key up timer
-        clearInterval(keyUpCounter);
+        // clearInterval(keyUpCounter);
         // Reset the keyUpCount variable
         keyUpCount = 2;
         // If the user is not bidding
