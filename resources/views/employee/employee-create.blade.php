@@ -276,7 +276,7 @@
                 </div>
                 <div class="form-group col-md-6 col-lg-4">
                     <label for="create-employee-email">Email</label>
-                    <input type="email" class="form-control {{$errors->has('email') ? 'is-invalid' : ''}}" id="create-employee-email" name="email" value="{{old('email')}}"  required>
+                    <input type="email" class="form-control {{$errors->has('email') ? 'is-invalid' : ''}}" id="create-employee-email" name="email" value="{{old('email')}}">
                     @if($errors->has('email'))
                         <span class="invalid-feedback" role="alert">
                             {{$errors->first('email')}}
