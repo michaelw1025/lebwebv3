@@ -90,6 +90,13 @@ class DisciplinaryController extends Controller
         if($employee->disciplinary()->save($disciplinary)) {
             // If the save was successful
             \Session::flash('status', 'Employee disciplinary created successfully.');
+            if($request->has('add_another')){
+                // Return to the create disciplinary view
+                return redirect()->route('disciplinaries.create', ['employee' => $employee->id]);
+            }else{
+                // Return the show disciplinary view
+                return redirect()->route('disciplinaries.show', ['id' => $disciplinary->id]);
+            }
             // Return the show disciplinary view
             return redirect()->route('disciplinaries.show', ['id' => $disciplinary->id]);
         } else {

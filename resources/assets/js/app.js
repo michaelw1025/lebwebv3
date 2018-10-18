@@ -393,5 +393,11 @@ $('.mark-as-read-checkbox').click(function(e) {
     });
 });
 
-
+// Create disciplinary then add another
+$('#create-disciplinary-then-add-another-submit-button').click(function() {
+    var addInput = '';
+    addInput = '<input type="text" class="" id="alert-add-another-disciplinary" name="add_another" value="1">';
+    $('#create-disciplinary-form').append(addInput);
+    $('#create-disciplinary-form').submit();
+});
 

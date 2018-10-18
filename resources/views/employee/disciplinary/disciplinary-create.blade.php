@@ -126,6 +126,7 @@
             </div>
 
             <button type="submit" class="btn btn-success" id="create-disciplinary-submit-button">Create Disciplinary</button>
+            <button type="button" class="btn btn-site-logo" id="create-disciplinary-then-add-another-submit-button">Create Disciplinary Then Add Another</button>
         </form>
 
         <hr class="my-4"></hr>
