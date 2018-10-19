@@ -25,6 +25,7 @@ use App\Traits\StateTrait;
 use App\Traits\DisciplinaryTrait;
 use App\Traits\WageTrait;
 use App\Traits\SupervisorTrait;
+use App\Traits\BidTrait;
 
 // Requests
 use App\Http\Requests\StoreEmployee;
@@ -39,6 +40,7 @@ class EmployeeController extends Controller
     use DisciplinaryTrait;
     use WageTrait;
     use SupervisorTrait;
+    use BidTrait;
 
     /**
      * Create a new controller instance.
@@ -144,8 +146,8 @@ class EmployeeController extends Controller
         $employee->email = $request->email;
         $employee->status = 1;
         $employee->rehire = 1;
-        $employee->bid_eligible = 1;
-        $employee->bid_eligible_date = $request->hire_date;
+        // Sets the bid eligiblity of the employee
+        $employee = $this->setEmployeeBidEligibility('employee-create', $employee, null);
         $employee->thirty_day_review = 0;
         $employee->sixty_day_review = 0;
         // Check if an image is being uploaded
@@ -158,6 +160,8 @@ class EmployeeController extends Controller
         }
         // Save employee
         if($employee->save()) {
+            // Sets the bid eligiblility comment
+            $this->setEmployeeBidEligibility('employee-after-create', $employee, null);
             // Sync cost center
             $employee->costCenter()->sync([$request->cost_center]);
             // Sync shift
@@ -247,7 +251,8 @@ class EmployeeController extends Controller
             'termination',
             'reduction',
             'wageProgression',
-            'wageProgressionWageTitle'
+            'wageProgressionWageTitle',
+            'bidEligibleComment'
         )->findOrFail($id);
         // Get employee supervisors from supervisor trait
         $employee = $this->getEmployeeSupervisors($employee);
@@ -344,6 +349,9 @@ class EmployeeController extends Controller
         // Get the employee to update
         $employee = Employee::findOrFail($id);
         // Set values for the employee
+        // Sets the bid eligiblity of the employee
+        $this->setEmployeeBidEligibility('employee-update', $request, $employee);
+        
         $employee->first_name = $request->first_name;
         $employee->last_name = $request->last_name;
         $employee->middle_initial = $request->middle_initial;
@@ -365,13 +373,13 @@ class EmployeeController extends Controller
         $employee->email = $request->email;
         $employee->status = $request->status;
         $employee->rehire = $request->rehire;
-        $employee->bid_eligible = $request->bid_eligible;
-        if($request->bid_eligible_date == ''){
-            $employee->bid_eligible_date = '01/01/1970';
-        }else{
-            $employee->bid_eligible_date = $request->bid_eligible_date;
-        }
-        $employee->bid_eligible_comment = $request->bid_eligible_comment;
+        // $employee->bid_eligible = $request->bid_eligible;
+        // if($request->bid_eligible_date == ''){
+        //     $employee->bid_eligible_date = '01/01/1970';
+        // }else{
+        //     $employee->bid_eligible_date = $request->bid_eligible_date;
+        // }
+        // $employee->bid_eligible_comment = $request->bid_eligible_comment;
         // Check if a thirty day review is being set
         if($request->has('thirty_day_review')) {
             $employee->thirty_day_review = 1;

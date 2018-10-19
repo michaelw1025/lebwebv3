@@ -313,4 +313,11 @@ class Employee extends Model
     {
         return $this->belongsToMany('App\Bid', 'bid_employee_choice')->withPivot('choice', 'date')->withTimestamps();
     }
+
+    // Bid eligible comment relationship
+    public function bidEligibleComment()
+    {
+        return $this->hasMany('App\BidEligibleComment')->orderBy('created_at', 'desc');
+    }
+
 }

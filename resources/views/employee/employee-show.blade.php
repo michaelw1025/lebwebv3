@@ -225,10 +225,16 @@
                     <input type="text" class="form-control datepicker" id="show-employee-bid-eligible-date" name="bid_eligible_date" value="{{$employee->bid_eligible_date == '' ? '' : $employee->bid_eligible_date->format('m/d/Y')}}" disabled>
                 </div>
 
-                <div class="form-group col-12">
+                <!-- <div class="form-group col-12">
                     <label for="show-employee-bid-eligible-comment">Comments</label>
                     <textarea name="bid_eligible_comment" id="show-employee-bid-eligible-comment" rows="3" class="form-control" disabled>{{$employee->bid_eligible_comment}}</textarea>
+                </div> -->
+                @foreach($employee->bidEligibleComment as $bidEligibleComment)
+                <div class="form-group col-12">
+                    <label for="show-employee-bid-eligible-comment">Comment {{$loop->iteration}}</label>
+                    <input type="text" class="form-control" id="show-employee-bid-eligible-comment" name="bid_eligible_comment" value="{{$bidEligibleComment->comment}}" disabled>
                 </div>
+                @endforeach
 
             </div>
 
