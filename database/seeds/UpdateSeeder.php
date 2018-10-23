@@ -16,8 +16,8 @@ class UpdateSeeder extends Seeder
      */
     public function run()
     {
-        $employees = Employee::get();
-        
+        // Set by hire date
+        // $employees = Employee::get();
         // foreach($employees as $employee){
         //     // Get hire date
         //     $hireDate = $employee->hire_date;
@@ -41,5 +41,39 @@ class UpdateSeeder extends Seeder
         //     $addComment->comment = $comment;
         //     $employee->bidEligibleComment()->save($addComment);
         // }
+
+        // Set by disciplinary
+        // Get today
+        $today = Carbon::today();
+        // Get six months ago from today
+        $sixMonthsAgo = $today->copy()->subMonths(6);
+        // Get all employees with disciplinaries
+        $employees = Employee::whereHas('disciplinary', function($q) {
+            $q->where('level', 'final')->orWhere('level', 'hr review')->orwhere('level', '2nd hr review');
+        })
+        ->get();
+        foreach($employees as $employee){
+            // Get the current bid_eligible_date
+            $bidEligibleDate = $employee->bid_eligible_date;
+            foreach($employee->disciplinary as $disciplinary){
+                // Check to make sure the disciplinary is the correct level
+                if($disciplinary->level == 'final' || $disciplinary->level == 'hr review' || $disciplinary->level == '2nd hr review'){
+                    // Check if 6 months from the disciplinary date is greater than the current bid eligible date
+                    if($disciplinary->date->addMonths(6)->greaterThanOrEqualTo($bidEligibleDate)){
+                        // If the disciplinary date is greater than the current bid eligible date
+                        // Check if the disciplinary date is greater than six months ago from today
+                        if($disciplinary->date->addMonths(6)->greaterThanOrEqualTo($sixMonthsAgo)){
+                            // If the disciplinary date is greater than six months ago from today
+                        }else{
+                            // If the disciplinary date is not greater than six months ago from today
+                        }
+                    }else{
+                        // If the discplinary date is not greater than the current bid eligible date
+                        // Take no action
+                    }
+                }
+            }
+        }
+        
     }
 }
