@@ -12,6 +12,7 @@ use App\Employee;
 // Traits
 use App\Traits\DisciplinaryTrait;
 use App\Traits\SupervisorTrait;
+use App\Traits\BidTrait;
 
 // Requests
 use App\Http\Requests\StoreDisciplinary;
@@ -20,6 +21,7 @@ class DisciplinaryController extends Controller
 {
     use DisciplinaryTrait;
     use SupervisorTrait;
+    use BidTrait;
 
     /**
      * Create a new controller instance.
@@ -88,6 +90,8 @@ class DisciplinaryController extends Controller
         $disciplinary->comments = $request->comments;
         // Save disciplinary
         if($employee->disciplinary()->save($disciplinary)) {
+            // Set employee bid eligibility
+            $this->setDisciplinaryBidEligibleComment($employee, $disciplinary);
             // If the save was successful
             \Session::flash('status', 'Employee disciplinary created successfully.');
             if($request->has('add_another')){
@@ -195,7 +199,9 @@ class DisciplinaryController extends Controller
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         // Get the disciplinary to delete
-        $disciplinary = Disciplinary::findOrFail($id);
+        $disciplinary = Disciplinary::with('employee')->findOrFail($id);
+        return $disciplinary;
+        $this->setDeleteDisciplinaryBidEligibleComment($disciplinary);
         // Delete the disciplinary
         if($disciplinary->delete()) {
             // If the delete was successful

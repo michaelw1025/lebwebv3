@@ -147,8 +147,7 @@ class EmployeeController extends Controller
         $employee->email = $request->email;
         $employee->status = 1;
         $employee->rehire = 1;
-        // Sets the bid eligiblity of the employee
-        $employee = $this->setEmployeeBidEligibility('employee-create', $employee, null);
+        
         $employee->thirty_day_review = 0;
         $employee->sixty_day_review = 0;
         // Check if an image is being uploaded
@@ -161,8 +160,8 @@ class EmployeeController extends Controller
         }
         // Save employee
         if($employee->save()) {
-            // Sets the bid eligiblility comment
-            $this->setEmployeeBidEligibility('employee-after-create', $employee, null);
+            // Sets the bid eligiblity of the employee
+            $this->setCreateEmployeeBidEligibility($request, $employee);
             // Sync cost center
             $employee->costCenter()->sync([$request->cost_center]);
             // Sync shift
@@ -352,7 +351,7 @@ class EmployeeController extends Controller
         $employee = Employee::findOrFail($id);
         // Set values for the employee
         // Sets the bid eligiblity of the employee
-        $this->setEmployeeBidEligibility('employee-update', $request, $employee);
+        $employee = $this->setUpdateEmployeeBidEligibility($request, $employee);
         
         $employee->first_name = $request->first_name;
         $employee->last_name = $request->last_name;
