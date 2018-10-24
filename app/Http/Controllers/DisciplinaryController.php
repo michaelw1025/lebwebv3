@@ -200,8 +200,7 @@ class DisciplinaryController extends Controller
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         // Get the disciplinary to delete
         $disciplinary = Disciplinary::with('employee')->findOrFail($id);
-        return $disciplinary;
-        $this->setDeleteDisciplinaryBidEligibleComment($disciplinary);
+        // $this->setDeleteDisciplinaryBidEligibleComment($disciplinary);
         // Delete the disciplinary
         if($disciplinary->delete()) {
             // If the delete was successful

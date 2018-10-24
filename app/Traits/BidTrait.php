@@ -88,10 +88,22 @@ trait BidTrait
         $employee->bid_eligible = 0;
         // Set the bid_eligible_date property to the 6 month date
         $employee->bid_eligible_date = $sixMonthDate;
-        // Add a comment to the bid_eligible_comment
-        // $employee->bid_eligible_comment = $hireDate->format('m/d/Y').' - Employee hired, bid eligible date set to '.$sixMonthDate->format('m/d/Y').';';
-        $employee->save();
-        $comment = $today->format('m/d/Y').' - Employee hired, bid eligible date set to '.$sixMonthDate;
+        return $employee;
+        // $comment = $today->format('m/d/Y').' - Employee hired, bid eligible date set to '.$sixMonthDate;
+        // $addComment = new BidEligibleComment();
+        // $addComment->comment = $comment;
+        // $employee->bidEligibleComment()->save($addComment);
+    }
+
+    public function setAfterCreateEmployeeBidEligiblility($request, $employee)
+    {
+        // Get today
+        $today = Carbon::today();
+        // Get the hire date for the employee
+        $hireDate = $employee->hire_date;
+        // Get the date 6 months from the hire date
+        $sixMonthDate = $hireDate->copy()->addMonths(6);
+        $comment = $today->format('m/d/Y').' - Employee hired, bid eligible date set to '.$sixMonthDate->format('m/d/Y');
         $addComment = new BidEligibleComment();
         $addComment->comment = $comment;
         $employee->bidEligibleComment()->save($addComment);
