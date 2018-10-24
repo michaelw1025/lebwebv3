@@ -428,13 +428,13 @@
                         <div class="custom-control custom-radio">
                             <input class="custom-control-input boolean-radio-button" type="radio" name="bid_eligible" id="edit-employee-bid-eligible-active" value="1" {{old('bid_eligible') !== null ? (old('bid_eligible') === '1' ? 'checked' : '') : ($employee->bid_eligible === '1' ? 'checked' : '')}} required>
                             <label class="custom-control-label" for="edit-employee-bid-eligible-active">
-                            Active
+                            Yes
                             </label>
                         </div>
                         <div class="custom-control custom-radio">
                             <input class="custom-control-input boolean-radio-button" type="radio" name="bid_eligible" id="edit-employee-bid-eligible-inactive" value="0" {{old('bid_eligible') !== null ? (old('bid_eligible') === '0' ? 'checked' : '') : ($employee->bid_eligible === '0' ? 'checked' : '')}} required>
                             <label class="custom-control-label" for="edit-employee-bid-eligible-inactive">
-                            Inactive
+                            No
                             </label>
                         </div>
                         @if($errors->has('bid_eligible'))
@@ -455,7 +455,7 @@
                     @endif
                 </div>
 
-                <div class="form-group col-12">
+                <!-- <div class="form-group col-12">
                     <label for="edit-employee-bid-eligible-comment">Comments</label>
                     <textarea name="bid_eligible_comment" id="edit-employee-bid-eligible-comment" rows="3" class="form-control {{$errors->has('bid_eligible_comment') ? 'is-invalid' : ''}}">{{old('bid_eligible_comment') ? old('bid_eligible_comment') : $employee->bid_eligible_comment}}</textarea>
                     @if($errors->has('bid_eligible_comment'))
@@ -463,7 +463,24 @@
                             {{$errors->first('bid_eligible_comment')}}
                         </span>
                     @endif
+                </div> -->
+
+                <div class="form-group col-12">
+                    <label for="edit-employee-bid-eligible-comment">Comment</label>
+                    <input type="text" class="form-control {{$errors->has('bid_eligible_comment') ? 'is-invalid' : ''}}" id="edit-employee-bid-eligible-comment" name="bid_eligible_comment" value="{{old('bid_eligible_comment') ? old('bid_eligible_comment') : ''}}">
+                    @if($errors->has('bid_eligible_comment'))
+                        <span class="invalid-feedback" role="alert">
+                            {{$errors->first('bid_eligible_comment')}}
+                        </span>
+                    @endif
                 </div>
+
+                @foreach($employee->bidEligibleComment as $bidEligibleComment)
+                <div class="form-group col-12">
+                    <label for="show-employee-bid-eligible-commen-{{$loop->iteration}}t">Comment {{$loop->iteration}}</label>
+                    <input type="text" class="form-control" id="show-employee-bid-eligible-comment-{{$loop->iteration}}" name="bid_eligible_comment_{{$loop->iteration}}" value="{{$bidEligibleComment->comment}}" disabled>
+                </div>
+                @endforeach
 
             </div>
 

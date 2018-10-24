@@ -62,10 +62,19 @@ class UpdateSeeder extends Seeder
                     if($disciplinary->date->addMonths(6)->greaterThanOrEqualTo($bidEligibleDate)){
                         // If the disciplinary date is greater than the current bid eligible date
                         // Check if the disciplinary date is greater than six months ago from today
-                        if($disciplinary->date->addMonths(6)->greaterThanOrEqualTo($sixMonthsAgo)){
+                        if($disciplinary->date->addMonths(6)->greaterThanOrEqualTo($today)){
                             // If the disciplinary date is greater than six months ago from today
+                            $employee->bid_eligible = 0;
+                            $employee->bid_eligible_date = $disciplinary->date->addMonths(6);
+                            $employee->save();
+                            $comment = $today->format('m/d/Y').' - Received '.$disciplinary->level.' for '.$disciplinary->type.' on '.$disciplinary->date->format('m/d/Y').', set bid eligible date to '.$disciplinary->date->addMonths(6).';';
+                            $addComment = new BidEligibleComment();
+                            $addComment->comment = $comment;
+                            $employee->bidEligibleComment()->save($addComment);
+                            $bidEligibleDate = $disciplinary->date->addMonths(6);
                         }else{
                             // If the disciplinary date is not greater than six months ago from today
+                            // Take no action
                         }
                     }else{
                         // If the discplinary date is not greater than the current bid eligible date

@@ -18,6 +18,7 @@ use App\User;
 use App\WageTitle;
 use App\WageProgression;
 use App\Employee;
+use App\BidEligibleComment;
 
 // Traits
 use App\Traits\DateTrait;
@@ -291,7 +292,8 @@ class EmployeeController extends Controller
             'termination',
             'reduction',
             'wageProgression',
-            'wageProgressionWageTitle'
+            'wageProgressionWageTitle',
+            'bidEligibleComment'
         )->findOrFail($id);
         // Get employee supervisors from supervisor trait
         $employee = $this->getEmployeeSupervisors($employee);
@@ -408,6 +410,12 @@ class EmployeeController extends Controller
         }
         // Save employee
         if($employee->save()) {
+            // If a bid_eligible_comment is present sync bid eligible comment
+            if($request->bid_eligible_comment != null){
+                $addComment = new BidEligibleComment();
+                $addComment->comment = $request->bid_eligible_comment;
+                $employee->bidEligibleComment()->save($addComment);
+            }
             // Sync cost center
             $employee->costCenter()->sync([$request->cost_center]);
             // Sync shift

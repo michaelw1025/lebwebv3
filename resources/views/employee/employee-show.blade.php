@@ -208,13 +208,13 @@
                         <div class="custom-control custom-radio">
                             <input class="custom-control-input boolean-radio-button" type="radio" name="bid_eligible" id="show-employee-bid-eligible-active" value="1" {{$employee->bid_eligible === '1' ? 'checked' : ''}} disabled>
                             <label class="custom-control-label" for="show-employee-bid-eligible-active">
-                            Active
+                            Yes
                             </label>
                         </div>
                         <div class="custom-control custom-radio">
                             <input class="custom-control-input boolean-radio-button" type="radio" name="bid_eligible" id="show-employee-bid-eligible-inactive" value="0" {{$employee->bid_eligible === '0' ? 'checked' : ''}} disabled>
                             <label class="custom-control-label" for="show-employee-bid-eligible-inactive">
-                            Inactive
+                            No
                             </label>
                         </div>
                     </div>
@@ -231,8 +231,8 @@
                 </div> -->
                 @foreach($employee->bidEligibleComment as $bidEligibleComment)
                 <div class="form-group col-12">
-                    <label for="show-employee-bid-eligible-comment">Comment {{$loop->iteration}}</label>
-                    <input type="text" class="form-control" id="show-employee-bid-eligible-comment" name="bid_eligible_comment" value="{{$bidEligibleComment->comment}}" disabled>
+                    <label for="show-employee-bid-eligible-commen-{{$loop->iteration}}t">Comment {{$loop->iteration}}</label>
+                    <input type="text" class="form-control" id="show-employee-bid-eligible-comment-{{$loop->iteration}}" name="bid_eligible_comment_{{$loop->iteration}}" value="{{$bidEligibleComment->comment}}" disabled>
                 </div>
                 @endforeach
 
