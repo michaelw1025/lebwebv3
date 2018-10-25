@@ -89,10 +89,6 @@ trait BidTrait
         // Set the bid_eligible_date property to the 6 month date
         $employee->bid_eligible_date = $sixMonthDate;
         return $employee;
-        // $comment = $today->format('m/d/Y').' - Employee hired, bid eligible date set to '.$sixMonthDate;
-        // $addComment = new BidEligibleComment();
-        // $addComment->comment = $comment;
-        // $employee->bidEligibleComment()->save($addComment);
     }
 
     public function setAfterCreateEmployeeBidEligiblility($request, $employee)
