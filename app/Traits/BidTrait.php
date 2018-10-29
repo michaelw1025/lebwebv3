@@ -138,7 +138,7 @@ trait BidTrait
                 $comment = $today->format('m/d/Y').' - Employee hire date adjusted, bid eligible date set to '.$newSixMonthDate->format('m/d/Y');
                 $addComment = new BidEligibleComment();
                 $addComment->comment = $comment;
-                $oldEmployee->bidEligibleComment()->save($addComment);
+                $employee->bidEligibleComment()->save($addComment);
                 return $employee;
             }   
         }
