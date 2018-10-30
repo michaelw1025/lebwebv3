@@ -346,15 +346,11 @@ class EmployeeController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-
-        // return $request;
-
         // Get the employee to update
         $employee = Employee::findOrFail($id);
-        // Set values for the employee
         // Sets the bid eligiblity of the employee
         $employee = $this->setUpdateEmployeeBidEligibility($request, $employee);
-        
+        // Set values for the employee
         $employee->first_name = $request->first_name;
         $employee->last_name = $request->last_name;
         $employee->middle_initial = $request->middle_initial;
@@ -376,13 +372,6 @@ class EmployeeController extends Controller
         $employee->email = $request->email;
         $employee->status = $request->status;
         $employee->rehire = $request->rehire;
-        // $employee->bid_eligible = $request->bid_eligible;
-        // if($request->bid_eligible_date == ''){
-        //     $employee->bid_eligible_date = '01/01/1970';
-        // }else{
-        //     $employee->bid_eligible_date = $request->bid_eligible_date;
-        // }
-        // $employee->bid_eligible_comment = $request->bid_eligible_comment;
         // Check if a thirty day review is being set
         if($request->has('thirty_day_review')) {
             $employee->thirty_day_review = 1;
