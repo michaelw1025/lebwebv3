@@ -25,8 +25,8 @@ trait BidTrait
     {
         switch($reason) {
             case 'hireDate':
-                $addComment->comment = $today->format('m/d/Y').' - Employee hired, bid eligible date set to '.$sixMonthDate->format('m/d/Y');
-                $addComment->reason = $this->bidCommentReasons[$reason];
+                // $addComment->comment = $today->format('m/d/Y').' - Employee hired, bid eligible date set to '.$sixMonthDate->format('m/d/Y');
+                // $addComment->reason = $this->bidCommentReasons[$reason];
                 break;
             case 'updateHireDate':
                 $addComment->comment = $today->format('m/d/Y').' - Employee hire date adjusted, bid eligible date set to '.$sixMonthDate->format('m/d/Y');
@@ -65,7 +65,8 @@ trait BidTrait
         // Get the date 6 months from the hire date
         $sixMonthDate = $hireDate->copy()->addMonths(6);
         $addComment = new BidEligibleComment();
-        $this->createCommentText('hireDate', $today, $sixMonthDate, $addComment, null);
+        $addComment->comment = $today->format('m/d/Y').' - Employee hired, bid eligible date set to '.$sixMonthDate->format('m/d/Y');
+        $addComment->reason = $this->bidCommentReasons[$reason];
         $employee->bidEligibleComment()->save($addComment);
     }
 
