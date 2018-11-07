@@ -76,6 +76,8 @@ class TerminationController extends Controller
         $termination->comments = $request->comments;
         // Save termination
         if($employee->termination()->save($termination)) {
+            $employee->status = 0;
+            $employee->save();
             // If the save was successful
             \Session::flash('status', 'Employee termination created successfully.');
             // Return the show termination view

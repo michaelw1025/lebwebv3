@@ -29,26 +29,22 @@ body {
 
   // Create full screen background
   &.welcome-body  {
-    // background: url("../images/welcome0.jpeg") no-repeat center center fixed;
     background-size: cover;
-  // -webkit-background-size: cover;
-  // -moz-background-size: cover;
-  // -o-background-size: cover;
     background-repeat: no-repeat;
     background-position-x: center;
     background-position-y: center;
     background-attachment: fixed;
   }
-
-//   .jumbotron{
-//     opacity: .75;
-//     font-size: 24px;
-//   }
 }
 
 // Make the page scroll only in the main content area
 .main-content-article {
   overflow: scroll;
+}
+
+// Make show bids scroll only in the main content area
+.show-bid-content {
+  overflow-y: scroll;
 }
 
 .semi-transparent-white-bg {
@@ -59,8 +55,10 @@ body {
   background-color: rgba($color: $white, $alpha: 0.90);
 }
 
-// Make clickable table rows have a pointer on hover
-.clickable-row{
+// Make clickable table rows and bid cards have a pointer on hover
+.clickable-row,
+.bid-card,
+.bid-card-input{
   cursor: pointer;
 }
 
@@ -76,6 +74,7 @@ i {
   }
 }
 
+// Set checkbox background of input group checkboxes to white
 .input-group-prepend{
   .input-group-text{
     &.enabled-checkbox{

@@ -135,6 +135,10 @@
                     <label for="show-employee-county">County</label>
                     <input type="text" class="form-control" id="show-employee-county" name="county" value="{{$employee->county}}" disabled>
                 </div>
+                <div class="form-group col-md-6 col-lg-4">
+                    <label for="show-employee-email">Email</label>
+                    <input type="email" class="form-control" id="show-employee-email" name="email" value="{{$employee->email}}" disabled>
+                </div>
             </div>
             <div class="form-row card-deck mb-3">
                 <div class="card bg-light {{$employee->status === '1' ? 'border-success' : 'border-danger'}}">
@@ -258,6 +262,7 @@
 
             <!-- ****************************************
             Phone Number
+            is_primary is labeled as cell
             **************************************** -->
             <header class="alert alert-primary mt-4 h2" role="alert">
                 <i class="fas fa-phone"></i> Phone Numbers
@@ -271,7 +276,7 @@
                             <div class="input-group-text">
                                 <div class="custom-control custom-radio">
                                     <input type="radio" class="custom-control-input" id="show-employee-phone-number-primary-{{$loop->iteration}}" name="phone_number_is_primary_{{$loop->iteration}}" {{$employeePhoneNumber->is_primary == '1' ? 'checked' : ''}} disabled>
-                                    <label class="custom-control-label" for="show-employee-phone-number-primary-{{$loop->iteration}}">Primary</label>
+                                    <label class="custom-control-label" for="show-employee-phone-number-primary-{{$loop->iteration}}">Cell</label>
                                 </div>
                             </div>
                         </div>

@@ -141,6 +141,7 @@ class EmployeeController extends Controller
         $employee->state = $request->state;
         $employee->zip_code = $request->zip_code;
         $employee->county = $request->county;
+        $employee->email = $request->email;
         $employee->status = 1;
         $employee->rehire = 1;
         $employee->bid_eligible = 1;
@@ -173,6 +174,7 @@ class EmployeeController extends Controller
                         $newPhoneNumber = new PhoneNumber();
                         $newPhoneNumber->number = $requestPhoneNumber['number'];
                         // Check if this phone number is set as primary
+                        // Primary for the phone numbers actually represents cell number selection
                         if($request->phone_number_is_primary === $requestPhoneNumber['number']) {  // If it is primary
                             $newPhoneNumber->is_primary = 1;
                         } else {  // If it is not primary
@@ -336,9 +338,6 @@ class EmployeeController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-
-        // return $request;
-
         // Get the employee to update
         $employee = Employee::findOrFail($id);
         // Set values for the employee
@@ -360,6 +359,7 @@ class EmployeeController extends Controller
         $employee->state = $request->state;
         $employee->zip_code = $request->zip_code;
         $employee->county = $request->county;
+        $employee->email = $request->email;
         $employee->status = $request->status;
         $employee->rehire = $request->rehire;
         $employee->bid_eligible = 1;
@@ -416,6 +416,7 @@ class EmployeeController extends Controller
                         $newPhoneNumber = new PhoneNumber();
                         $newPhoneNumber->number = $requestPhoneNumber['number'];
                         // Check if this phone number is set as primary
+                        // Primary for the phone numbers actually represents cell number selection
                         if($request->phone_number_is_primary === $requestPhoneNumber['number']) {  // If it is primary
                             $newPhoneNumber->is_primary = 1;
                         } else {  // If it is not primary

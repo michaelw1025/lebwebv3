@@ -19,7 +19,7 @@ class BidsTableSeeder extends Seeder
         $faker = Faker::create();
         $postingNumber = 100;
 
-        for($i = 0; $i < 101; $i++){
+        for($i = 0; $i < 11; $i++){
             $bid = new Bid();
 
             $bid->posting_number = "18-".$postingNumber;

@@ -84,6 +84,11 @@ class BidController extends Controller
         $bid = new Bid();
         $bid->posting_number = $request->posting_number;
         $bid->is_active = 1;
+        if($request->has('is_posted')){
+            $bid->is_posted = 1;
+        }else{
+            $bid->is_posted = 0;
+        }
         $bid->post_date = $request->post_date;
         $bid->pull_date = $request->pull_date;
         $bid->team_id = $request->team_id;
@@ -198,6 +203,11 @@ class BidController extends Controller
             $bid->is_active = 1;
         }else{
             $bid->is_active = 0;
+        }
+        if($request->has('is_posted')){
+            $bid->is_posted = 1;
+        }else{
+            $bid->is_posted = 0;
         }
         $bid->post_date = $request->post_date;
         $bid->pull_date = $request->pull_date;

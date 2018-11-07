@@ -343,9 +343,11 @@ $('.choose-wage-title').on('change', function() {
 // Check for correct wage progression table on load
 function checkWageProgressionTable() 
 {
-    var selected = $('.choose-wage-title').find(':selected').text().toLowerCase();
-    $('.wage-progression-row').addClass('d-none');
-    $('.'+selected).removeClass('d-none');
+    if($('.choose-wage-title').length){
+        var selected = $('.choose-wage-title').find(':selected').text().toLowerCase();
+        $('.wage-progression-row').addClass('d-none');
+        $('.'+selected).removeClass('d-none');
+    }
 }
 
 // Clear all wage progression events
@@ -365,19 +367,6 @@ $('.toggle-column').on('click', function() {
     $(this).toggleClass('btn-highlight');
     $('.'+column).toggleClass('d-none');
 });
-
-// Set team leader query form action based on team leader select
-// $('#team-leader-search').change(function() {
-//     var dayTL = '';
-//     var nightTL = '';
-//     var defaultRoute = '';
-//     var selectedTL = $(this.options[this.selectedIndex]).closest('optgroup').prop('label');
-//     switch(selectedTL){
-//         case "Day TL":
-//         case "Night TL":
-//         default:
-//     }
-// });
 
 // Mark notification as read
 $('.mark-as-read-checkbox').click(function(e) {
@@ -402,4 +391,12 @@ $('.mark-as-read-checkbox').click(function(e) {
             }
         }
     });
-})
+});
+
+// Create disciplinary then add another
+$('#create-disciplinary-then-add-another-submit-button').click(function() {
+    var addInput = '';
+    addInput = '<input type="text" class="" id="alert-add-another-disciplinary" name="add_another" value="1">';
+    $('#create-disciplinary-form').append(addInput);
+    $('#create-disciplinary-form').submit();
+});

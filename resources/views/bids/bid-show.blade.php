@@ -66,6 +66,18 @@
                 </div>
 
                 <div class="form-group col-md-6 col-lg-4">
+                    <label for="show-bid-is-posted">Post Bid</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <input type="checkbox" id="show-bid-is-posted" name="is_posted" {{$bid->is_posted == 1 ? 'checked' : ''}}>
+                            </div>
+                        </div>
+                        <input type="text" class="form-control" value="Is this bid currently posted" disabled>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="show-bid-post-date">Post Date</label>
                     <input type="text" class="form-control" id="show-bid-post-date" name="post_date" value="{{$bid->post_date->format('m/d/Y')}}" disabled>
                 </div>
@@ -169,7 +181,7 @@
 
                 <div class="form-group col-12">
                     <label for="show-bid-essential-duties-responsibilities">Essential Duties And Responsibilities</label>
-                    <textarea class="form-control" id="show-bid-essential-duties-responsibilities" rows="3" name="essential_duties_responsibilities" disabled>{{$bid->essential_duties_responsibilities}}</textarea>
+                    <textarea class="form-control" id="show-bid-essential-duties-responsibilities" name="essential_duties_responsibilities" disabled>{{$bid->essential_duties_responsibilities}}</textarea>
                 </div>
 
                 <div class="form-group col-12">

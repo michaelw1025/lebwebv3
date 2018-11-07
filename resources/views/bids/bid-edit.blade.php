@@ -72,6 +72,23 @@
                 </div>
 
                 <div class="form-group col-md-6 col-lg-4">
+                    <label for="edit-bid-is-posted">Post Bid</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text enabled-checkbox {{$errors->has('is_posted') ? 'is-invalid' : ''}}">
+                                <input type="checkbox" id="edit-bid-is-posted" name="is_posted" {{old('is_posted') ? (old('is_posted') == 1 ? 'checked' : '') : ($bid->is_posted == 1 ? 'checked' : '')}}>
+                            </div>
+                        </div>
+                        <input type="text" class="form-control" value="Check here to post this bid" readonly>
+                    </div>
+                    @if($errors->has('is_posted'))
+                        <span class="invalid-feedback" role="alert">
+                            {{$errors->first('is_posted')}}
+                        </span>
+                    @endif
+                </div>
+
+                <div class="form-group col-md-6 col-lg-4">
                     <label for="edit-bid-post-date">Post Date @component('components.required-icon')@endComponent</label>
                     <input type="text" class="form-control datepicker {{$errors->has('post_date') ? 'is-invalid' : ''}}" id="edit-bid-post-date" name="post_date" value="{{old('post_date') ? old('post_date') : $bid->post_date->format('m/d/Y')}}">
                     @if($errors->has('post_date'))

@@ -14,6 +14,8 @@ class Bid extends Model
      */
     protected $fillable = [
         'posting_number',
+        'is_active',
+        'is_posted',
         'post_date',
         'pull_date',
         'team_id',
